@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>net10.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <UserSecretsId>aspnet-AutoSpare_Web-0f23acdd-433b-4eac-9a5d-ac1b35c04d6b</UserSecretsId>
+        <BlazorDisableThrowNavigationException>true</BlazorDisableThrowNavigationException>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <None Update="Data\app.db" CopyToOutputDirectory="PreserveNewest" ExcludeFromSingleFile="true"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="10.0.11"/>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="10.0.11"/>
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\AutoSpare.Application\AutoSpare.Application.csproj" />
+      <ProjectReference Include="..\AutoSpare.Infrastructure\AutoSpare.Infrastructure.csproj" />
+    </ItemGroup>
+
+</Project>

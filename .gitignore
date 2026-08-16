@@ -1,0 +1,77 @@
+# Created by Gemini for a .NET 8 team using Visual Studio, Rider, and VS Code.
+
+## General .NET Core
+#
+# Build results
+[Bb]in/
+[Oo]bj/
+
+# Publish results
+[Pp]ublish/
+
+# NuGet Packages
+*.nupkg
+*.snupkg
+project.assets.json
+project.lock.json
+packages/
+
+# Log and temporary files
+*.log
+*.tlog
+*.psess
+*.vsp
+*.vspx
+*.sap
+*.pdb
+
+# Secrets
+secrets.json
+appsettings.Development.json
+
+#-------------------------------------------------------------------
+
+## Visual Studio
+#
+# User-specific files
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+.vs/
+TestResults/
+
+#-------------------------------------------------------------------
+
+## JetBrains Rider
+#
+# IDE settings
+.idea/
+
+# User-specific settings
+*.sln.iml
+*.DotSettings.user
+
+#-------------------------------------------------------------------
+
+## Visual Studio Code
+#
+# IDE settings
+.vscode/
+
+#-------------------------------------------------------------------
+
+## OS Generated Files
+#
+# Windows
+Thumbs.db
+desktop.ini
+
+# macOS
+.DS_Store
+._*
+
+# SQLite
+*.db
+*.db-shm
+*.db-wal
