@@ -1,7 +1,25 @@
 ﻿@page "/"
 
+@using Microsoft.Extensions.Logging
+@inject ILogger<Home> Logger
+
+
 <PageTitle>Home</PageTitle>
 
 <h1>Hello, world!</h1>
 
 Welcome to your new app.
+
+@code {
+    protected override void OnInitialized()
+    {
+        Logger.LogInformation(
+            "Home page loaded at {LoadedAt}",
+            DateTimeOffset.Now);
+
+        Logger.LogWarning(
+            "This is a test warning from Home page.");
+
+        base.OnInitialized();
+    }
+}

@@ -1,0 +1,16 @@
+2026-08-23 16:39:45.012 +03:30 [INF] HTTP GET / responded 200 in 124.2764 ms 
+2026-08-23 16:39:45.064 +03:30 [INF] HTTP GET /Components/Layout/ReconnectModal.abdmv1u4y3.razor.js responded 200 in 19.9855 ms 
+2026-08-23 16:39:45.064 +03:30 [INF] HTTP GET /app.khy4lop6wu.css responded 200 in 18.5342 ms 
+2026-08-23 16:39:45.064 +03:30 [INF] HTTP GET /AutoSpare.Web.26ps9tvwk8.styles.css responded 200 in 20.1647 ms 
+2026-08-23 16:39:45.065 +03:30 [INF] HTTP GET /Components/Account/Shared/PasskeySubmit.pr21mg9rrw.razor.js responded 200 in 18.6675 ms 
+2026-08-23 16:39:45.066 +03:30 [INF] HTTP GET /lib/bootstrap/dist/css/bootstrap.min.43atpzeawx.css responded 200 in 21.8070 ms 
+2026-08-23 16:39:45.084 +03:30 [INF] HTTP GET /_framework/blazor.web.wyu7y4jcvb.js responded 200 in 37.6973 ms 
+2026-08-23 16:43:02.414 +03:30 [INF] Home page loaded at "2026-08-23T16:43:02.4110249+03:30" 
+2026-08-23 16:43:02.440 +03:30 [WRN] This is a test warning from Home page. 
+2026-08-23 16:43:02.502 +03:30 [INF] HTTP GET / responded 200 in 170.6736 ms 
+2026-08-23 16:43:02.537 +03:30 [INF] HTTP GET /_framework/blazor.web.wyu7y4jcvb.js responded 304 in 2.0405 ms 
+2026-08-23 16:43:02.552 +03:30 [INF] HTTP GET /Components/Account/Shared/PasskeySubmit.pr21mg9rrw.razor.js responded 200 in 20.2309 ms 
+2026-08-23 16:43:02.552 +03:30 [INF] HTTP GET /Components/Layout/ReconnectModal.abdmv1u4y3.razor.js responded 200 in 20.2310 ms 
+2026-08-23 16:43:02.553 +03:30 [INF] HTTP GET /lib/bootstrap/dist/css/bootstrap.min.43atpzeawx.css responded 200 in 18.7489 ms 
+2026-08-23 16:43:02.553 +03:30 [INF] HTTP GET /AutoSpare.Web.26ps9tvwk8.styles.css responded 200 in 18.9230 ms 
+2026-08-23 16:43:02.555 +03:30 [INF] HTTP GET /app.khy4lop6wu.css responded 200 in 22.9070 ms 
