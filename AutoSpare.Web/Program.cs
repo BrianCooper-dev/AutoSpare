@@ -5,6 +5,8 @@ using AutoSpare.Web.Components;
 using AutoSpare.Web.Components.Account;
 using AutoSpare.Web.Data;
 using Serilog;
+using AutoSpare.Application.Common.Settings;
+
 
 // ۱. کانفیگ لاگر اولیه برای ثبت خطاهای استارتاپ
 Log.Logger = new LoggerConfiguration()
@@ -22,6 +24,11 @@ try
         .ReadFrom.Configuration(context.Configuration)
         .ReadFrom.Services(services)
         .Enrich.FromLogContext());
+
+    // ثبت تنظیمات StorageSettings در کانتینر DI با الگوی IOptions
+    builder.Services.Configure<StorageSettings>(
+        builder.Configuration.GetSection(StorageSettings.SectionName));
+
 
     // ۳. سرویس‌های Blazor
     builder.Services.AddRazorComponents()
@@ -84,6 +91,24 @@ try
 
     // اندپوینت‌های مربوط به صفحات Identity
     app.MapAdditionalIdentityEndpoints();
+    // اطمینان از وجود پوشه‌های آپلود و بکاپ در هنگام اجرای برنامه
+    var storageConfig = app.Configuration.GetSection(StorageSettings.SectionName).Get<StorageSettings>()
+                        ?? new StorageSettings();
+
+    // مسیر کامل فیزیکی عکس‌ها در کنار پروژه
+    var imagesFullPath = Path.Combine(app.Environment.ContentRootPath, storageConfig.ImagesPath);
+    if (!Directory.Exists(imagesFullPath))
+    {
+        Directory.CreateDirectory(imagesFullPath);
+        Log.Information("Created Images directory at: {Path}", imagesFullPath);
+    }
+
+    // مسیر فولدر بکاپ
+    if (!Directory.Exists(storageConfig.BackupPath))
+    {
+        Directory.CreateDirectory(storageConfig.BackupPath);
+        Log.Information("Created Backup directory at: {Path}", storageConfig.BackupPath);
+    }
 
     app.Run();
 }
