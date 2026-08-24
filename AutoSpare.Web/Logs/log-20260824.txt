@@ -1,0 +1,43 @@
+2026-08-24 20:50:03.524 +03:30 [INF] Home page loaded at "2026-08-24T20:50:03.5216007+03:30" 
+2026-08-24 20:50:03.654 +03:30 [WRN] This is a test warning from Home page. 
+2026-08-24 20:50:03.699 +03:30 [INF] HTTP GET / responded 200 in 256.4367 ms 
+2026-08-24 20:50:03.730 +03:30 [INF] HTTP GET /_framework/blazor.web.wyu7y4jcvb.js responded 304 in 5.1651 ms 
+2026-08-24 20:50:03.743 +03:30 [INF] HTTP GET /Components/Layout/ReconnectModal.abdmv1u4y3.razor.js responded 200 in 18.7559 ms 
+2026-08-24 20:50:03.743 +03:30 [INF] HTTP GET /AutoSpare.Web.26ps9tvwk8.styles.css responded 200 in 18.7559 ms 
+2026-08-24 20:50:03.743 +03:30 [INF] HTTP GET /app.khy4lop6wu.css responded 200 in 18.7558 ms 
+2026-08-24 20:50:03.743 +03:30 [INF] HTTP GET /Components/Account/Shared/PasskeySubmit.pr21mg9rrw.razor.js responded 200 in 18.6041 ms 
+2026-08-24 20:50:03.778 +03:30 [INF] HTTP GET /lib/bootstrap/dist/css/bootstrap.min.43atpzeawx.css responded 200 in 52.9704 ms 
+2026-08-24 20:50:05.614 +03:30 [INF] Home page loaded at "2026-08-24T20:50:05.6142143+03:30" 
+2026-08-24 20:50:05.614 +03:30 [WRN] This is a test warning from Home page. 
+2026-08-24 20:50:05.619 +03:30 [INF] HTTP GET / responded 200 in 28.3054 ms 
+2026-08-24 20:50:05.958 +03:30 [INF] Home page loaded at "2026-08-24T20:50:05.9587212+03:30" 
+2026-08-24 20:50:05.958 +03:30 [WRN] This is a test warning from Home page. 
+2026-08-24 20:50:05.960 +03:30 [INF] HTTP GET / responded 200 in 17.0869 ms 
+2026-08-24 20:50:06.459 +03:30 [INF] HTTP GET /counter responded 200 in 55.5470 ms 
+2026-08-24 20:50:06.474 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 6.3211 ms 
+2026-08-24 20:50:06.489 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 7.8958 ms 
+2026-08-24 20:50:07.006 +03:30 [INF] Home page loaded at "2026-08-24T20:50:07.0065114+03:30" 
+2026-08-24 20:50:07.006 +03:30 [WRN] This is a test warning from Home page. 
+2026-08-24 20:50:07.007 +03:30 [INF] HTTP GET / responded 200 in 2.1240 ms 
+2026-08-24 20:50:09.218 +03:30 [INF] HTTP GET /_blazor responded 101 in 2720.5764 ms 
+2026-08-24 20:50:09.228 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 18.4161 ms 
+2026-08-24 20:58:56.653 +03:30 [INF] Created Images directory at: D:\porograming\Rider\AutoSpare\AutoSpare.Web\wwwroot/Uploads/Images 
+2026-08-24 20:58:56.996 +03:30 [INF] Home page loaded at "2026-08-24T20:58:56.9943146+03:30" 
+2026-08-24 20:58:57.001 +03:30 [WRN] This is a test warning from Home page. 
+2026-08-24 20:58:57.052 +03:30 [INF] HTTP GET / responded 200 in 122.9539 ms 
+2026-08-24 20:58:57.079 +03:30 [INF] HTTP GET /_framework/blazor.web.wyu7y4jcvb.js responded 304 in 0.3760 ms 
+2026-08-24 20:58:57.091 +03:30 [INF] HTTP GET /AutoSpare.Web.26ps9tvwk8.styles.css responded 200 in 11.8345 ms 
+2026-08-24 20:58:57.091 +03:30 [INF] HTTP GET /app.khy4lop6wu.css responded 200 in 11.9217 ms 
+2026-08-24 20:58:57.091 +03:30 [INF] HTTP GET /Components/Layout/ReconnectModal.abdmv1u4y3.razor.js responded 200 in 11.9217 ms 
+2026-08-24 20:58:57.091 +03:30 [INF] HTTP GET /Components/Account/Shared/PasskeySubmit.pr21mg9rrw.razor.js responded 200 in 11.6272 ms 
+2026-08-24 20:58:57.092 +03:30 [INF] HTTP GET /lib/bootstrap/dist/css/bootstrap.min.43atpzeawx.css responded 200 in 18.7412 ms 
+2026-08-24 21:28:19.489 +03:30 [INF] Storage directories are ready. ImagesPath: D:\porograming\Rider\AutoSpare\AutoSpare.Web\wwwroot\Uploads\Images, BackupPath: D:\AutoSpareBackups 
+2026-08-24 21:28:20.040 +03:30 [INF] Home page loaded at "2026-08-24T21:28:20.0365278+03:30" 
+2026-08-24 21:28:20.046 +03:30 [WRN] This is a test warning from Home page. 
+2026-08-24 21:28:20.122 +03:30 [INF] HTTP GET / responded 200 in 193.9780 ms 
+2026-08-24 21:28:20.159 +03:30 [INF] HTTP GET /_framework/blazor.web.wyu7y4jcvb.js responded 304 in 3.3843 ms 
+2026-08-24 21:28:20.191 +03:30 [INF] HTTP GET /Components/Layout/ReconnectModal.abdmv1u4y3.razor.js responded 200 in 37.5814 ms 
+2026-08-24 21:28:20.191 +03:30 [INF] HTTP GET /Components/Account/Shared/PasskeySubmit.pr21mg9rrw.razor.js responded 200 in 34.0815 ms 
+2026-08-24 21:28:20.191 +03:30 [INF] HTTP GET /AutoSpare.Web.26ps9tvwk8.styles.css responded 200 in 28.1112 ms 
+2026-08-24 21:28:20.192 +03:30 [INF] HTTP GET /lib/bootstrap/dist/css/bootstrap.min.43atpzeawx.css responded 200 in 38.8266 ms 
+2026-08-24 21:28:20.199 +03:30 [INF] HTTP GET /app.khy4lop6wu.css responded 200 in 45.1407 ms 
