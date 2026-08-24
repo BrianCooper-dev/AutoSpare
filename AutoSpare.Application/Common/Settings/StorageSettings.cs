@@ -1,21 +1,21 @@
 namespace AutoSpare.Application.Common.Settings;
 
-public class StorageSettings
+public sealed class StorageSettings
 {
     public const string SectionName = "StorageSettings";
 
     /// <summary>
-    /// مسیر ذخیره‌سازی تصاویر در wwwroot جهت دسترسی در مرورگر
+    /// مسیر تصاویر نسبت به wwwroot، یا یک مسیر مطلق.
     /// </summary>
-    public string ImagesPath { get; set; } = "wwwroot/Uploads/Images";
+    public string ImagesPath { get; set; } = "Uploads/Images";
 
     /// <summary>
-    /// مسیر ذخیره فایل‌های بکاپ دیتابیس
+    /// مسیر ذخیره فایل‌های بکاپ.
     /// </summary>
-    public string BackupPath { get; set; } = "D:/AutoSpareBackups";
+    public string BackupPath { get; set; } = "Backups";
 
     /// <summary>
-    /// حداکثر حجم مجاز عکس (برحسب مگابایت)
+    /// حداکثر حجم مجاز هر تصویر برحسب مگابایت.
     /// </summary>
     public int MaxImageSizeInMb { get; set; } = 5;
 }

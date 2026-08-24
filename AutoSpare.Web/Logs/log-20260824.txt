@@ -31,3 +31,13 @@
 2026-08-24 20:58:57.091 +03:30 [INF] HTTP GET /Components/Layout/ReconnectModal.abdmv1u4y3.razor.js responded 200 in 11.9217 ms 
 2026-08-24 20:58:57.091 +03:30 [INF] HTTP GET /Components/Account/Shared/PasskeySubmit.pr21mg9rrw.razor.js responded 200 in 11.6272 ms 
 2026-08-24 20:58:57.092 +03:30 [INF] HTTP GET /lib/bootstrap/dist/css/bootstrap.min.43atpzeawx.css responded 200 in 18.7412 ms 
+2026-08-24 21:28:19.489 +03:30 [INF] Storage directories are ready. ImagesPath: D:\porograming\Rider\AutoSpare\AutoSpare.Web\wwwroot\Uploads\Images, BackupPath: D:\AutoSpareBackups 
+2026-08-24 21:28:20.040 +03:30 [INF] Home page loaded at "2026-08-24T21:28:20.0365278+03:30" 
+2026-08-24 21:28:20.046 +03:30 [WRN] This is a test warning from Home page. 
+2026-08-24 21:28:20.122 +03:30 [INF] HTTP GET / responded 200 in 193.9780 ms 
+2026-08-24 21:28:20.159 +03:30 [INF] HTTP GET /_framework/blazor.web.wyu7y4jcvb.js responded 304 in 3.3843 ms 
+2026-08-24 21:28:20.191 +03:30 [INF] HTTP GET /Components/Layout/ReconnectModal.abdmv1u4y3.razor.js responded 200 in 37.5814 ms 
+2026-08-24 21:28:20.191 +03:30 [INF] HTTP GET /Components/Account/Shared/PasskeySubmit.pr21mg9rrw.razor.js responded 200 in 34.0815 ms 
+2026-08-24 21:28:20.191 +03:30 [INF] HTTP GET /AutoSpare.Web.26ps9tvwk8.styles.css responded 200 in 28.1112 ms 
+2026-08-24 21:28:20.192 +03:30 [INF] HTTP GET /lib/bootstrap/dist/css/bootstrap.min.43atpzeawx.css responded 200 in 38.8266 ms 
+2026-08-24 21:28:20.199 +03:30 [INF] HTTP GET /app.khy4lop6wu.css responded 200 in 45.1407 ms 
