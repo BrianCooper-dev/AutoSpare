@@ -1,4 +1,4 @@
-﻿namespace AutoSpare.Application;
+namespace AutoSpare.Application;
 
 public class Class1
 {

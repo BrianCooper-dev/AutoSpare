@@ -1,5 +1,8 @@
 using System.Security.Claims;
 using System.Text.Json;
+using AutoSpare.Web.Components.Account.Pages;
+using AutoSpare.Web.Components.Account.Pages.Manage;
+using AutoSpare.Web.Data;
 using Microsoft.AspNetCore.Antiforgery;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Components.Authorization;
@@ -7,9 +10,6 @@ using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Primitives;
-using AutoSpare.Web.Components.Account.Pages;
-using AutoSpare.Web.Components.Account.Pages.Manage;
-using AutoSpare.Web.Data;
 
 namespace Microsoft.AspNetCore.Routing;
 
