@@ -1,4 +1,4 @@
-﻿namespace AutoSpare.Infrastructure;
+namespace AutoSpare.Infrastructure;
 
 public class Class1
 {
