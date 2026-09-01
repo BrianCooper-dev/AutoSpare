@@ -1,3 +1,4 @@
+using AutoSpare.Domain.Brands;
 using AutoSpare.Domain.Categories;
 using AutoSpare.Domain.Common;
 using AutoSpare.Domain.Products.Enums;
@@ -19,6 +20,10 @@ public class Product : BaseEntity
     public Guid CategoryId { get; private set; }
     public Category? Category { get; private set; }
 
+    // ارتباط با برند
+    public Guid BrandId { get; private set; }
+    public Brand? Brand { get; private set; }
+
     // سازنده خالی برای EF Core
     protected Product()
     {
@@ -31,12 +36,14 @@ public class Product : BaseEntity
         decimal purchasePrice,
         decimal salePrice,
         Guid categoryId,
+        Guid brandId,
         string? imagePath = null,
         Guid? defaultWarehouseId = null)
     {
         SetBasicInformation(name, internalCode, model);
         SetPrices(purchasePrice, salePrice);
         SetCategory(categoryId);
+        SetBrand(brandId);
 
         ImagePath = NormalizeOptional(imagePath);
         DefaultWarehouseId = defaultWarehouseId;
@@ -48,10 +55,12 @@ public class Product : BaseEntity
         string internalCode,
         string model,
         Guid categoryId,
+        Guid brandId,
         string? imagePath = null)
     {
         SetBasicInformation(name, internalCode, model);
         SetCategory(categoryId);
+        SetBrand(brandId);
         ImagePath = NormalizeOptional(imagePath);
         UpdateModificationTime();
     }
@@ -71,6 +80,12 @@ public class Product : BaseEntity
     public void AssignCategory(Guid categoryId)
     {
         SetCategory(categoryId);
+        UpdateModificationTime();
+    }
+
+    public void AssignBrand(Guid brandId)
+    {
+        SetBrand(brandId);
         UpdateModificationTime();
     }
 
@@ -107,6 +122,14 @@ public class Product : BaseEntity
             throw new ArgumentException("شناسه دسته‌بندی نامعتبر است.", nameof(categoryId));
 
         CategoryId = categoryId;
+    }
+
+    private void SetBrand(Guid brandId)
+    {
+        if (brandId == Guid.Empty)
+            throw new ArgumentException("شناسه برند نامعتبر است.", nameof(brandId));
+
+        BrandId = brandId;
     }
 
     private void SetPrices(decimal purchasePrice, decimal salePrice)
