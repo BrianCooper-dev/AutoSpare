@@ -2,6 +2,7 @@ using AutoSpare.Domain.Brands;
 using AutoSpare.Domain.Categories;
 using AutoSpare.Domain.Common;
 using AutoSpare.Domain.Products.Enums;
+using AutoSpare.Domain.Warehouses;
 
 namespace AutoSpare.Domain.Products;
 
@@ -13,7 +14,6 @@ public class Product : BaseEntity
     public string? ImagePath { get; private set; }
     public decimal PurchasePrice { get; private set; }
     public decimal SalePrice { get; private set; }
-    public Guid? DefaultWarehouseId { get; private set; }
     public ProductStatus Status { get; private set; } = ProductStatus.Active;
 
     // ارتباط با دسته‌بندی
@@ -23,6 +23,10 @@ public class Product : BaseEntity
     // ارتباط با برند
     public Guid BrandId { get; private set; }
     public Brand? Brand { get; private set; }
+
+    // ارتباط با انبار پیش‌فرض (اختیاری)
+    public Guid? DefaultWarehouseId { get; private set; }
+    public Warehouse? DefaultWarehouse { get; private set; }
 
     // سازنده خالی برای EF Core
     protected Product()
@@ -44,9 +48,9 @@ public class Product : BaseEntity
         SetPrices(purchasePrice, salePrice);
         SetCategory(categoryId);
         SetBrand(brandId);
+        SetDefaultWarehouse(defaultWarehouseId);
 
         ImagePath = NormalizeOptional(imagePath);
-        DefaultWarehouseId = defaultWarehouseId;
         Status = ProductStatus.Active;
     }
 
@@ -73,6 +77,11 @@ public class Product : BaseEntity
 
     public void SetDefaultWarehouse(Guid? warehouseId)
     {
+        if (warehouseId.HasValue && warehouseId.Value == Guid.Empty)
+        {
+            throw new ArgumentException("شناسه انبار نامعتبر است.", nameof(warehouseId));
+        }
+
         DefaultWarehouseId = warehouseId;
         UpdateModificationTime();
     }
