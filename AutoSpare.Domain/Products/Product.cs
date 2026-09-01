@@ -1,3 +1,4 @@
+using AutoSpare.Domain.Categories;
 using AutoSpare.Domain.Common;
 using AutoSpare.Domain.Products.Enums;
 
@@ -6,20 +7,17 @@ namespace AutoSpare.Domain.Products;
 public class Product : BaseEntity
 {
     public string Name { get; private set; } = string.Empty;
-
     public string InternalCode { get; private set; } = string.Empty;
-
     public string Model { get; private set; } = string.Empty;
-
     public string? ImagePath { get; private set; }
-
     public decimal PurchasePrice { get; private set; }
-
     public decimal SalePrice { get; private set; }
-
     public Guid? DefaultWarehouseId { get; private set; }
-
     public ProductStatus Status { get; private set; } = ProductStatus.Active;
+
+    // ارتباط با دسته‌بندی
+    public Guid CategoryId { get; private set; }
+    public Category? Category { get; private set; }
 
     // سازنده خالی برای EF Core
     protected Product()
@@ -32,11 +30,13 @@ public class Product : BaseEntity
         string model,
         decimal purchasePrice,
         decimal salePrice,
+        Guid categoryId,
         string? imagePath = null,
         Guid? defaultWarehouseId = null)
     {
         SetBasicInformation(name, internalCode, model);
         SetPrices(purchasePrice, salePrice);
+        SetCategory(categoryId);
 
         ImagePath = NormalizeOptional(imagePath);
         DefaultWarehouseId = defaultWarehouseId;
@@ -47,16 +47,16 @@ public class Product : BaseEntity
         string name,
         string internalCode,
         string model,
+        Guid categoryId,
         string? imagePath = null)
     {
         SetBasicInformation(name, internalCode, model);
+        SetCategory(categoryId);
         ImagePath = NormalizeOptional(imagePath);
         UpdateModificationTime();
     }
 
-    public void UpdatePrices(
-        decimal purchasePrice,
-        decimal salePrice)
+    public void UpdatePrices(decimal purchasePrice, decimal salePrice)
     {
         SetPrices(purchasePrice, salePrice);
         UpdateModificationTime();
@@ -68,73 +68,57 @@ public class Product : BaseEntity
         UpdateModificationTime();
     }
 
+    public void AssignCategory(Guid categoryId)
+    {
+        SetCategory(categoryId);
+        UpdateModificationTime();
+    }
+
     public void ChangeStatus(ProductStatus newStatus)
     {
         if (!Enum.IsDefined(newStatus))
         {
-            throw new ArgumentOutOfRangeException(
-                nameof(newStatus),
-                "وضعیت کالا معتبر نیست.");
+            throw new ArgumentOutOfRangeException(nameof(newStatus), "وضعیت کالا معتبر نیست.");
         }
 
         Status = newStatus;
         UpdateModificationTime();
     }
 
-    private void SetBasicInformation(
-        string name,
-        string internalCode,
-        string model)
+    private void SetBasicInformation(string name, string internalCode, string model)
     {
         if (string.IsNullOrWhiteSpace(name))
-        {
-            throw new ArgumentException(
-                "نام محصول نمی‌تواند خالی باشد.",
-                nameof(name));
-        }
+            throw new ArgumentException("نام محصول نمی‌تواند خالی باشد.", nameof(name));
 
         if (string.IsNullOrWhiteSpace(internalCode))
-        {
-            throw new ArgumentException(
-                "کد داخلی محصول نمی‌تواند خالی باشد.",
-                nameof(internalCode));
-        }
+            throw new ArgumentException("کد داخلی محصول نمی‌تواند خالی باشد.", nameof(internalCode));
 
         if (string.IsNullOrWhiteSpace(model))
-        {
-            throw new ArgumentException(
-                "مدل محصول نمی‌تواند خالی باشد.",
-                nameof(model));
-        }
+            throw new ArgumentException("مدل محصول نمی‌تواند خالی باشد.", nameof(model));
 
         Name = name.Trim();
         InternalCode = internalCode.Trim();
         Model = model.Trim();
     }
 
-    private void SetPrices(
-        decimal purchasePrice,
-        decimal salePrice)
+    private void SetCategory(Guid categoryId)
+    {
+        if (categoryId == Guid.Empty)
+            throw new ArgumentException("شناسه دسته‌بندی نامعتبر است.", nameof(categoryId));
+
+        CategoryId = categoryId;
+    }
+
+    private void SetPrices(decimal purchasePrice, decimal salePrice)
     {
         if (purchasePrice < 0)
-        {
-            throw new ArgumentOutOfRangeException(
-                nameof(purchasePrice),
-                "قیمت خرید نمی‌تواند منفی باشد.");
-        }
+            throw new ArgumentOutOfRangeException(nameof(purchasePrice), "قیمت خرید نمی‌تواند منفی باشد.");
 
         if (salePrice < 0)
-        {
-            throw new ArgumentOutOfRangeException(
-                nameof(salePrice),
-                "قیمت فروش نمی‌تواند منفی باشد.");
-        }
+            throw new ArgumentOutOfRangeException(nameof(salePrice), "قیمت فروش نمی‌تواند منفی باشد.");
 
         if (salePrice < purchasePrice)
-        {
-            throw new ArgumentException(
-                "قیمت فروش نمی‌تواند کمتر از قیمت خرید باشد.");
-        }
+            throw new ArgumentException("قیمت فروش نمی‌تواند کمتر از قیمت خرید باشد.");
 
         PurchasePrice = purchasePrice;
         SalePrice = salePrice;
@@ -142,8 +126,6 @@ public class Product : BaseEntity
 
     private static string? NormalizeOptional(string? value)
     {
-        return string.IsNullOrWhiteSpace(value)
-            ? null
-            : value.Trim();
+        return string.IsNullOrWhiteSpace(value) ? null : value.Trim();
     }
 }
