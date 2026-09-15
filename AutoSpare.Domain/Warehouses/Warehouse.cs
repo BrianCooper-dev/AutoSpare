@@ -1,4 +1,5 @@
 using AutoSpare.Domain.Common;
+using AutoSpare.Domain.Inventories;
 
 namespace AutoSpare.Domain.Warehouses;
 
@@ -81,4 +82,7 @@ public class Warehouse : BaseEntity
     {
         return string.IsNullOrWhiteSpace(value) ? null : value.Trim();
     }
+
+    private readonly List<Inventory> _inventories = new();
+    public virtual IReadOnlyCollection<Inventory> Inventories => _inventories.AsReadOnly();
 }

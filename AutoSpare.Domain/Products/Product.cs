@@ -1,6 +1,7 @@
 using AutoSpare.Domain.Brands;
 using AutoSpare.Domain.Categories;
 using AutoSpare.Domain.Common;
+using AutoSpare.Domain.Inventories;
 using AutoSpare.Domain.Products.Enums;
 using AutoSpare.Domain.Warehouses;
 
@@ -160,4 +161,7 @@ public class Product : BaseEntity
     {
         return string.IsNullOrWhiteSpace(value) ? null : value.Trim();
     }
+
+    private readonly List<Inventory> _inventories = new();
+    public virtual IReadOnlyCollection<Inventory> Inventories => _inventories.AsReadOnly();
 }
