@@ -8,7 +8,10 @@ public class InventoryConfiguration : IEntityTypeConfiguration<Inventory>
 {
     public void Configure(EntityTypeBuilder<Inventory> builder)
     {
-        builder.ToTable("Inventories");
+        builder.ToTable("Inventories", t =>
+        {
+            t.HasCheckConstraint("CK_Inventories_Quantity_NonNegative", "[Quantity] >= 0");
+        });
 
         builder.HasKey(i => i.Id);
 

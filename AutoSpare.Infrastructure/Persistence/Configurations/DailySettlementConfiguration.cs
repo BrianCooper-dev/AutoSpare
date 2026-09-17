@@ -8,7 +8,13 @@ public class DailySettlementConfiguration : IEntityTypeConfiguration<DailySettle
 {
     public void Configure(EntityTypeBuilder<DailySettlement> builder)
     {
-        builder.ToTable("DailySettlements");
+        // اضافه شدن چک‌کانسترینت‌ها برای جلوگیری از مبالغ منفی
+        builder.ToTable("DailySettlements", t =>
+        {
+            t.HasCheckConstraint("CK_DailySettlements_Pos1Amount_NonNegative", "[Pos1Amount] >= 0");
+            t.HasCheckConstraint("CK_DailySettlements_Pos2Amount_NonNegative", "[Pos2Amount] >= 0");
+            t.HasCheckConstraint("CK_DailySettlements_CashAmount_NonNegative", "[CashAmount] >= 0");
+        });
 
         builder.HasKey(d => d.Id);
 

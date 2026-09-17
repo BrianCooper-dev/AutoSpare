@@ -8,10 +8,17 @@ public class ProductConfiguration : IEntityTypeConfiguration<Product>
 {
     public void Configure(EntityTypeBuilder<Product> builder)
     {
-        builder.ToTable("Products");
+        // اعمال قیود چک کانسترینت
+        builder.ToTable("Products", t =>
+        {
+            t.HasCheckConstraint("CK_Products_PurchasePrice_NonNegative", "[PurchasePrice] >= 0");
+            t.HasCheckConstraint("CK_Products_SalePrice_NonNegative", "[SalePrice] >= 0");
+        });
 
+        // کلید اصلی
         builder.HasKey(p => p.Id);
 
+        // تنظیمات فیلدهای متنی
         builder.Property(p => p.Name)
             .IsRequired()
             .HasMaxLength(200);
@@ -24,14 +31,15 @@ public class ProductConfiguration : IEntityTypeConfiguration<Product>
             .IsRequired()
             .HasMaxLength(150);
 
+        builder.Property(p => p.ImagePath)
+            .HasMaxLength(500);
+
+        // تنظیمات فیلدهای عددی و وضعیت
         builder.Property(p => p.PurchasePrice)
             .HasPrecision(18, 2);
 
         builder.Property(p => p.SalePrice)
             .HasPrecision(18, 2);
-
-        builder.Property(p => p.ImagePath)
-            .HasMaxLength(500);
 
         builder.Property(p => p.Status)
             .IsRequired();
@@ -55,30 +63,31 @@ public class ProductConfiguration : IEntityTypeConfiguration<Product>
             .OnDelete(DeleteBehavior.SetNull)
             .IsRequired(false);
 
-        // رابطه با موجودی‌ها
+        // رابطه با موجودی‌ها (Inventory)
         builder.HasMany(p => p.Inventories)
             .WithOne(i => i.Product)
             .HasForeignKey(i => i.ProductId)
             .OnDelete(DeleteBehavior.Cascade);
 
-        // دسترسی مستقیم به فیلد پشتیبان _inventories
+        // دسترسی به فیلد پشتیبان _inventories
         builder.Navigation(p => p.Inventories)
             .UsePropertyAccessMode(PropertyAccessMode.Field);
 
-        // ۱. ایندکس یکتا روی کد کالا (مانع ایجاد کد تکراری)
+        // --- ایندکس‌ها ---
+        // ۱. ایندکس یکتا روی کد کالا
         builder.HasIndex(p => p.InternalCode)
             .IsUnique();
 
-        // ۲. ایندکس ترکیبی نام و مدل خودرو (پوشش‌دهنده سرچ نام کالا و سرچ همزمان نام + مدل)
+        // ۲. ایندکس ترکیبی نام و مدل خودرو (جهت سرچ سریع)
         builder.HasIndex(p => new { p.Name, p.Model });
 
-        // ۳. ایندکس مجزا روی مدل خودرو (جهت فیلتر لیست فقط بر اساس مدل ماشین)
+        // ۳. ایندکس مجزا روی مدل خودرو
         builder.HasIndex(p => p.Model);
 
-        // ۴. ایندکس روی کلید خارجی برند جهت فیلتر و جوین‌های سریع
+        // ۴. ایندکس روی کلید خارجی برند
         builder.HasIndex(p => p.BrandId);
 
-        // ۵. ایندکس روی کلید خارجی دسته‌بندی جهت فیلتر و جوین‌های سریع
+        // ۵. ایندکس روی کلید خارجی دسته‌بندی
         builder.HasIndex(p => p.CategoryId);
     }
 }

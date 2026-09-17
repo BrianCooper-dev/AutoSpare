@@ -30,7 +30,7 @@ public class SaleConfiguration : IEntityTypeConfiguration<Sale>
         builder.Property(s => s.SaleDate)
             .IsRequired();
 
-        // ایندکس روی تاریخ فروش (مطابق تسک)
+        // ایندکس روی تاریخ فروش
         builder.HasIndex(s => s.SaleDate);
 
         builder.Property(s => s.Status)
