@@ -43,3 +43,23 @@ Microsoft.Extensions.Hosting.HostAbortedException: The host was aborted.
    at Microsoft.Extensions.Hosting.HostApplicationBuilder.Build()
    at Microsoft.AspNetCore.Builder.WebApplicationBuilder.Build()
    at Program.<Main>$(String[] args) in D:\porograming\Rider\AutoSpare\AutoSpare.Web\Program.cs:line 69
+2026-09-17 14:16:26.549 +03:30 [WRN] The foreign key property 'Product.BrandId1' was created in shadow state because a conflicting property with the simple name 'BrandId' exists in the entity type, but is either not mapped, is already used for another relationship, or is incompatible with the associated primary key type. See https://aka.ms/efcore-relationships for information on mapping relationships in EF Core. 
+2026-09-17 14:16:26.570 +03:30 [WRN] The foreign key property 'Product.CategoryId1' was created in shadow state because a conflicting property with the simple name 'CategoryId' exists in the entity type, but is either not mapped, is already used for another relationship, or is incompatible with the associated primary key type. See https://aka.ms/efcore-relationships for information on mapping relationships in EF Core. 
+2026-09-17 14:16:27.491 +03:30 [INF] Default Admin user created successfully (Username: admin, Password: Admin@123456). 
+2026-09-17 14:16:27.556 +03:30 [INF] Storage directories are ready. ImagesPath: D:\porograming\Rider\AutoSpare\AutoSpare.Web\wwwroot\Uploads\Images, BackupPath: D:\AutoSpareBackups 
+2026-09-17 14:16:27.831 +03:30 [INF] Home page loaded at "2026-09-17T14:16:27.8309612+03:30" 
+2026-09-17 14:16:27.834 +03:30 [WRN] This is a test warning from Home page. 
+2026-09-17 14:16:27.877 +03:30 [INF] HTTP GET / responded 200 in 110.6066 ms 
+2026-09-17 14:16:27.896 +03:30 [INF] HTTP GET /Components/Account/Shared/PasskeySubmit.razor.js responded 404 in 0.1481 ms 
+2026-09-17 14:16:27.925 +03:30 [INF] HTTP GET /Components/Layout/ReconnectModal.abdmv1u4y3.razor.js responded 200 in 29.0060 ms 
+2026-09-17 14:16:27.925 +03:30 [INF] HTTP GET /AutoSpare.Web.26ps9tvwk8.styles.css responded 200 in 29.0206 ms 
+2026-09-17 14:16:27.925 +03:30 [INF] HTTP GET /app.khy4lop6wu.css responded 200 in 29.0059 ms 
+2026-09-17 14:16:27.927 +03:30 [INF] HTTP GET /lib/bootstrap/dist/css/bootstrap.min.43atpzeawx.css responded 200 in 30.4607 ms 
+2026-09-17 14:16:27.935 +03:30 [INF] HTTP GET /_framework/blazor.web.9hsif5t8mt.js responded 200 in 38.8721 ms 
+2026-09-17 14:16:27.949 +03:30 [INF] HTTP GET /not-found responded 404 in 19.1788 ms 
+2026-09-17 14:16:52.934 +03:30 [INF] HTTP GET /counter responded 200 in 69.0715 ms 
+2026-09-17 14:16:52.956 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 4.5208 ms 
+2026-09-17 14:16:52.968 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 5.1152 ms 
+2026-09-17 14:16:54.560 +03:30 [INF] HTTP GET /weather responded 200 in 525.8221 ms 
+2026-09-17 14:16:56.101 +03:30 [INF] HTTP GET /_blazor responded 101 in 3124.7343 ms 
+2026-09-17 14:16:56.103 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 20.7357 ms 

@@ -1,5 +1,6 @@
 using AutoSpare.Application.Common.Settings;
 using AutoSpare.Infrastructure.Persistence;
+using AutoSpare.Infrastructure.Persistence.Seed;
 using AutoSpare.Web.Components;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
@@ -67,6 +68,26 @@ try
     builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
     var app = builder.Build();
+
+    // -------------------------------------------------------
+    // Database Migration & Seeding
+    // -------------------------------------------------------
+    using (var scope = app.Services.CreateScope())
+    {
+        var services = scope.ServiceProvider;
+        try
+        {
+            var dbContext = services.GetRequiredService<ApplicationDbContext>();
+            var seederLogger = services.GetRequiredService<ILogger<Program>>();
+
+            await DbInitializer.SeedAsync(dbContext, seederLogger);
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, "An error occurred during database migration or seeding.");
+            throw;
+        }
+    }
 
     // -------------------------------------------------------
     // HTTP pipeline
