@@ -16,12 +16,22 @@ public class SaleConfiguration : IEntityTypeConfiguration<Sale>
             .IsRequired()
             .HasMaxLength(50);
 
+        // ایندکس یکتا برای شماره فاکتور فروش
+        builder.HasIndex(s => s.InvoiceNumber)
+            .IsUnique();
+
         builder.Property(s => s.CustomerName)
             .IsRequired()
             .HasMaxLength(150);
 
+        // ایندکس جهت جست‌وجوی سریع نام مشتری
+        builder.HasIndex(s => s.CustomerName);
+
         builder.Property(s => s.SaleDate)
             .IsRequired();
+
+        // ایندکس روی تاریخ فروش (مطابق تسک)
+        builder.HasIndex(s => s.SaleDate);
 
         builder.Property(s => s.Status)
             .IsRequired();

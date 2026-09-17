@@ -20,7 +20,6 @@ public class ProductConfiguration : IEntityTypeConfiguration<Product>
             .IsRequired()
             .HasMaxLength(50);
 
-        // اصلاح نام CarModel به Model
         builder.Property(p => p.Model)
             .IsRequired()
             .HasMaxLength(150);
@@ -49,7 +48,7 @@ public class ProductConfiguration : IEntityTypeConfiguration<Product>
             .HasForeignKey(p => p.BrandId)
             .OnDelete(DeleteBehavior.Restrict);
 
-        // رابطه اختیاری با انبار پیش‌فرض
+        // رابطه با انبار پیش‌فرض (اختیاری)
         builder.HasOne(p => p.DefaultWarehouse)
             .WithMany()
             .HasForeignKey(p => p.DefaultWarehouseId)
@@ -62,8 +61,24 @@ public class ProductConfiguration : IEntityTypeConfiguration<Product>
             .HasForeignKey(i => i.ProductId)
             .OnDelete(DeleteBehavior.Cascade);
 
-        // تنظیم دسترسی به فیلد پشتیبان _inventories
+        // دسترسی مستقیم به فیلد پشتیبان _inventories
         builder.Navigation(p => p.Inventories)
             .UsePropertyAccessMode(PropertyAccessMode.Field);
+
+        // ۱. ایندکس یکتا روی کد کالا (مانع ایجاد کد تکراری)
+        builder.HasIndex(p => p.InternalCode)
+            .IsUnique();
+
+        // ۲. ایندکس ترکیبی نام و مدل خودرو (پوشش‌دهنده سرچ نام کالا و سرچ همزمان نام + مدل)
+        builder.HasIndex(p => new { p.Name, p.Model });
+
+        // ۳. ایندکس مجزا روی مدل خودرو (جهت فیلتر لیست فقط بر اساس مدل ماشین)
+        builder.HasIndex(p => p.Model);
+
+        // ۴. ایندکس روی کلید خارجی برند جهت فیلتر و جوین‌های سریع
+        builder.HasIndex(p => p.BrandId);
+
+        // ۵. ایندکس روی کلید خارجی دسته‌بندی جهت فیلتر و جوین‌های سریع
+        builder.HasIndex(p => p.CategoryId);
     }
 }
