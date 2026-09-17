@@ -8,11 +8,18 @@ public class SaleItemConfiguration : IEntityTypeConfiguration<SaleItem>
 {
     public void Configure(EntityTypeBuilder<SaleItem> builder)
     {
-        builder.ToTable("SaleItems");
+        builder.ToTable("SaleItems", t =>
+        {
+            t.HasCheckConstraint("CK_SaleItems_Quantity_Positive", "[Quantity] > 0");
+            t.HasCheckConstraint("CK_SaleItems_UnitPrice_NonNegative", "[UnitPrice] >= 0");
+        });
 
         builder.HasKey(si => si.Id);
 
         builder.Property(si => si.SaleId)
+            .IsRequired();
+
+        builder.Property(si => si.ProductId)
             .IsRequired();
 
         builder.Property(si => si.Quantity)
@@ -25,10 +32,16 @@ public class SaleItemConfiguration : IEntityTypeConfiguration<SaleItem>
         // پراپرتی محاسباتی ناشی از Quantity * UnitPrice نباید ستون فیزیکی شود
         builder.Ignore(si => si.TotalPrice);
 
-        // رابطه با کالا (حفظ تاریخچه فاکتورها در صورت دستکاری کالا)
+        // رابطه با کالا
         builder.HasOne(si => si.Product)
             .WithMany()
             .HasForeignKey(si => si.ProductId)
             .OnDelete(DeleteBehavior.Restrict);
+
+        // ایندکس جهت جوین و گزارش‌گیری روی کالاهای فروخته‌شده
+        builder.HasIndex(si => si.ProductId);
+
+        // ایندکس جهت بارگذاری سریع اقلام یک فاکتور فروش
+        builder.HasIndex(si => si.SaleId);
     }
 }
