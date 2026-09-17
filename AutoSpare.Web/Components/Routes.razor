@@ -1,11 +1,10 @@
-﻿@using AutoSpare.Web.Components.Account.Shared
-<Router AppAssembly="typeof(Program).Assembly" NotFoundPage="typeof(Pages.NotFound)">
+﻿<Router AppAssembly="typeof(Program).Assembly" NotFoundPage="typeof(Pages.NotFound)">
     <Found Context="routeData">
         <AuthorizeRouteView RouteData="routeData" DefaultLayout="typeof(Layout.MainLayout)">
             <NotAuthorized>
-                <RedirectToLogin/>
+                <p>شما مجوز دسترسی به این صفحه را ندارید.</p>
             </NotAuthorized>
-        </AuthorizeRouteView>
+        </AuthorizeRouteView>ض
         <FocusOnNavigate RouteData="routeData" Selector="h1"/>
     </Found>
 </Router>

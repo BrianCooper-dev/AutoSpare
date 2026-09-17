@@ -1,4 +1,5 @@
 using System.Reflection;
+using AutoSpare.Domain.Brands;
 using AutoSpare.Domain.Categories;
 using AutoSpare.Domain.DailySettlements;
 using AutoSpare.Domain.Inventories;
@@ -7,6 +8,7 @@ using AutoSpare.Domain.Purchases;
 using AutoSpare.Domain.Sales;
 using AutoSpare.Domain.Suppliers;
 using AutoSpare.Domain.Users;
+using AutoSpare.Domain.Warehouses;
 using Microsoft.EntityFrameworkCore;
 
 namespace AutoSpare.Infrastructure.Persistence;
@@ -29,6 +31,9 @@ public class ApplicationDbContext : DbContext
     public DbSet<SaleItem> SaleItems => Set<SaleItem>();
     public DbSet<DailySettlement> DailySettlements => Set<DailySettlement>();
     public DbSet<AppUser> Users => Set<AppUser>();
+    public DbSet<Brand> Brands => Set<Brand>();
+    public DbSet<Warehouse> Warehouses => Set<Warehouse>();
+
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

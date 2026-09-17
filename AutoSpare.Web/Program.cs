@@ -1,9 +1,6 @@
 using AutoSpare.Application.Common.Settings;
+using AutoSpare.Infrastructure.Persistence;
 using AutoSpare.Web.Components;
-using AutoSpare.Web.Components.Account;
-using AutoSpare.Web.Data;
-using Microsoft.AspNetCore.Components.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Serilog;
@@ -21,9 +18,8 @@ try
     var builder = WebApplication.CreateBuilder(args);
 
     // -------------------------------------------------------
-    // Logging
+    // Logging (Serilog)
     // -------------------------------------------------------
-
     builder.Host.UseSerilog((context, services, configuration) =>
         configuration
             .ReadFrom.Configuration(context.Configuration)
@@ -33,11 +29,9 @@ try
     // -------------------------------------------------------
     // Application settings
     // -------------------------------------------------------
-
     builder.Services
         .AddOptions<StorageSettings>()
-        .Bind(builder.Configuration.GetRequiredSection(
-            StorageSettings.SectionName))
+        .Bind(builder.Configuration.GetRequiredSection(StorageSettings.SectionName))
         .Validate(
             settings => !string.IsNullOrWhiteSpace(settings.ImagesPath),
             $"{StorageSettings.SectionName}:ImagesPath is required.")
@@ -50,25 +44,18 @@ try
         .ValidateOnStart();
 
     // -------------------------------------------------------
-    // Blazor
+    // Blazor UI Services
     // -------------------------------------------------------
-
     builder.Services
         .AddRazorComponents()
         .AddInteractiveServerComponents();
 
     builder.Services.AddCascadingAuthenticationState();
-
-    builder.Services.AddScoped<IdentityRedirectManager>();
-
-    builder.Services.AddScoped<
-        AuthenticationStateProvider,
-        IdentityRevalidatingAuthenticationStateProvider>();
+    builder.Services.AddAuthenticationCore();
 
     // -------------------------------------------------------
-    // Database
+    // Database (Infrastructure)
     // -------------------------------------------------------
-
     var connectionString =
         builder.Configuration.GetConnectionString("DefaultConnection")
         ?? throw new InvalidOperationException(
@@ -79,104 +66,52 @@ try
 
     builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-    // -------------------------------------------------------
-    // Authentication and Identity
-    // -------------------------------------------------------
-
-    builder.Services
-        .AddAuthentication(options =>
-        {
-            options.DefaultScheme =
-                IdentityConstants.ApplicationScheme;
-
-            options.DefaultSignInScheme =
-                IdentityConstants.ExternalScheme;
-        })
-        .AddIdentityCookies();
-
-    builder.Services
-        .AddIdentityCore<ApplicationUser>(options =>
-        {
-            options.SignIn.RequireConfirmedAccount = true;
-            options.Stores.SchemaVersion =
-                IdentitySchemaVersions.Version3;
-        })
-        .AddEntityFrameworkStores<ApplicationDbContext>()
-        .AddSignInManager()
-        .AddDefaultTokenProviders();
-
-    builder.Services.AddSingleton<
-        IEmailSender<ApplicationUser>,
-        IdentityNoOpEmailSender>();
-
     var app = builder.Build();
 
     // -------------------------------------------------------
     // HTTP pipeline
     // -------------------------------------------------------
-
     if (app.Environment.IsDevelopment())
     {
         app.UseMigrationsEndPoint();
     }
     else
     {
-        app.UseExceptionHandler(
-            "/Error",
-            createScopeForErrors: true);
-
+        app.UseExceptionHandler("/Error", createScopeForErrors: true);
         app.UseHsts();
     }
 
-    app.UseStatusCodePagesWithReExecute(
-        "/not-found",
-        createScopeForStatusCodePages: true);
-
+    app.UseStatusCodePagesWithReExecute("/not-found", createScopeForStatusCodePages: true);
     app.UseHttpsRedirection();
-
-    // برای سرو شدن فایل‌هایی که هنگام اجرای برنامه
-    // در wwwroot آپلود می‌شوند.
     app.UseStaticFiles();
-
     app.UseSerilogRequestLogging();
-
     app.UseAntiforgery();
 
     // -------------------------------------------------------
     // Endpoints
     // -------------------------------------------------------
-
     app.MapStaticAssets();
 
     app.MapRazorComponents<App>()
         .AddInteractiveServerRenderMode();
 
-    app.MapAdditionalIdentityEndpoints();
-
     // -------------------------------------------------------
-    // Storage directories
+    // Storage directories preparation
     // -------------------------------------------------------
-
     var storageSettings = app.Services
         .GetRequiredService<IOptions<StorageSettings>>()
         .Value;
 
     var webRootPath = app.Environment.WebRootPath
-                      ?? Path.Combine(
-                          app.Environment.ContentRootPath,
-                          "wwwroot");
+                      ?? Path.Combine(app.Environment.ContentRootPath, "wwwroot");
 
     var imagesFullPath = Path.IsPathRooted(storageSettings.ImagesPath)
         ? Path.GetFullPath(storageSettings.ImagesPath)
-        : Path.GetFullPath(
-            Path.Combine(webRootPath, storageSettings.ImagesPath));
+        : Path.GetFullPath(Path.Combine(webRootPath, storageSettings.ImagesPath));
 
     var backupFullPath = Path.IsPathRooted(storageSettings.BackupPath)
         ? Path.GetFullPath(storageSettings.BackupPath)
-        : Path.GetFullPath(
-            Path.Combine(
-                app.Environment.ContentRootPath,
-                storageSettings.BackupPath));
+        : Path.GetFullPath(Path.Combine(app.Environment.ContentRootPath, storageSettings.BackupPath));
 
     Directory.CreateDirectory(imagesFullPath);
     Directory.CreateDirectory(backupFullPath);
@@ -190,9 +125,7 @@ try
 }
 catch (Exception exception)
 {
-    Log.Fatal(
-        exception,
-        "AutoSpare Web Application terminated unexpectedly.");
+    Log.Fatal(exception, "AutoSpare Web Application terminated unexpectedly.");
 }
 finally
 {

@@ -35,11 +35,30 @@ public class WarehouseConfiguration : IEntityTypeConfiguration<Warehouse>
         builder.Navigation(w => w.Inventories)
             .UsePropertyAccessMode(PropertyAccessMode.Field);
 
-        // داده‌های اولیه (Seed Data) انبارهای پیش‌فرض با سازنده دو پارامتری/با Id
+        // داده‌های اولیه با مقادیر ثابت و قطعی (بدون وابستگی به DateTime.UtcNow لحظه‌ای)
+        var seedDate = new DateTime(2025, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+
         builder.HasData(
-            new Warehouse(Warehouse.ShopWarehouseId, "انبار مغازه", "SHOP-01", "فروشگاه مرکزی"),
-            new Warehouse(Warehouse.HomeWarehouseId, "انبار منزل", "HOME-01", "انبار پشتیبان")
+            new
+            {
+                Id = Warehouse.ShopWarehouseId,
+                Name = "انبار مغازه",
+                Code = "SHOP-01",
+                Address = "فروشگاه مرکزی",
+                IsActive = true,
+                IsDeleted = false,
+                CreatedAt = seedDate
+            },
+            new
+            {
+                Id = Warehouse.HomeWarehouseId,
+                Name = "انبار منزل",
+                Code = "HOME-01",
+                Address = "انبار پشتیبان",
+                IsActive = true,
+                IsDeleted = false,
+                CreatedAt = seedDate
+            }
         );
     }
 }
-
