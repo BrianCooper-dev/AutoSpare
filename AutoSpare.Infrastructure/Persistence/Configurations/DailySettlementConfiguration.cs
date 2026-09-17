@@ -12,15 +12,24 @@ public class DailySettlementConfiguration : IEntityTypeConfiguration<DailySettle
 
         builder.HasKey(d => d.Id);
 
+        builder.Property(d => d.SettlementDate)
+            .IsRequired();
+
         builder.Property(d => d.Pos1Amount).HasPrecision(18, 2);
         builder.Property(d => d.Pos2Amount).HasPrecision(18, 2);
         builder.Property(d => d.CashAmount).HasPrecision(18, 2);
 
-        // پراپرتی محاسباتی که نباید در دیتابیس ستون داشته باشد
-        builder.Ignore(d => d.TotalAmount);
+        builder.Property(d => d.Status)
+            .IsRequired();
 
-        // اصلاح Note به Notes
         builder.Property(d => d.Notes)
             .HasMaxLength(300);
+
+        // پراپرتی محاسباتی
+        builder.Ignore(d => d.TotalAmount);
+
+        // ایندکس یکتا برای تضمین عدم ثبت بیش از یک تسویه در هر روز تقویمی
+        builder.HasIndex(d => d.SettlementDate)
+            .IsUnique();
     }
 }

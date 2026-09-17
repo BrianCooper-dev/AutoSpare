@@ -22,11 +22,10 @@ public class PurchaseConfiguration : IEntityTypeConfiguration<Purchase>
         builder.Property(p => p.Status)
             .IsRequired();
 
-        // اصلاح نام Description به Notes
         builder.Property(p => p.Notes)
             .HasMaxLength(500);
 
-        // نادیده گرفتن فیلد محاسباتی
+        // پراپرتی محاسباتی نادیده گرفته می‌شود
         builder.Ignore(p => p.TotalAmount);
 
         // رابطه با تأمین‌کننده
@@ -47,8 +46,15 @@ public class PurchaseConfiguration : IEntityTypeConfiguration<Purchase>
             .HasForeignKey(i => i.PurchaseId)
             .OnDelete(DeleteBehavior.Cascade);
 
-        // تنظیم فیلد پشتیبان _items
+        // اتصال به فیلد پشتیبان دامین جهت رعایت Encapsulation
         builder.Navigation(p => p.Items)
             .UsePropertyAccessMode(PropertyAccessMode.Field);
+
+        // تضمین یکتایی و جستجوی سریع بر اساس شماره فاکتور
+        builder.HasIndex(p => p.InvoiceNumber)
+            .IsUnique();
+
+        // ایندکس ترکیبی: پوشش‌دهنده گزارش‌های زمانی و صورت‌حساب‌های دوره‌ای تأمین‌کننده
+        builder.HasIndex(p => new { p.PurchaseDate, p.SupplierId });
     }
 }
