@@ -1,7 +1,9 @@
+using AutoSpare.Application.Common.Interfaces;
 using AutoSpare.Application.Common.Settings;
 using AutoSpare.Infrastructure.Persistence;
 using AutoSpare.Infrastructure.Persistence.Seed;
 using AutoSpare.Web.Components;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Serilog;
@@ -44,6 +46,9 @@ try
             $"{StorageSettings.SectionName}:MaxImageSizeInMb must be greater than zero.")
         .ValidateOnStart();
 
+    builder.Services
+        .AddSingleton<IPasswordHasher, AutoSpare.Infrastructure.Services.PasswordHasherService>();
+
     // -------------------------------------------------------
     // Blazor UI Services
     // -------------------------------------------------------
@@ -52,7 +57,24 @@ try
         .AddInteractiveServerComponents();
 
     builder.Services.AddCascadingAuthenticationState();
-    builder.Services.AddAuthenticationCore();
+    builder.Services.AddAuthentication(options =>
+        {
+            options.DefaultScheme = Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationDefaults
+                .AuthenticationScheme;
+            options.DefaultChallengeScheme = Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationDefaults
+                .AuthenticationScheme;
+        })
+        .AddCookie(options =>
+        {
+            options.Cookie.Name = "AutoSpare.Auth";
+            options.LoginPath = "/login";
+            options.LogoutPath = "/logout";
+            options.AccessDeniedPath = "/access-denied";
+            options.ExpireTimeSpan = TimeSpan.FromDays(7);
+            options.SlidingExpiration = true;
+        });
+
+    builder.Services.AddAuthorization();
 
     // -------------------------------------------------------
     // Database (Infrastructure)
@@ -79,8 +101,9 @@ try
         {
             var dbContext = services.GetRequiredService<ApplicationDbContext>();
             var seederLogger = services.GetRequiredService<ILogger<Program>>();
+            var passwordHasher = services.GetRequiredService<IPasswordHasher>();
 
-            await DbInitializer.SeedAsync(dbContext, seederLogger);
+            await DbInitializer.SeedAsync(dbContext, seederLogger, passwordHasher);
         }
         catch (Exception ex)
         {
@@ -107,6 +130,8 @@ try
     app.UseStaticFiles();
     app.UseSerilogRequestLogging();
     app.UseAntiforgery();
+    app.UseAuthentication();
+    app.UseAuthorization();
 
     // -------------------------------------------------------
     // Endpoints
@@ -115,6 +140,61 @@ try
 
     app.MapRazorComponents<App>()
         .AddInteractiveServerRenderMode();
+
+    // -------------------------------------------------------
+    // Auth Endpoints (Login / Logout)
+    // -------------------------------------------------------
+    app.MapPost("/api/auth/login", async (
+        [Microsoft.AspNetCore.Mvc.FromForm] AutoSpare.Application.Models.LoginModel model,
+        ApplicationDbContext dbContext,
+        IPasswordHasher passwordHasher,
+        HttpContext httpContext) =>
+    {
+        var normalizedUser = model.Username.Trim().ToLowerInvariant();
+        var user = await dbContext.Users.FirstOrDefaultAsync(u => u.Username == normalizedUser);
+
+        if (user is null || !passwordHasher.VerifyPassword(model.Password, user.PasswordHash))
+        {
+            return Results.Redirect("/login?error=InvalidCredentials");
+        }
+
+        // ثبت تاریخ آخرین ورود در دامین
+        user.RecordLogin();
+        await dbContext.SaveChangesAsync();
+
+        // ایجاد Claims و کوکی
+        var claims = new List<System.Security.Claims.Claim>
+        {
+            new(System.Security.Claims.ClaimTypes.NameIdentifier, user.Id.ToString()),
+            new(System.Security.Claims.ClaimTypes.Name, user.Username),
+            new("FullName", user.FullName)
+        };
+
+        var identity = new System.Security.Claims.ClaimsIdentity(
+            claims,
+            Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationDefaults.AuthenticationScheme);
+
+        var principal = new System.Security.Claims.ClaimsPrincipal(identity);
+        var authProperties = new Microsoft.AspNetCore.Authentication.AuthenticationProperties
+        {
+            IsPersistent = model.RememberMe,
+            ExpiresUtc = model.RememberMe ? DateTimeOffset.UtcNow.AddDays(7) : null
+        };
+
+        await httpContext.SignInAsync(
+            Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationDefaults.AuthenticationScheme,
+            principal,
+            authProperties);
+
+        return Results.Redirect("/");
+    }).DisableAntiforgery();
+
+    app.MapGet("/logout", async (HttpContext httpContext) =>
+    {
+        await httpContext.SignOutAsync(Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationDefaults
+            .AuthenticationScheme);
+        return Results.Redirect("/login");
+    });
 
     // -------------------------------------------------------
     // Storage directories preparation

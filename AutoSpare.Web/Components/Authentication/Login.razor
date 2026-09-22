@@ -1,0 +1,130 @@
+@page "/login"
+
+@attribute [Microsoft.AspNetCore.Authorization.AllowAnonymous]
+
+<PageTitle>ورود به سیستم | AutoSpare</PageTitle>
+
+<div class="login-wrapper">
+    <div class="login-card">
+        <div class="login-header">
+            <h2>سامانه مدیریت انبار و فروش</h2>
+            <p>لطفاً مشخصات حساب مدیر را وارد کنید</p>
+        </div>
+
+        @if (!string.IsNullOrEmpty(ErrorMessage))
+        {
+            <div class="alert alert-danger" role="alert">
+                @ErrorMessage
+            </div>
+        }
+
+        <!-- ارسال استاندارد فرم به صورت POST برای ایجاد کوکی احراز هویت -->
+        <form method="post" action="/api/auth/login">
+            <div class="form-group mb-3">
+                <label class="form-label">نام کاربری</label>
+                <input type="text" name="Username" class="form-control" placeholder="نام کاربری (مثلاً admin)" required autofocus />
+            </div>
+
+            <div class="form-group mb-3">
+                <label class="form-label">رمز عبور</label>
+                <input type="password" name="Password" class="form-control" placeholder="رمز عبور" required />
+            </div>
+
+            <div class="form-check mb-4">
+                <input class="form-check-input" type="checkbox" name="RememberMe" value="true" id="rememberMe">
+                <label class="form-check-label" for="rememberMe">
+                    مرا به خاطر بسپار
+                </label>
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100 py-2">
+                ورود به سامانه
+            </button>
+        </form>
+    </div>
+</div>
+
+<style>
+    .login-wrapper {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #0f172a;
+        direction: rtl;
+        font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    }
+    .login-card {
+        width: 100%;
+        max-width: 400px;
+        padding: 2.5rem;
+        background: #1e293b;
+        border-radius: 12px;
+        box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+        border: 1px solid #334155;
+        color: #f8fafc;
+    }
+    .login-header h2 {
+        font-size: 1.35rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+        text-align: center;
+        color: #38bdf8;
+    }
+    .login-header p {
+        font-size: 0.875rem;
+        color: #94a3b8;
+        text-align: center;
+        margin-bottom: 1.5rem;
+    }
+    .form-label {
+        color: #cbd5e1;
+        font-size: 0.875rem;
+        margin-bottom: 0.4rem;
+    }
+    .form-control {
+        background-color: #0f172a;
+        border: 1px solid #334155;
+        color: #fff;
+        border-radius: 8px;
+        padding: 0.6rem 0.8rem;
+    }
+    .form-control:focus {
+        background-color: #0f172a;
+        border-color: #38bdf8;
+        color: #fff;
+        box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.25);
+    }
+    .btn-primary {
+        background-color: #2563eb;
+        border: none;
+        border-radius: 8px;
+        font-weight: 600;
+        transition: background 0.2s;
+    }
+    .btn-primary:hover {
+        background-color: #1d4ed8;
+    }
+    .alert-danger {
+        background-color: rgba(239, 68, 68, 0.15);
+        border: 1px solid #ef4444;
+        color: #fca5a5;
+        font-size: 0.85rem;
+        padding: 0.6rem;
+        border-radius: 6px;
+        margin-bottom: 1.2rem;
+        text-align: center;
+    }
+</style>
+
+@code {
+    [SupplyParameterFromQuery]
+    public string? Error { get; set; }
+
+    private string? ErrorMessage => Error switch
+    {
+        "InvalidCredentials" => "نام کاربری یا رمز عبور اشتباه است.",
+        _ => null
+    };
+}
+
