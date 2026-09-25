@@ -1,0 +1,14 @@
+@inject NavigationManager Navigation
+
+@code {
+    protected override void OnInitialized()
+    {
+        var currentUri = Navigation.ToBaseRelativePath(Navigation.Uri);
+
+        // اگر کاربر قبلاً در صفحه لاگین نیست، هدایت شود
+        if (!currentUri.StartsWith("login", StringComparison.OrdinalIgnoreCase))
+        {
+            Navigation.NavigateTo("/login", forceLoad: true);
+        }
+    }
+}
