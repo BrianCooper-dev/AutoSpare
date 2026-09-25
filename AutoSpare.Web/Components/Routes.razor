@@ -1,10 +1,15 @@
-﻿<Router AppAssembly="typeof(Program).Assembly" NotFoundPage="typeof(Pages.NotFound)">
+﻿<Router AppAssembly="typeof(Program).Assembly">
     <Found Context="routeData">
         <AuthorizeRouteView RouteData="routeData" DefaultLayout="typeof(Layout.MainLayout)">
             <NotAuthorized>
-                <p>شما مجوز دسترسی به این صفحه را ندارید.</p>
+                <RedirectToLogin />
             </NotAuthorized>
-        </AuthorizeRouteView>ض
-        <FocusOnNavigate RouteData="routeData" Selector="h1"/>
+        </AuthorizeRouteView>
+        <FocusOnNavigate RouteData="routeData" Selector="h1" />
     </Found>
+    <NotFound>
+        <LayoutView Layout="typeof(Layout.MainLayout)">
+            <p role="alert">متأسفانه صفحه مورد نظر پیدا نشد.</p>
+        </LayoutView>
+    </NotFound>
 </Router>
