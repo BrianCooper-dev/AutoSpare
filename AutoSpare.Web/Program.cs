@@ -4,6 +4,7 @@ using AutoSpare.Infrastructure.Persistence;
 using AutoSpare.Infrastructure.Persistence.Seed;
 using AutoSpare.Web.Components;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Serilog;
@@ -195,6 +196,21 @@ try
             .AuthenticationScheme);
         return Results.Redirect("/login");
     });
+
+    // اندپوینت خروج از حساب کاربری
+    app.MapPost("/api/auth/logout", async (HttpContext context) =>
+    {
+        await context.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+        return Results.Redirect("/login");
+    });
+
+// برای راحتی، اگر کاربر مستقیماً آدرس /logout را زد هم خارج شود:
+    app.MapGet("/logout", async (HttpContext context) =>
+    {
+        await context.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+        return Results.Redirect("/login");
+    });
+
 
     // -------------------------------------------------------
     // Storage directories preparation
