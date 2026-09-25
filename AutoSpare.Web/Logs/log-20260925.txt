@@ -227,3 +227,489 @@
 2026-09-25 17:54:14.149 +03:30 [INF] HTTP GET /Components/Account/Shared/PasskeySubmit.razor.js responded 404 in 0.1376 ms 
 2026-09-25 17:54:14.151 +03:30 [INF] HTTP GET /not-found responded 302 in 1.2909 ms 
 2026-09-25 17:54:14.165 +03:30 [INF] HTTP GET /login responded 200 in 2.9753 ms 
+2026-09-25 18:11:45.112 +03:30 [WRN] The foreign key property 'Product.BrandId1' was created in shadow state because a conflicting property with the simple name 'BrandId' exists in the entity type, but is either not mapped, is already used for another relationship, or is incompatible with the associated primary key type. See https://aka.ms/efcore-relationships for information on mapping relationships in EF Core. 
+2026-09-25 18:11:45.139 +03:30 [WRN] The foreign key property 'Product.CategoryId1' was created in shadow state because a conflicting property with the simple name 'CategoryId' exists in the entity type, but is either not mapped, is already used for another relationship, or is incompatible with the associated primary key type. See https://aka.ms/efcore-relationships for information on mapping relationships in EF Core. 
+2026-09-25 18:11:45.774 +03:30 [INF] Storage directories are ready. ImagesPath: D:\porograming\Rider\AutoSpare\AutoSpare.Web\wwwroot\Uploads\Images, BackupPath: D:\AutoSpareBackups 
+2026-09-25 18:11:45.966 +03:30 [INF] HTTP GET / responded 302 in 10.7397 ms 
+2026-09-25 18:11:46.066 +03:30 [INF] HTTP GET /login responded 200 in 88.6250 ms 
+2026-09-25 18:11:46.084 +03:30 [INF] HTTP GET /Components/Account/Shared/PasskeySubmit.razor.js responded 404 in 1.6155 ms 
+2026-09-25 18:11:46.089 +03:30 [INF] HTTP GET /_framework/blazor.web.9hsif5t8mt.js responded 304 in 6.0154 ms 
+2026-09-25 18:11:46.097 +03:30 [INF] HTTP GET /Components/Layout/ReconnectModal.abdmv1u4y3.razor.js responded 200 in 14.2964 ms 
+2026-09-25 18:11:46.097 +03:30 [INF] HTTP GET /app.khy4lop6wu.css responded 200 in 14.2060 ms 
+2026-09-25 18:11:46.097 +03:30 [INF] HTTP GET /AutoSpare.Web.pj2n6n0j58.styles.css responded 200 in 14.3275 ms 
+2026-09-25 18:11:46.099 +03:30 [INF] HTTP GET /lib/bootstrap/dist/css/bootstrap.min.43atpzeawx.css responded 200 in 15.5496 ms 
+2026-09-25 18:11:46.112 +03:30 [INF] HTTP GET /not-found responded 302 in 1.7309 ms 
+2026-09-25 18:11:46.175 +03:30 [INF] HTTP GET /login responded 200 in 8.8644 ms 
+2026-09-25 18:31:09.979 +03:30 [WRN] The foreign key property 'Product.BrandId1' was created in shadow state because a conflicting property with the simple name 'BrandId' exists in the entity type, but is either not mapped, is already used for another relationship, or is incompatible with the associated primary key type. See https://aka.ms/efcore-relationships for information on mapping relationships in EF Core. 
+2026-09-25 18:31:10.002 +03:30 [WRN] The foreign key property 'Product.CategoryId1' was created in shadow state because a conflicting property with the simple name 'CategoryId' exists in the entity type, but is either not mapped, is already used for another relationship, or is incompatible with the associated primary key type. See https://aka.ms/efcore-relationships for information on mapping relationships in EF Core. 
+2026-09-25 18:31:10.752 +03:30 [INF] Storage directories are ready. ImagesPath: D:\porograming\Rider\AutoSpare\AutoSpare.Web\wwwroot\Uploads\Images, BackupPath: D:\AutoSpareBackups 
+2026-09-25 18:31:11.210 +03:30 [INF] HTTP GET / responded 302 in 37.4905 ms 
+2026-09-25 18:31:11.530 +03:30 [INF] HTTP GET /login responded 200 in 302.6446 ms 
+2026-09-25 18:31:11.553 +03:30 [INF] HTTP GET /Components/Account/Shared/PasskeySubmit.razor.js responded 404 in 0.2115 ms 
+2026-09-25 18:31:11.569 +03:30 [INF] HTTP GET /AutoSpare.Web.pj2n6n0j58.styles.css responded 200 in 15.5300 ms 
+2026-09-25 18:31:11.579 +03:30 [INF] HTTP GET /_framework/blazor.web.9hsif5t8mt.js responded 304 in 0.3626 ms 
+2026-09-25 18:31:11.594 +03:30 [INF] HTTP GET /not-found responded 302 in 1.9384 ms 
+2026-09-25 18:31:11.600 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.kx6s8i3hr8.css responded 200 in 48.6424 ms 
+2026-09-25 18:31:11.619 +03:30 [INF] HTTP GET /login responded 200 in 21.7544 ms 
+2026-09-25 18:31:11.626 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.a2z4lu1s4i.js responded 200 in 74.4474 ms 
+2026-09-25 18:31:11.664 +03:30 [INF] HTTP GET /app.khy4lop6wu.css responded 200 in 110.0693 ms 
+2026-09-25 18:31:11.664 +03:30 [INF] HTTP GET /Components/Layout/ReconnectModal.abdmv1u4y3.razor.js responded 200 in 92.4778 ms 
+2026-09-25 18:31:11.664 +03:30 [INF] HTTP GET /lib/bootstrap/dist/css/bootstrap.min.43atpzeawx.css responded 200 in 110.3795 ms 
+2026-09-25 18:31:22.480 +03:30 [INF] HTTP GET /products responded 404 in 0.3332 ms 
+2026-09-25 18:31:22.486 +03:30 [INF] HTTP GET /not-found responded 302 in 0.4040 ms 
+2026-09-25 18:31:22.532 +03:30 [INF] HTTP GET /login responded 200 in 44.3586 ms 
+2026-09-25 18:31:27.270 +03:30 [INF] HTTP POST /api/auth/login responded 302 in 496.1375 ms 
+2026-09-25 18:31:27.280 +03:30 [INF] Home page loaded at "2026-09-25T18:31:27.2788585+03:30" 
+2026-09-25 18:31:27.281 +03:30 [WRN] This is a test warning from Home page. 
+2026-09-25 18:31:27.286 +03:30 [INF] HTTP GET / responded 200 in 11.1743 ms 
+2026-09-25 18:31:27.301 +03:30 [INF] HTTP GET /AutoSpare.Web.pj2n6n0j58.styles.css responded 200 in 1.6021 ms 
+2026-09-25 18:31:27.301 +03:30 [INF] HTTP GET /app.khy4lop6wu.css responded 200 in 1.6021 ms 
+2026-09-25 18:31:27.305 +03:30 [INF] HTTP GET /Components/Account/Shared/PasskeySubmit.razor.js responded 404 in 0.7050 ms 
+2026-09-25 18:31:27.305 +03:30 [INF] HTTP GET /lib/bootstrap/dist/css/bootstrap.min.43atpzeawx.css responded 200 in 3.7993 ms 
+2026-09-25 18:31:27.306 +03:30 [INF] HTTP GET /_framework/blazor.web.9hsif5t8mt.js responded 304 in 0.3933 ms 
+2026-09-25 18:31:27.306 +03:30 [INF] HTTP GET /Components/Layout/ReconnectModal.abdmv1u4y3.razor.js responded 200 in 1.2791 ms 
+2026-09-25 18:31:27.309 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.kx6s8i3hr8.css responded 304 in 0.9019 ms 
+2026-09-25 18:31:27.309 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.a2z4lu1s4i.js responded 304 in 1.4853 ms 
+2026-09-25 18:31:27.321 +03:30 [INF] HTTP GET /not-found responded 404 in 15.1271 ms 
+2026-09-25 18:31:29.262 +03:30 [INF] HTTP GET /products responded 404 in 0.4826 ms 
+2026-09-25 18:31:29.268 +03:30 [INF] HTTP GET /not-found responded 404 in 5.8023 ms 
+2026-09-25 18:31:30.022 +03:30 [INF] HTTP GET /inventory/transactions responded 404 in 0.3504 ms 
+2026-09-25 18:31:30.026 +03:30 [INF] HTTP GET /not-found responded 404 in 3.9646 ms 
+2026-09-25 18:31:36.301 +03:30 [INF] HTTP POST /api/auth/logout responded 302 in 2.0544 ms 
+2026-09-25 18:31:36.316 +03:30 [INF] HTTP GET /login responded 200 in 6.9031 ms 
+2026-09-25 18:31:36.329 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.kx6s8i3hr8.css responded 304 in 0.2894 ms 
+2026-09-25 18:31:36.331 +03:30 [INF] HTTP GET /AutoSpare.Web.pj2n6n0j58.styles.css responded 200 in 2.1073 ms 
+2026-09-25 18:31:36.331 +03:30 [INF] HTTP GET /app.khy4lop6wu.css responded 200 in 2.3742 ms 
+2026-09-25 18:31:36.332 +03:30 [INF] HTTP GET /Components/Account/Shared/PasskeySubmit.razor.js responded 404 in 0.1312 ms 
+2026-09-25 18:31:36.332 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.a2z4lu1s4i.js responded 304 in 0.3516 ms 
+2026-09-25 18:31:36.332 +03:30 [INF] HTTP GET /not-found responded 302 in 0.1566 ms 
+2026-09-25 18:31:36.333 +03:30 [INF] HTTP GET /_framework/blazor.web.9hsif5t8mt.js responded 304 in 0.1806 ms 
+2026-09-25 18:31:36.333 +03:30 [INF] HTTP GET /Components/Layout/ReconnectModal.abdmv1u4y3.razor.js responded 200 in 1.1791 ms 
+2026-09-25 18:31:36.335 +03:30 [INF] HTTP GET /lib/bootstrap/dist/css/bootstrap.min.43atpzeawx.css responded 200 in 2.5505 ms 
+2026-09-25 18:31:36.376 +03:30 [INF] HTTP GET /login responded 200 in 5.5694 ms 
+2026-09-25 18:31:44.481 +03:30 [INF] HTTP POST /api/auth/login responded 302 in 270.8062 ms 
+2026-09-25 18:31:44.488 +03:30 [INF] Home page loaded at "2026-09-25T18:31:44.4880158+03:30" 
+2026-09-25 18:31:44.488 +03:30 [WRN] This is a test warning from Home page. 
+2026-09-25 18:31:44.512 +03:30 [INF] HTTP GET / responded 200 in 26.3269 ms 
+2026-09-25 18:31:44.523 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.kx6s8i3hr8.css responded 304 in 0.7412 ms 
+2026-09-25 18:31:44.524 +03:30 [INF] HTTP GET /Components/Layout/ReconnectModal.abdmv1u4y3.razor.js responded 200 in 1.0527 ms 
+2026-09-25 18:31:44.524 +03:30 [INF] HTTP GET /AutoSpare.Web.pj2n6n0j58.styles.css responded 200 in 1.0466 ms 
+2026-09-25 18:31:44.524 +03:30 [INF] HTTP GET /Components/Account/Shared/PasskeySubmit.razor.js responded 404 in 0.2902 ms 
+2026-09-25 18:31:44.543 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.a2z4lu1s4i.js responded 304 in 0.3277 ms 
+2026-09-25 18:31:44.543 +03:30 [INF] HTTP GET /app.khy4lop6wu.css responded 200 in 20.3060 ms 
+2026-09-25 18:31:44.543 +03:30 [INF] HTTP GET /_framework/blazor.web.9hsif5t8mt.js responded 304 in 0.3281 ms 
+2026-09-25 18:31:44.543 +03:30 [INF] HTTP GET /lib/bootstrap/dist/css/bootstrap.min.43atpzeawx.css responded 200 in 20.5966 ms 
+2026-09-25 18:31:44.546 +03:30 [INF] HTTP GET /not-found responded 404 in 3.7879 ms 
+2026-09-25 18:42:23.852 +03:30 [WRN] The foreign key property 'Product.BrandId1' was created in shadow state because a conflicting property with the simple name 'BrandId' exists in the entity type, but is either not mapped, is already used for another relationship, or is incompatible with the associated primary key type. See https://aka.ms/efcore-relationships for information on mapping relationships in EF Core. 
+2026-09-25 18:42:23.882 +03:30 [WRN] The foreign key property 'Product.CategoryId1' was created in shadow state because a conflicting property with the simple name 'CategoryId' exists in the entity type, but is either not mapped, is already used for another relationship, or is incompatible with the associated primary key type. See https://aka.ms/efcore-relationships for information on mapping relationships in EF Core. 
+2026-09-25 18:42:24.620 +03:30 [INF] Storage directories are ready. ImagesPath: D:\porograming\Rider\AutoSpare\AutoSpare.Web\wwwroot\Uploads\Images, BackupPath: D:\AutoSpareBackups 
+2026-09-25 18:42:24.898 +03:30 [ERR] HTTP GET / responded 500 in 92.9816 ms 
+System.InvalidOperationException: Object of type 'MudBlazor.MudThemeProvider' does not have a property matching the name 'RTL'.
+   at Microsoft.AspNetCore.Components.Reflection.ComponentProperties.ThrowForUnknownIncomingParameterName(Type targetType, String parameterName)
+   at Microsoft.AspNetCore.Components.Reflection.ComponentProperties.SetProperties(ParameterView& parameters, Object target)
+   at Microsoft.AspNetCore.Components.ComponentBase.SetParametersAsync(ParameterView parameters)
+   at MudBlazor.State.ParameterContainer.SetParametersWithHandlersAsync(Func`2 baseSetParametersAsync, ParameterView parameters)
+   at Microsoft.AspNetCore.Components.Rendering.ComponentState.SetDirectParameters(ParameterView parameters)
+   at Microsoft.AspNetCore.Components.RenderTree.RenderTreeDiffBuilder.InitializeNewComponentFrame(DiffContext& diffContext, Int32 frameIndex)
+   at Microsoft.AspNetCore.Components.RenderTree.RenderTreeDiffBuilder.InitializeNewSubtree(DiffContext& diffContext, Int32 frameIndex)
+   at Microsoft.AspNetCore.Components.RenderTree.RenderTreeDiffBuilder.InsertNewFrame(DiffContext& diffContext, Int32 newFrameIndex)
+   at Microsoft.AspNetCore.Components.RenderTree.RenderTreeDiffBuilder.AppendDiffEntriesForRange(DiffContext& diffContext, Int32 oldStartIndex, Int32 oldEndIndexExcl, Int32 newStartIndex, Int32 newEndIndexExcl)
+   at Microsoft.AspNetCore.Components.RenderTree.RenderTreeDiffBuilder.ComputeDiff(Renderer renderer, RenderBatchBuilder batchBuilder, Int32 componentId, ArrayRange`1 oldTree, ArrayRange`1 newTree)
+   at Microsoft.AspNetCore.Components.Rendering.ComponentState.RenderIntoBatch(RenderBatchBuilder batchBuilder, RenderFragment renderFragment, Exception& renderFragmentException)
+   at Microsoft.AspNetCore.Components.RenderTree.Renderer.ProcessRenderQueue()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Components.RenderTree.Renderer.ProcessRenderQueue()
+   at Microsoft.AspNetCore.Components.RenderTree.Renderer.AddToRenderQueue(Int32 componentId, RenderFragment renderFragment)
+   at Microsoft.AspNetCore.Components.ComponentBase.StateHasChanged()
+   at Microsoft.AspNetCore.Components.ComponentBase.CallOnParametersSetAsync()
+   at Microsoft.AspNetCore.Components.ComponentBase.RunInitAndSetParametersAsync()
+   at Microsoft.AspNetCore.Components.Rendering.ComponentState.SetDirectParameters(ParameterView parameters)
+   at Microsoft.AspNetCore.Components.RenderTree.Renderer.RenderRootComponentAsync(Int32 componentId, ParameterView initialParameters)
+   at Microsoft.AspNetCore.Components.HtmlRendering.Infrastructure.StaticHtmlRenderer.BeginRenderingComponent(IComponent component, ParameterView initialParameters)
+   at Microsoft.AspNetCore.Components.Endpoints.EndpointHtmlRenderer.RenderEndpointComponent(HttpContext httpContext, Type rootComponentType, ParameterView parameters, Boolean waitForQuiescence)
+   at Microsoft.AspNetCore.Components.Endpoints.RazorComponentEndpointInvoker.RenderComponentCore(HttpContext context)
+   at Microsoft.AspNetCore.Components.Endpoints.RazorComponentEndpointInvoker.RenderComponentCore(HttpContext context)
+   at Microsoft.AspNetCore.Components.Rendering.RendererSynchronizationContext.<>c.<<InvokeAsync>b__10_0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Builder.ServerRazorComponentsEndpointConventionBuilderExtensions.<>c__DisplayClass1_1.<<AddInteractiveServerRenderMode>b__1>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Serilog.AspNetCore.RequestLoggingMiddleware.Invoke(HttpContext httpContext)
+2026-09-25 18:42:24.915 +03:30 [ERR] An unhandled exception has occurred while executing the request. 
+System.InvalidOperationException: Object of type 'MudBlazor.MudThemeProvider' does not have a property matching the name 'RTL'.
+   at Microsoft.AspNetCore.Components.Reflection.ComponentProperties.ThrowForUnknownIncomingParameterName(Type targetType, String parameterName)
+   at Microsoft.AspNetCore.Components.Reflection.ComponentProperties.SetProperties(ParameterView& parameters, Object target)
+   at Microsoft.AspNetCore.Components.ComponentBase.SetParametersAsync(ParameterView parameters)
+   at MudBlazor.State.ParameterContainer.SetParametersWithHandlersAsync(Func`2 baseSetParametersAsync, ParameterView parameters)
+   at Microsoft.AspNetCore.Components.Rendering.ComponentState.SetDirectParameters(ParameterView parameters)
+   at Microsoft.AspNetCore.Components.RenderTree.RenderTreeDiffBuilder.InitializeNewComponentFrame(DiffContext& diffContext, Int32 frameIndex)
+   at Microsoft.AspNetCore.Components.RenderTree.RenderTreeDiffBuilder.InitializeNewSubtree(DiffContext& diffContext, Int32 frameIndex)
+   at Microsoft.AspNetCore.Components.RenderTree.RenderTreeDiffBuilder.InsertNewFrame(DiffContext& diffContext, Int32 newFrameIndex)
+   at Microsoft.AspNetCore.Components.RenderTree.RenderTreeDiffBuilder.AppendDiffEntriesForRange(DiffContext& diffContext, Int32 oldStartIndex, Int32 oldEndIndexExcl, Int32 newStartIndex, Int32 newEndIndexExcl)
+   at Microsoft.AspNetCore.Components.RenderTree.RenderTreeDiffBuilder.ComputeDiff(Renderer renderer, RenderBatchBuilder batchBuilder, Int32 componentId, ArrayRange`1 oldTree, ArrayRange`1 newTree)
+   at Microsoft.AspNetCore.Components.Rendering.ComponentState.RenderIntoBatch(RenderBatchBuilder batchBuilder, RenderFragment renderFragment, Exception& renderFragmentException)
+   at Microsoft.AspNetCore.Components.RenderTree.Renderer.ProcessRenderQueue()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Components.RenderTree.Renderer.ProcessRenderQueue()
+   at Microsoft.AspNetCore.Components.RenderTree.Renderer.AddToRenderQueue(Int32 componentId, RenderFragment renderFragment)
+   at Microsoft.AspNetCore.Components.ComponentBase.StateHasChanged()
+   at Microsoft.AspNetCore.Components.ComponentBase.CallOnParametersSetAsync()
+   at Microsoft.AspNetCore.Components.ComponentBase.RunInitAndSetParametersAsync()
+   at Microsoft.AspNetCore.Components.Rendering.ComponentState.SetDirectParameters(ParameterView parameters)
+   at Microsoft.AspNetCore.Components.RenderTree.Renderer.RenderRootComponentAsync(Int32 componentId, ParameterView initialParameters)
+   at Microsoft.AspNetCore.Components.HtmlRendering.Infrastructure.StaticHtmlRenderer.BeginRenderingComponent(IComponent component, ParameterView initialParameters)
+   at Microsoft.AspNetCore.Components.Endpoints.EndpointHtmlRenderer.RenderEndpointComponent(HttpContext httpContext, Type rootComponentType, ParameterView parameters, Boolean waitForQuiescence)
+   at Microsoft.AspNetCore.Components.Endpoints.RazorComponentEndpointInvoker.RenderComponentCore(HttpContext context)
+   at Microsoft.AspNetCore.Components.Endpoints.RazorComponentEndpointInvoker.RenderComponentCore(HttpContext context)
+   at Microsoft.AspNetCore.Components.Rendering.RendererSynchronizationContext.<>c.<<InvokeAsync>b__10_0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Builder.ServerRazorComponentsEndpointConventionBuilderExtensions.<>c__DisplayClass1_1.<<AddInteractiveServerRenderMode>b__1>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Serilog.AspNetCore.RequestLoggingMiddleware.Invoke(HttpContext httpContext)
+   at Microsoft.AspNetCore.Diagnostics.StatusCodePagesMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+2026-09-25 18:42:25.022 +03:30 [INF] HTTP GET /favicon.ico responded 404 in 4.3377 ms 
+2026-09-25 18:42:25.064 +03:30 [ERR] HTTP GET /not-found responded 500 in 17.1964 ms 
+System.InvalidOperationException: Object of type 'MudBlazor.MudThemeProvider' does not have a property matching the name 'RTL'.
+   at Microsoft.AspNetCore.Components.Reflection.ComponentProperties.ThrowForUnknownIncomingParameterName(Type targetType, String parameterName)
+   at Microsoft.AspNetCore.Components.Reflection.ComponentProperties.SetProperties(ParameterView& parameters, Object target)
+   at Microsoft.AspNetCore.Components.ComponentBase.SetParametersAsync(ParameterView parameters)
+   at MudBlazor.State.ParameterContainer.SetParametersWithHandlersAsync(Func`2 baseSetParametersAsync, ParameterView parameters)
+   at Microsoft.AspNetCore.Components.Rendering.ComponentState.SetDirectParameters(ParameterView parameters)
+   at Microsoft.AspNetCore.Components.RenderTree.RenderTreeDiffBuilder.InitializeNewComponentFrame(DiffContext& diffContext, Int32 frameIndex)
+   at Microsoft.AspNetCore.Components.RenderTree.RenderTreeDiffBuilder.InitializeNewSubtree(DiffContext& diffContext, Int32 frameIndex)
+   at Microsoft.AspNetCore.Components.RenderTree.RenderTreeDiffBuilder.InsertNewFrame(DiffContext& diffContext, Int32 newFrameIndex)
+   at Microsoft.AspNetCore.Components.RenderTree.RenderTreeDiffBuilder.AppendDiffEntriesForRange(DiffContext& diffContext, Int32 oldStartIndex, Int32 oldEndIndexExcl, Int32 newStartIndex, Int32 newEndIndexExcl)
+   at Microsoft.AspNetCore.Components.RenderTree.RenderTreeDiffBuilder.ComputeDiff(Renderer renderer, RenderBatchBuilder batchBuilder, Int32 componentId, ArrayRange`1 oldTree, ArrayRange`1 newTree)
+   at Microsoft.AspNetCore.Components.Rendering.ComponentState.RenderIntoBatch(RenderBatchBuilder batchBuilder, RenderFragment renderFragment, Exception& renderFragmentException)
+   at Microsoft.AspNetCore.Components.RenderTree.Renderer.ProcessRenderQueue()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Components.RenderTree.Renderer.ProcessRenderQueue()
+   at Microsoft.AspNetCore.Components.RenderTree.Renderer.AddToRenderQueue(Int32 componentId, RenderFragment renderFragment)
+   at Microsoft.AspNetCore.Components.ComponentBase.StateHasChanged()
+   at Microsoft.AspNetCore.Components.ComponentBase.CallOnParametersSetAsync()
+   at Microsoft.AspNetCore.Components.ComponentBase.RunInitAndSetParametersAsync()
+   at Microsoft.AspNetCore.Components.Rendering.ComponentState.SetDirectParameters(ParameterView parameters)
+   at Microsoft.AspNetCore.Components.RenderTree.Renderer.RenderRootComponentAsync(Int32 componentId, ParameterView initialParameters)
+   at Microsoft.AspNetCore.Components.HtmlRendering.Infrastructure.StaticHtmlRenderer.BeginRenderingComponent(IComponent component, ParameterView initialParameters)
+   at Microsoft.AspNetCore.Components.Endpoints.EndpointHtmlRenderer.RenderEndpointComponent(HttpContext httpContext, Type rootComponentType, ParameterView parameters, Boolean waitForQuiescence)
+   at Microsoft.AspNetCore.Components.Endpoints.RazorComponentEndpointInvoker.RenderComponentCore(HttpContext context)
+   at Microsoft.AspNetCore.Components.Endpoints.RazorComponentEndpointInvoker.RenderComponentCore(HttpContext context)
+   at Microsoft.AspNetCore.Components.Rendering.RendererSynchronizationContext.<>c.<<InvokeAsync>b__10_0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Builder.ServerRazorComponentsEndpointConventionBuilderExtensions.<>c__DisplayClass1_1.<<AddInteractiveServerRenderMode>b__1>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Serilog.AspNetCore.RequestLoggingMiddleware.Invoke(HttpContext httpContext)
+2026-09-25 18:42:25.065 +03:30 [ERR] An unhandled exception has occurred while executing the request. 
+System.InvalidOperationException: Object of type 'MudBlazor.MudThemeProvider' does not have a property matching the name 'RTL'.
+   at Microsoft.AspNetCore.Components.Reflection.ComponentProperties.ThrowForUnknownIncomingParameterName(Type targetType, String parameterName)
+   at Microsoft.AspNetCore.Components.Reflection.ComponentProperties.SetProperties(ParameterView& parameters, Object target)
+   at Microsoft.AspNetCore.Components.ComponentBase.SetParametersAsync(ParameterView parameters)
+   at MudBlazor.State.ParameterContainer.SetParametersWithHandlersAsync(Func`2 baseSetParametersAsync, ParameterView parameters)
+   at Microsoft.AspNetCore.Components.Rendering.ComponentState.SetDirectParameters(ParameterView parameters)
+   at Microsoft.AspNetCore.Components.RenderTree.RenderTreeDiffBuilder.InitializeNewComponentFrame(DiffContext& diffContext, Int32 frameIndex)
+   at Microsoft.AspNetCore.Components.RenderTree.RenderTreeDiffBuilder.InitializeNewSubtree(DiffContext& diffContext, Int32 frameIndex)
+   at Microsoft.AspNetCore.Components.RenderTree.RenderTreeDiffBuilder.InsertNewFrame(DiffContext& diffContext, Int32 newFrameIndex)
+   at Microsoft.AspNetCore.Components.RenderTree.RenderTreeDiffBuilder.AppendDiffEntriesForRange(DiffContext& diffContext, Int32 oldStartIndex, Int32 oldEndIndexExcl, Int32 newStartIndex, Int32 newEndIndexExcl)
+   at Microsoft.AspNetCore.Components.RenderTree.RenderTreeDiffBuilder.ComputeDiff(Renderer renderer, RenderBatchBuilder batchBuilder, Int32 componentId, ArrayRange`1 oldTree, ArrayRange`1 newTree)
+   at Microsoft.AspNetCore.Components.Rendering.ComponentState.RenderIntoBatch(RenderBatchBuilder batchBuilder, RenderFragment renderFragment, Exception& renderFragmentException)
+   at Microsoft.AspNetCore.Components.RenderTree.Renderer.ProcessRenderQueue()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Components.RenderTree.Renderer.ProcessRenderQueue()
+   at Microsoft.AspNetCore.Components.RenderTree.Renderer.AddToRenderQueue(Int32 componentId, RenderFragment renderFragment)
+   at Microsoft.AspNetCore.Components.ComponentBase.StateHasChanged()
+   at Microsoft.AspNetCore.Components.ComponentBase.CallOnParametersSetAsync()
+   at Microsoft.AspNetCore.Components.ComponentBase.RunInitAndSetParametersAsync()
+   at Microsoft.AspNetCore.Components.Rendering.ComponentState.SetDirectParameters(ParameterView parameters)
+   at Microsoft.AspNetCore.Components.RenderTree.Renderer.RenderRootComponentAsync(Int32 componentId, ParameterView initialParameters)
+   at Microsoft.AspNetCore.Components.HtmlRendering.Infrastructure.StaticHtmlRenderer.BeginRenderingComponent(IComponent component, ParameterView initialParameters)
+   at Microsoft.AspNetCore.Components.Endpoints.EndpointHtmlRenderer.RenderEndpointComponent(HttpContext httpContext, Type rootComponentType, ParameterView parameters, Boolean waitForQuiescence)
+   at Microsoft.AspNetCore.Components.Endpoints.RazorComponentEndpointInvoker.RenderComponentCore(HttpContext context)
+   at Microsoft.AspNetCore.Components.Endpoints.RazorComponentEndpointInvoker.RenderComponentCore(HttpContext context)
+   at Microsoft.AspNetCore.Components.Rendering.RendererSynchronizationContext.<>c.<<InvokeAsync>b__10_0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Builder.ServerRazorComponentsEndpointConventionBuilderExtensions.<>c__DisplayClass1_1.<<AddInteractiveServerRenderMode>b__1>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Serilog.AspNetCore.RequestLoggingMiddleware.Invoke(HttpContext httpContext)
+   at Microsoft.AspNetCore.Builder.StatusCodePagesExtensions.<>c__DisplayClass8_0.<<CreateHandler>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Builder.StatusCodePagesExtensions.<>c__DisplayClass8_0.<<CreateHandler>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Diagnostics.StatusCodePagesMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+2026-09-25 18:44:37.374 +03:30 [WRN] The foreign key property 'Product.BrandId1' was created in shadow state because a conflicting property with the simple name 'BrandId' exists in the entity type, but is either not mapped, is already used for another relationship, or is incompatible with the associated primary key type. See https://aka.ms/efcore-relationships for information on mapping relationships in EF Core. 
+2026-09-25 18:44:37.399 +03:30 [WRN] The foreign key property 'Product.CategoryId1' was created in shadow state because a conflicting property with the simple name 'CategoryId' exists in the entity type, but is either not mapped, is already used for another relationship, or is incompatible with the associated primary key type. See https://aka.ms/efcore-relationships for information on mapping relationships in EF Core. 
+2026-09-25 18:44:38.174 +03:30 [INF] Storage directories are ready. ImagesPath: D:\porograming\Rider\AutoSpare\AutoSpare.Web\wwwroot\Uploads\Images, BackupPath: D:\AutoSpareBackups 
+2026-09-25 18:44:38.732 +03:30 [INF] Home page loaded at "2026-09-25T18:44:38.7305271+03:30" 
+2026-09-25 18:44:38.736 +03:30 [WRN] This is a test warning from Home page. 
+2026-09-25 18:44:38.864 +03:30 [INF] HTTP GET / responded 200 in 404.4787 ms 
+2026-09-25 18:44:38.917 +03:30 [INF] HTTP GET /app.khy4lop6wu.css responded 200 in 35.0162 ms 
+2026-09-25 18:44:38.894 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 14.1438 ms 
+2026-09-25 18:44:38.917 +03:30 [INF] HTTP GET /AutoSpare.Web.pj2n6n0j58.styles.css responded 200 in 35.0613 ms 
+2026-09-25 18:44:38.918 +03:30 [INF] HTTP GET /lib/bootstrap/dist/css/bootstrap.min.43atpzeawx.css responded 200 in 37.5779 ms 
+2026-09-25 18:44:38.920 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 39.7935 ms 
+2026-09-25 18:44:38.931 +03:30 [INF] HTTP GET /Components/Layout/ReconnectModal.abdmv1u4y3.razor.js responded 200 in 10.9273 ms 
+2026-09-25 18:44:39.027 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 200 in 146.5580 ms 
+2026-09-25 18:44:39.272 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 7.4847 ms 
+2026-09-25 18:44:39.295 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 7.8670 ms 
+2026-09-25 18:44:39.461 +03:30 [INF] Home page loaded at "2026-09-25T18:44:39.4617479+03:30" 
+2026-09-25 18:44:39.462 +03:30 [WRN] This is a test warning from Home page. 
+2026-09-25 18:44:49.301 +03:30 [INF] HTTP GET /settings responded 404 in 0.8553 ms 
+2026-09-25 18:44:49.347 +03:30 [INF] HTTP GET /not-found responded 404 in 19.3729 ms 
+2026-09-25 18:44:49.366 +03:30 [INF] HTTP GET /app.khy4lop6wu.css responded 200 in 2.3251 ms 
+2026-09-25 18:44:49.366 +03:30 [INF] HTTP GET /AutoSpare.Web.pj2n6n0j58.styles.css responded 200 in 1.9813 ms 
+2026-09-25 18:44:49.369 +03:30 [INF] HTTP GET /Components/Layout/ReconnectModal.abdmv1u4y3.razor.js responded 200 in 1.7977 ms 
+2026-09-25 18:44:49.371 +03:30 [INF] HTTP GET /lib/bootstrap/dist/css/bootstrap.min.43atpzeawx.css responded 200 in 3.3307 ms 
+2026-09-25 18:44:49.373 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 0.8727 ms 
+2026-09-25 18:44:49.375 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 3.5237 ms 
+2026-09-25 18:44:49.375 +03:30 [INF] HTTP GET /_blazor responded 101 in 10073.1181 ms 
+2026-09-25 18:44:49.380 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 9.1753 ms 
+2026-09-25 18:44:49.405 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 48.5060 ms 
+2026-09-25 18:44:49.425 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 0.6052 ms 
+2026-09-25 18:44:49.433 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.4506 ms 
+2026-09-25 18:45:39.282 +03:30 [INF] HTTP POST /api/auth/logout responded 302 in 8.3741 ms 
+2026-09-25 18:45:39.316 +03:30 [INF] HTTP GET /login responded 200 in 23.4390 ms 
+2026-09-25 18:45:39.326 +03:30 [INF] HTTP GET /_blazor responded 101 in 49886.1990 ms 
+2026-09-25 18:45:39.332 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 6.7624 ms 
+2026-09-25 18:45:39.335 +03:30 [INF] HTTP GET /app.khy4lop6wu.css responded 200 in 1.2745 ms 
+2026-09-25 18:45:39.335 +03:30 [INF] HTTP GET /AutoSpare.Web.pj2n6n0j58.styles.css responded 200 in 0.8639 ms 
+2026-09-25 18:45:39.336 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 0.2013 ms 
+2026-09-25 18:45:39.336 +03:30 [INF] HTTP GET /Components/Layout/ReconnectModal.abdmv1u4y3.razor.js responded 200 in 1.0466 ms 
+2026-09-25 18:45:39.336 +03:30 [INF] HTTP GET /lib/bootstrap/dist/css/bootstrap.min.43atpzeawx.css responded 200 in 2.8481 ms 
+2026-09-25 18:45:39.337 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 1.5765 ms 
+2026-09-25 18:45:39.341 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 4.2146 ms 
+2026-09-25 18:45:39.394 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 0.4409 ms 
+2026-09-25 18:45:39.403 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.4276 ms 
+2026-09-25 18:45:45.625 +03:30 [INF] HTTP POST /api/auth/login responded 302 in 277.4282 ms 
+2026-09-25 18:45:45.632 +03:30 [INF] Home page loaded at "2026-09-25T18:45:45.6328803+03:30" 
+2026-09-25 18:45:45.633 +03:30 [WRN] This is a test warning from Home page. 
+2026-09-25 18:45:45.636 +03:30 [INF] HTTP GET / responded 200 in 6.1280 ms 
+2026-09-25 18:45:45.643 +03:30 [INF] HTTP GET /_blazor responded 101 in 6224.2889 ms 
+2026-09-25 18:45:45.645 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 2.3355 ms 
+2026-09-25 18:45:45.652 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 0.2850 ms 
+2026-09-25 18:45:45.652 +03:30 [INF] HTTP GET /app.khy4lop6wu.css responded 200 in 1.2309 ms 
+2026-09-25 18:45:45.652 +03:30 [INF] HTTP GET /Components/Layout/ReconnectModal.abdmv1u4y3.razor.js responded 200 in 1.2306 ms 
+2026-09-25 18:45:45.680 +03:30 [INF] HTTP GET /AutoSpare.Web.pj2n6n0j58.styles.css responded 200 in 1.3480 ms 
+2026-09-25 18:45:45.682 +03:30 [INF] HTTP GET /lib/bootstrap/dist/css/bootstrap.min.43atpzeawx.css responded 200 in 30.8971 ms 
+2026-09-25 18:45:45.682 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 1.6640 ms 
+2026-09-25 18:45:45.684 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 33.0329 ms 
+2026-09-25 18:45:45.716 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 0.4997 ms 
+2026-09-25 18:45:45.723 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.4984 ms 
+2026-09-25 18:45:45.745 +03:30 [INF] Home page loaded at "2026-09-25T18:45:45.7453244+03:30" 
+2026-09-25 18:45:45.745 +03:30 [WRN] This is a test warning from Home page. 
+2026-09-25 18:45:52.008 +03:30 [INF] HTTP GET /products responded 404 in 0.4229 ms 
+2026-09-25 18:45:52.018 +03:30 [INF] HTTP GET /not-found responded 404 in 4.2561 ms 
+2026-09-25 18:45:52.028 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 1.0344 ms 
+2026-09-25 18:45:52.029 +03:30 [INF] HTTP GET /_blazor responded 101 in 6293.6859 ms 
+2026-09-25 18:45:52.036 +03:30 [INF] HTTP GET /app.khy4lop6wu.css responded 200 in 1.1875 ms 
+2026-09-25 18:45:52.039 +03:30 [INF] HTTP GET /AutoSpare.Web.pj2n6n0j58.styles.css responded 200 in 4.3564 ms 
+2026-09-25 18:45:52.040 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 0.2711 ms 
+2026-09-25 18:45:52.040 +03:30 [INF] HTTP GET /Components/Layout/ReconnectModal.abdmv1u4y3.razor.js responded 200 in 0.7329 ms 
+2026-09-25 18:45:52.041 +03:30 [INF] HTTP GET /lib/bootstrap/dist/css/bootstrap.min.43atpzeawx.css responded 200 in 5.5886 ms 
+2026-09-25 18:45:52.041 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 1.3294 ms 
+2026-09-25 18:45:52.042 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 6.8335 ms 
+2026-09-25 18:45:52.074 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 0.2500 ms 
+2026-09-25 18:45:52.082 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.3721 ms 
+2026-09-25 18:45:54.287 +03:30 [INF] HTTP GET /sales responded 404 in 0.1970 ms 
+2026-09-25 18:45:54.293 +03:30 [INF] HTTP GET /not-found responded 404 in 5.6461 ms 
+2026-09-25 18:45:54.326 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 3.1604 ms 
+2026-09-25 18:45:54.328 +03:30 [INF] HTTP GET /app.khy4lop6wu.css responded 200 in 1.2395 ms 
+2026-09-25 18:45:54.331 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 0.4716 ms 
+2026-09-25 18:45:54.333 +03:30 [INF] HTTP GET /_blazor responded 101 in 2240.0654 ms 
+2026-09-25 18:45:54.334 +03:30 [INF] HTTP GET /lib/bootstrap/dist/css/bootstrap.min.43atpzeawx.css responded 200 in 7.0989 ms 
+2026-09-25 18:45:54.332 +03:30 [INF] HTTP GET /AutoSpare.Web.pj2n6n0j58.styles.css responded 200 in 3.0100 ms 
+2026-09-25 18:45:54.334 +03:30 [INF] HTTP GET /Components/Layout/ReconnectModal.abdmv1u4y3.razor.js responded 200 in 4.1720 ms 
+2026-09-25 18:45:54.336 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 4.9402 ms 
+2026-09-25 18:45:54.337 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 2.7487 ms 
+2026-09-25 18:45:54.376 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 0.3763 ms 
+2026-09-25 18:45:54.383 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.4093 ms 
+2026-09-25 18:45:55.974 +03:30 [INF] HTTP GET /products/create responded 404 in 0.1319 ms 
+2026-09-25 18:45:55.977 +03:30 [INF] HTTP GET /not-found responded 404 in 2.2362 ms 
+2026-09-25 18:45:55.992 +03:30 [INF] HTTP GET /_blazor responded 101 in 1598.2000 ms 
+2026-09-25 18:45:55.993 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 1.0874 ms 
+2026-09-25 18:45:56.001 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 0.1285 ms 
+2026-09-25 18:45:56.001 +03:30 [INF] HTTP GET /app.khy4lop6wu.css responded 200 in 1.6583 ms 
+2026-09-25 18:45:56.001 +03:30 [INF] HTTP GET /Components/Layout/ReconnectModal.abdmv1u4y3.razor.js responded 200 in 0.9861 ms 
+2026-09-25 18:45:56.001 +03:30 [INF] HTTP GET /AutoSpare.Web.pj2n6n0j58.styles.css responded 200 in 1.6583 ms 
+2026-09-25 18:45:56.003 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 2.3348 ms 
+2026-09-25 18:45:56.004 +03:30 [INF] HTTP GET /lib/bootstrap/dist/css/bootstrap.min.43atpzeawx.css responded 200 in 4.1249 ms 
+2026-09-25 18:45:56.008 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 8.1107 ms 
+2026-09-25 18:45:56.032 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 0.3052 ms 
+2026-09-25 18:45:56.041 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.5013 ms 
+2026-09-25 18:45:58.516 +03:30 [INF] HTTP GET /sales/new responded 404 in 0.7872 ms 
+2026-09-25 18:45:58.520 +03:30 [INF] HTTP GET /not-found responded 404 in 3.8542 ms 
+2026-09-25 18:45:58.537 +03:30 [INF] HTTP GET /_blazor responded 101 in 2483.5671 ms 
+2026-09-25 18:45:58.541 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 3.6162 ms 
+2026-09-25 18:45:58.549 +03:30 [INF] HTTP GET /AutoSpare.Web.pj2n6n0j58.styles.css responded 200 in 2.5238 ms 
+2026-09-25 18:45:58.551 +03:30 [INF] HTTP GET /app.khy4lop6wu.css responded 200 in 4.4387 ms 
+2026-09-25 18:45:58.551 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 0.1357 ms 
+2026-09-25 18:45:58.552 +03:30 [INF] HTTP GET /Components/Layout/ReconnectModal.abdmv1u4y3.razor.js responded 200 in 1.1559 ms 
+2026-09-25 18:45:58.553 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 1.6779 ms 
+2026-09-25 18:45:58.553 +03:30 [INF] HTTP GET /lib/bootstrap/dist/css/bootstrap.min.43atpzeawx.css responded 200 in 6.1869 ms 
+2026-09-25 18:45:58.555 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 5.4952 ms 
+2026-09-25 18:45:58.589 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 0.4222 ms 
+2026-09-25 18:45:58.594 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.3123 ms 
+2026-09-25 18:46:02.160 +03:30 [INF] HTTP GET /sales responded 404 in 0.1282 ms 
+2026-09-25 18:46:02.165 +03:30 [INF] HTTP GET /not-found responded 404 in 4.9296 ms 
+2026-09-25 18:46:02.187 +03:30 [INF] HTTP GET /_blazor responded 101 in 3587.5347 ms 
+2026-09-25 18:46:02.188 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 1.0940 ms 
+2026-09-25 18:46:02.196 +03:30 [INF] HTTP GET /AutoSpare.Web.pj2n6n0j58.styles.css responded 200 in 2.8657 ms 
+2026-09-25 18:46:02.196 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 0.2500 ms 
+2026-09-25 18:46:02.194 +03:30 [INF] HTTP GET /app.khy4lop6wu.css responded 200 in 1.1098 ms 
+2026-09-25 18:46:02.198 +03:30 [INF] HTTP GET /Components/Layout/ReconnectModal.abdmv1u4y3.razor.js responded 200 in 1.4831 ms 
+2026-09-25 18:46:02.200 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 6.5619 ms 
+2026-09-25 18:46:02.201 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 4.4912 ms 
+2026-09-25 18:46:02.202 +03:30 [INF] HTTP GET /lib/bootstrap/dist/css/bootstrap.min.43atpzeawx.css responded 200 in 8.4504 ms 
+2026-09-25 18:46:02.239 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 0.3950 ms 
+2026-09-25 18:46:02.246 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.3055 ms 
+2026-09-25 18:46:11.014 +03:30 [INF] HTTP GET /suppliers responded 404 in 0.1175 ms 
+2026-09-25 18:46:11.017 +03:30 [INF] HTTP GET /not-found responded 404 in 3.1777 ms 
+2026-09-25 18:46:11.035 +03:30 [INF] HTTP GET /_blazor responded 101 in 8780.0798 ms 
+2026-09-25 18:46:11.036 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 1.9868 ms 
+2026-09-25 18:46:11.045 +03:30 [INF] HTTP GET /app.khy4lop6wu.css responded 200 in 2.1008 ms 
+2026-09-25 18:46:11.045 +03:30 [INF] HTTP GET /Components/Layout/ReconnectModal.abdmv1u4y3.razor.js responded 200 in 0.9813 ms 
+2026-09-25 18:46:11.045 +03:30 [INF] HTTP GET /AutoSpare.Web.pj2n6n0j58.styles.css responded 200 in 2.2496 ms 
+2026-09-25 18:46:11.045 +03:30 [INF] HTTP GET /lib/bootstrap/dist/css/bootstrap.min.43atpzeawx.css responded 200 in 2.5885 ms 
+2026-09-25 18:46:11.045 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 0.2222 ms 
+2026-09-25 18:46:11.049 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 4.7150 ms 
+2026-09-25 18:46:11.050 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 6.9103 ms 
+2026-09-25 18:46:11.094 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 0.3202 ms 
+2026-09-25 18:46:11.100 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.3251 ms 
+2026-09-25 18:55:35.229 +03:30 [INF] HTTP GET /_blazor responded 101 in 564110.7811 ms 
+2026-09-25 18:57:27.734 +03:30 [WRN] The foreign key property 'Product.BrandId1' was created in shadow state because a conflicting property with the simple name 'BrandId' exists in the entity type, but is either not mapped, is already used for another relationship, or is incompatible with the associated primary key type. See https://aka.ms/efcore-relationships for information on mapping relationships in EF Core. 
+2026-09-25 18:57:27.762 +03:30 [WRN] The foreign key property 'Product.CategoryId1' was created in shadow state because a conflicting property with the simple name 'CategoryId' exists in the entity type, but is either not mapped, is already used for another relationship, or is incompatible with the associated primary key type. See https://aka.ms/efcore-relationships for information on mapping relationships in EF Core. 
+2026-09-25 18:57:28.570 +03:30 [INF] Storage directories are ready. ImagesPath: D:\porograming\Rider\AutoSpare\AutoSpare.Web\wwwroot\Uploads\Images, BackupPath: D:\AutoSpareBackups 
+2026-09-25 18:57:28.839 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 27.9653 ms 
+2026-09-25 18:57:28.931 +03:30 [INF] HTTP GET /suppliers responded 404 in 0.5693 ms 
+2026-09-25 18:57:29.105 +03:30 [INF] Home page loaded at "2026-09-25T18:57:29.1006553+03:30" 
+2026-09-25 18:57:29.105 +03:30 [WRN] This is a test warning from Home page. 
+2026-09-25 18:57:29.276 +03:30 [INF] HTTP GET /not-found responded 404 in 311.6559 ms 
+2026-09-25 18:57:29.279 +03:30 [INF] HTTP GET / responded 200 in 470.1573 ms 
+2026-09-25 18:57:29.302 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 2.8516 ms 
+2026-09-25 18:57:29.308 +03:30 [INF] HTTP GET /app.949828t4es.css responded 200 in 9.7550 ms 
+2026-09-25 18:57:29.308 +03:30 [INF] HTTP GET /AutoSpare.Web.pj2n6n0j58.styles.css responded 200 in 10.2942 ms 
+2026-09-25 18:57:29.315 +03:30 [INF] HTTP GET /_blazor responded 101 in 457.2947 ms 
+2026-09-25 18:57:29.377 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 66.0847 ms 
+2026-09-25 18:57:29.377 +03:30 [INF] HTTP GET /AutoSpare.Web.pj2n6n0j58.styles.css responded 200 in 25.8312 ms 
+2026-09-25 18:57:29.378 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 78.7444 ms 
+2026-09-25 18:57:29.377 +03:30 [INF] HTTP GET /app.949828t4es.css responded 200 in 6.5336 ms 
+2026-09-25 18:57:29.382 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 0.6070 ms 
+2026-09-25 18:57:29.403 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 93.2330 ms 
+2026-09-25 18:57:29.403 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 14.8784 ms 
+2026-09-25 18:57:29.406 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 17.4133 ms 
+2026-09-25 18:57:29.409 +03:30 [INF] HTTP GET /Components/Layout/ReconnectModal.abdmv1u4y3.razor.js responded 200 in 109.8717 ms 
+2026-09-25 18:57:29.410 +03:30 [INF] HTTP GET /lib/bootstrap/dist/css/bootstrap.min.43atpzeawx.css responded 200 in 111.5790 ms 
+2026-09-25 18:57:29.418 +03:30 [INF] HTTP GET /Components/Layout/ReconnectModal.abdmv1u4y3.razor.js responded 200 in 0.9681 ms 
+2026-09-25 18:57:29.418 +03:30 [INF] HTTP GET /lib/bootstrap/dist/css/bootstrap.min.43atpzeawx.css responded 200 in 1.9155 ms 
+2026-09-25 18:57:29.475 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 200 in 10.6867 ms 
+2026-09-25 18:57:29.489 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 8.7637 ms 
+2026-09-25 18:57:29.494 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.5436 ms 
+2026-09-25 18:57:29.495 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 0.7448 ms 
+2026-09-25 18:57:29.504 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 1.3743 ms 
+2026-09-25 18:57:29.516 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.5326 ms 
+2026-09-25 18:57:29.533 +03:30 [INF] HTTP GET /favicon.png responded 304 in 1.4070 ms 
+2026-09-25 18:57:29.538 +03:30 [INF] HTTP GET /favicon.png responded 304 in 1.1702 ms 
+2026-09-25 18:57:29.666 +03:30 [INF] Home page loaded at "2026-09-25T18:57:29.6666192+03:30" 
+2026-09-25 18:57:29.667 +03:30 [WRN] This is a test warning from Home page. 
+2026-09-25 18:57:55.810 +03:30 [INF] HTTP POST /api/auth/logout responded 302 in 8.7112 ms 
+2026-09-25 18:57:55.846 +03:30 [INF] HTTP GET /login responded 200 in 23.4732 ms 
+2026-09-25 18:57:55.862 +03:30 [INF] HTTP GET /_blazor responded 101 in 26307.2619 ms 
+2026-09-25 18:57:55.864 +03:30 [INF] HTTP GET /Components/Layout/ReconnectModal.abdmv1u4y3.razor.js responded 200 in 1.4616 ms 
+2026-09-25 18:57:55.865 +03:30 [INF] HTTP GET /lib/bootstrap/dist/css/bootstrap.min.43atpzeawx.css responded 200 in 2.0685 ms 
+2026-09-25 18:57:55.865 +03:30 [INF] HTTP GET /app.949828t4es.css responded 200 in 1.1557 ms 
+2026-09-25 18:57:55.866 +03:30 [INF] HTTP GET /AutoSpare.Web.pj2n6n0j58.styles.css responded 200 in 3.8123 ms 
+2026-09-25 18:57:55.867 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 1.9335 ms 
+2026-09-25 18:57:55.870 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 5.3159 ms 
+2026-09-25 18:57:55.874 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 9.3063 ms 
+2026-09-25 18:57:55.884 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 28.7036 ms 
+2026-09-25 18:57:55.931 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.4533 ms 
+2026-09-25 18:57:55.934 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 200 in 2.8517 ms 
+2026-09-25 18:57:55.953 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 0.4687 ms 
+2026-09-25 18:57:55.974 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.8339 ms 
+2026-09-25 18:57:59.189 +03:30 [INF] HTTP GET /products/create responded 404 in 0.1417 ms 
+2026-09-25 18:57:59.198 +03:30 [INF] HTTP GET /not-found responded 302 in 2.7505 ms 
+2026-09-25 18:57:59.213 +03:30 [INF] HTTP GET /login responded 200 in 8.7922 ms 
+2026-09-25 18:57:59.222 +03:30 [INF] HTTP GET /_blazor responded 101 in 3233.0060 ms 
+2026-09-25 18:57:59.224 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 1.6253 ms 
+2026-09-25 18:57:59.230 +03:30 [INF] HTTP GET /app.949828t4es.css responded 200 in 1.3239 ms 
+2026-09-25 18:57:59.230 +03:30 [INF] HTTP GET /AutoSpare.Web.pj2n6n0j58.styles.css responded 200 in 1.3763 ms 
+2026-09-25 18:57:59.230 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 0.3924 ms 
+2026-09-25 18:57:59.230 +03:30 [INF] HTTP GET /Components/Layout/ReconnectModal.abdmv1u4y3.razor.js responded 200 in 0.7795 ms 
+2026-09-25 18:57:59.230 +03:30 [INF] HTTP GET /lib/bootstrap/dist/css/bootstrap.min.43atpzeawx.css responded 200 in 1.8473 ms 
+2026-09-25 18:57:59.233 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 4.5453 ms 
+2026-09-25 18:57:59.233 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 3.1023 ms 
+2026-09-25 18:57:59.267 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 0.2774 ms 
+2026-09-25 18:57:59.267 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.2774 ms 
+2026-09-25 18:57:59.282 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 0.5648 ms 
+2026-09-25 18:57:59.295 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.5129 ms 
+2026-09-25 18:58:00.023 +03:30 [INF] HTTP GET /products/create responded 404 in 0.1296 ms 
+2026-09-25 18:58:00.024 +03:30 [INF] HTTP GET /not-found responded 302 in 0.4176 ms 
+2026-09-25 18:58:00.038 +03:30 [INF] HTTP GET /login responded 200 in 7.1762 ms 
+2026-09-25 18:58:00.047 +03:30 [INF] HTTP GET /_blazor responded 101 in 737.9571 ms 
+2026-09-25 18:58:00.048 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 1.7774 ms 
+2026-09-25 18:58:00.055 +03:30 [INF] HTTP GET /app.949828t4es.css responded 200 in 1.1218 ms 
+2026-09-25 18:58:00.055 +03:30 [INF] HTTP GET /AutoSpare.Web.pj2n6n0j58.styles.css responded 200 in 0.7949 ms 
+2026-09-25 18:58:00.056 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 0.1015 ms 
+2026-09-25 18:58:00.056 +03:30 [INF] HTTP GET /lib/bootstrap/dist/css/bootstrap.min.43atpzeawx.css responded 200 in 2.3458 ms 
+2026-09-25 18:58:00.057 +03:30 [INF] HTTP GET /Components/Layout/ReconnectModal.abdmv1u4y3.razor.js responded 200 in 1.2804 ms 
+2026-09-25 18:58:00.058 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 3.0760 ms 
+2026-09-25 18:58:00.062 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 6.4038 ms 
+2026-09-25 18:58:00.089 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 0.2474 ms 
+2026-09-25 18:58:00.089 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.2654 ms 
+2026-09-25 18:58:00.101 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 0.8092 ms 
+2026-09-25 18:58:00.115 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.2662 ms 
+2026-09-25 18:58:01.528 +03:30 [INF] HTTP POST /api/auth/login responded 302 in 369.4442 ms 
+2026-09-25 18:58:01.537 +03:30 [INF] Home page loaded at "2026-09-25T18:58:01.5372899+03:30" 
+2026-09-25 18:58:01.537 +03:30 [WRN] This is a test warning from Home page. 
+2026-09-25 18:58:01.539 +03:30 [INF] HTTP GET / responded 200 in 4.7554 ms 
+2026-09-25 18:58:01.551 +03:30 [INF] HTTP GET /_blazor responded 101 in 1421.6029 ms 
+2026-09-25 18:58:01.554 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 4.1746 ms 
+2026-09-25 18:58:01.560 +03:30 [INF] HTTP GET /lib/bootstrap/dist/css/bootstrap.min.43atpzeawx.css responded 200 in 3.5522 ms 
+2026-09-25 18:58:01.561 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 0.4460 ms 
+2026-09-25 18:58:01.561 +03:30 [INF] HTTP GET /Components/Layout/ReconnectModal.abdmv1u4y3.razor.js responded 200 in 1.6570 ms 
+2026-09-25 18:58:01.562 +03:30 [INF] HTTP GET /app.949828t4es.css responded 200 in 3.7834 ms 
+2026-09-25 18:58:01.569 +03:30 [INF] HTTP GET /AutoSpare.Web.pj2n6n0j58.styles.css responded 200 in 8.2943 ms 
+2026-09-25 18:58:01.570 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 1.4176 ms 
+2026-09-25 18:58:01.580 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 20.5684 ms 
+2026-09-25 18:58:01.604 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.3993 ms 
+2026-09-25 18:58:01.611 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 0.4908 ms 
+2026-09-25 18:58:01.627 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 1.7549 ms 
+2026-09-25 18:58:01.652 +03:30 [INF] Home page loaded at "2026-09-25T18:58:01.6526136+03:30" 
+2026-09-25 18:58:01.653 +03:30 [WRN] This is a test warning from Home page. 
+2026-09-25 18:58:03.112 +03:30 [INF] HTTP GET /inventory/transactions responded 404 in 0.2615 ms 
+2026-09-25 18:58:03.125 +03:30 [INF] HTTP GET /not-found responded 404 in 12.0863 ms 
+2026-09-25 18:58:03.138 +03:30 [INF] HTTP GET /_blazor responded 101 in 1501.5855 ms 
+2026-09-25 18:58:03.139 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 1.1185 ms 
+2026-09-25 18:58:03.147 +03:30 [INF] HTTP GET /AutoSpare.Web.pj2n6n0j58.styles.css responded 200 in 1.9246 ms 
+2026-09-25 18:58:03.147 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 0.4667 ms 
+2026-09-25 18:58:03.147 +03:30 [INF] HTTP GET /lib/bootstrap/dist/css/bootstrap.min.43atpzeawx.css responded 200 in 2.0718 ms 
+2026-09-25 18:58:03.147 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 1.0480 ms 
+2026-09-25 18:58:03.147 +03:30 [INF] HTTP GET /app.949828t4es.css responded 200 in 1.9246 ms 
+2026-09-25 18:58:03.148 +03:30 [INF] HTTP GET /Components/Layout/ReconnectModal.abdmv1u4y3.razor.js responded 200 in 0.7996 ms 
+2026-09-25 18:58:03.148 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 2.9634 ms 
+2026-09-25 18:58:03.187 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.3816 ms 
+2026-09-25 18:58:03.190 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 0.3290 ms 
+2026-09-25 18:58:03.206 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.4395 ms 
+2026-09-25 18:58:03.977 +03:30 [INF] HTTP GET /products/create responded 404 in 0.2741 ms 
+2026-09-25 18:58:03.982 +03:30 [INF] HTTP GET /not-found responded 404 in 4.8247 ms 
+2026-09-25 18:58:03.999 +03:30 [INF] HTTP GET /_blazor responded 101 in 779.4620 ms 
+2026-09-25 18:58:04.000 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 1.2866 ms 
+2026-09-25 18:58:04.007 +03:30 [INF] HTTP GET /app.949828t4es.css responded 200 in 0.8765 ms 
+2026-09-25 18:58:04.007 +03:30 [INF] HTTP GET /AutoSpare.Web.pj2n6n0j58.styles.css responded 200 in 0.8327 ms 
+2026-09-25 18:58:04.007 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 0.1587 ms 
+2026-09-25 18:58:04.007 +03:30 [INF] HTTP GET /lib/bootstrap/dist/css/bootstrap.min.43atpzeawx.css responded 200 in 1.5062 ms 
+2026-09-25 18:58:04.008 +03:30 [INF] HTTP GET /Components/Layout/ReconnectModal.abdmv1u4y3.razor.js responded 200 in 0.6439 ms 
+2026-09-25 18:58:04.008 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 0.7175 ms 
+2026-09-25 18:58:04.013 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 6.2311 ms 
+2026-09-25 18:58:04.040 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.1643 ms 
+2026-09-25 18:58:04.051 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 0.3872 ms 
+2026-09-25 18:58:04.058 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.4181 ms 
+2026-09-25 19:00:22.891 +03:30 [INF] HTTP GET /_blazor responded 101 in 138823.4749 ms 
+2026-09-25 19:00:22.893 +03:30 [INF] HTTP GET /_blazor responded 101 in 173356.3724 ms 

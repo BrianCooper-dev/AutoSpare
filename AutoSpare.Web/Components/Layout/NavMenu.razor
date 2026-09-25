@@ -1,102 +1,77 @@
-﻿@implements IDisposable
-
-@inject NavigationManager NavigationManager
-
-<div class="top-row ps-3 navbar navbar-dark">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="">AutoSpare.Web</a>
+﻿<MudNavMenu>
+    <!-- هدر منو با آیکون قطعات/سیستم -->
+    <div class="pa-4 d-flex flex-column align-center">
+        <MudAvatar Color="Color.Primary" Size="Size.Large" Elevation="4">
+            <MudIcon Icon="@Icons.Material.Filled.BuildCircle" Size="Size.Large" />
+        </MudAvatar>
+        <MudText Typo="Typo.subtitle1" Class="mt-2 font-weight-bold">پنل مدیریت AutoSpare</MudText>
+        <MudText Typo="Typo.caption" Color="Color.Secondary">مدیریت موجودی و فروشگاه</MudText>
     </div>
-</div>
 
-<input type="checkbox" title="Navigation menu" class="navbar-toggler"/>
+    <MudDivider Class="mb-3" />
 
-<div class="nav-scrollable" onclick="document.querySelector('.navbar-toggler').click()">
-    <nav class="nav flex-column">
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                <span class="bi bi-house-door-fill-nav-menu" aria-hidden="true"></span> Home
-            </NavLink>
-        </div>
+    <!-- داشبورد اصلی -->
+    <MudNavLink Href="/" Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.Dashboard">
+        داشبورد اصلی
+    </MudNavLink>
 
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="counter">
-                <span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> Counter
-            </NavLink>
-        </div>
+    <!-- مدیریت کالاها و قطعات -->
+    <MudNavGroup Title="کالاها و انبارداری" Icon="@Icons.Material.Filled.Inventory2" Expanded="true">
+        <MudNavLink Href="/products" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Category">
+            فهرست کالاها
+        </MudNavLink>
+        <MudNavLink Href="/products/create" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.AddBox">
+            تعریف قطعه جدید
+        </MudNavLink>
+        <MudNavLink Href="/inventory/transactions" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.SwapHoriz">
+            کاردکس و تراکنش انبار
+        </MudNavLink>
+    </MudNavGroup>
 
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="weather">
-                <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Weather
-            </NavLink>
-        </div>
+    <!-- فاکتورها و فروش -->
+    <MudNavGroup Title="فروش و فاکتورها" Icon="@Icons.Material.Filled.PointOfSale" Expanded="false">
+        <MudNavLink Href="/sales" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.ReceiptLong">
+            فاکتورهای فروش
+        </MudNavLink>
+        <MudNavLink Href="/sales/new" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.AddShoppingCart">
+            صدور فاکتور جدید
+        </MudNavLink>
+    </MudNavGroup>
 
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="auth">
-                <span class="bi bi-lock-nav-menu" aria-hidden="true"></span> Auth Required
-            </NavLink>
-        </div>
+    <!-- تأمین‌کنندگان و خرید -->
+    <MudNavGroup Title="تأمین‌کنندگان و خرید" Icon="@Icons.Material.Filled.LocalShipping" Expanded="false">
+        <MudNavLink Href="/suppliers" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Store">
+            فهرست تأمین‌کنندگان
+        </MudNavLink>
+        <MudNavLink Href="/purchases" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.ShoppingBag">
+            فاکتورهای خرید
+        </MudNavLink>
+    </MudNavGroup>
 
-        <AuthorizeView>
-            <Authorized>
-                <div class="nav-item px-3">
-                    <NavLink class="nav-link" href="Account/Manage">
-                        <span class="bi bi-person-fill-nav-menu" aria-hidden="true"></span> @context.User.Identity?.Name
-                    </NavLink>
-                </div>
-                <div class="nav-item px-3">
-                    <form action="Account/Logout" method="post">
-                        <AntiforgeryToken/>
-                        <input type="hidden" name="ReturnUrl" value="@currentUrl"/>
-                        <button type="submit" class="nav-link">
-                            <span class="bi bi-arrow-bar-left-nav-menu" aria-hidden="true"></span> Logout
-                        </button>
-                    </form>
-                </div>
-            </Authorized>
-            <NotAuthorized>
-                <div class="nav-item px-3">
-                    <NavLink class="nav-link" href="Account/Register">
-                        <span class="bi bi-person-nav-menu" aria-hidden="true"></span> Register
-                    </NavLink>
-                </div>
-                <div class="nav-item px-3">
-                    <NavLink class="nav-link" href="Account/Login">
-                        <span class="bi bi-person-badge-nav-menu" aria-hidden="true"></span> Login
-                    </NavLink>
-                </div>
-            </NotAuthorized>
-        </AuthorizeView>
+    <!-- طرف‌های حساب و مشتریان -->
+    <MudNavGroup Title="مشتریان و همکاران" Icon="@Icons.Material.Filled.People" Expanded="false">
+        <MudNavLink Href="/customers" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Group">
+            لیست مشتریان
+        </MudNavLink>
+        <MudNavLink Href="/customers/create" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.PersonAdd">
+            ثبت مشتری جدید
+        </MudNavLink>
+    </MudNavGroup>
 
-        <div class="nav-item px-3 mt-3">
-            <form method="post" action="/api/auth/logout">
-                <button type="submit" class="nav-link btn btn-link text-danger w-100 text-end border-0 bg-transparent">
-                    <span class="bi bi-box-arrow-right me-2" aria-hidden="true"></span>
-                    خروج از سامانه
-                </button>
-            </form>
-        </div>
+    <!-- مالی و تسویه‌ها -->
+    <MudNavGroup Title="حسابداری و گزارشات" Icon="@Icons.Material.Filled.AccountBalanceWallet" Expanded="false">
+        <MudNavLink Href="/settlements" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.PriceCheck">
+            تسویه‌های روزانه
+        </MudNavLink>
+        <MudNavLink Href="/reports" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Assessment">
+            گزارش سود و زیان
+        </MudNavLink>
+    </MudNavGroup>
 
-    </nav>
-</div>
+    <MudDivider Class="my-2" />
 
-@code {
-    private string? currentUrl;
-
-    protected override void OnInitialized()
-    {
-        currentUrl = NavigationManager.ToBaseRelativePath(NavigationManager.Uri);
-        NavigationManager.LocationChanged += OnLocationChanged;
-    }
-
-    private void OnLocationChanged(object? sender, LocationChangedEventArgs e)
-    {
-        currentUrl = NavigationManager.ToBaseRelativePath(e.Location);
-        StateHasChanged();
-    }
-
-    public void Dispose()
-    {
-        NavigationManager.LocationChanged -= OnLocationChanged;
-    }
-
-}
+    <!-- تنظیمات سیستم -->
+    <MudNavLink Href="/settings" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Settings">
+        تنظیمات سامانه
+    </MudNavLink>
+</MudNavMenu>
