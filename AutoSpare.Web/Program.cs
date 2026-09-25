@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
+using MudBlazor.Services;
 using Serilog;
 
 // Bootstrap logger:
@@ -76,6 +77,8 @@ try
         });
 
     builder.Services.AddAuthorization();
+
+    builder.Services.AddMudServices();
 
     // -------------------------------------------------------
     // Database (Infrastructure)

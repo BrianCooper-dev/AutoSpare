@@ -58,3 +58,39 @@ h1:focus {
 .form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
     text-align: start;
 }
+
+@font-face {
+    font-family: 'Vazirmatn';
+    src: url('fonts/vazirmatn/Vazirmatn-Regular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Vazirmatn';
+    src: url('fonts/vazirmatn/Vazirmatn-Bold.woff2') format('woff2');
+    font-weight: bold;
+    font-style: normal;
+}
+
+
+:root {
+    --mud-typography-default-family: 'Vazirmatn', sans-serif;
+    --mud-typography-h1-family: 'Vazirmatn', sans-serif;
+    --mud-typography-h2-family: 'Vazirmatn', sans-serif;
+    --mud-typography-h3-family: 'Vazirmatn', sans-serif;
+    --mud-typography-h4-family: 'Vazirmatn', sans-serif;
+    --mud-typography-h5-family: 'Vazirmatn', sans-serif;
+    --mud-typography-h6-family: 'Vazirmatn', sans-serif;
+    --mud-typography-button-family: 'Vazirmatn', sans-serif;
+    --mud-typography-body1-family: 'Vazirmatn', sans-serif;
+    --mud-typography-body2-family: 'Vazirmatn', sans-serif;
+}
+
+* {
+    font-family: 'Vazirmatn', sans-serif !important;
+}
+
+body {
+    font-family: 'Vazirmatn', sans-serif !important;
+}

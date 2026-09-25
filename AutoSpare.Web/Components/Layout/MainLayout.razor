@@ -1,23 +1,104 @@
 ﻿@inherits LayoutComponentBase
 
-<div class="page">
-    <div class="sidebar">
-        <NavMenu/>
-    </div>
+<MudThemeProvider @bind-IsDarkMode="@_isDarkMode" Theme="_currentTheme" />
+<MudPopoverProvider />
+<MudDialogProvider />
+<MudSnackbarProvider />
 
-    <main>
-        <div class="top-row px-4">
-            <a href="https://learn.microsoft.com/aspnet/core/" target="_blank">About</a>
-        </div>
+<MudLayout RightToLeft="true">
+    <!-- نوار بالا (AppBar) -->
+    <MudAppBar Elevation="2" Color="Color.Primary" Dense="false">
+        <!-- دکمه باز و بسته کردن سایدبار -->
+        <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start"
+                       OnClick="@DrawerToggle" />
 
-        <article class="content px-4">
+        <MudText Typo="Typo.h6" Class="mr-3 font-weight-bold">
+            سامانه مدیریت قطعات یدکی و انبار | AutoSpare
+        </MudText>
+
+        <MudSpacer />
+
+        <!-- سوییچ دارک مود -->
+        <MudToggleIconButton @bind-Toggled="@_isDarkMode"
+                             Icon="@Icons.Material.Filled.DarkMode" Color="Color.Inherit"
+                             ToggledIcon="@Icons.Material.Filled.LightMode" ToggledColor="Color.Warning"
+                             Title="تغییر حالت شب/روز" />
+
+        <!-- مشخصات کاربر لاگین شده -->
+        <AuthorizeView>
+            <Authorized>
+                <div class="d-flex align-center mx-3">
+                    <MudAvatar Color="Color.Secondary" Size="Size.Small" Class="ml-2">
+                        @context.User.Identity?.Name?.Substring(0, 1).ToUpper()
+                    </MudAvatar>
+                    <MudText Typo="Typo.body2" Color="Color.Inherit">
+                        @context.User.Identity?.Name
+                    </MudText>
+                </div>
+            </Authorized>
+        </AuthorizeView>
+
+        <!-- دکمه خروج -->
+        <form method="post" action="/api/auth/logout" class="d-inline">
+            <MudIconButton ButtonType="ButtonType.Submit"
+                           Icon="@Icons.Material.Filled.Logout"
+                           Color="Color.Inherit"
+                           Title="خروج از سامانه" />
+        </form>
+    </MudAppBar>
+
+    <!-- سایدبار راست‌چین -->
+    <MudDrawer @bind-Open="_drawerOpen" Anchor="Anchor.Right" ClipMode="DrawerClipMode.Always" Elevation="3" Variant="DrawerVariant.Responsive">
+        <NavMenu />
+    </MudDrawer>
+
+    <!-- بدنه اصلی برنامه -->
+    <MudMainContent>
+        <MudContainer MaxWidth="MaxWidth.ExtraLarge" Class="mt-6 mb-12">
             @Body
-        </article>
-    </main>
-</div>
+        </MudContainer>
+    </MudMainContent>
+</MudLayout>
 
-<div id="blazor-error-ui" data-nosnippet>
-    An unhandled error has occurred.
-    <a href="." class="reload">Reload</a>
-    <span class="dismiss">🗙</span>
-</div>
+@code {
+    private bool _drawerOpen = true;
+    private bool _isDarkMode = false;
+
+    private void DrawerToggle()
+    {
+        _drawerOpen = !_drawerOpen;
+    }
+
+    private readonly MudTheme _currentTheme = new MudTheme()
+    {
+        PaletteLight = new PaletteLight()
+        {
+            Primary = "#2563EB",
+            Secondary = "#0EA5E9",
+            AppbarBackground = "#1E293B",
+            AppbarText = "#FFFFFF",
+            Surface = "#FFFFFF",
+            Background = "#F8FAFC",
+            DrawerBackground = "#FFFFFF",
+            DrawerText = "#334155",
+            TextPrimary = "#0F172A",
+            TableHover = "#F1F5F9"
+        },
+        PaletteDark = new PaletteDark()
+        {
+            Primary = "#3B82F6",
+            Secondary = "#38BDF8",
+            Surface = "#1E293B",
+            Background = "#0F172A",
+            AppbarBackground = "#0F172A",
+            DrawerBackground = "#1E293B",
+            DrawerText = "#E2E8F0",
+            TextPrimary = "#F8FAFC",
+            TableHover = "#334155"
+        },
+        LayoutProperties = new LayoutProperties()
+        {
+            DefaultBorderRadius = "8px"
+        }
+    };
+}
