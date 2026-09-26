@@ -1,15 +1,32 @@
-﻿<Router AppAssembly="typeof(Program).Assembly">
+﻿@using AutoSpare.Web.Components.Layout
+
+<Router AppAssembly="typeof(Program).Assembly">
     <Found Context="routeData">
-        <AuthorizeRouteView RouteData="routeData" DefaultLayout="typeof(Layout.MainLayout)">
-            <NotAuthorized>
-                <RedirectToLogin />
-            </NotAuthorized>
-        </AuthorizeRouteView>
+        <RouteView RouteData="routeData" DefaultLayout="typeof(MainLayout)" />
         <FocusOnNavigate RouteData="routeData" Selector="h1" />
     </Found>
     <NotFound>
-        <LayoutView Layout="typeof(Layout.MainLayout)">
-            <p role="alert">متأسفانه صفحه مورد نظر پیدا نشد.</p>
+        <LayoutView Layout="typeof(MainLayout)">
+            <MudContainer MaxWidth="MaxWidth.Medium" Class="d-flex flex-column align-center justify-center py-16">
+                <MudIcon Icon="@Icons.Material.Filled.SearchOff" Color="Color.Warning" Style="font-size: 6rem;" Class="mb-4" />
+
+                <MudText Typo="Typo.h3" Class="font-weight-bold mb-3">
+                    ۴۰۴ - صفحه مورد نظر یافت نشد!
+                </MudText>
+
+
+                <MudText Typo="Typo.body1" Class="mud-text-secondary mb-6 text-center" Style="max-width: 500px;">
+                    صفحه‌ای که به دنبال آن بودید یافت نشد. ممکن است آدرس تغییر کرده باشد یا این صفحه حذف شده باشد.
+                </MudText>
+
+                <MudButton Variant="Variant.Filled"
+                           Color="Color.Primary"
+                           Href="/"
+                           Size="Size.Large"
+                           StartIcon="@Icons.Material.Filled.Home">
+                    بازگشت به داشبورد اصلی
+                </MudButton>
+            </MudContainer>
         </LayoutView>
     </NotFound>
 </Router>

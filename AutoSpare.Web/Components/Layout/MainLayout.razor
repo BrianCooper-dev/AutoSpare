@@ -7,10 +7,10 @@
 <MudSnackbarProvider />
 
 <MudLayout RightToLeft="true">
-    <!-- نوار بالا (AppBar) -->
     <MudAppBar Elevation="2" Color="Color.Primary" Dense="false">
-        <!-- دکمه باز و بسته کردن سایدبار -->
-        <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start"
+        <MudIconButton Icon="@Icons.Material.Filled.Menu"
+                       Color="Color.Inherit"
+                       Edge="Edge.Start"
                        OnClick="@DrawerToggle" />
 
         <MudText Typo="Typo.h6" Class="mr-3 font-weight-bold">
@@ -19,20 +19,19 @@
 
         <MudSpacer />
 
-        <!-- سوییچ دارک مود با قابلیت ذخیره‌سازی -->
         <MudToggleIconButton Toggled="@_isDarkMode"
                              ToggledChanged="OnDarkModeToggled"
-                             Icon="@Icons.Material.Filled.DarkMode" Color="Color.Inherit"
-                             ToggledIcon="@Icons.Material.Filled.LightMode" ToggledColor="Color.Warning"
+                             Icon="@Icons.Material.Filled.DarkMode"
+                             Color="Color.Inherit"
+                             ToggledIcon="@Icons.Material.Filled.LightMode"
+                             ToggledColor="Color.Warning"
                              Title="تغییر حالت شب/روز" />
 
-
-        <!-- مشخصات کاربر لاگین شده -->
         <AuthorizeView>
             <Authorized>
                 <div class="d-flex align-center mx-3">
                     <MudAvatar Color="Color.Secondary" Size="Size.Small" Class="ml-2">
-                        @context.User.Identity?.Name?.Substring(0, 1).ToUpper()
+                        @GetUserInitial(context.User.Identity?.Name)
                     </MudAvatar>
                     <MudText Typo="Typo.body2" Color="Color.Inherit">
                         @context.User.Identity?.Name
@@ -41,7 +40,6 @@
             </Authorized>
         </AuthorizeView>
 
-        <!-- دکمه خروج -->
         <form method="post" action="/api/auth/logout" class="d-inline">
             <MudIconButton ButtonType="ButtonType.Submit"
                            Icon="@Icons.Material.Filled.Logout"
@@ -50,12 +48,14 @@
         </form>
     </MudAppBar>
 
-    <!-- سایدبار راست‌چین -->
-    <MudDrawer @bind-Open="_drawerOpen" Anchor="Anchor.Right" ClipMode="DrawerClipMode.Always" Elevation="3" Variant="DrawerVariant.Responsive">
+    <MudDrawer @bind-Open="_drawerOpen"
+               Anchor="Anchor.Right"
+               ClipMode="DrawerClipMode.Always"
+               Elevation="3"
+               Variant="DrawerVariant.Responsive">
         <NavMenu />
     </MudDrawer>
 
-    <!-- بدنه اصلی برنامه -->
     <MudMainContent>
         <MudContainer MaxWidth="MaxWidth.ExtraLarge" Class="mt-6 mb-12">
             @Body
@@ -63,41 +63,15 @@
     </MudMainContent>
 </MudLayout>
 
-
-
 @code {
+    private const string DarkModeKey = "app_dark_mode";
+
     private bool _drawerOpen = true;
-    private bool _isDarkMode = false;
+    private bool _isDarkMode;
 
-    private void DrawerToggle()
+    private readonly MudTheme _currentTheme = new()
     {
-        _drawerOpen = !_drawerOpen;
-    }
-
-    // بازیابی تم ذخیره‌شده بعد از رندر اولیه کامپوننت
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        if (firstRender)
-        {
-            var savedTheme = await JS.InvokeAsync<string>("localStorage.getItem", "app_dark_mode");
-            if (bool.TryParse(savedTheme, out var isDark))
-            {
-                _isDarkMode = isDark;
-                StateHasChanged();
-            }
-        }
-    }
-
-    // متد ذخیره تغییر تم در localStorage
-    private async Task OnDarkModeToggled(bool value)
-    {
-        _isDarkMode = value;
-        await JS.InvokeVoidAsync("localStorage.setItem", "app_dark_mode", value.ToString().ToLower());
-    }
-
-    private readonly MudTheme _currentTheme = new MudTheme()
-    {
-        PaletteLight = new PaletteLight()
+        PaletteLight = new PaletteLight
         {
             Primary = "#2563EB",
             Secondary = "#0EA5E9",
@@ -110,7 +84,7 @@
             TextPrimary = "#0F172A",
             TableHover = "#F1F5F9"
         },
-        PaletteDark = new PaletteDark()
+        PaletteDark = new PaletteDark
         {
             Primary = "#3B82F6",
             Secondary = "#38BDF8",
@@ -122,10 +96,52 @@
             TextPrimary = "#F8FAFC",
             TableHover = "#334155"
         },
-        LayoutProperties = new LayoutProperties()
+        LayoutProperties = new LayoutProperties
         {
             DefaultBorderRadius = "8px"
         }
     };
-}
 
+    private void DrawerToggle() => _drawerOpen = !_drawerOpen;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (!firstRender)
+            return;
+
+        try
+        {
+            var savedTheme = await JS.InvokeAsync<string>("localStorage.getItem", DarkModeKey);
+            if (bool.TryParse(savedTheme, out var isDark) && isDark != _isDarkMode)
+            {
+                _isDarkMode = isDark;
+                StateHasChanged();
+            }
+        }
+        catch (InvalidOperationException)
+        {
+            // در prerender جاوااسکریپت در دسترس نیست
+        }
+    }
+
+    private async Task OnDarkModeToggled(bool value)
+    {
+        _isDarkMode = value;
+
+        try
+        {
+            await JS.InvokeVoidAsync("localStorage.setItem", DarkModeKey, value.ToString().ToLowerInvariant());
+        }
+        catch (InvalidOperationException)
+        {
+        }
+    }
+
+    private static string GetUserInitial(string? name)
+    {
+        if (string.IsNullOrWhiteSpace(name))
+            return "?";
+
+        return char.ToUpperInvariant(name.Trim()[0]).ToString();
+    }
+}
