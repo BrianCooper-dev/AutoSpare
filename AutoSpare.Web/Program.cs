@@ -9,6 +9,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using MudBlazor.Services;
 using Serilog;
+using System.Globalization;
+using Microsoft.AspNetCore.Localization;
 
 // Bootstrap logger:
 // برای ثبت خطاهایی که قبل از تکمیل راه‌اندازی برنامه رخ می‌دهند.
@@ -213,6 +215,21 @@ try
         await context.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
         return Results.Redirect("/login");
     });
+
+
+// تنظیم Culture فارسی
+    var defaultCulture = new CultureInfo("fa-IR");
+    defaultCulture.NumberFormat.NumberDecimalSeparator = "."; // برای جلوگیری از باگ ممیز در فیلدهای عددی و وب
+    defaultCulture.NumberFormat.CurrencyDecimalSeparator = ".";
+
+    var localizationOptions = new RequestLocalizationOptions
+    {
+        DefaultRequestCulture = new RequestCulture(defaultCulture),
+        SupportedCultures = new List<CultureInfo> { defaultCulture },
+        SupportedUICultures = new List<CultureInfo> { defaultCulture }
+    };
+
+    app.UseRequestLocalization(localizationOptions);
 
 
     // -------------------------------------------------------
