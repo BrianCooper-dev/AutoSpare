@@ -11,6 +11,7 @@ using MudBlazor.Services;
 using Serilog;
 using System.Globalization;
 using Microsoft.AspNetCore.Localization;
+using MudBlazor;
 
 // Bootstrap logger:
 // برای ثبت خطاهایی که قبل از تکمیل راه‌اندازی برنامه رخ می‌دهند.
@@ -80,7 +81,18 @@ try
 
     builder.Services.AddAuthorization();
 
-    builder.Services.AddMudServices();
+    builder.Services.AddMudServices(config =>
+    {
+        config.SnackbarConfiguration.PositionClass = Defaults.Classes.Position.BottomLeft; // یا BottomRight متناسب با سلیقه
+        config.SnackbarConfiguration.PreventDuplicates = true;
+        config.SnackbarConfiguration.NewestOnTop = true;
+        config.SnackbarConfiguration.ShowCloseIcon = true;
+        config.SnackbarConfiguration.VisibleStateDuration = 4000;
+        config.SnackbarConfiguration.HideTransitionDuration = 300;
+        config.SnackbarConfiguration.ShowTransitionDuration = 300;
+        config.SnackbarConfiguration.SnackbarVariant = Variant.Filled;
+    });
+
 
     // -------------------------------------------------------
     // Database (Infrastructure)
