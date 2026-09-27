@@ -263,7 +263,14 @@
             { x => x.Icon, category.IsActive ? Icons.Material.Filled.Block : Icons.Material.Filled.CheckCircle }
         };
 
-        var options = new DialogOptions { CloseButton = true, MaxWidth = MaxWidth.ExtraSmall };
+        var options = new DialogOptions
+        {
+            CloseButton = false,
+            CloseOnEscapeKey = true,
+            MaxWidth = MaxWidth.ExtraSmall,
+            FullWidth = true
+        };
+
         var dialog = await DialogService.ShowAsync<ConfirmDialog>("تأیید عملیات", parameters, options);
         var result = await dialog.Result;
 
