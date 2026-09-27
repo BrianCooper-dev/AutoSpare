@@ -1,0 +1,101 @@
+@using System.ComponentModel.DataAnnotations
+@using AutoSpare.Application.Brands.DTOs
+@using MudBlazor
+
+<MudDialog ContentClass="pa-4" Style="direction: rtl;">
+    <DialogContent>
+        <EditForm Model="@_formModel" OnValidSubmit="Submit">
+            <DataAnnotationsValidator/>
+            <MudGrid Spacing="3">
+                <MudItem xs="12">
+                    <MudTextField Label="نام برند *"
+                                  @bind-Value="_formModel.Name"
+                                  For="@(() => _formModel.Name)"
+                                  Variant="Variant.Outlined"
+                                  Margin="Margin.Dense"
+                                  MaxLength="100"
+                                  Counter="100"
+                                  Immediate="true"
+                                  AutoFocus="true"/>
+                </MudItem>
+                <MudItem xs="12">
+                    <MudTextField Label="کشور سازنده"
+                                  @bind-Value="_formModel.Country"
+                                  For="@(() => _formModel.Country)"
+                                  Variant="Variant.Outlined"
+                                  Margin="Margin.Dense"
+                                  MaxLength="60"
+                                  Counter="60"
+                                  Placeholder="مثلاً: آلمان، ژاپن، ایران، چین"/>
+                </MudItem>
+                <MudItem xs="12">
+                    <MudTextField Label="توضیحات"
+                                  @bind-Value="_formModel.Description"
+                                  For="@(() => _formModel.Description)"
+                                  Variant="Variant.Outlined"
+                                  Margin="Margin.Dense"
+                                  Lines="3"
+                                  MaxLength="300"
+                                  Counter="300"/>
+                </MudItem>
+            </MudGrid>
+        </EditForm>
+    </DialogContent>
+    <DialogActions>
+        <MudButton OnClick="Cancel" Variant="Variant.Text" Color="Color.Default">انصراف</MudButton>
+        <MudButton Color="Color.Primary"
+                   Variant="Variant.Filled"
+                   OnClick="Submit"
+                   Disabled="@(string.IsNullOrWhiteSpace(_formModel.Name))">
+            @(IsEditMode ? "ذخیره تغییرات" : "ثبت برند")
+        </MudButton>
+    </DialogActions>
+</MudDialog>
+
+@code {
+    [CascadingParameter] private IMudDialogInstance MudDialog { get; set; } = default!;
+
+    [Parameter] public BrandDto? ExistingBrand { get; set; }
+
+    private BrandFormModel _formModel = new();
+    private bool IsEditMode => ExistingBrand != null;
+
+    protected override void OnInitialized()
+    {
+        if (ExistingBrand != null)
+        {
+            _formModel = new BrandFormModel
+            {
+                Id = ExistingBrand.Id,
+                Name = ExistingBrand.Name,
+                Country = ExistingBrand.Country,
+                Description = ExistingBrand.Description
+            };
+        }
+    }
+
+    private void Submit()
+    {
+        if (string.IsNullOrWhiteSpace(_formModel.Name))
+            return;
+
+        MudDialog.Close(DialogResult.Ok(_formModel));
+    }
+
+    private void Cancel() => MudDialog.Cancel();
+
+    public class BrandFormModel
+    {
+        public Guid Id { get; set; }
+
+        [Required(ErrorMessage = "وارد کردن نام برند الزامی است.")]
+        [StringLength(100, ErrorMessage = "نام برند نمی‌تواند بیش از ۱۰۰ کاراکتر باشد.")]
+        public string Name { get; set; } = string.Empty;
+
+        [StringLength(60, ErrorMessage = "نام کشور نمی‌تواند بیش از ۶۰ کاراکتر باشد.")]
+        public string? Country { get; set; }
+
+        [StringLength(300, ErrorMessage = "توضیحات نمی‌تواند بیش از ۳۰۰ کاراکتر باشد.")]
+        public string? Description { get; set; }
+    }
+}

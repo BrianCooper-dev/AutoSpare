@@ -1,67 +1,71 @@
 ﻿@inherits LayoutComponentBase
 @inject IJSRuntime JS
 
-<MudThemeProvider @bind-IsDarkMode="@_isDarkMode" Theme="_currentTheme" />
-<MudPopoverProvider />
-<MudDialogProvider />
-<MudSnackbarProvider />
+<MudRTLProvider RightToLeft="true">
 
-<MudLayout RightToLeft="true">
-    <MudAppBar Elevation="2" Color="Color.Primary" Dense="false">
-        <MudIconButton Icon="@Icons.Material.Filled.Menu"
-                       Color="Color.Inherit"
-                       Edge="Edge.Start"
-                       OnClick="@DrawerToggle" />
+    <MudThemeProvider @bind-IsDarkMode="@_isDarkMode" Theme="_currentTheme"/>
+    <MudPopoverProvider/>
+    <MudDialogProvider/>
+    <MudSnackbarProvider/>
 
-        <MudText Typo="Typo.h6" Class="mr-3 font-weight-bold">
-            سامانه مدیریت قطعات یدکی و انبار | AutoSpare
-        </MudText>
-
-        <MudSpacer />
-
-        <MudToggleIconButton Toggled="@_isDarkMode"
-                             ToggledChanged="OnDarkModeToggled"
-                             Icon="@Icons.Material.Filled.DarkMode"
-                             Color="Color.Inherit"
-                             ToggledIcon="@Icons.Material.Filled.LightMode"
-                             ToggledColor="Color.Warning"
-                             Title="تغییر حالت شب/روز" />
-
-        <AuthorizeView>
-            <Authorized>
-                <div class="d-flex align-center mx-3">
-                    <MudAvatar Color="Color.Secondary" Size="Size.Small" Class="ml-2">
-                        @GetUserInitial(context.User.Identity?.Name)
-                    </MudAvatar>
-                    <MudText Typo="Typo.body2" Color="Color.Inherit">
-                        @context.User.Identity?.Name
-                    </MudText>
-                </div>
-            </Authorized>
-        </AuthorizeView>
-
-        <form method="post" action="/api/auth/logout" class="d-inline">
-            <MudIconButton ButtonType="ButtonType.Submit"
-                           Icon="@Icons.Material.Filled.Logout"
+    <MudLayout RightToLeft="true">
+        <MudAppBar Elevation="2" Color="Color.Primary" Dense="false">
+            <MudIconButton Icon="@Icons.Material.Filled.Menu"
                            Color="Color.Inherit"
-                           Title="خروج از سامانه" />
-        </form>
-    </MudAppBar>
+                           Edge="Edge.Start"
+                           OnClick="@DrawerToggle"/>
 
-    <MudDrawer @bind-Open="_drawerOpen"
-               Anchor="Anchor.Right"
-               ClipMode="DrawerClipMode.Always"
-               Elevation="3"
-               Variant="DrawerVariant.Responsive">
-        <NavMenu />
-    </MudDrawer>
+            <MudText Typo="Typo.h6" Class="mr-3 font-weight-bold">
+                سامانه مدیریت قطعات یدکی و انبار | AutoSpare
+            </MudText>
 
-    <MudMainContent>
-        <MudContainer MaxWidth="MaxWidth.ExtraLarge" Class="mt-6 mb-12">
-            @Body
-        </MudContainer>
-    </MudMainContent>
-</MudLayout>
+            <MudSpacer/>
+
+            <MudToggleIconButton Toggled="@_isDarkMode"
+                                 ToggledChanged="OnDarkModeToggled"
+                                 Icon="@Icons.Material.Filled.DarkMode"
+                                 Color="Color.Inherit"
+                                 ToggledIcon="@Icons.Material.Filled.LightMode"
+                                 ToggledColor="Color.Warning"
+                                 Title="تغییر حالت شب/روز"/>
+
+            <AuthorizeView>
+                <Authorized>
+                    <div class="d-flex align-center mx-3">
+                        <MudAvatar Color="Color.Secondary" Size="Size.Small" Class="ml-2">
+                            @GetUserInitial(context.User.Identity?.Name)
+                        </MudAvatar>
+                        <MudText Typo="Typo.body2" Color="Color.Inherit">
+                            @context.User.Identity?.Name
+                        </MudText>
+                    </div>
+                </Authorized>
+            </AuthorizeView>
+
+            <form method="post" action="/api/auth/logout" class="d-inline">
+                <MudIconButton ButtonType="ButtonType.Submit"
+                               Icon="@Icons.Material.Filled.Logout"
+                               Color="Color.Inherit"
+                               Title="خروج از سامانه"/>
+            </form>
+        </MudAppBar>
+
+        <MudDrawer @bind-Open="_drawerOpen"
+                   Anchor="Anchor.Right"
+                   ClipMode="DrawerClipMode.Always"
+                   Elevation="3"
+                   Variant="DrawerVariant.Responsive">
+            <NavMenu/>
+        </MudDrawer>
+
+        <MudMainContent>
+            <MudContainer MaxWidth="MaxWidth.ExtraLarge" Class="mt-6 mb-12">
+                @Body
+            </MudContainer>
+        </MudMainContent>
+    </MudLayout>
+</MudRTLProvider>
+
 
 @code {
     private const string DarkModeKey = "app_dark_mode";
@@ -144,4 +148,5 @@
 
         return char.ToUpperInvariant(name.Trim()[0]).ToString();
     }
+
 }

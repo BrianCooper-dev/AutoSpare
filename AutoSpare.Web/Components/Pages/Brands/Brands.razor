@@ -1,18 +1,19 @@
-@page "/categories"
+@page "/brands"
+
 @rendermode InteractiveServer
 @attribute [Authorize]
 
-@using AutoSpare.Application.Categories
-@using AutoSpare.Application.Categories.DTOs
+@using AutoSpare.Application.Brands
+@using AutoSpare.Application.Brands.DTOs
 @using AutoSpare.Application.Common.RightAligned
 @using AutoSpare.Web.Components.Common
 @using MudBlazor
 
-@inject ICategoryService CategoryService
+@inject IBrandService BrandService
 @inject IDialogService DialogService
 @inject ISnackbar Snackbar
 
-<PageTitle>مدیریت دسته‌بندی‌ها - اتواسپیر</PageTitle>
+<PageTitle>مدیریت برندها - اتواسپیر</PageTitle>
 
 <MudContainer MaxWidth="MaxWidth.ExtraLarge" Class="mt-4 mb-8">
     <MudCard Elevation="2" Class="pa-4">
@@ -20,14 +21,16 @@
             <CardHeaderContent>
                 <div class="d-flex align-center justify-space-between flex-wrap gap-2">
                     <div>
-                        <MudText Typo="Typo.h5" Class="font-weight-bold">مدیریت دسته‌بندی‌ها</MudText>
-                        <MudText Typo="Typo.body2" Class="mud-text-secondary mt-1">ایجاد، ویرایش، جستجو و فعال/غیرفعال‌سازی دسته‌بندی کالاها</MudText>
+                        <MudText Typo="Typo.h5" Class="font-weight-bold">مدیریت برندها</MudText>
+                        <MudText Typo="Typo.body2" Class="mud-text-secondary mt-1">ایجاد، ویرایش، جستجو و
+                            فعال/غیرفعال‌سازی برندها و شرکت‌های تولیدکننده
+                        </MudText>
                     </div>
                     <MudButton Variant="Variant.Filled"
                                Color="Color.Primary"
                                StartIcon="@Icons.Material.Filled.Add"
                                OnClick="OpenCreateDialog">
-                        دسته‌بندی جدید
+                        برند جدید
                     </MudButton>
                 </div>
             </CardHeaderContent>
@@ -38,7 +41,7 @@
             <div class="d-flex flex-wrap gap-4 align-center mb-4">
                 <MudTextField T="string"
                               @bind-Value="_searchTerm"
-                              Placeholder="جستجو در نام یا توضیحات..."
+                              Placeholder="جستجو در نام برند، کشور یا توضیحات..."
                               Adornment="Adornment.Start"
                               AdornmentIcon="@Icons.Material.Filled.Search"
                               IconSize="Size.Medium"
@@ -49,7 +52,7 @@
                               Immediate="false"
                               DebounceInterval="400"
                               OnDebounceIntervalElapsed="ReloadData"
-                              Class="flex-grow-1" />
+                              Class="flex-grow-1"/>
 
                 <MudSelect T="int"
                            Value="_selectedStatusFilter"
@@ -66,11 +69,11 @@
                 <MudIconButton Icon="@Icons.Material.Filled.Refresh"
                                Color="Color.Default"
                                OnClick="ReloadData"
-                               Title="بارگذاری مجدد" />
+                               Title="بارگذاری مجدد"/>
             </div>
 
-            <!-- جدول دسته‌بندی‌ها -->
-            <MudTable Items="@_categories"
+            <!-- جدول برندها -->
+            <MudTable Items="@_brands"
                       Dense="true"
                       Hover="true"
                       Bordered="false"
@@ -79,7 +82,8 @@
                       LoadingProgressColor="Color.Primary"
                       Elevation="0">
                 <HeaderContent>
-                    <MudTh>نام دسته‌بندی</MudTh>
+                    <MudTh>نام برند</MudTh>
+                    <MudTh>کشور سازنده</MudTh>
                     <MudTh>توضیحات</MudTh>
                     <MudTh Style="text-align: center;">تعداد کالاها</MudTh>
                     <MudTh Style="text-align: center;">وضعیت</MudTh>
@@ -87,8 +91,21 @@
                     <MudTh Style="text-align: center;">عملیات</MudTh>
                 </HeaderContent>
                 <RowTemplate>
-                    <MudTd DataLabel="نام دسته‌بندی">
+                    <MudTd DataLabel="نام برند">
                         <MudText Typo="Typo.body2" Class="font-weight-bold">@context.Name</MudText>
+                    </MudTd>
+                    <MudTd DataLabel="کشور سازنده">
+                        @if (!string.IsNullOrWhiteSpace(context.Country))
+                        {
+                            <MudChip T="string" Size="Size.Small" Variant="Variant.Outlined" Color="Color.Default"
+                                     Icon="@Icons.Material.Filled.Public">
+                                @context.Country
+                            </MudChip>
+                        }
+                        else
+                        {
+                            <MudText Typo="Typo.body2" Class="mud-text-secondary">—</MudText>
+                        }
                     </MudTd>
                     <MudTd DataLabel="توضیحات">
                         <MudText Typo="Typo.body2" Class="mud-text-secondary">
@@ -103,11 +120,13 @@
                     <MudTd DataLabel="وضعیت" Style="text-align: center;">
                         @if (context.IsActive)
                         {
-                            <MudChip T="string" Color="Color.Success" Size="Size.Small" Variant="Variant.Filled">فعال</MudChip>
+                            <MudChip T="string" Color="Color.Success" Size="Size.Small" Variant="Variant.Filled">فعال
+                            </MudChip>
                         }
                         else
                         {
-                            <MudChip T="string" Color="Color.Error" Size="Size.Small" Variant="Variant.Filled">غیرفعال</MudChip>
+                            <MudChip T="string" Color="Color.Error" Size="Size.Small" Variant="Variant.Filled">غیرفعال
+                            </MudChip>
                         }
                     </MudTd>
                     <MudTd DataLabel="تاریخ ایجاد" Style="text-align: center;">
@@ -117,26 +136,28 @@
                     </MudTd>
                     <MudTd DataLabel="عملیات" Style="text-align: center;">
                         <div class="d-flex justify-center gap-1">
-                            <MudTooltip Text="ویرایش دسته‌بندی">
+                            <MudTooltip Text="ویرایش برند">
                                 <MudIconButton Icon="@Icons.Material.Filled.Edit"
                                                Size="Size.Small"
                                                Color="Color.Primary"
-                                               OnClick="@(() => OpenEditDialog(context))" />
+                                               OnClick="@(() => OpenEditDialog(context))"/>
                             </MudTooltip>
 
                             <MudTooltip Text="@(context.IsActive ? "غیرفعال‌سازی" : "فعال‌سازی")">
-                                <MudIconButton Icon="@(context.IsActive ? Icons.Material.Filled.Block : Icons.Material.Filled.CheckCircleOutline)"
-                                               Size="Size.Small"
-                                               Color="@(context.IsActive ? Color.Warning : Color.Success)"
-                                               OnClick="@(() => ToggleCategoryStatus(context))" />
+                                <MudIconButton
+                                    Icon="@(context.IsActive ? Icons.Material.Filled.Block : Icons.Material.Filled.CheckCircleOutline)"
+                                    Size="Size.Small"
+                                    Color="@(context.IsActive ? Color.Warning : Color.Success)"
+                                    OnClick="@(() => ToggleBrandStatus(context))"/>
                             </MudTooltip>
                         </div>
                     </MudTd>
                 </RowTemplate>
                 <NoRecordsContent>
                     <div class="pa-6 text-center">
-                        <MudIcon Icon="@Icons.Material.Filled.Category" Size="Size.Large" Class="mud-text-secondary mb-2" />
-                        <MudText Typo="Typo.body1" Class="mud-text-secondary">هیچ دسته‌بندی‌ای یافت نشد.</MudText>
+                        <MudIcon Icon="@Icons.Material.Filled.BrandingWatermark" Size="Size.Large"
+                                 Class="mud-text-secondary mb-2"/>
+                        <MudText Typo="Typo.body1" Class="mud-text-secondary">هیچ برندی یافت نشد.</MudText>
                     </div>
                 </NoRecordsContent>
             </MudTable>
@@ -145,17 +166,17 @@
 </MudContainer>
 
 @code {
-    private List<CategoryDto> _categories = new();
+    private List<BrandDto> _brands = new();
     private bool _loading = true;
     private string _searchTerm = string.Empty;
     private int _selectedStatusFilter = 0;
 
     protected override async Task OnInitializedAsync()
     {
-        await LoadCategoriesAsync();
+        await LoadBrandsAsync();
     }
 
-    private async Task LoadCategoriesAsync()
+    private async Task LoadBrandsAsync()
     {
         _loading = true;
         try
@@ -167,7 +188,7 @@
                 _ => null
             };
 
-            _categories = await CategoryService.GetAllAsync(_searchTerm, activeFilter);
+            _brands = await BrandService.GetAllAsync(_searchTerm, activeFilter);
         }
         catch (Exception ex)
         {
@@ -181,86 +202,88 @@
 
     private async Task ReloadData()
     {
-        await LoadCategoriesAsync();
+        await LoadBrandsAsync();
     }
 
     private async Task OnStatusFilterChanged(int value)
     {
         _selectedStatusFilter = value;
-        await LoadCategoriesAsync();
+        await LoadBrandsAsync();
     }
 
     private async Task OpenCreateDialog()
     {
         var options = new DialogOptions { CloseOnEscapeKey = true, MaxWidth = MaxWidth.Small, FullWidth = true };
-        var dialog = await DialogService.ShowAsync<CategoryDialog>("افزودن دسته‌بندی", options);
+        var dialog = await DialogService.ShowAsync<BrandDialog>("افزودن برند", options);
         var result = await dialog.Result;
 
-        if (result != null && !result.Canceled && result.Data is CategoryDialog.CategoryFormModel model)
+        if (result != null && !result.Canceled && result.Data is BrandDialog.BrandFormModel model)
         {
-            var createModel = new CreateCategoryModel
+            var createModel = new CreateBrandModel
             {
                 Name = model.Name,
+                Country = model.Country,
                 Description = model.Description
             };
 
-            var (success, error, _) = await CategoryService.CreateAsync(createModel);
+            var (success, error, _) = await BrandService.CreateAsync(createModel);
             if (success)
             {
-                Snackbar.ShowSuccess("دسته‌بندی با موفقیت ایجاد شد.");
-                await LoadCategoriesAsync();
+                Snackbar.ShowSuccess("برند با موفقیت ثبت شد.");
+                await LoadBrandsAsync();
             }
             else
             {
-                Snackbar.ShowError(error ?? "خطا در ثبت اطلاعات.");
+                Snackbar.ShowError(error ?? "خطا در ثبت برند.");
             }
         }
     }
 
-    private async Task OpenEditDialog(CategoryDto category)
+    private async Task OpenEditDialog(BrandDto brand)
     {
-        var parameters = new DialogParameters<CategoryDialog>
+        var parameters = new DialogParameters<BrandDialog>
         {
-            { x => x.ExistingCategory, category }
+            { x => x.ExistingBrand, brand }
         };
 
         var options = new DialogOptions { CloseOnEscapeKey = true, MaxWidth = MaxWidth.Small, FullWidth = true };
-        var dialog = await DialogService.ShowAsync<CategoryDialog>("ویرایش دسته‌بندی", parameters, options);
+        var dialog = await DialogService.ShowAsync<BrandDialog>("ویرایش برند", parameters, options);
         var result = await dialog.Result;
 
-        if (result != null && !result.Canceled && result.Data is CategoryDialog.CategoryFormModel model)
+        if (result != null && !result.Canceled && result.Data is BrandDialog.BrandFormModel model)
         {
-            var updateModel = new UpdateCategoryModel
+            var updateModel = new UpdateBrandModel
             {
                 Id = model.Id,
                 Name = model.Name,
+                Country = model.Country,
                 Description = model.Description
             };
 
-            var (success, error) = await CategoryService.UpdateAsync(updateModel);
+            var (success, error) = await BrandService.UpdateAsync(updateModel);
             if (success)
             {
-                Snackbar.ShowSuccess("دسته‌بندی با موفقیت ویرایش شد.");
-                await LoadCategoriesAsync();
+                Snackbar.ShowSuccess("برند با موفقیت ویرایش شد.");
+                await LoadBrandsAsync();
             }
             else
             {
-                Snackbar.ShowError(error ?? "خطا در ویرایش اطلاعات.");
+                Snackbar.ShowError(error ?? "خطا در ویرایش برند.");
             }
         }
     }
 
-    private async Task ToggleCategoryStatus(CategoryDto category)
+    private async Task ToggleBrandStatus(BrandDto brand)
     {
-        var actionText = category.IsActive ? "غیرفعال" : "فعال";
+        var actionText = brand.IsActive ? "غیرفعال" : "فعال";
 
         var parameters = new DialogParameters<ConfirmDialog>
         {
-            { x => x.Title, $"{actionText} کردن دسته‌بندی" },
-            { x => x.ContentText, $"آیا از {actionText} کردن دسته‌بندی «{category.Name}» اطمینان دارید؟" },
+            { x => x.Title, $"{actionText} کردن برند" },
+            { x => x.ContentText, $"آیا از {actionText} کردن برند «{brand.Name}» اطمینان دارید؟" },
             { x => x.ConfirmButtonText, $"بله، {actionText} شود" },
-            { x => x.Color, category.IsActive ? Color.Warning : Color.Success },
-            { x => x.Icon, category.IsActive ? Icons.Material.Filled.Block : Icons.Material.Filled.CheckCircle }
+            { x => x.Color, brand.IsActive ? Color.Warning : Color.Success },
+            { x => x.Icon, brand.IsActive ? Icons.Material.Filled.Block : Icons.Material.Filled.CheckCircle }
         };
 
         var options = new DialogOptions
@@ -271,21 +294,23 @@
             FullWidth = true
         };
 
-        var dialog = await DialogService.ShowAsync<ConfirmDialog>("تأیید عملیات", parameters, options);
+        var dialog = await DialogService.ShowAsync<ConfirmDialog>(string.Empty, parameters, options);
         var result = await dialog.Result;
 
         if (result != null && !result.Canceled)
         {
-            var (success, error) = await CategoryService.ToggleStatusAsync(category.Id);
+            var (success, error) = await BrandService.ToggleStatusAsync(brand.Id);
             if (success)
             {
-                Snackbar.ShowSuccess($"دسته‌بندی با موفقیت {actionText} شد.");
-                await LoadCategoriesAsync();
+                Snackbar.ShowSuccess($"برند با موفقیت {actionText} شد.");
+                await LoadBrandsAsync();
             }
             else
             {
-                Snackbar.ShowError(error ?? $"خطا در {actionText} کردن دسته‌بندی.");
+                Snackbar.ShowError(error ?? $"خطا در {actionText} کردن برند.");
             }
         }
     }
+
 }
+
