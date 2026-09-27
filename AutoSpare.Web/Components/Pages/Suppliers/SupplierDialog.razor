@@ -1,0 +1,219 @@
+@using AutoSpare.Application.Suppliers
+@using AutoSpare.Application.Suppliers.DTOs
+@using MudBlazor
+
+@inject ISupplierService SupplierService
+@inject ISnackbar Snackbar
+
+<MudDialog>
+    <TitleContent>
+        <MudText Typo="Typo.h6">
+            <MudIcon Icon="@(IsEditMode ? Icons.Material.Filled.Edit : Icons.Material.Filled.AddCircle)"
+                     Class="mr-2 mb-n1" Color="Color.Primary"/>
+            @(IsEditMode ? "ویرایش تأمین‌کننده" : "ثبت تأمین‌کننده جدید")
+        </MudText>
+    </TitleContent>
+
+    <DialogContent>
+        <MudForm @ref="_form" @bind-IsValid="@_isValid">
+            <MudGrid Spacing="2">
+                <MudItem xs="12" sm="6">
+                    <MudTextField T="string"
+                                  Label="نام تأمین‌کننده *"
+                                  @bind-Value="_model.Name"
+                                  Required="true"
+                                  RequiredError="نام تأمین‌کننده الزامی است."
+                                  MaxLength="100"
+                                  Immediate="true"
+                                  Variant="Variant.Outlined"
+                                  Margin="Margin.Dense"/>
+                </MudItem>
+
+                <MudItem xs="12" sm="6">
+                    <MudTextField T="string"
+                                  Label="شماره همراه *"
+                                  @bind-Value="_model.Mobile"
+                                  Required="true"
+                                  RequiredError="شماره همراه الزامی است."
+                                  MaxLength="20"
+                                  Immediate="true"
+                                  Variant="Variant.Outlined"
+                                  Margin="Margin.Dense"/>
+                </MudItem>
+
+                <MudItem xs="12" sm="6">
+                    <MudTextField T="string"
+                                  Label="شخص رابط (اختیاری)"
+                                  @bind-Value="_model.ContactPerson"
+                                  MaxLength="100"
+                                  Variant="Variant.Outlined"
+                                  Margin="Margin.Dense"/>
+                </MudItem>
+
+                <MudItem xs="12" sm="6">
+                    <MudTextField T="string"
+                                  Label="تلفن ثابت (اختیاری)"
+                                  @bind-Value="_model.Phone"
+                                  MaxLength="20"
+                                  Variant="Variant.Outlined"
+                                  Margin="Margin.Dense"/>
+                </MudItem>
+
+                <MudItem xs="12" sm="6">
+                    <MudTextField T="string"
+                                  Label="ایمیل (اختیاری)"
+                                  @bind-Value="_model.Email"
+                                  MaxLength="100"
+                                  Variant="Variant.Outlined"
+                                  Margin="Margin.Dense"/>
+                </MudItem>
+
+                <MudItem xs="12" sm="6">
+                    <MudTextField T="string"
+                                  Label="کد اقتصادی (اختیاری)"
+                                  @bind-Value="_model.EconomicCode"
+                                  MaxLength="50"
+                                  Variant="Variant.Outlined"
+                                  Margin="Margin.Dense"/>
+                </MudItem>
+
+                <MudItem xs="12">
+                    <MudNumericField T="decimal"
+                                     Label="سقف اعتبار (تومان)"
+                                     @bind-Value="_model.CreditLimit"
+                                     Min="0"
+                                     Format="N0"
+                                     Variant="Variant.Outlined"
+                                     Margin="Margin.Dense"/>
+                </MudItem>
+
+                <MudItem xs="12">
+                    <MudTextField T="string"
+                                  Label="آدرس (اختیاری)"
+                                  @bind-Value="_model.Address"
+                                  Lines="2"
+                                  MaxLength="300"
+                                  Variant="Variant.Outlined"
+                                  Margin="Margin.Dense"/>
+                </MudItem>
+            </MudGrid>
+        </MudForm>
+    </DialogContent>
+
+    <DialogActions>
+        <MudButton OnClick="Cancel" Variant="Variant.Text" Color="Color.Default">انصراف</MudButton>
+        <MudButton OnClick="SubmitAsync" Variant="Variant.Filled" Color="Color.Primary"
+                   Disabled="@(!_isValid || _isSubmitting)">
+            @if (_isSubmitting)
+            {
+                <MudProgressCircular Class="ms-n1" Size="Size.Small" Indeterminate="true"/>
+                <span class="ms-2">در حال ذخیره...</span>
+            }
+            else
+            {
+                <span>ذخیره اطلاعات</span>
+            }
+        </MudButton>
+    </DialogActions>
+</MudDialog>
+
+@code {
+    [CascadingParameter] private IMudDialogInstance MudDialog { get; set; } = default!;
+
+    [Parameter] public SupplierDto? ExistingSupplier { get; set; }
+
+    private MudForm _form = default!;
+    private bool _isValid;
+    private bool _isSubmitting;
+    private bool IsEditMode => ExistingSupplier is not null;
+
+    private FormModel _model = new();
+
+    protected override void OnInitialized()
+    {
+        if (ExistingSupplier is not null)
+        {
+            _model = new FormModel
+            {
+                Id = ExistingSupplier.Id,
+                Name = ExistingSupplier.Name,
+                Mobile = ExistingSupplier.Mobile,
+                ContactPerson = ExistingSupplier.ContactPerson,
+                Phone = ExistingSupplier.Phone,
+                Email = ExistingSupplier.Email,
+                Address = ExistingSupplier.Address,
+                EconomicCode = ExistingSupplier.EconomicCode,
+                CreditLimit = ExistingSupplier.CreditLimit
+            };
+        }
+    }
+
+    private void Cancel() => MudDialog.Cancel();
+
+    private async Task SubmitAsync()
+    {
+        await _form.Validate();
+        if (!_isValid) return;
+
+        try
+        {
+            _isSubmitting = true;
+
+            if (IsEditMode)
+            {
+                await SupplierService.UpdateAsync(new UpdateSupplierModel
+                {
+                    Id = _model.Id,
+                    Name = _model.Name,
+                    Mobile = _model.Mobile,
+                    ContactPerson = _model.ContactPerson,
+                    Phone = _model.Phone,
+                    Email = _model.Email,
+                    Address = _model.Address,
+                    EconomicCode = _model.EconomicCode,
+                    CreditLimit = _model.CreditLimit
+                });
+                Snackbar.Add("تأمین‌کننده با موفقیت ویرایش شد.", Severity.Success);
+            }
+            else
+            {
+                await SupplierService.CreateAsync(new CreateSupplierModel
+                {
+                    Name = _model.Name,
+                    Mobile = _model.Mobile,
+                    ContactPerson = _model.ContactPerson,
+                    Phone = _model.Phone,
+                    Email = _model.Email,
+                    Address = _model.Address,
+                    EconomicCode = _model.EconomicCode,
+                    CreditLimit = _model.CreditLimit
+                });
+                Snackbar.Add("تأمین‌کننده با موفقیت ثبت شد.", Severity.Success);
+            }
+
+            MudDialog.Close(DialogResult.Ok(true));
+        }
+        catch (Exception ex)
+        {
+            Snackbar.Add(ex.Message, Severity.Error);
+        }
+        finally
+        {
+            _isSubmitting = false;
+        }
+    }
+
+    private class FormModel
+    {
+        public Guid Id { get; set; }
+        public string Name { get; set; } = string.Empty;
+        public string Mobile { get; set; } = string.Empty;
+        public string? ContactPerson { get; set; }
+        public string? Phone { get; set; }
+        public string? Email { get; set; }
+        public string? Address { get; set; }
+        public string? EconomicCode { get; set; }
+        public decimal CreditLimit { get; set; }
+    }
+
+}
