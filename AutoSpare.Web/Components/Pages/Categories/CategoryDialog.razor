@@ -1,0 +1,92 @@
+@using AutoSpare.Application.Categories.DTOs
+@using MudBlazor
+
+<MudDialog>
+    <TitleContent>
+        <MudText Typo="Typo.h6">
+            <MudIcon Icon="@(IsEditMode ? Icons.Material.Filled.Edit : Icons.Material.Filled.AddCircle)" Class="mr-2 mb-n1" Color="Color.Primary" />
+            @(IsEditMode ? "ویرایش دسته‌بندی" : "افزودن دسته‌بندی جدید")
+        </MudText>
+    </TitleContent>
+    <DialogContent>
+        <MudForm @ref="_form" @bind-IsValid="@_isValid">
+            <MudTextField T="string"
+                          Label="نام دسته‌بندی *"
+                          @bind-Value="Model.Name"
+                          Required="true"
+                          RequiredError="نام دسته‌بندی الزامی است."
+                          MaxLength="100"
+                          Counter="100"
+                          Immediate="true"
+                          Variant="Variant.Outlined"
+                          Margin="Margin.Dense"
+                          Class="mb-3" />
+
+            <MudTextField T="string"
+                          Label="توضیحات (اختیاری)"
+                          @bind-Value="Model.Description"
+                          Lines="3"
+                          MaxLength="300"
+                          Counter="300"
+                          Variant="Variant.Outlined"
+                          Margin="Margin.Dense" />
+        </MudForm>
+    </DialogContent>
+    <DialogActions>
+        <MudButton OnClick="Cancel" Variant="Variant.Text" Color="Color.Default">انصراف</MudButton>
+        <MudButton OnClick="Submit" Variant="Variant.Filled" Color="Color.Primary" Disabled="@(!_isValid || _isSubmitting)">
+            @if (_isSubmitting)
+            {
+                <MudProgressCircular Class="ms-n1" Size="Size.Small" Indeterminate="true" />
+                <span class="ms-2">در حال ذخیره...</span>
+            }
+            else
+            {
+                <span>ذخیره اطلاعات</span>
+            }
+        </MudButton>
+    </DialogActions>
+</MudDialog>
+
+@code {
+    [CascadingParameter]
+    private IMudDialogInstance MudDialog { get; set; } = default!;
+
+    [Parameter]
+    public CategoryDto? ExistingCategory { get; set; }
+
+    private MudForm _form = default!;
+    private bool _isValid;
+    private bool _isSubmitting;
+    private bool IsEditMode => ExistingCategory is not null;
+
+    private CategoryFormModel Model { get; set; } = new();
+
+    protected override void OnInitialized()
+    {
+        if (ExistingCategory is not null)
+        {
+            Model.Id = ExistingCategory.Id;
+            Model.Name = ExistingCategory.Name;
+            Model.Description = ExistingCategory.Description;
+        }
+    }
+
+    private void Cancel() => MudDialog.Cancel();
+
+    private async Task Submit()
+    {
+        await _form.Validate();
+        if (!_isValid) return;
+
+        _isSubmitting = true;
+        MudDialog.Close(DialogResult.Ok(Model));
+    }
+
+    public class CategoryFormModel
+    {
+        public Guid Id { get; set; }
+        public string Name { get; set; } = string.Empty;
+        public string? Description { get; set; }
+    }
+}
