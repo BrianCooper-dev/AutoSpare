@@ -556,3 +556,96 @@
 2026-09-27 13:19:28.527 +03:30 [INF] HTTP GET /_blazor responded 101 in 64342.2699 ms 
 2026-09-27 13:19:28.527 +03:30 [INF] HTTP GET /_blazor responded 101 in 61706.7176 ms 
 2026-09-27 13:19:28.527 +03:30 [INF] HTTP GET /_blazor responded 101 in 61756.9594 ms 
+2026-09-27 13:48:03.346 +03:30 [WRN] The foreign key property 'Product.BrandId1' was created in shadow state because a conflicting property with the simple name 'BrandId' exists in the entity type, but is either not mapped, is already used for another relationship, or is incompatible with the associated primary key type. See https://aka.ms/efcore-relationships for information on mapping relationships in EF Core. 
+2026-09-27 13:48:03.378 +03:30 [WRN] The foreign key property 'Product.CategoryId1' was created in shadow state because a conflicting property with the simple name 'CategoryId' exists in the entity type, but is either not mapped, is already used for another relationship, or is incompatible with the associated primary key type. See https://aka.ms/efcore-relationships for information on mapping relationships in EF Core. 
+2026-09-27 13:48:04.195 +03:30 [INF] Storage directories are ready. ImagesPath: D:\porograming\Rider\AutoSpare\AutoSpare.Web\wwwroot\Uploads\Images, BackupPath: D:\AutoSpareBackups 
+2026-09-27 13:48:04.807 +03:30 [INF] Home page loaded at "2026-09-27T13:48:04.8063097+03:30" 
+2026-09-27 13:48:04.811 +03:30 [WRN] This is a test warning from Home page. 
+2026-09-27 13:48:04.972 +03:30 [INF] HTTP GET / responded 200 in 423.2516 ms 
+2026-09-27 13:48:05.008 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 1.4674 ms 
+2026-09-27 13:48:05.020 +03:30 [INF] HTTP GET /app.css responded 200 in 15.4626 ms 
+2026-09-27 13:48:05.022 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 16.3648 ms 
+2026-09-27 13:48:05.024 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 25.3305 ms 
+2026-09-27 13:48:05.124 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 3.7373 ms 
+2026-09-27 13:48:05.124 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 4.1306 ms 
+2026-09-27 13:48:05.137 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 7.8293 ms 
+2026-09-27 13:48:05.161 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 8.5717 ms 
+2026-09-27 13:48:05.368 +03:30 [INF] Home page loaded at "2026-09-27T13:48:05.3677945+03:30" 
+2026-09-27 13:48:05.368 +03:30 [WRN] This is a test warning from Home page. 
+2026-09-27 13:49:47.602 +03:30 [INF] HTTP GET /products responded 404 in 0.6790 ms 
+2026-09-27 13:49:47.642 +03:30 [INF] HTTP GET /not-found responded 404 in 16.8289 ms 
+2026-09-27 13:49:47.664 +03:30 [INF] HTTP GET /app.css responded 200 in 4.0787 ms 
+2026-09-27 13:49:47.665 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 1.0812 ms 
+2026-09-27 13:49:47.673 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 1.8364 ms 
+2026-09-27 13:49:47.676 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 4.5464 ms 
+2026-09-27 13:49:47.679 +03:30 [INF] HTTP GET /_blazor responded 101 in 102509.5663 ms 
+2026-09-27 13:49:47.700 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 47.6996 ms 
+2026-09-27 13:49:47.714 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 0.3952 ms 
+2026-09-27 13:49:47.714 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.4591 ms 
+2026-09-27 13:49:47.732 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 0.6185 ms 
+2026-09-27 13:49:47.739 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.8478 ms 
+2026-09-27 13:50:00.275 +03:30 [INF] HTTP GET /sales responded 404 in 0.5923 ms 
+2026-09-27 13:50:00.292 +03:30 [INF] HTTP GET /not-found responded 404 in 9.6834 ms 
+2026-09-27 13:50:00.305 +03:30 [INF] HTTP GET /_blazor responded 101 in 12546.5893 ms 
+2026-09-27 13:50:00.310 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 0.5619 ms 
+2026-09-27 13:50:00.316 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 11.2423 ms 
+2026-09-27 13:50:00.316 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 6.4116 ms 
+2026-09-27 13:50:00.316 +03:30 [INF] HTTP GET /app.css responded 200 in 6.4950 ms 
+2026-09-27 13:50:00.320 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 10.4408 ms 
+2026-09-27 13:50:00.325 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.6557 ms 
+2026-09-27 13:50:00.326 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 0.6645 ms 
+2026-09-27 13:50:00.353 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 0.4360 ms 
+2026-09-27 13:50:00.363 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.7582 ms 
+2026-09-27 13:58:25.484 +03:30 [INF] HTTP GET /_blazor responded 101 in 505106.4637 ms 
+2026-09-27 13:58:40.571 +03:30 [WRN] The foreign key property 'Product.BrandId1' was created in shadow state because a conflicting property with the simple name 'BrandId' exists in the entity type, but is either not mapped, is already used for another relationship, or is incompatible with the associated primary key type. See https://aka.ms/efcore-relationships for information on mapping relationships in EF Core. 
+2026-09-27 13:58:40.598 +03:30 [WRN] The foreign key property 'Product.CategoryId1' was created in shadow state because a conflicting property with the simple name 'CategoryId' exists in the entity type, but is either not mapped, is already used for another relationship, or is incompatible with the associated primary key type. See https://aka.ms/efcore-relationships for information on mapping relationships in EF Core. 
+2026-09-27 13:58:41.432 +03:30 [INF] Storage directories are ready. ImagesPath: D:\porograming\Rider\AutoSpare\AutoSpare.Web\wwwroot\Uploads\Images, BackupPath: D:\AutoSpareBackups 
+2026-09-27 13:58:41.743 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 45.9251 ms 
+2026-09-27 13:58:41.743 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 22.5905 ms 
+2026-09-27 13:58:41.739 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 41.1306 ms 
+2026-09-27 13:58:41.739 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 39.2320 ms 
+2026-09-27 13:58:41.743 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 45.9134 ms 
+2026-09-27 13:58:41.739 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 39.3620 ms 
+2026-09-27 13:58:41.755 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 5.3567 ms 
+2026-09-27 13:58:41.977 +03:30 [INF] Home page loaded at "2026-09-27T13:58:41.9746279+03:30" 
+2026-09-27 13:58:41.978 +03:30 [WRN] This is a test warning from Home page. 
+2026-09-27 13:58:42.139 +03:30 [INF] HTTP GET / responded 200 in 442.3700 ms 
+2026-09-27 13:58:42.168 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 4.4847 ms 
+2026-09-27 13:58:42.180 +03:30 [INF] HTTP GET /app.css responded 200 in 22.6624 ms 
+2026-09-27 13:58:42.185 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 22.4276 ms 
+2026-09-27 13:58:42.240 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 48.0414 ms 
+2026-09-27 13:58:42.245 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 0.8014 ms 
+2026-09-27 13:58:42.245 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.7113 ms 
+2026-09-27 13:58:42.261 +03:30 [INF] HTTP GET /_blazor responded 101 in 467.3783 ms 
+2026-09-27 13:58:42.280 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.3790 ms 
+2026-09-27 13:58:42.290 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 10.4565 ms 
+2026-09-27 13:58:42.292 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 0.7908 ms 
+2026-09-27 13:58:42.317 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.9932 ms 
+2026-09-27 13:58:42.467 +03:30 [INF] HTTP GET /suppliers responded 200 in 622.6568 ms 
+2026-09-27 13:58:42.467 +03:30 [INF] HTTP GET /categories responded 200 in 634.3723 ms 
+2026-09-27 13:58:42.467 +03:30 [INF] HTTP GET /brands responded 200 in 162.5861 ms 
+2026-09-27 13:58:42.480 +03:30 [INF] HTTP GET /_blazor responded 101 in 722.6846 ms 
+2026-09-27 13:58:42.484 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 2.0860 ms 
+2026-09-27 13:58:42.489 +03:30 [INF] HTTP GET /_blazor responded 101 in 230.8771 ms 
+2026-09-27 13:58:42.491 +03:30 [INF] HTTP GET /app.css responded 200 in 1.6520 ms 
+2026-09-27 13:58:42.498 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 4.6480 ms 
+2026-09-27 13:58:42.503 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 0.6523 ms 
+2026-09-27 13:58:42.508 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 2.2572 ms 
+2026-09-27 13:58:42.508 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 0.5646 ms 
+2026-09-27 13:58:42.519 +03:30 [INF] HTTP GET /app.css responded 200 in 12.5510 ms 
+2026-09-27 13:58:42.519 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 11.2158 ms 
+2026-09-27 13:58:42.522 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 3.2746 ms 
+2026-09-27 13:58:42.529 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 1.0208 ms 
+2026-09-27 13:58:42.539 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.5051 ms 
+2026-09-27 13:58:42.562 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 0.7680 ms 
+2026-09-27 13:58:42.570 +03:30 [INF] Home page loaded at "2026-09-27T13:58:42.5705207+03:30" 
+2026-09-27 13:58:42.571 +03:30 [WRN] This is a test warning from Home page. 
+2026-09-27 13:58:42.571 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.5981 ms 
+2026-09-27 13:58:42.584 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 9.6393 ms 
+2026-09-27 13:58:42.604 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 2.1964 ms 
+2026-09-27 13:58:42.611 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.5590 ms 
+2026-09-27 13:58:42.788 +03:30 [INF] HTTP GET /_blazor responded 101 in 158.2230 ms 
+2026-09-27 13:58:42.806 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 20.5972 ms 
+2026-09-27 13:58:43.253 +03:30 [INF] HTTP GET /_blazor responded 101 in 671.6231 ms 
+2026-09-27 13:58:43.254 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 3.2227 ms 
+2026-09-27 13:59:49.636 +03:30 [INF] HTTP GET /_blazor responded 101 in 67256.1297 ms 
