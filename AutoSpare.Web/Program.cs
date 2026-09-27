@@ -10,6 +10,7 @@ using Microsoft.Extensions.Options;
 using MudBlazor.Services;
 using Serilog;
 using System.Globalization;
+using AutoSpare.Application.Categories;
 using Microsoft.AspNetCore.Localization;
 using MudBlazor;
 
@@ -53,6 +54,8 @@ try
 
     builder.Services
         .AddSingleton<IPasswordHasher, AutoSpare.Infrastructure.Services.PasswordHasherService>();
+
+    builder.Services.AddScoped<ICategoryService, AutoSpare.Infrastructure.Services.CategoryService>();
 
     // -------------------------------------------------------
     // Blazor UI Services
