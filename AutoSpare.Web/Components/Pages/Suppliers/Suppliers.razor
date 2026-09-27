@@ -1,0 +1,274 @@
+@page "/suppliers"
+@rendermode InteractiveServer
+@attribute [Authorize]
+
+@using AutoSpare.Application.Suppliers
+@using AutoSpare.Application.Suppliers.DTOs
+@using AutoSpare.Web.Components.Common
+@using MudBlazor
+
+@inject ISupplierService SupplierService
+@inject IDialogService DialogService
+@inject ISnackbar Snackbar
+
+<PageTitle>مدیریت تأمین‌کنندگان - اتواسپیر</PageTitle>
+
+<MudContainer MaxWidth="MaxWidth.ExtraLarge" Class="mt-4 mb-8">
+    <MudCard Elevation="2" Class="pa-4">
+        <MudCardHeader>
+            <CardHeaderContent>
+                <div class="d-flex align-center justify-space-between flex-wrap gap-2">
+                    <div>
+                        <MudText Typo="Typo.h5" Class="font-weight-bold">مدیریت تأمین‌کنندگان</MudText>
+                        <MudText Typo="Typo.body2" Class="mud-text-secondary mt-1">فهرست، اطلاعات تماس، سقف اعتبار و
+                            فعال/غیرفعال‌سازی تأمین‌کنندگان قطعات
+                        </MudText>
+                    </div>
+                    <MudButton Variant="Variant.Filled"
+                               Color="Color.Primary"
+                               StartIcon="@Icons.Material.Filled.Add"
+                               OnClick="OpenCreateDialog">
+                        تأمین‌کننده جدید
+                    </MudButton>
+                </div>
+            </CardHeaderContent>
+        </MudCardHeader>
+
+        <MudCardContent>
+            <!-- بخش فیلترها و جستجو (دقیقاً هماهنگ با بخش دسته‌بندی‌ها) -->
+            <div class="d-flex flex-wrap gap-4 align-center mb-4">
+                <MudTextField T="string"
+                              @bind-Value="_searchTerm"
+                              Placeholder="جستجو در نام، شخص رابط، موبایل، تلفن و کد اقتصادی..."
+                              Adornment="Adornment.Start"
+                              AdornmentIcon="@Icons.Material.Filled.Search"
+                              IconSize="Size.Medium"
+                              Variant="Variant.Outlined"
+                              Margin="Margin.Dense"
+                              Clearable="true"
+                              OnClearButtonClick="ReloadData"
+                              Immediate="false"
+                              DebounceInterval="400"
+                              OnDebounceIntervalElapsed="ReloadData"
+                              Class="flex-grow-1"/>
+
+                <MudSelect T="int"
+                           Value="_selectedStatusFilter"
+                           ValueChanged="OnStatusFilterChanged"
+                           Label="وضعیت"
+                           Variant="Variant.Outlined"
+                           Margin="Margin.Dense"
+                           Style="min-width: 170px;">
+                    <MudSelectItem Value="0">همه وضعیت‌ها</MudSelectItem>
+                    <MudSelectItem Value="1">فقط فعال‌ها</MudSelectItem>
+                    <MudSelectItem Value="2">فقط غیرفعال‌ها</MudSelectItem>
+                </MudSelect>
+
+                <MudIconButton Icon="@Icons.Material.Filled.Refresh"
+                               Color="Color.Default"
+                               OnClick="ReloadData"
+                               Title="بارگذاری مجدد"/>
+            </div>
+
+            <!-- جدول تأمین‌کنندگان -->
+            <MudTable Items="@_suppliers"
+                      Dense="true"
+                      Hover="true"
+                      Bordered="false"
+                      Striped="true"
+                      Loading="@_loading"
+                      LoadingProgressColor="Color.Primary"
+                      Elevation="0">
+                <HeaderContent>
+                    <MudTh>نام تأمین‌کننده</MudTh>
+                    <MudTh>شخص رابط</MudTh>
+                    <MudTh Style="text-align: center;">شماره همراه</MudTh>
+                    <MudTh Style="text-align: center;">تلفن ثابت</MudTh>
+                    <MudTh Style="text-align: center;">سقف اعتبار</MudTh>
+                    <MudTh Style="text-align: center;">وضعیت</MudTh>
+                    <MudTh Style="text-align: center;">عملیات</MudTh>
+                </HeaderContent>
+                <RowTemplate>
+                    <MudTd DataLabel="نام تأمین‌کننده">
+                        <MudText Typo="Typo.body2" Class="font-weight-bold">@context.Name</MudText>
+                        @if (!string.IsNullOrEmpty(context.EconomicCode))
+                        {
+                            <MudText Typo="Typo.caption" Class="mud-text-secondary">کد
+                                اقتصادی: @context.EconomicCode</MudText>
+                        }
+                    </MudTd>
+                    <MudTd DataLabel="شخص رابط">
+                        <MudText
+                            Typo="Typo.body2">@(string.IsNullOrWhiteSpace(context.ContactPerson) ? "—" : context.ContactPerson)</MudText>
+                    </MudTd>
+                    <MudTd DataLabel="شماره همراه" Style="text-align: center;">
+                        <MudChip T="string" Size="Size.Small" Variant="Variant.Outlined" Color="Color.Info">
+                            @context.Mobile
+                        </MudChip>
+                    </MudTd>
+                    <MudTd DataLabel="تلفن ثابت" Style="text-align: center;">
+                        <MudText
+                            Typo="Typo.body2">@(string.IsNullOrWhiteSpace(context.Phone) ? "—" : context.Phone)</MudText>
+                    </MudTd>
+                    <MudTd DataLabel="سقف اعتبار" Style="text-align: center;">
+                        <MudText Typo="Typo.body2" Class="font-weight-bold">@context.CreditLimit.ToString("N0") تومان
+                        </MudText>
+                    </MudTd>
+                    <MudTd DataLabel="وضعیت" Style="text-align: center;">
+                        @if (context.IsActive)
+                        {
+                            <MudChip T="string" Color="Color.Success" Size="Size.Small" Variant="Variant.Filled">فعال
+                            </MudChip>
+                        }
+                        else
+                        {
+                            <MudChip T="string" Color="Color.Error" Size="Size.Small" Variant="Variant.Filled">غیرفعال
+                            </MudChip>
+                        }
+                    </MudTd>
+                    <MudTd DataLabel="عملیات" Style="text-align: center;">
+                        <div class="d-flex justify-center gap-1">
+                            <MudTooltip Text="ویرایش تأمین‌کننده">
+                                <MudIconButton Icon="@Icons.Material.Filled.Edit"
+                                               Size="Size.Small"
+                                               Color="Color.Primary"
+                                               OnClick="@(() => OpenEditDialog(context))"/>
+                            </MudTooltip>
+
+                            <MudTooltip Text="@(context.IsActive ? "غیرفعال‌سازی" : "فعال‌سازی")">
+                                <MudIconButton
+                                    Icon="@(context.IsActive ? Icons.Material.Filled.Block : Icons.Material.Filled.CheckCircleOutline)"
+                                    Size="Size.Small"
+                                    Color="@(context.IsActive ? Color.Warning : Color.Success)"
+                                    OnClick="@(() => ToggleSupplierStatus(context))"/>
+                            </MudTooltip>
+                        </div>
+                    </MudTd>
+                </RowTemplate>
+                <NoRecordsContent>
+                    <div class="pa-6 text-center">
+                        <MudIcon Icon="@Icons.Material.Filled.LocalShipping" Size="Size.Large"
+                                 Class="mud-text-secondary mb-2"/>
+                        <MudText Typo="Typo.body1" Class="mud-text-secondary">هیچ تأمین‌کننده‌ای یافت نشد.</MudText>
+                    </div>
+                </NoRecordsContent>
+            </MudTable>
+        </MudCardContent>
+    </MudCard>
+</MudContainer>
+
+@code {
+    private List<SupplierDto> _suppliers = new();
+    private bool _loading = true;
+    private string _searchTerm = string.Empty;
+    private int _selectedStatusFilter = 0;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadSuppliersAsync();
+    }
+
+    private async Task LoadSuppliersAsync()
+    {
+        _loading = true;
+        try
+        {
+            bool? activeFilter = _selectedStatusFilter switch
+            {
+                1 => true,
+                2 => false,
+                _ => null
+            };
+
+            _suppliers = await SupplierService.GetAllAsync(_searchTerm, activeFilter);
+        }
+        catch (Exception ex)
+        {
+            Snackbar.Add($"خطا در بارگذاری اطلاعات: {ex.Message}", Severity.Error);
+        }
+        finally
+        {
+            _loading = false;
+        }
+    }
+
+    private async Task ReloadData()
+    {
+        await LoadSuppliersAsync();
+    }
+
+    private async Task OnStatusFilterChanged(int value)
+    {
+        _selectedStatusFilter = value;
+        await LoadSuppliersAsync();
+    }
+
+    private async Task OpenCreateDialog()
+    {
+        var options = new DialogOptions { CloseOnEscapeKey = true, MaxWidth = MaxWidth.Small, FullWidth = true };
+        var dialog = await DialogService.ShowAsync<SupplierDialog>("ثبت تأمین‌کننده جدید", options);
+        var result = await dialog.Result;
+
+        if (result != null && !result.Canceled)
+        {
+            await LoadSuppliersAsync();
+        }
+    }
+
+    private async Task OpenEditDialog(SupplierDto supplier)
+    {
+        var parameters = new DialogParameters<SupplierDialog>
+        {
+            { x => x.ExistingSupplier, supplier }
+        };
+
+        var options = new DialogOptions { CloseOnEscapeKey = true, MaxWidth = MaxWidth.Small, FullWidth = true };
+        var dialog = await DialogService.ShowAsync<SupplierDialog>("ویرایش تأمین‌کننده", parameters, options);
+        var result = await dialog.Result;
+
+        if (result != null && !result.Canceled)
+        {
+            await LoadSuppliersAsync();
+        }
+    }
+
+    private async Task ToggleSupplierStatus(SupplierDto supplier)
+    {
+        var actionText = supplier.IsActive ? "غیرفعال" : "فعال";
+
+        var parameters = new DialogParameters<ConfirmDialog>
+        {
+            { x => x.Title, $"{actionText} کردن تأمین‌کننده" },
+            { x => x.ContentText, $"آیا از {actionText} کردن تأمین‌کننده «{supplier.Name}» اطمینان دارید؟" },
+            { x => x.ConfirmButtonText, $"بله، {actionText} شود" },
+            { x => x.Color, supplier.IsActive ? Color.Warning : Color.Success },
+            { x => x.Icon, supplier.IsActive ? Icons.Material.Filled.Block : Icons.Material.Filled.CheckCircle }
+        };
+
+        var options = new DialogOptions
+        {
+            CloseButton = false,
+            CloseOnEscapeKey = true,
+            MaxWidth = MaxWidth.ExtraSmall,
+            FullWidth = true
+        };
+
+        var dialog = await DialogService.ShowAsync<ConfirmDialog>("تأیید عملیات", parameters, options);
+        var result = await dialog.Result;
+
+        if (result != null && !result.Canceled)
+        {
+            try
+            {
+                await SupplierService.ToggleStatusAsync(supplier.Id);
+                Snackbar.Add($"تأمین‌کننده با موفقیت {actionText} شد.", Severity.Success);
+                await LoadSuppliersAsync();
+            }
+            catch (Exception ex)
+            {
+                Snackbar.Add($"خطا در {actionText} کردن تأمین‌کننده: {ex.Message}", Severity.Error);
+            }
+        }
+    }
+
+}

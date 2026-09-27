@@ -12,6 +12,7 @@ using Serilog;
 using System.Globalization;
 using AutoSpare.Application.Brands;
 using AutoSpare.Application.Categories;
+using AutoSpare.Application.Suppliers;
 using AutoSpare.Infrastructure.Services;
 using Microsoft.AspNetCore.Localization;
 using MudBlazor;
@@ -61,6 +62,7 @@ try
 
     builder.Services.AddScoped<IBrandService, BrandService>();
 
+    builder.Services.AddScoped<ISupplierService, SupplierService>();
 
     // -------------------------------------------------------
     // Blazor UI Services
@@ -91,7 +93,8 @@ try
 
     builder.Services.AddMudServices(config =>
     {
-        config.SnackbarConfiguration.PositionClass = Defaults.Classes.Position.BottomLeft; // یا BottomRight متناسب با سلیقه
+        config.SnackbarConfiguration.PositionClass =
+            Defaults.Classes.Position.BottomLeft; // یا BottomRight متناسب با سلیقه
         config.SnackbarConfiguration.PreventDuplicates = true;
         config.SnackbarConfiguration.NewestOnTop = true;
         config.SnackbarConfiguration.ShowCloseIcon = true;
