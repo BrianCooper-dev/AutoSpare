@@ -1,0 +1,276 @@
+@page "/products/create"
+@using AutoSpare.Application.Products
+@using AutoSpare.Application.Products.DTOs
+@inject IProductService ProductService
+@inject ISnackbar Snackbar
+@inject NavigationManager Navigation
+
+<MudContainer MaxWidth="MaxWidth.Medium" Class="mt-6 mb-10">
+    <MudCard Elevation="3" Class="rounded-lg">
+        <MudCardHeader>
+            <CardHeaderAvatar>
+                <MudAvatar Color="Color.Primary" Variant="Variant.Filled">
+                    <MudIcon Icon="@Icons.Material.Filled.AddShoppingCart"/>
+                </MudAvatar>
+            </CardHeaderAvatar>
+            <CardHeaderContent>
+                <MudText Typo="Typo.h6">تعریف کالای جدید</MudText>
+                <MudText Typo="Typo.caption" Color="Color.Secondary">مشخصات پایه، قیمت‌گذاری و تنظیمات موجودی اولیه
+                </MudText>
+            </CardHeaderContent>
+            <CardHeaderActions>
+                <MudButton Variant="Variant.Text"
+                           Color="Color.Default"
+                           StartIcon="@Icons.Material.Filled.ArrowForward"
+                           OnClick="GoBack">بازگشت
+                </MudButton>
+            </CardHeaderActions>
+        </MudCardHeader>
+
+        <MudDivider/>
+
+        <MudCardContent>
+            @if (_isLoading)
+            {
+                <div class="d-flex justify-center my-8">
+                    <MudProgressCircular Color="Color.Primary" Indeterminate="true"/>
+                </div>
+            }
+            else
+            {
+                <MudForm @ref="_form" @bind-IsValid="_isFormValid">
+                    <MudGrid Spacing="3">
+                        <!-- ردیف اول: نام کالا و مدل -->
+                        <MudItem xs="12" md="6">
+                            <MudTextField T="string"
+                                          Label="نام قطعه / کالا"
+                                          @bind-Value="_model.Name"
+                                          Required="true"
+                                          RequiredError="نام کالا الزامی است"
+                                          Variant="Variant.Outlined"
+                                          Margin="Margin.Dense"/>
+                        </MudItem>
+
+                        <MudItem xs="12" md="6">
+                            <MudTextField T="string"
+                                          Label="مدل / تیپ خودرو"
+                                          @bind-Value="_model.Model"
+                                          HelperText="مثال: پراید صبا، پژو ۲۰۶ تیپ ۲"
+                                          Variant="Variant.Outlined"
+                                          Margin="Margin.Dense"/>
+                        </MudItem>
+
+                        <!-- ردیف دوم: کد فنی -->
+                        <MudItem xs="12" md="6">
+                            <MudTextField T="string"
+                                          Label="کد فنی / شناسه داخلی"
+                                          @bind-Value="_model.InternalCode"
+                                          Required="true"
+                                          RequiredError="کد فنی الزامی است"
+                                          Variant="Variant.Outlined"
+                                          Margin="Margin.Dense"/>
+                        </MudItem>
+
+                        <!-- ردیف سوم: دسته‌بندی و برند -->
+                        <MudItem xs="12" md="6">
+                            <MudSelect T="Guid?"
+                                       Label="دسته‌بندی"
+                                       @bind-Value="_model.CategoryId"
+                                       Required="true"
+                                       RequiredError="انتخاب دسته‌بندی الزامی است"
+                                       AnchorOrigin="Origin.BottomCenter"
+                                       Variant="Variant.Outlined"
+                                       Margin="Margin.Dense">
+                                @foreach (var cat in _categories)
+                                {
+                                    <MudSelectItem Value="@((Guid?)cat.Id)">@cat.Title</MudSelectItem>
+                                }
+                            </MudSelect>
+                        </MudItem>
+
+                        <MudItem xs="12" md="6">
+                            <MudSelect T="Guid?"
+                                       Label="برند سازنده"
+                                       @bind-Value="_model.BrandId"
+                                       Required="true"
+                                       RequiredError="انتخاب برند الزامی است"
+                                       AnchorOrigin="Origin.BottomCenter"
+                                       Variant="Variant.Outlined"
+                                       Margin="Margin.Dense">
+                                @foreach (var brand in _brands)
+                                {
+                                    <MudSelectItem Value="@((Guid?)brand.Id)">@brand.Title</MudSelectItem>
+                                }
+                            </MudSelect>
+                        </MudItem>
+
+                        <!-- بخش قیمت‌ها -->
+                        <MudItem xs="12">
+                            <MudText Typo="Typo.subtitle2" Color="Color.Primary" Class="mt-2">قیمت‌گذاری (تومان/ریال)
+                            </MudText>
+                        </MudItem>
+
+                        <MudItem xs="12" md="6">
+                            <MudNumericField T="decimal"
+                                             Label="قیمت خرید"
+                                             @bind-Value="_model.PurchasePrice"
+                                             Min="0"
+                                             Format="N0"
+                                             Variant="Variant.Outlined"
+                                             Margin="Margin.Dense"/>
+                        </MudItem>
+
+                        <MudItem xs="12" md="6">
+                            <MudNumericField T="decimal"
+                                             Label="قیمت فروش"
+                                             @bind-Value="_model.SalePrice"
+                                             Min="0"
+                                             Format="N0"
+                                             Validation="@(new Func<decimal, string?>(ValidateSalePrice))"
+                                             Variant="Variant.Outlined"
+                                             Margin="Margin.Dense"/>
+                        </MudItem>
+
+                        <!-- بخش انبار و موجودی -->
+                        <MudItem xs="12">
+                            <MudText Typo="Typo.subtitle2" Color="Color.Primary" Class="mt-2">موجودی و انبار اولیه
+                            </MudText>
+                        </MudItem>
+
+                        <MudItem xs="12" md="6">
+                            <MudSelect T="Guid?"
+                                       Label="انبار پیش‌فرض / اولیه"
+                                       @bind-Value="_model.DefaultWarehouseId"
+                                       Clearable="true"
+                                       HelperText="در صورت ثبت موجودی اولیه، انبار الزامی است"
+                                       AnchorOrigin="Origin.BottomCenter"
+                                       Variant="Variant.Outlined"
+                                       Margin="Margin.Dense">
+                                @foreach (var wh in _warehouses)
+                                {
+                                    <MudSelectItem Value="@((Guid?)wh.Id)">@wh.Title</MudSelectItem>
+                                }
+                            </MudSelect>
+                        </MudItem>
+
+                        <MudItem xs="12" md="6">
+                            <MudNumericField T="int"
+                                             Label="تعداد موجودی اولیه"
+                                             @bind-Value="_model.InitialQuantity"
+                                             Min="0"
+                                             Disabled="@(!_model.DefaultWarehouseId.HasValue)"
+                                             HelperText="@(!_model.DefaultWarehouseId.HasValue ? "ابتدا انبار را مشخص کنید" : "این تعداد در کاردکس ثبت خواهد شد")"
+                                             Variant="Variant.Outlined"
+                                             Margin="Margin.Dense"/>
+                        </MudItem>
+                    </MudGrid>
+                </MudForm>
+            }
+        </MudCardContent>
+
+        <MudCardActions Class="pa-4 d-flex justify-end gap-2">
+            <MudButton Variant="Variant.Outlined"
+                       Color="Color.Secondary"
+                       OnClick="GoBack"
+                       Disabled="_isSubmitting">
+                انصراف
+            </MudButton>
+
+            <MudButton Variant="Variant.Filled"
+                       Color="Color.Primary"
+                       OnClick="SubmitAsync"
+                       Disabled="@(!_isFormValid || _isSubmitting)"
+                       StartIcon="@Icons.Material.Filled.Save">
+                @if (_isSubmitting)
+                {
+                    <MudProgressCircular Size="Size.Small" Indeterminate="true" Class="ms-2"/>
+                    <span>در حال ذخیره...</span>
+                }
+                else
+                {
+                    <span>ثبت و ذخیره کالا</span>
+                }
+            </MudButton>
+        </MudCardActions>
+    </MudCard>
+</MudContainer>
+
+@code {
+    private MudForm _form = null!;
+    private bool _isFormValid;
+    private bool _isLoading = true;
+    private bool _isSubmitting;
+
+    private CreateProductDto _model = new();
+    private List<DropdownItemDto> _categories = new();
+    private List<DropdownItemDto> _brands = new();
+    private List<DropdownItemDto> _warehouses = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            _isLoading = true;
+            _categories = await ProductService.GetCategoriesLookupAsync();
+            _brands = await ProductService.GetBrandsLookupAsync();
+            _warehouses = await ProductService.GetWarehousesLookupAsync();
+        }
+        catch (Exception ex)
+        {
+            Snackbar.Add($"خطا در بارگذاری اطلاعات اولیه: {ex.Message}", Severity.Error);
+        }
+        finally
+        {
+            _isLoading = false;
+        }
+    }
+
+    private string? ValidateSalePrice(decimal salePrice)
+    {
+        if (salePrice < _model.PurchasePrice)
+            return "قیمت فروش نمی‌تواند کمتر از قیمت خرید باشد.";
+        return null;
+    }
+
+    private async Task SubmitAsync()
+    {
+        await _form.Validate();
+        if (!_form.IsValid) return;
+
+        if (_model.InitialQuantity > 0 && !_model.DefaultWarehouseId.HasValue)
+        {
+            Snackbar.Add("برای ثبت موجودی اولیه، باید انبار را مشخص کنید.", Severity.Warning);
+            return;
+        }
+
+        try
+        {
+            _isSubmitting = true;
+
+            var isUnique = await ProductService.IsInternalCodeUniqueAsync(_model.InternalCode);
+            if (!isUnique)
+            {
+                Snackbar.Add("کد فنی وارد شده تکراری است. لطفاً کد دیگری انتخاب کنید.", Severity.Warning);
+                return;
+            }
+
+            await ProductService.CreateProductAsync(_model);
+            Snackbar.Add("کالا با موفقیت ذخیره شد.", Severity.Success);
+            Navigation.NavigateTo("/products");
+        }
+        catch (Exception ex)
+        {
+            Snackbar.Add(ex.Message, Severity.Error);
+        }
+        finally
+        {
+            _isSubmitting = false;
+        }
+    }
+
+    private void GoBack()
+    {
+        Navigation.NavigateTo("/products");
+    }
+
+}
