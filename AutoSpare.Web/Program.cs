@@ -12,6 +12,7 @@ using Serilog;
 using System.Globalization;
 using AutoSpare.Application.Brands;
 using AutoSpare.Application.Categories;
+using AutoSpare.Application.Products;
 using AutoSpare.Application.Suppliers;
 using AutoSpare.Infrastructure.Services;
 using Microsoft.AspNetCore.Localization;
@@ -63,6 +64,8 @@ try
     builder.Services.AddScoped<IBrandService, BrandService>();
 
     builder.Services.AddScoped<ISupplierService, SupplierService>();
+
+    builder.Services.AddScoped<IProductService, ProductService>();
 
     // -------------------------------------------------------
     // Blazor UI Services
