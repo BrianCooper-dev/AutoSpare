@@ -45,6 +45,8 @@
                             <MudTextField T="string"
                                           Label="نام قطعه / کالا"
                                           @bind-Value="_model.Name"
+                                          Validation="@(new Func<string, string?>(ValidateName))"
+                                          Immediate="true"
                                           Required="true"
                                           RequiredError="نام کالا الزامی است"
                                           Variant="Variant.Outlined"
@@ -65,6 +67,8 @@
                             <MudTextField T="string"
                                           Label="کد فنی / شناسه داخلی"
                                           @bind-Value="_model.InternalCode"
+                                          Validation="@(new Func<string, string?>(ValidateInternalCode))"
+                                          Immediate="true"
                                           Required="true"
                                           RequiredError="کد فنی الزامی است"
                                           Variant="Variant.Outlined"
@@ -97,9 +101,9 @@
                                        AnchorOrigin="Origin.BottomCenter"
                                        Variant="Variant.Outlined"
                                        Margin="Margin.Dense">
-                                @foreach (var brand in _brands)
+                                @foreach (var br in _brands)
                                 {
-                                    <MudSelectItem Value="@((Guid?)brand.Id)">@brand.Title</MudSelectItem>
+                                    <MudSelectItem Value="@((Guid?)br.Id)">@br.Title</MudSelectItem>
                                 }
                             </MudSelect>
                         </MudItem>
@@ -114,6 +118,7 @@
                             <MudNumericField T="decimal"
                                              Label="قیمت خرید"
                                              @bind-Value="_model.PurchasePrice"
+                                             Validation="@(new Func<decimal, string?>(ValidatePurchasePrice))"
                                              Min="0"
                                              Format="N0"
                                              Variant="Variant.Outlined"
@@ -124,9 +129,9 @@
                             <MudNumericField T="decimal"
                                              Label="قیمت فروش"
                                              @bind-Value="_model.SalePrice"
+                                             Validation="@(new Func<decimal, string?>(ValidateSalePrice))"
                                              Min="0"
                                              Format="N0"
-                                             Validation="@(new Func<decimal, string?>(ValidateSalePrice))"
                                              Variant="Variant.Outlined"
                                              Margin="Margin.Dense"/>
                         </MudItem>
@@ -157,6 +162,7 @@
                             <MudNumericField T="int"
                                              Label="تعداد موجودی اولیه"
                                              @bind-Value="_model.InitialQuantity"
+                                             Validation="@(new Func<int, string?>(ValidateInitialQuantity))"
                                              Min="0"
                                              Disabled="@(!_model.DefaultWarehouseId.HasValue)"
                                              HelperText="@(!_model.DefaultWarehouseId.HasValue ? "ابتدا انبار را مشخص کنید" : "این تعداد در کاردکس ثبت خواهد شد")"
@@ -225,10 +231,48 @@
         }
     }
 
+    private string? ValidateName(string name)
+    {
+        if (string.IsNullOrWhiteSpace(name))
+            return "نام کالا الزامی است.";
+        if (name.Trim().Length < 3)
+            return "نام کالا باید حداقل ۳ کاراکتر باشد.";
+        if (name.Trim().Length > 200)
+            return "نام کالا نمی‌تواند بیشتر از ۲۰۰ کاراکتر باشد.";
+        return null;
+    }
+
+    private string? ValidateInternalCode(string code)
+    {
+        if (string.IsNullOrWhiteSpace(code))
+            return "کد فنی الزامی است.";
+        if (code.Trim().Length < 2)
+            return "کد فنی باید حداقل ۲ کاراکتر باشد.";
+        if (code.Trim().Length > 50)
+            return "کد فنی نمی‌تواند بیشتر از ۵۰ کاراکتر باشد.";
+        return null;
+    }
+
+    private string? ValidatePurchasePrice(decimal purchasePrice)
+    {
+        if (purchasePrice < 0)
+            return "قیمت خرید نمی‌تواند منفی باشد.";
+        return null;
+    }
+
     private string? ValidateSalePrice(decimal salePrice)
     {
+        if (salePrice < 0)
+            return "قیمت فروش نمی‌تواند منفی باشد.";
         if (salePrice < _model.PurchasePrice)
             return "قیمت فروش نمی‌تواند کمتر از قیمت خرید باشد.";
+        return null;
+    }
+
+    private string? ValidateInitialQuantity(int qty)
+    {
+        if (qty < 0)
+            return "تعداد موجودی اولیه نمی‌تواند منفی باشد.";
         return null;
     }
 
