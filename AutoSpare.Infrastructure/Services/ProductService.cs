@@ -46,16 +46,41 @@ public class ProductService : IProductService
 
     public async Task<Guid> CreateProductAsync(CreateProductDto dto)
     {
+        // --- اعتبارسنجی‌های لایه سرویس/بیزینس ---
+        if (string.IsNullOrWhiteSpace(dto.Name) || dto.Name.Trim().Length < 3)
+            throw new InvalidOperationException("نام کالا الزامی است و باید حداقل ۳ کاراکتر باشد.");
+
+        if (string.IsNullOrWhiteSpace(dto.InternalCode) || dto.InternalCode.Trim().Length < 2)
+            throw new InvalidOperationException("کد فنی الزامی است و باید حداقل ۲ کاراکتر باشد.");
+
+        if (!await IsInternalCodeUniqueAsync(dto.InternalCode))
+            throw new InvalidOperationException("این کد فنی قبلاً ثبت شده است.");
+
         if (!dto.CategoryId.HasValue)
             throw new InvalidOperationException("دسته‌بندی الزامی است.");
 
         if (!dto.BrandId.HasValue)
             throw new InvalidOperationException("برند الزامی است.");
 
+        if (dto.PurchasePrice < 0)
+            throw new InvalidOperationException("قیمت خرید نمی‌تواند منفی باشد.");
+
+        if (dto.SalePrice < 0)
+            throw new InvalidOperationException("قیمت فروش نمی‌تواند منفی باشد.");
+
+        if (dto.SalePrice < dto.PurchasePrice)
+            throw new InvalidOperationException("قیمت فروش نمی‌تواند کمتر از قیمت خرید باشد.");
+
+        if (dto.InitialQuantity < 0)
+            throw new InvalidOperationException("تعداد موجودی اولیه نمی‌تواند منفی باشد.");
+
+        if (dto.InitialQuantity > 0 && (!dto.DefaultWarehouseId.HasValue || dto.DefaultWarehouseId.Value == Guid.Empty))
+            throw new InvalidOperationException("برای ثبت موجودی اولیه، باید انبار را مشخص کنید.");
+
         // ۱. ایجاد کالا بر اساس Domain Aggregate
         var product = new Product(
-            name: dto.Name?.Trim() ?? string.Empty,
-            internalCode: dto.InternalCode?.Trim() ?? string.Empty,
+            name: dto.Name.Trim(),
+            internalCode: dto.InternalCode.Trim(),
             model: dto.Model?.Trim() ?? string.Empty,
             purchasePrice: dto.PurchasePrice,
             salePrice: dto.SalePrice,
