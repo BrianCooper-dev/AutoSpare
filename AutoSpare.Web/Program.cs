@@ -67,6 +67,10 @@ try
 
     builder.Services.AddScoped<IProductService, ProductService>();
 
+    builder.Services.AddScoped<IFileStorageService, FileStorageService>();
+
+
+
     // -------------------------------------------------------
     // Blazor UI Services
     // -------------------------------------------------------
