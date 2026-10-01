@@ -77,6 +77,7 @@ public class ProductService : IProductService
         if (dto.InitialQuantity > 0 && !dto.DefaultWarehouseId.HasValue)
             throw new InvalidOperationException("در صورت تعیین موجودی اولیه، انتخاب انبار الزامی است.");
 
+
         // ۴. ساخت انتیتی کالا بر اساس سازنده دامین
         var product = new Product(
             name: dto.Name.Trim(),
@@ -86,9 +87,10 @@ public class ProductService : IProductService
             salePrice: dto.SalePrice,
             categoryId: dto.CategoryId.Value,
             brandId: dto.BrandId.Value,
-            imagePath: null,
+            imagePath: dto.ImagePath,
             defaultWarehouseId: dto.DefaultWarehouseId
         );
+
 
         await _context.Products.AddAsync(product);
 

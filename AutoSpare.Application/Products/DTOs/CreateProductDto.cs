@@ -11,10 +11,12 @@ public class CreateProductDto
     public Guid? CategoryId { get; set; }
     public Guid? BrandId { get; set; }
 
+    // مسیر تصویر در wwwroot (اختیاری)
+    public string? ImagePath { get; set; }
+
     // فیلدهای مربوط به انبار و موجودی اولیه
     public Guid? DefaultWarehouseId { get; set; }
     public int InitialQuantity { get; set; } = 0;
 }
 
 public record DropdownItemDto(Guid Id, string Title);
-

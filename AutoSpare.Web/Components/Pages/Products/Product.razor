@@ -1,7 +1,9 @@
 @page "/products/create"
+@using AutoSpare.Application.Common.Interfaces
 @using AutoSpare.Application.Products
 @using AutoSpare.Application.Products.DTOs
 @inject IProductService ProductService
+@inject IFileStorageService FileStorageService
 @inject ISnackbar Snackbar
 @inject NavigationManager Navigation
 
@@ -15,15 +17,13 @@
             </CardHeaderAvatar>
             <CardHeaderContent>
                 <MudText Typo="Typo.h6">تعریف کالای جدید</MudText>
-                <MudText Typo="Typo.caption" Color="Color.Secondary">مشخصات پایه، قیمت‌گذاری و تنظیمات موجودی اولیه
-                </MudText>
+                <MudText Typo="Typo.caption" Color="Color.Secondary">مشخصات پایه، تصویر، قیمت‌گذاری و تنظیمات موجودی اولیه</MudText>
             </CardHeaderContent>
             <CardHeaderActions>
                 <MudButton Variant="Variant.Text"
                            Color="Color.Default"
                            StartIcon="@Icons.Material.Filled.ArrowForward"
-                           OnClick="GoBack">بازگشت
-                </MudButton>
+                           OnClick="GoBack">بازگشت</MudButton>
             </CardHeaderActions>
         </MudCardHeader>
 
@@ -40,6 +40,61 @@
             {
                 <MudForm @ref="_form" @bind-IsValid="_isFormValid">
                     <MudGrid Spacing="3">
+                        <!-- بخش آپلود تصویر کالا -->
+                        <MudItem xs="12">
+                            <MudText Typo="Typo.subtitle2" Color="Color.Primary" Class="mb-2">تصویر کالا</MudText>
+                            <div class="d-flex align-center gap-4 flex-wrap">
+                                <div class="d-flex justify-center align-center rounded border border-dashed pa-2 mud-background-gray"
+                                     style="width: 140px; height: 140px;">
+                                    @if (!string.IsNullOrEmpty(_previewImageUrl))
+                                    {
+                                        <MudImage Src="@_previewImageUrl" Alt="پیش‌نمایش تصویر" ObjectFit="ObjectFit.Contain" Width="124" Height="124" Class="rounded" />
+                                    }
+                                    else
+                                    {
+                                        <div class="d-flex flex-column align-center text-muted">
+                                            <MudIcon Icon="@Icons.Material.Filled.Image" Size="Size.Large" Color="Color.Default"/>
+                                            <MudText Typo="Typo.caption" Class="mt-1">بدون تصویر</MudText>
+                                        </div>
+                                    }
+                                </div>
+
+                                <div class="d-flex flex-column gap-2">
+                                    <div class="d-flex gap-2">
+                                        <MudButton HtmlTag="label"
+                                                   Variant="Variant.Filled"
+                                                   Color="Color.Secondary"
+                                                   StartIcon="@Icons.Material.Filled.CloudUpload"
+                                                   for="productImageInput">
+                                            انتخاب تصویر
+                                        </MudButton>
+                                        <InputFile id="productImageInput" OnChange="OnImageSelected" accept=".jpg,.jpeg,.png,.webp" style="display:none;" />
+
+                                        @if (_selectedImageFile != null)
+                                        {
+                                            <MudButton Variant="Variant.Outlined"
+                                                       Color="Color.Error"
+                                                       StartIcon="@Icons.Material.Filled.Delete"
+                                                       OnClick="RemoveSelectedImage">
+                                                حذف
+                                            </MudButton>
+                                        }
+                                    </div>
+                                    <MudText Typo="Typo.caption" Color="Color.Secondary">
+                                        فرمت‌های مجاز: JPG, PNG, WEBP (حداکثر حجم: ۳ مگابایت)
+                                    </MudText>
+                                    @if (_selectedImageFile != null)
+                                    {
+                                        <MudChip T="string" Color="Color.Info" Size="Size.Small" Variant="Variant.Text">
+                                            @_selectedImageFile.Name (@((_selectedImageFile.Size / 1024.0 / 1024.0).ToString("F2")) MB)
+                                        </MudChip>
+                                    }
+                                </div>
+                            </div>
+                        </MudItem>
+
+                        <MudItem xs="12"><MudDivider Class="my-1"/></MudItem>
+
                         <!-- ردیف اول: نام کالا و مدل -->
                         <MudItem xs="12" md="6">
                             <MudTextField T="string"
@@ -110,8 +165,7 @@
 
                         <!-- بخش قیمت‌ها -->
                         <MudItem xs="12">
-                            <MudText Typo="Typo.subtitle2" Color="Color.Primary" Class="mt-2">قیمت‌گذاری (تومان/ریال)
-                            </MudText>
+                            <MudText Typo="Typo.subtitle2" Color="Color.Primary" Class="mt-2">قیمت‌گذاری (تومان/ریال)</MudText>
                         </MudItem>
 
                         <MudItem xs="12" md="6">
@@ -138,8 +192,7 @@
 
                         <!-- بخش انبار و موجودی -->
                         <MudItem xs="12">
-                            <MudText Typo="Typo.subtitle2" Color="Color.Primary" Class="mt-2">موجودی و انبار اولیه
-                            </MudText>
+                            <MudText Typo="Typo.subtitle2" Color="Color.Primary" Class="mt-2">موجودی و انبار اولیه</MudText>
                         </MudItem>
 
                         <MudItem xs="12" md="6">
@@ -212,6 +265,11 @@
     private List<DropdownItemDto> _brands = new();
     private List<DropdownItemDto> _warehouses = new();
 
+    // متغیرهای مدیریت تصویر
+    private IBrowserFile? _selectedImageFile;
+    private string? _previewImageUrl;
+    private const long MaxFileSize = 3 * 1024 * 1024; // ۳ مگابایت
+
     protected override async Task OnInitializedAsync()
     {
         try
@@ -229,6 +287,45 @@
         {
             _isLoading = false;
         }
+    }
+
+    private async Task OnImageSelected(InputFileChangeEventArgs e)
+    {
+        var file = e.File;
+        if (file == null) return;
+
+        if (file.Size > MaxFileSize)
+        {
+            Snackbar.Add("حجم فایل انتخابی بیش از ۳ مگابایت است.", Severity.Error);
+            return;
+        }
+
+        var ext = Path.GetExtension(file.Name).ToLowerInvariant();
+        if (ext != ".jpg" && ext != ".jpeg" && ext != ".png" && ext != ".webp")
+        {
+            Snackbar.Add("فرمت فایل انتخابی مجاز نیست. فقط JPG, PNG یا WEBP انتخاب کنید.", Severity.Error);
+            return;
+        }
+
+        try
+        {
+            _selectedImageFile = file;
+            // ساخت تصویر پیش‌نمایش در مرورگر
+            var resizedImage = await file.RequestImageFileAsync(file.ContentType, 300, 300);
+            var buffer = new byte[resizedImage.Size];
+            await resizedImage.OpenReadStream(MaxFileSize).ReadAsync(buffer);
+            _previewImageUrl = $"data:{file.ContentType};base64,{Convert.ToBase64String(buffer)}";
+        }
+        catch (Exception ex)
+        {
+            Snackbar.Add($"خطا در پیش‌نمایش تصویر: {ex.Message}", Severity.Warning);
+        }
+    }
+
+    private void RemoveSelectedImage()
+    {
+        _selectedImageFile = null;
+        _previewImageUrl = null;
     }
 
     private string? ValidateName(string name)
@@ -298,12 +395,25 @@
                 return;
             }
 
+            // اگر تصویری انتخاب شده بود، ابتدا در سرور ذخیره می‌شود
+            if (_selectedImageFile != null)
+            {
+                await using var stream = _selectedImageFile.OpenReadStream(MaxFileSize);
+                _model.ImagePath = await FileStorageService.SaveProductImageAsync(stream, _selectedImageFile.Name);
+            }
+
             await ProductService.CreateProductAsync(_model);
             Snackbar.Add("کالا با موفقیت ذخیره شد.", Severity.Success);
             Navigation.NavigateTo("/products");
         }
         catch (Exception ex)
         {
+            // در صورت بروز خطا در ثبت محصول، اگر فایلی ذخیره شده بود حذف می‌کنیم تا فایل بی‌استفاده روی سرور نماند
+            if (!string.IsNullOrEmpty(_model.ImagePath))
+            {
+                FileStorageService.DeleteFile(_model.ImagePath);
+                _model.ImagePath = null;
+            }
             Snackbar.Add(ex.Message, Severity.Error);
         }
         finally
@@ -316,5 +426,4 @@
     {
         Navigation.NavigateTo("/products");
     }
-
 }
