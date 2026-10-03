@@ -10,4 +10,5 @@ public interface IProductService
     Task<bool> IsInternalCodeUniqueAsync(string code);
     Task<Guid> CreateProductAsync(CreateProductDto dto);
     Task<List<ProductListItemDto>> GetProductsAsync(ProductFilterDto? filter = null);
+    Task<ProductDetailsDto?> GetProductDetailsByIdAsync(Guid id);
 }

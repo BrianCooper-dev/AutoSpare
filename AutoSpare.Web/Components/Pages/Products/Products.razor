@@ -176,6 +176,7 @@
                     <MudTh Style="text-align: left;">قیمت فروش (تومان)</MudTh>
                     <MudTh Style="text-align: center;">موجودی</MudTh>
                     <MudTh>انبار پیش‌فرض</MudTh>
+                    <MudTh Style="text-align: center; width: 80px;">عملیات</MudTh>
                 </HeaderContent>
 
                 <RowTemplate>
@@ -251,6 +252,16 @@
                     <MudTd DataLabel="انبار پیش‌فرض">
                         @(context.DefaultWarehouseName ?? "-")
                     </MudTd>
+
+                    <MudTd DataLabel="عملیات" Style="text-align: center;">
+                        <MudTooltip Text="مشاهده جزئیات و کاردکس">
+                            <MudIconButton Icon="@Icons.Material.Filled.Visibility"
+                                           Color="Color.Primary"
+                                           Size="Size.Small"
+                                           OnClick="@(() => Navigation.NavigateTo($"/products/{context.Id}"))" />
+                        </MudTooltip>
+                    </MudTd>
+
                 </RowTemplate>
 
                 <NoRecordsContent>
@@ -290,16 +301,10 @@
         {
             _isLoading = true;
 
-            // دریافت لوک‌آپ‌های فیلترها به صورت همزمان
-            var categoriesTask = ProductService.GetCategoriesLookupAsync();
-            var brandsTask = ProductService.GetBrandsLookupAsync();
-            var warehousesTask = ProductService.GetWarehousesLookupAsync();
-
-            await Task.WhenAll(categoriesTask, brandsTask, warehousesTask);
-
-            _categories = await categoriesTask;
-            _brands = await brandsTask;
-            _warehouses = await warehousesTask;
+            // واکشی ترتیبی اطلاعات لوک‌آپ برای جلوگیری از تداخل عملیات در یک DbContext
+            _categories = await ProductService.GetCategoriesLookupAsync();
+            _brands = await ProductService.GetBrandsLookupAsync();
+            _warehouses = await ProductService.GetWarehousesLookupAsync();
 
             await LoadProductsAsync();
         }
@@ -335,5 +340,5 @@
         _filter = new ProductFilterDto();
         await LoadProductsAsync();
     }
-
 }
+

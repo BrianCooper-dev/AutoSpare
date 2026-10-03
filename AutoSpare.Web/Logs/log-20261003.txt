@@ -67,3 +67,462 @@
 2026-10-03 10:43:22.878 +03:30 [INF] HTTP GET /uploads/products/b7e9697a9c934c00814ea404237b0a0a.png responded 200 in 250.3657 ms 
 2026-10-03 10:44:50.808 +03:30 [INF] HTTP GET /_blazor responded 101 in 279668.6731 ms 
 2026-10-03 10:44:50.808 +03:30 [INF] HTTP GET /_blazor responded 101 in 276122.5695 ms 
+2026-10-03 11:25:47.168 +03:30 [WRN] The foreign key property 'Product.BrandId1' was created in shadow state because a conflicting property with the simple name 'BrandId' exists in the entity type, but is either not mapped, is already used for another relationship, or is incompatible with the associated primary key type. See https://aka.ms/efcore-relationships for information on mapping relationships in EF Core. 
+2026-10-03 11:25:47.196 +03:30 [WRN] The foreign key property 'Product.CategoryId1' was created in shadow state because a conflicting property with the simple name 'CategoryId' exists in the entity type, but is either not mapped, is already used for another relationship, or is incompatible with the associated primary key type. See https://aka.ms/efcore-relationships for information on mapping relationships in EF Core. 
+2026-10-03 11:25:47.848 +03:30 [INF] Storage directories are ready. ImagesPath: D:\porograming\Rider\AutoSpare\AutoSpare.Web\wwwroot\Uploads\Images, BackupPath: D:\AutoSpareBackups 
+2026-10-03 11:25:48.082 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 35.2372 ms 
+2026-10-03 11:25:48.119 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 27.5726 ms 
+2026-10-03 11:25:48.459 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 2.5457 ms 
+2026-10-03 11:25:48.705 +03:30 [INF] Home page loaded at "2026-10-03T11:25:48.7027538+03:30" 
+2026-10-03 11:25:48.706 +03:30 [WRN] This is a test warning from Home page. 
+2026-10-03 11:25:48.846 +03:30 [INF] HTTP GET / responded 200 in 801.0299 ms 
+2026-10-03 11:25:48.866 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 4.6607 ms 
+2026-10-03 11:25:48.878 +03:30 [INF] HTTP GET /app.css responded 200 in 16.1615 ms 
+2026-10-03 11:25:48.879 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 15.4159 ms 
+2026-10-03 11:25:48.883 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 21.6293 ms 
+2026-10-03 11:25:48.949 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.5670 ms 
+2026-10-03 11:25:48.949 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 0.5921 ms 
+2026-10-03 11:25:48.966 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 5.0205 ms 
+2026-10-03 11:25:48.980 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 2.0886 ms 
+2026-10-03 11:25:49.154 +03:30 [INF] Home page loaded at "2026-10-03T11:25:49.1544239+03:30" 
+2026-10-03 11:25:49.154 +03:30 [WRN] This is a test warning from Home page. 
+2026-10-03 11:25:49.329 +03:30 [INF] HTTP GET /products responded 200 in 813.9226 ms 
+2026-10-03 11:25:49.336 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 1.1417 ms 
+2026-10-03 11:25:49.343 +03:30 [INF] HTTP GET /app.css responded 200 in 1.3850 ms 
+2026-10-03 11:25:49.347 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 1.6189 ms 
+2026-10-03 11:25:49.352 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 4.2272 ms 
+2026-10-03 11:25:49.354 +03:30 [INF] HTTP GET /uploads/products/b7e9697a9c934c00814ea404237b0a0a.png responded 304 in 0.7924 ms 
+2026-10-03 11:25:49.358 +03:30 [INF] HTTP GET /uploads/products/27b41e9024374db59bf7fe94b1c824da.png responded 304 in 0.6592 ms 
+2026-10-03 11:25:49.350 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 1.7622 ms 
+2026-10-03 11:25:49.359 +03:30 [INF] HTTP GET /_blazor responded 101 in 1256.9250 ms 
+2026-10-03 11:25:49.389 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.3768 ms 
+2026-10-03 11:25:49.421 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 0.8855 ms 
+2026-10-03 11:25:49.430 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.8825 ms 
+2026-10-03 11:25:49.538 +03:30 [ERR] An exception occurred while iterating over the results of a query for context type 'AutoSpare.Infrastructure.Persistence.ApplicationDbContext'.
+System.InvalidOperationException: A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync() 
+System.InvalidOperationException: A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+2026-10-03 11:25:49.827 +03:30 [INF] HTTP GET /_blazor responded 101 in 383.1973 ms 
+2026-10-03 11:25:49.850 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 27.7582 ms 
+2026-10-03 11:25:54.504 +03:30 [ERR] An exception occurred while iterating over the results of a query for context type 'AutoSpare.Infrastructure.Persistence.ApplicationDbContext'.
+System.InvalidOperationException: A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync() 
+System.InvalidOperationException: A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+2026-10-03 11:25:59.972 +03:30 [ERR] An exception occurred while iterating over the results of a query for context type 'AutoSpare.Infrastructure.Persistence.ApplicationDbContext'.
+System.InvalidOperationException: A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync() 
+System.InvalidOperationException: A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+2026-10-03 11:26:27.816 +03:30 [INF] HTTP GET /_blazor responded 101 in 38826.8797 ms 
+2026-10-03 11:26:40.378 +03:30 [WRN] The foreign key property 'Product.BrandId1' was created in shadow state because a conflicting property with the simple name 'BrandId' exists in the entity type, but is either not mapped, is already used for another relationship, or is incompatible with the associated primary key type. See https://aka.ms/efcore-relationships for information on mapping relationships in EF Core. 
+2026-10-03 11:26:40.397 +03:30 [WRN] The foreign key property 'Product.CategoryId1' was created in shadow state because a conflicting property with the simple name 'CategoryId' exists in the entity type, but is either not mapped, is already used for another relationship, or is incompatible with the associated primary key type. See https://aka.ms/efcore-relationships for information on mapping relationships in EF Core. 
+2026-10-03 11:26:40.995 +03:30 [INF] Storage directories are ready. ImagesPath: D:\porograming\Rider\AutoSpare\AutoSpare.Web\wwwroot\Uploads\Images, BackupPath: D:\AutoSpareBackups 
+2026-10-03 11:26:41.307 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 27.6529 ms 
+2026-10-03 11:26:41.434 +03:30 [INF] Home page loaded at "2026-10-03T11:26:41.4324509+03:30" 
+2026-10-03 11:26:41.434 +03:30 [WRN] This is a test warning from Home page. 
+2026-10-03 11:26:41.553 +03:30 [INF] HTTP GET / responded 200 in 345.3986 ms 
+2026-10-03 11:26:41.574 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 4.7309 ms 
+2026-10-03 11:26:41.579 +03:30 [INF] HTTP GET /app.css responded 200 in 9.7246 ms 
+2026-10-03 11:26:41.583 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 13.8196 ms 
+2026-10-03 11:26:41.584 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 14.8133 ms 
+2026-10-03 11:26:41.641 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.5783 ms 
+2026-10-03 11:26:41.641 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 0.5790 ms 
+2026-10-03 11:26:41.668 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 4.5369 ms 
+2026-10-03 11:26:41.676 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 1.5757 ms 
+2026-10-03 11:26:41.705 +03:30 [INF] HTTP GET /_blazor responded 101 in 378.8639 ms 
+2026-10-03 11:26:41.710 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 17.6497 ms 
+2026-10-03 11:26:41.825 +03:30 [INF] Home page loaded at "2026-10-03T11:26:41.8255177+03:30" 
+2026-10-03 11:26:41.825 +03:30 [WRN] This is a test warning from Home page. 
+2026-10-03 11:26:41.983 +03:30 [INF] HTTP GET /products responded 200 in 589.6367 ms 
+2026-10-03 11:26:44.067 +03:30 [INF] Home page loaded at "2026-10-03T11:26:44.0673091+03:30" 
+2026-10-03 11:26:44.067 +03:30 [WRN] This is a test warning from Home page. 
+2026-10-03 11:26:44.078 +03:30 [INF] HTTP GET / responded 200 in 17.5992 ms 
+2026-10-03 11:26:44.095 +03:30 [INF] HTTP GET /_blazor responded 101 in 2402.8965 ms 
+2026-10-03 11:26:44.098 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 0.3245 ms 
+2026-10-03 11:26:44.105 +03:30 [INF] HTTP GET /app.css responded 200 in 11.2252 ms 
+2026-10-03 11:26:44.105 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 7.9021 ms 
+2026-10-03 11:26:44.108 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 10.0663 ms 
+2026-10-03 11:26:44.140 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 52.9714 ms 
+2026-10-03 11:26:44.144 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.6274 ms 
+2026-10-03 11:26:44.144 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 0.6276 ms 
+2026-10-03 11:26:44.150 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 0.7500 ms 
+2026-10-03 11:26:44.154 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.4393 ms 
+2026-10-03 11:26:44.185 +03:30 [INF] Home page loaded at "2026-10-03T11:26:44.1854266+03:30" 
+2026-10-03 11:26:44.185 +03:30 [WRN] This is a test warning from Home page. 
+2026-10-03 11:26:52.890 +03:30 [ERR] An exception occurred while iterating over the results of a query for context type 'AutoSpare.Infrastructure.Persistence.ApplicationDbContext'.
+System.InvalidOperationException: A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync() 
+System.InvalidOperationException: A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+2026-10-03 11:26:55.631 +03:30 [ERR] An exception occurred while iterating over the results of a query for context type 'AutoSpare.Infrastructure.Persistence.ApplicationDbContext'.
+System.InvalidOperationException: A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync() 
+System.InvalidOperationException: A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+2026-10-03 11:26:59.523 +03:30 [INF] HTTP GET /uploads/products/b7e9697a9c934c00814ea404237b0a0a.png responded 304 in 1.7940 ms 
+2026-10-03 11:26:59.523 +03:30 [INF] HTTP GET /uploads/products/27b41e9024374db59bf7fe94b1c824da.png responded 304 in 1.7942 ms 
+2026-10-03 11:27:07.757 +03:30 [ERR] An exception occurred while iterating over the results of a query for context type 'AutoSpare.Infrastructure.Persistence.ApplicationDbContext'.
+System.InvalidOperationException: A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync() 
+System.InvalidOperationException: A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+2026-10-03 11:27:07.765 +03:30 [INF] HTTP GET /products responded 200 in 17.0816 ms 
+2026-10-03 11:27:07.777 +03:30 [INF] HTTP GET /_blazor responded 101 in 23612.7642 ms 
+2026-10-03 11:27:07.784 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 0.5352 ms 
+2026-10-03 11:27:07.787 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 1.8812 ms 
+2026-10-03 11:27:07.788 +03:30 [INF] HTTP GET /app.css responded 200 in 1.7001 ms 
+2026-10-03 11:27:07.791 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 7.9692 ms 
+2026-10-03 11:27:07.792 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 16.0302 ms 
+2026-10-03 11:27:07.817 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.4130 ms 
+2026-10-03 11:27:07.830 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 0.8241 ms 
+2026-10-03 11:27:07.842 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.6889 ms 
+2026-10-03 11:27:07.868 +03:30 [ERR] An exception occurred while iterating over the results of a query for context type 'AutoSpare.Infrastructure.Persistence.ApplicationDbContext'.
+System.InvalidOperationException: A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync() 
+System.InvalidOperationException: A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+2026-10-03 11:27:15.727 +03:30 [INF] HTTP GET /uploads/products/b7e9697a9c934c00814ea404237b0a0a.png responded 304 in 0.7442 ms 
+2026-10-03 11:27:15.727 +03:30 [INF] HTTP GET /uploads/products/27b41e9024374db59bf7fe94b1c824da.png responded 304 in 0.7442 ms 
+2026-10-03 11:27:35.960 +03:30 [INF] HTTP GET /_blazor responded 101 in 28108.6526 ms 
+2026-10-03 12:41:32.894 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.5873 ms 
+2026-10-03 12:42:16.738 +03:30 [INF] HTTP GET /_blazor responded 101 in 34461.1931 ms 
+2026-10-03 13:07:16.585 +03:30 [WRN] The foreign key property 'Product.BrandId1' was created in shadow state because a conflicting property with the simple name 'BrandId' exists in the entity type, but is either not mapped, is already used for another relationship, or is incompatible with the associated primary key type. See https://aka.ms/efcore-relationships for information on mapping relationships in EF Core. 
+2026-10-03 13:07:16.615 +03:30 [WRN] The foreign key property 'Product.CategoryId1' was created in shadow state because a conflicting property with the simple name 'CategoryId' exists in the entity type, but is either not mapped, is already used for another relationship, or is incompatible with the associated primary key type. See https://aka.ms/efcore-relationships for information on mapping relationships in EF Core. 
+2026-10-03 13:07:17.360 +03:30 [INF] Storage directories are ready. ImagesPath: D:\porograming\Rider\AutoSpare\AutoSpare.Web\wwwroot\Uploads\Images, BackupPath: D:\AutoSpareBackups 
+2026-10-03 13:07:17.743 +03:30 [INF] Home page loaded at "2026-10-03T13:07:17.7418376+03:30" 
+2026-10-03 13:07:17.746 +03:30 [WRN] This is a test warning from Home page. 
+2026-10-03 13:07:17.846 +03:30 [INF] HTTP GET / responded 200 in 280.4944 ms 
+2026-10-03 13:07:17.873 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 6.6565 ms 
+2026-10-03 13:07:17.898 +03:30 [INF] HTTP GET /app.css responded 200 in 31.7701 ms 
+2026-10-03 13:07:17.907 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 40.8707 ms 
+2026-10-03 13:07:17.963 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 96.7201 ms 
+2026-10-03 13:07:17.985 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 2.8530 ms 
+2026-10-03 13:07:17.985 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 2.8530 ms 
+2026-10-03 13:07:17.990 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 7.8927 ms 
+2026-10-03 13:07:18.003 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 4.6968 ms 
+2026-10-03 13:07:18.120 +03:30 [INF] Home page loaded at "2026-10-03T13:07:18.1200862+03:30" 
+2026-10-03 13:07:18.120 +03:30 [WRN] This is a test warning from Home page. 
+2026-10-03 13:07:23.927 +03:30 [ERR] An exception occurred while iterating over the results of a query for context type 'AutoSpare.Infrastructure.Persistence.ApplicationDbContext'.
+System.InvalidOperationException: A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync() 
+System.InvalidOperationException: A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+2026-10-03 13:07:26.724 +03:30 [ERR] An exception occurred while iterating over the results of a query for context type 'AutoSpare.Infrastructure.Persistence.ApplicationDbContext'.
+System.InvalidOperationException: A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync() 
+System.InvalidOperationException: A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+2026-10-03 13:07:27.965 +03:30 [INF] HTTP GET /inventory/transactions responded 404 in 0.4779 ms 
+2026-10-03 13:07:28.003 +03:30 [INF] HTTP GET /not-found responded 404 in 17.2251 ms 
+2026-10-03 13:07:28.023 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 0.8149 ms 
+2026-10-03 13:07:28.024 +03:30 [INF] HTTP GET /app.css responded 200 in 2.1843 ms 
+2026-10-03 13:07:28.031 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 3.2114 ms 
+2026-10-03 13:07:28.033 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 4.6535 ms 
+2026-10-03 13:07:28.035 +03:30 [INF] HTTP GET /_blazor responded 101 in 10024.3481 ms 
+2026-10-03 13:07:28.059 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 44.3248 ms 
+2026-10-03 13:07:28.065 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 0.3821 ms 
+2026-10-03 13:07:28.065 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.3956 ms 
+2026-10-03 13:07:28.078 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 1.2299 ms 
+2026-10-03 13:07:28.084 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.6295 ms 
+2026-10-03 13:07:31.886 +03:30 [ERR] An exception occurred while iterating over the results of a query for context type 'AutoSpare.Infrastructure.Persistence.ApplicationDbContext'.
+System.InvalidOperationException: A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync() 
+System.InvalidOperationException: A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+2026-10-03 13:07:43.198 +03:30 [ERR] An exception occurred while iterating over the results of a query for context type 'AutoSpare.Infrastructure.Persistence.ApplicationDbContext'.
+System.InvalidOperationException: A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync() 
+System.InvalidOperationException: A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+2026-10-03 13:19:43.844 +03:30 [INF] HTTP GET /_blazor responded 101 in 735753.7670 ms 
+2026-10-03 13:19:58.079 +03:30 [WRN] The foreign key property 'Product.BrandId1' was created in shadow state because a conflicting property with the simple name 'BrandId' exists in the entity type, but is either not mapped, is already used for another relationship, or is incompatible with the associated primary key type. See https://aka.ms/efcore-relationships for information on mapping relationships in EF Core. 
+2026-10-03 13:19:58.097 +03:30 [WRN] The foreign key property 'Product.CategoryId1' was created in shadow state because a conflicting property with the simple name 'CategoryId' exists in the entity type, but is either not mapped, is already used for another relationship, or is incompatible with the associated primary key type. See https://aka.ms/efcore-relationships for information on mapping relationships in EF Core. 
+2026-10-03 13:19:58.777 +03:30 [INF] Storage directories are ready. ImagesPath: D:\porograming\Rider\AutoSpare\AutoSpare.Web\wwwroot\Uploads\Images, BackupPath: D:\AutoSpareBackups 
+2026-10-03 13:19:59.055 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 42.4885 ms 
+2026-10-03 13:19:59.239 +03:30 [INF] Home page loaded at "2026-10-03T13:19:59.2375209+03:30" 
+2026-10-03 13:19:59.239 +03:30 [WRN] This is a test warning from Home page. 
+2026-10-03 13:19:59.396 +03:30 [INF] HTTP GET / responded 200 in 386.4571 ms 
+2026-10-03 13:19:59.420 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 5.2376 ms 
+2026-10-03 13:19:59.426 +03:30 [INF] HTTP GET /app.css responded 200 in 11.9645 ms 
+2026-10-03 13:19:59.428 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 13.3832 ms 
+2026-10-03 13:19:59.429 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 14.8591 ms 
+2026-10-03 13:19:59.486 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.6679 ms 
+2026-10-03 13:19:59.486 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 0.6740 ms 
+2026-10-03 13:19:59.513 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 5.9064 ms 
+2026-10-03 13:19:59.520 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.5877 ms 
+2026-10-03 13:19:59.688 +03:30 [INF] Home page loaded at "2026-10-03T13:19:59.6882102+03:30" 
+2026-10-03 13:19:59.689 +03:30 [WRN] This is a test warning from Home page. 
+2026-10-03 13:19:59.895 +03:30 [INF] HTTP GET /products responded 200 in 757.3012 ms 
+2026-10-03 13:19:59.911 +03:30 [INF] HTTP GET /_blazor responded 101 in 835.6802 ms 
+2026-10-03 13:19:59.912 +03:30 [INF] HTTP GET /app.css responded 200 in 2.1806 ms 
+2026-10-03 13:19:59.914 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 0.2966 ms 
+2026-10-03 13:19:59.915 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 1.5817 ms 
+2026-10-03 13:19:59.919 +03:30 [INF] HTTP GET /uploads/products/b7e9697a9c934c00814ea404237b0a0a.png responded 304 in 1.1483 ms 
+2026-10-03 13:19:59.919 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 5.3758 ms 
+2026-10-03 13:19:59.921 +03:30 [INF] HTTP GET /uploads/products/27b41e9024374db59bf7fe94b1c824da.png responded 304 in 1.1968 ms 
+2026-10-03 13:19:59.927 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 24.2730 ms 
+2026-10-03 13:19:59.952 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.7743 ms 
+2026-10-03 13:19:59.973 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 2.0997 ms 
+2026-10-03 13:19:59.978 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.6112 ms 
+2026-10-03 13:20:00.046 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 0.7584 ms 
+2026-10-03 13:20:00.439 +03:30 [INF] HTTP GET /_blazor responded 101 in 453.8719 ms 
+2026-10-03 13:20:00.463 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 30.4235 ms 
+2026-10-03 13:20:02.549 +03:30 [INF] HTTP GET /uploads/products/b7e9697a9c934c00814ea404237b0a0a.png responded 304 in 0.4495 ms 
+2026-10-03 13:20:02.549 +03:30 [INF] HTTP GET /uploads/products/27b41e9024374db59bf7fe94b1c824da.png responded 304 in 0.4496 ms 
+2026-10-03 13:20:31.128 +03:30 [INF] HTTP GET /uploads/products/b7e9697a9c934c00814ea404237b0a0a.png responded 304 in 0.6911 ms 
+2026-10-03 13:20:31.128 +03:30 [INF] HTTP GET /uploads/products/27b41e9024374db59bf7fe94b1c824da.png responded 304 in 0.6929 ms 
+2026-10-03 13:21:02.141 +03:30 [INF] HTTP POST /api/auth/logout responded 302 in 9.2553 ms 
+2026-10-03 13:21:02.157 +03:30 [INF] HTTP GET /login responded 200 in 10.5586 ms 
+2026-10-03 13:21:02.167 +03:30 [INF] HTTP GET /_blazor responded 101 in 62639.1509 ms 
+2026-10-03 13:21:02.173 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 0.3084 ms 
+2026-10-03 13:21:02.174 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 1.5880 ms 
+2026-10-03 13:21:02.174 +03:30 [INF] HTTP GET /app.css responded 200 in 1.8586 ms 
+2026-10-03 13:21:02.177 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 10.5919 ms 
+2026-10-03 13:21:02.178 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 5.2336 ms 
+2026-10-03 13:21:02.228 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.3104 ms 
+2026-10-03 13:21:02.228 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 0.1817 ms 
+2026-10-03 13:21:02.231 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 0.3127 ms 
+2026-10-03 13:21:02.248 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.5402 ms 
+2026-10-03 13:21:05.013 +03:30 [INF] HTTP POST /api/auth/login responded 302 in 404.4517 ms 
+2026-10-03 13:21:05.021 +03:30 [INF] Home page loaded at "2026-10-03T13:21:05.0217421+03:30" 
+2026-10-03 13:21:05.021 +03:30 [WRN] This is a test warning from Home page. 
+2026-10-03 13:21:05.024 +03:30 [INF] HTTP GET / responded 200 in 4.8486 ms 
+2026-10-03 13:21:05.033 +03:30 [INF] HTTP GET /_blazor responded 101 in 2773.8566 ms 
+2026-10-03 13:21:05.034 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 1.5144 ms 
+2026-10-03 13:21:05.039 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 0.4868 ms 
+2026-10-03 13:21:05.042 +03:30 [INF] HTTP GET /app.css responded 200 in 3.1340 ms 
+2026-10-03 13:21:05.044 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 5.1979 ms 
+2026-10-03 13:21:05.045 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 3.2639 ms 
+2026-10-03 13:21:05.059 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.4627 ms 
+2026-10-03 13:21:05.059 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 0.4613 ms 
+2026-10-03 13:21:05.084 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 0.7039 ms 
+2026-10-03 13:21:05.092 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 1.1424 ms 
+2026-10-03 13:21:05.130 +03:30 [INF] Home page loaded at "2026-10-03T13:21:05.1306697+03:30" 
+2026-10-03 13:21:05.130 +03:30 [WRN] This is a test warning from Home page. 
+2026-10-03 13:29:01.322 +03:30 [INF] HTTP GET /_blazor responded 101 in 476218.4917 ms 
+2026-10-03 13:32:21.979 +03:30 [FTL] AutoSpare Web Application terminated unexpectedly. 
+Microsoft.Extensions.Hosting.HostAbortedException: The host was aborted.
+   at Microsoft.Extensions.Hosting.HostFactoryResolver.HostingListener.ThrowHostAborted()
+   at Microsoft.Extensions.Hosting.HostFactoryResolver.HostingListener.OnNext(KeyValuePair`2 value)
+   at System.Diagnostics.DiagnosticListener.Write(String name, Object value)
+   at Microsoft.Extensions.Hosting.HostBuilder.ResolveHost(IServiceProvider serviceProvider, DiagnosticListener diagnosticListener)
+   at Microsoft.Extensions.Hosting.HostApplicationBuilder.Build()
+   at Microsoft.AspNetCore.Builder.WebApplicationBuilder.Build()
+   at Program.<Main>$(String[] args) in D:\porograming\Rider\AutoSpare\AutoSpare.Web\Program.cs:line 128
+2026-10-03 13:33:25.458 +03:30 [FTL] AutoSpare Web Application terminated unexpectedly. 
+Microsoft.Extensions.Hosting.HostAbortedException: The host was aborted.
+   at Microsoft.Extensions.Hosting.HostFactoryResolver.HostingListener.ThrowHostAborted()
+   at Microsoft.Extensions.Hosting.HostFactoryResolver.HostingListener.OnNext(KeyValuePair`2 value)
+   at System.Diagnostics.DiagnosticListener.Write(String name, Object value)
+   at Microsoft.Extensions.Hosting.HostBuilder.ResolveHost(IServiceProvider serviceProvider, DiagnosticListener diagnosticListener)
+   at Microsoft.Extensions.Hosting.HostApplicationBuilder.Build()
+   at Microsoft.AspNetCore.Builder.WebApplicationBuilder.Build()
+   at Program.<Main>$(String[] args) in D:\porograming\Rider\AutoSpare\AutoSpare.Web\Program.cs:line 128
+2026-10-03 13:33:47.572 +03:30 [INF] Storage directories are ready. ImagesPath: D:\porograming\Rider\AutoSpare\AutoSpare.Web\wwwroot\Uploads\Images, BackupPath: D:\AutoSpareBackups 
+2026-10-03 13:33:47.867 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 31.0995 ms 
+2026-10-03 13:33:47.872 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 37.7697 ms 
+2026-10-03 13:33:48.024 +03:30 [INF] Home page loaded at "2026-10-03T13:33:48.0231001+03:30" 
+2026-10-03 13:33:48.025 +03:30 [WRN] This is a test warning from Home page. 
+2026-10-03 13:33:48.108 +03:30 [INF] HTTP GET / responded 200 in 274.4880 ms 
+2026-10-03 13:33:48.135 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 7.2694 ms 
+2026-10-03 13:33:48.143 +03:30 [INF] HTTP GET /app.css responded 200 in 15.4819 ms 
+2026-10-03 13:33:48.145 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 17.0376 ms 
+2026-10-03 13:33:48.146 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 18.5046 ms 
+2026-10-03 13:33:48.204 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 0.5652 ms 
+2026-10-03 13:33:48.204 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.5799 ms 
+2026-10-03 13:33:48.223 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 3.7377 ms 
+2026-10-03 13:33:48.234 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.9664 ms 
+2026-10-03 13:33:48.368 +03:30 [INF] Home page loaded at "2026-10-03T13:33:48.3684604+03:30" 
+2026-10-03 13:33:48.368 +03:30 [WRN] This is a test warning from Home page. 
+2026-10-03 13:33:52.036 +03:30 [INF] HTTP GET /inventory/transactions responded 404 in 0.5656 ms 
+2026-10-03 13:33:52.087 +03:30 [INF] HTTP GET /not-found responded 404 in 22.2647 ms 
+2026-10-03 13:33:52.115 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 0.7936 ms 
+2026-10-03 13:33:52.121 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 21.9920 ms 
+2026-10-03 13:33:52.122 +03:30 [INF] HTTP GET /_blazor responded 101 in 3878.0635 ms 
+2026-10-03 13:33:52.127 +03:30 [INF] HTTP GET /app.css responded 200 in 16.5059 ms 
+2026-10-03 13:33:52.134 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 2.3973 ms 
+2026-10-03 13:33:52.138 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 6.2560 ms 
+2026-10-03 13:33:52.153 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 0.8450 ms 
+2026-10-03 13:33:52.154 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.5801 ms 
+2026-10-03 13:33:52.183 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 0.8777 ms 
+2026-10-03 13:33:52.188 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 1.3611 ms 
+2026-10-03 13:33:54.655 +03:30 [INF] HTTP GET /uploads/products/27b41e9024374db59bf7fe94b1c824da.png responded 304 in 0.8072 ms 
+2026-10-03 13:33:54.655 +03:30 [INF] HTTP GET /uploads/products/b7e9697a9c934c00814ea404237b0a0a.png responded 304 in 0.8073 ms 
+2026-10-03 13:34:21.784 +03:30 [INF] HTTP GET /settings responded 404 in 0.4717 ms 
+2026-10-03 13:34:21.804 +03:30 [INF] HTTP GET /not-found responded 404 in 11.0039 ms 
+2026-10-03 13:34:21.816 +03:30 [INF] HTTP GET /_blazor responded 101 in 29614.5120 ms 
+2026-10-03 13:34:21.823 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 0.5486 ms 
+2026-10-03 13:34:21.825 +03:30 [INF] HTTP GET /app.css responded 200 in 2.5058 ms 
+2026-10-03 13:34:21.826 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 1.7392 ms 
+2026-10-03 13:34:21.827 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 4.1696 ms 
+2026-10-03 13:34:21.841 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 27.2384 ms 
+2026-10-03 13:34:21.850 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.3322 ms 
+2026-10-03 13:34:21.850 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 0.3322 ms 
+2026-10-03 13:34:21.863 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 0.5875 ms 
+2026-10-03 13:34:21.871 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 2.2759 ms 
+2026-10-03 13:34:32.439 +03:30 [INF] HTTP GET /purchases responded 404 in 0.3522 ms 
+2026-10-03 13:34:32.443 +03:30 [INF] HTTP GET /not-found responded 404 in 2.8556 ms 
+2026-10-03 13:34:32.458 +03:30 [INF] HTTP GET /_blazor responded 101 in 10577.0558 ms 
+2026-10-03 13:34:32.463 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 5.7007 ms 
+2026-10-03 13:34:32.465 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 0.2531 ms 
+2026-10-03 13:34:32.465 +03:30 [INF] HTTP GET /app.css responded 200 in 0.9727 ms 
+2026-10-03 13:34:32.467 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 1.7295 ms 
+2026-10-03 13:34:32.471 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 6.3753 ms 
+2026-10-03 13:34:32.476 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 0.4864 ms 
+2026-10-03 13:34:32.476 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.5370 ms 
+2026-10-03 13:34:32.504 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 0.6575 ms 
+2026-10-03 13:34:32.510 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.5306 ms 
+2026-10-03 13:34:38.879 +03:30 [INF] HTTP GET /customers responded 404 in 0.3537 ms 
+2026-10-03 13:34:38.883 +03:30 [INF] HTTP GET /not-found responded 404 in 2.9051 ms 
+2026-10-03 13:34:38.896 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 1.6009 ms 
+2026-10-03 13:34:38.897 +03:30 [INF] HTTP GET /_blazor responded 101 in 6376.0913 ms 
+2026-10-03 13:34:38.901 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 0.2065 ms 
+2026-10-03 13:34:38.903 +03:30 [INF] HTTP GET /app.css responded 200 in 2.2395 ms 
+2026-10-03 13:34:38.905 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 3.3870 ms 
+2026-10-03 13:34:38.906 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 4.7231 ms 
+2026-10-03 13:34:38.916 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.4286 ms 
+2026-10-03 13:34:38.917 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 0.3925 ms 
+2026-10-03 13:34:38.935 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 0.4449 ms 
+2026-10-03 13:34:38.940 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.4050 ms 
+2026-10-03 13:34:41.837 +03:30 [INF] HTTP GET /settlements responded 404 in 0.2467 ms 
+2026-10-03 13:34:41.841 +03:30 [INF] HTTP GET /not-found responded 404 in 3.4809 ms 
+2026-10-03 13:34:41.855 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 2.0481 ms 
+2026-10-03 13:34:41.857 +03:30 [INF] HTTP GET /_blazor responded 101 in 2901.8681 ms 
+2026-10-03 13:34:41.862 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 0.2875 ms 
+2026-10-03 13:34:41.863 +03:30 [INF] HTTP GET /app.css responded 200 in 0.9994 ms 
+2026-10-03 13:34:41.865 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 3.0566 ms 
+2026-10-03 13:34:41.868 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 5.6217 ms 
+2026-10-03 13:34:41.873 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.2914 ms 
+2026-10-03 13:34:41.874 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 0.2320 ms 
+2026-10-03 13:34:41.898 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 0.3113 ms 
+2026-10-03 13:34:41.905 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 1.1290 ms 
+2026-10-03 13:34:44.331 +03:30 [INF] HTTP GET /sales responded 404 in 0.1392 ms 
+2026-10-03 13:34:44.334 +03:30 [INF] HTTP GET /not-found responded 404 in 2.9267 ms 
+2026-10-03 13:34:44.354 +03:30 [INF] HTTP GET /_blazor responded 101 in 2439.2088 ms 
+2026-10-03 13:34:44.356 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 1.3845 ms 
+2026-10-03 13:34:44.359 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 0.3200 ms 
+2026-10-03 13:34:44.360 +03:30 [INF] HTTP GET /app.css responded 200 in 1.3193 ms 
+2026-10-03 13:34:44.362 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 3.2797 ms 
+2026-10-03 13:34:44.365 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 5.9735 ms 
+2026-10-03 13:34:44.372 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.5096 ms 
+2026-10-03 13:34:44.373 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 0.5479 ms 
+2026-10-03 13:34:44.396 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 0.3645 ms 
+2026-10-03 13:34:44.405 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.3508 ms 
+2026-10-03 13:34:45.751 +03:30 [INF] HTTP GET /sales/new responded 404 in 0.5073 ms 
+2026-10-03 13:34:45.756 +03:30 [INF] HTTP GET /not-found responded 404 in 4.7512 ms 
+2026-10-03 13:34:45.773 +03:30 [INF] HTTP GET /_blazor responded 101 in 1358.8338 ms 
+2026-10-03 13:34:45.774 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 2.0176 ms 
+2026-10-03 13:34:45.779 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 0.4669 ms 
+2026-10-03 13:34:45.781 +03:30 [INF] HTTP GET /app.css responded 200 in 2.8155 ms 
+2026-10-03 13:34:45.781 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 2.8135 ms 
+2026-10-03 13:34:45.783 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 3.8384 ms 
+2026-10-03 13:34:45.805 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 0.2204 ms 
+2026-10-03 13:34:45.805 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.2205 ms 
+2026-10-03 13:34:45.817 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 0.3692 ms 
+2026-10-03 13:34:45.824 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.2987 ms 
+2026-10-03 13:34:48.147 +03:30 [INF] HTTP GET /reports responded 404 in 0.1410 ms 
+2026-10-03 13:34:48.153 +03:30 [INF] HTTP GET /not-found responded 404 in 5.6970 ms 
+2026-10-03 13:34:48.174 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 2.7675 ms 
+2026-10-03 13:34:48.175 +03:30 [INF] HTTP GET /_blazor responded 101 in 2344.7853 ms 
+2026-10-03 13:34:48.179 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 0.2888 ms 
+2026-10-03 13:34:48.180 +03:30 [INF] HTTP GET /app.css responded 200 in 1.4090 ms 
+2026-10-03 13:34:48.180 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 1.2233 ms 
+2026-10-03 13:34:48.182 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 3.1858 ms 
+2026-10-03 13:34:48.203 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 0.1775 ms 
+2026-10-03 13:34:48.203 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.1776 ms 
+2026-10-03 13:34:48.210 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 0.4298 ms 
+2026-10-03 13:34:48.222 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.3663 ms 
+2026-10-03 13:34:50.732 +03:30 [INF] Home page loaded at "2026-10-03T13:34:50.7326878+03:30" 
+2026-10-03 13:34:50.732 +03:30 [WRN] This is a test warning from Home page. 
+2026-10-03 13:35:30.783 +03:30 [INF] HTTP POST /api/auth/logout responded 302 in 7.3627 ms 
+2026-10-03 13:35:30.800 +03:30 [INF] HTTP GET /login responded 200 in 10.3484 ms 
+2026-10-03 13:35:30.808 +03:30 [INF] HTTP GET /_blazor responded 101 in 42578.8897 ms 
+2026-10-03 13:35:30.811 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 2.1851 ms 
+2026-10-03 13:35:30.815 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 0.2993 ms 
+2026-10-03 13:35:30.817 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 2.0762 ms 
+2026-10-03 13:35:30.817 +03:30 [INF] HTTP GET /app.css responded 200 in 2.4712 ms 
+2026-10-03 13:35:30.824 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 9.5197 ms 
+2026-10-03 13:35:30.853 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.2290 ms 
+2026-10-03 13:35:30.854 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 0.1881 ms 
+2026-10-03 13:35:30.858 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 0.2544 ms 
+2026-10-03 13:35:30.876 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.3248 ms 
+2026-10-03 13:35:41.701 +03:30 [INF] HTTP POST /api/auth/login responded 302 in 192.4791 ms 
+2026-10-03 13:35:41.707 +03:30 [INF] Home page loaded at "2026-10-03T13:35:41.7075441+03:30" 
+2026-10-03 13:35:41.707 +03:30 [WRN] This is a test warning from Home page. 
+2026-10-03 13:35:41.709 +03:30 [INF] HTTP GET / responded 200 in 2.7612 ms 
+2026-10-03 13:35:41.717 +03:30 [INF] HTTP GET /_blazor responded 101 in 10819.5458 ms 
+2026-10-03 13:35:41.719 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 1.9957 ms 
+2026-10-03 13:35:41.725 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 0.1945 ms 
+2026-10-03 13:35:41.725 +03:30 [INF] HTTP GET /app.css responded 200 in 1.0549 ms 
+2026-10-03 13:35:41.726 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 1.2085 ms 
+2026-10-03 13:35:41.728 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 3.1815 ms 
+2026-10-03 13:35:41.736 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.2634 ms 
+2026-10-03 13:35:41.738 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 0.3275 ms 
+2026-10-03 13:35:41.757 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 0.2915 ms 
+2026-10-03 13:35:41.761 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.2827 ms 
+2026-10-03 13:35:41.787 +03:30 [INF] Home page loaded at "2026-10-03T13:35:41.7872648+03:30" 
+2026-10-03 13:35:41.787 +03:30 [WRN] This is a test warning from Home page. 
+2026-10-03 13:35:48.017 +03:30 [INF] HTTP GET /uploads/products/b7e9697a9c934c00814ea404237b0a0a.png responded 304 in 0.1705 ms 
+2026-10-03 13:35:48.017 +03:30 [INF] HTTP GET /uploads/products/27b41e9024374db59bf7fe94b1c824da.png responded 304 in 0.1703 ms 
+2026-10-03 13:35:54.178 +03:30 [INF] HTTP GET /_blazor responded 101 in 12401.3328 ms 
+2026-10-03 13:36:32.570 +03:30 [INF] Storage directories are ready. ImagesPath: D:\porograming\Rider\AutoSpare\AutoSpare.Web\wwwroot\Uploads\Images, BackupPath: D:\AutoSpareBackups 
+2026-10-03 13:36:32.992 +03:30 [INF] Home page loaded at "2026-10-03T13:36:32.9901231+03:30" 
+2026-10-03 13:36:32.995 +03:30 [WRN] This is a test warning from Home page. 
+2026-10-03 13:36:33.090 +03:30 [INF] HTTP GET / responded 200 in 275.2601 ms 
+2026-10-03 13:36:33.114 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 7.6714 ms 
+2026-10-03 13:36:33.126 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 19.7402 ms 
+2026-10-03 13:36:33.131 +03:30 [INF] HTTP GET /app.css responded 200 in 25.3788 ms 
+2026-10-03 13:36:33.135 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 28.8514 ms 
+2026-10-03 13:36:33.213 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 3.9339 ms 
+2026-10-03 13:36:33.213 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 3.9338 ms 
+2026-10-03 13:36:33.222 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 6.2176 ms 
+2026-10-03 13:36:33.249 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 11.6154 ms 
+2026-10-03 13:36:33.406 +03:30 [INF] Home page loaded at "2026-10-03T13:36:33.4069182+03:30" 
+2026-10-03 13:36:33.407 +03:30 [WRN] This is a test warning from Home page. 
+2026-10-03 13:36:36.271 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 1.0073 ms 
+2026-10-03 13:36:36.425 +03:30 [INF] HTTP GET /categories responded 200 in 114.6562 ms 
+2026-10-03 13:36:36.444 +03:30 [INF] HTTP GET /app.css responded 200 in 3.4927 ms 
+2026-10-03 13:36:36.448 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 1.6031 ms 
+2026-10-03 13:36:36.452 +03:30 [INF] HTTP GET /_blazor responded 101 in 172.0184 ms 
+2026-10-03 13:36:36.453 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 17.9715 ms 
+2026-10-03 13:36:36.457 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 3.9069 ms 
+2026-10-03 13:36:36.462 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 7.9871 ms 
+2026-10-03 13:36:36.492 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 1.3153 ms 
+2026-10-03 13:36:36.498 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 0.8938 ms 
+2026-10-03 13:36:36.511 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.9194 ms 
+2026-10-03 13:36:36.729 +03:30 [INF] HTTP GET /uploads/products/27b41e9024374db59bf7fe94b1c824da.png responded 304 in 0.5634 ms 
+2026-10-03 13:36:36.729 +03:30 [INF] HTTP GET /uploads/products/b7e9697a9c934c00814ea404237b0a0a.png responded 304 in 0.5637 ms 
+2026-10-03 13:36:38.140 +03:30 [INF] HTTP GET /inventory/transactions responded 404 in 0.6879 ms 
+2026-10-03 13:36:38.174 +03:30 [INF] HTTP GET /not-found responded 404 in 9.2397 ms 
+2026-10-03 13:36:38.187 +03:30 [INF] HTTP GET /_blazor responded 101 in 4924.9170 ms 
+2026-10-03 13:36:38.190 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 0.5272 ms 
+2026-10-03 13:36:38.191 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 1.3696 ms 
+2026-10-03 13:36:38.191 +03:30 [INF] HTTP GET /app.css responded 200 in 1.2937 ms 
+2026-10-03 13:36:38.197 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 6.8203 ms 
+2026-10-03 13:36:38.218 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 36.4032 ms 
+2026-10-03 13:36:38.228 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.3394 ms 
+2026-10-03 13:36:38.228 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 0.3394 ms 
+2026-10-03 13:36:38.248 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 0.5846 ms 
+2026-10-03 13:36:38.257 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.5532 ms 
+2026-10-03 13:36:39.695 +03:30 [INF] HTTP GET /uploads/products/27b41e9024374db59bf7fe94b1c824da.png responded 304 in 0.5282 ms 
+2026-10-03 13:36:39.695 +03:30 [INF] HTTP GET /uploads/products/b7e9697a9c934c00814ea404237b0a0a.png responded 304 in 0.5287 ms 
+2026-10-03 13:40:05.314 +03:30 [INF] HTTP GET /_blazor responded 101 in 207048.3705 ms 
+2026-10-03 13:40:05.314 +03:30 [INF] HTTP GET /_blazor responded 101 in 208792.5892 ms 
