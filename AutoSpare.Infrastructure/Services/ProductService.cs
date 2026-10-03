@@ -118,4 +118,41 @@ public class ProductService : IProductService
 
         return product.Id;
     }
+
+    public async Task<List<ProductListItemDto>> GetProductsAsync(string? searchTerm = null)
+    {
+        var query = _context.Products
+            .AsNoTracking()
+            .AsQueryable();
+
+        if (!string.IsNullOrWhiteSpace(searchTerm))
+        {
+            var term = searchTerm.Trim();
+            query = query.Where(p =>
+                p.Name.Contains(term) ||
+                p.InternalCode.Contains(term) ||
+                p.Model.Contains(term) ||
+                (p.Brand != null && p.Brand.Name.Contains(term))); // اضافه شدن جستجو روی برند
+        }
+
+        return await query
+            .OrderByDescending(p => p.CreatedAt)
+            .Select(p => new ProductListItemDto
+            {
+                Id = p.Id,
+                Name = p.Name,
+                InternalCode = p.InternalCode,
+                Model = p.Model,
+                ImagePath = p.ImagePath,
+                SalePrice = p.SalePrice,
+                PurchasePrice = p.PurchasePrice,
+                CategoryName = p.Category != null ? p.Category.Name : "-",
+                BrandName = p.Brand != null ? p.Brand.Name : "-",
+                DefaultWarehouseName = p.DefaultWarehouse != null ? p.DefaultWarehouse.Name : null,
+                TotalStock = _context.Inventories
+                    .Where(i => i.ProductId == p.Id)
+                    .Sum(i => (int?)i.Quantity) ?? 0
+            })
+            .ToListAsync();
+    }
 }
