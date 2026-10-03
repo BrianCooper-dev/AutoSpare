@@ -2,9 +2,11 @@
 
 @using AutoSpare.Application.Products
 @using AutoSpare.Application.Products.DTOs
+@using AutoSpare.Domain.Products.Enums
 
 @inject IProductService ProductService
 @inject ISnackbar Snackbar
+@inject IDialogService DialogService
 @inject NavigationManager Navigation
 
 <MudContainer MaxWidth="MaxWidth.ExtraLarge" Class="mt-6 mb-10">
@@ -175,8 +177,9 @@
                     <MudTh>برند</MudTh>
                     <MudTh Style="text-align: left;">قیمت فروش (تومان)</MudTh>
                     <MudTh Style="text-align: center;">موجودی</MudTh>
+                    <MudTh Style="text-align: center;">وضعیت</MudTh>
                     <MudTh>انبار پیش‌فرض</MudTh>
-                    <MudTh Style="text-align: center; width: 80px;">عملیات</MudTh>
+                    <MudTh Style="text-align: center; width: 120px;">عملیات</MudTh>
                 </HeaderContent>
 
                 <RowTemplate>
@@ -249,6 +252,21 @@
                         }
                     </MudTd>
 
+                    <MudTd DataLabel="وضعیت" Style="text-align: center;">
+                        @if (context.Status == ProductStatus.Active)
+                        {
+                            <MudChip T="string" Size="Size.Small" Color="Color.Success" Variant="Variant.Outlined">
+                                فعال
+                            </MudChip>
+                        }
+                        else
+                        {
+                            <MudChip T="string" Size="Size.Small" Color="Color.Error" Variant="Variant.Outlined">
+                                غیرفعال
+                            </MudChip>
+                        }
+                    </MudTd>
+
                     <MudTd DataLabel="انبار پیش‌فرض">
                         @(context.DefaultWarehouseName ?? "-")
                     </MudTd>
@@ -268,9 +286,17 @@
                                                Size="Size.Small"
                                                OnClick="@(() => Navigation.NavigateTo($"/products/edit/{context.Id}"))"/>
                             </MudTooltip>
+
+                            <MudTooltip
+                                Text="@(context.Status == ProductStatus.Active ? "غیرفعال‌سازی کالا" : "فعال‌سازی کالا")">
+                                <MudIconButton
+                                    Icon="@(context.Status == ProductStatus.Active ? Icons.Material.Filled.PowerSettingsNew : Icons.Material.Filled.CheckCircle)"
+                                    Color="@(context.Status == ProductStatus.Active ? Color.Error : Color.Success)"
+                                    Size="Size.Small"
+                                    OnClick="@(() => ToggleStatusAsync(context))"/>
+                            </MudTooltip>
                         </div>
                     </MudTd>
-
                 </RowTemplate>
 
                 <NoRecordsContent>
@@ -309,8 +335,6 @@
         try
         {
             _isLoading = true;
-
-            // واکشی ترتیبی اطلاعات لوک‌آپ برای جلوگیری از تداخل عملیات در یک DbContext
             _categories = await ProductService.GetCategoriesLookupAsync();
             _brands = await ProductService.GetBrandsLookupAsync();
             _warehouses = await ProductService.GetWarehousesLookupAsync();
@@ -344,6 +368,49 @@
         }
     }
 
+    private async Task ToggleStatusAsync(ProductListItemDto item)
+    {
+        var actionText = item.Status == ProductStatus.Active ? "غیرفعال" : "فعال";
+
+        // تنظیم پارامترهای دایالوگ تایید
+        var parameters = new DialogParameters<ConfirmDialog>
+        {
+            { x => x.Title, $"{actionText}‌سازی کالا" },
+            { x => x.ContentText, $"آیا از {actionText}‌سازی کالای «{item.Name}» با کد فنی {item.InternalCode} اطمینان دارید؟" },
+            { x => x.ConfirmButtonText, $"بله، {actionText} شود" },
+            { x => x.Color, item.Status == ProductStatus.Active ? Color.Warning : Color.Success },
+            { x => x.Icon, item.Status == ProductStatus.Active ? Icons.Material.Filled.Block : Icons.Material.Filled.CheckCircle }
+        };
+
+        var options = new DialogOptions
+        {
+            CloseButton = false,
+            CloseOnEscapeKey = true,
+            MaxWidth = MaxWidth.ExtraSmall,
+            FullWidth = true
+        };
+
+        // فراخوانی دایالوگ اختصاصی ConfirmDialog
+        var dialog = await DialogService.ShowAsync<ConfirmDialog>("تأیید عملیات", parameters, options);
+        var result = await dialog.Result;
+
+        // بررسی نتیجه
+        if (result != null && !result.Canceled)
+        {
+            try
+            {
+                await ProductService.ToggleProductStatusAsync(item.Id);
+                Snackbar.Add($"کالای «{item.Name}» با موفقیت {actionText} شد.", Severity.Success);
+                await LoadProductsAsync();
+            }
+            catch (Exception ex)
+            {
+                Snackbar.Add($"خطا در تغییر وضعیت کالا: {ex.Message}", Severity.Error);
+            }
+        }
+    }
+
+
     private async Task ResetFiltersAsync()
     {
         _filter = new ProductFilterDto();
@@ -351,4 +418,3 @@
     }
 
 }
-
