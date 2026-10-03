@@ -1,3 +1,5 @@
+using AutoSpare.Domain.Products.Enums;
+
 namespace AutoSpare.Application.Products.DTOs;
 
 public class ProductListItemDto
@@ -12,5 +14,6 @@ public class ProductListItemDto
     public string? DefaultWarehouseName { get; set; }
     public decimal SalePrice { get; set; }
     public decimal PurchasePrice { get; set; }
-    public int TotalStock { get; set; } // مجموع موجودی در تمام انبارها
+    public int TotalStock { get; set; }
+    public ProductStatus Status { get; set; } = ProductStatus.Active;
 }
