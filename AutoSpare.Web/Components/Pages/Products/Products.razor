@@ -36,45 +36,132 @@
         <MudDivider/>
 
         <MudCardContent>
-            <!-- فیلتر و جستجو -->
-            <div class="d-flex align-center justify-space-between mb-4 flex-wrap gap-3">
-                <MudTextField T="string"
-                              Value="@_searchTerm"
-                              ValueChanged="@(async (string val) =>
-                                            {
-                                                _searchTerm = val;
-                                                await LoadProductsAsync();
-                                            })"
-                              OnClearButtonClick="@(async () =>
-                                                  {
-                                                      _searchTerm = string.Empty;
-                                                      await LoadProductsAsync();
-                                                  })"
-                              Placeholder="جستجو بر اساس نام کالا، کد فنی، مدل یا برند..."
-                              Adornment="Adornment.Start"
-                              AdornmentIcon="@Icons.Material.Filled.Search"
-                              IconSize="Size.Medium"
-                              Clearable="true"
-                              DebounceInterval="400"
-                              Variant="Variant.Outlined"
-                              Margin="Margin.Dense"
-                              Style="max-width: 400px;"/>
+            <!-- نوار فیلترهای پیشرفته -->
+            <MudPaper Elevation="0" Class="pa-3 mb-4 rounded border mud-background-gray">
+                <MudGrid Spacing="2" Class="align-center">
+                    <!-- جستجوی متنی -->
+                    <MudItem xs="12" sm="6" md="3">
+                        <MudTextField T="string"
+                                      Value="@_filter.SearchTerm"
+                                      ValueChanged="@(async (string val) =>
+                                                    {
+                                                        _filter.SearchTerm = val;
+                                                        await LoadProductsAsync();
+                                                    })"
+                                      OnClearButtonClick="@(async () =>
+                                                          {
+                                                              _filter.SearchTerm = string.Empty;
+                                                              await LoadProductsAsync();
+                                                          })"
+                                      Placeholder="نام، کد فنی، مدل یا برند..."
+                                      Adornment="Adornment.Start"
+                                      AdornmentIcon="@Icons.Material.Filled.Search"
+                                      IconSize="Size.Small"
+                                      Clearable="true"
+                                      DebounceInterval="400"
+                                      Variant="Variant.Outlined"
+                                      Margin="Margin.Dense"/>
+                    </MudItem>
 
+                    <!-- دسته‌بندی -->
+                    <MudItem xs="12" sm="6" md="2">
+                        <MudSelect T="Guid?"
+                                   Label="دسته‌بندی"
+                                   Value="@_filter.CategoryId"
+                                   ValueChanged="@(async (Guid? val) =>
+                                                 {
+                                                     _filter.CategoryId = val;
+                                                     await LoadProductsAsync();
+                                                 })"
+                                   Clearable="true"
+                                   AnchorOrigin="Origin.BottomCenter"
+                                   Variant="Variant.Outlined"
+                                   Margin="Margin.Dense">
+                            @foreach (var cat in _categories)
+                            {
+                                <MudSelectItem Value="@((Guid?)cat.Id)">@cat.Title</MudSelectItem>
+                            }
+                        </MudSelect>
+                    </MudItem>
 
-                <MudButton Variant="Variant.Outlined"
-                           Color="Color.Default"
-                           StartIcon="@Icons.Material.Filled.Refresh"
-                           OnClick="LoadProductsAsync"
-                           Disabled="@_isLoading">
-                    بروزرسانی
-                </MudButton>
-            </div>
+                    <!-- برند -->
+                    <MudItem xs="12" sm="6" md="2">
+                        <MudSelect T="Guid?"
+                                   Label="برند"
+                                   Value="@_filter.BrandId"
+                                   ValueChanged="@(async (Guid? val) =>
+                                                 {
+                                                     _filter.BrandId = val;
+                                                     await LoadProductsAsync();
+                                                 })"
+                                   Clearable="true"
+                                   AnchorOrigin="Origin.BottomCenter"
+                                   Variant="Variant.Outlined"
+                                   Margin="Margin.Dense">
+                            @foreach (var brand in _brands)
+                            {
+                                <MudSelectItem Value="@((Guid?)brand.Id)">@brand.Title</MudSelectItem>
+                            }
+                        </MudSelect>
+                    </MudItem>
+
+                    <!-- انبار -->
+                    <MudItem xs="12" sm="6" md="2">
+                        <MudSelect T="Guid?"
+                                   Label="انبار"
+                                   Value="@_filter.WarehouseId"
+                                   ValueChanged="@(async (Guid? val) =>
+                                                 {
+                                                     _filter.WarehouseId = val;
+                                                     await LoadProductsAsync();
+                                                 })"
+                                   Clearable="true"
+                                   AnchorOrigin="Origin.BottomCenter"
+                                   Variant="Variant.Outlined"
+                                   Margin="Margin.Dense">
+                            @foreach (var wh in _warehouses)
+                            {
+                                <MudSelectItem Value="@((Guid?)wh.Id)">@wh.Title</MudSelectItem>
+                            }
+                        </MudSelect>
+                    </MudItem>
+
+                    <!-- وضعیت موجودی -->
+                    <MudItem xs="12" sm="6" md="2">
+                        <MudSelect T="StockStatusFilter"
+                                   Label="وضعیت موجودی"
+                                   Value="@_filter.StockStatus"
+                                   ValueChanged="@(async (StockStatusFilter val) =>
+                                                 {
+                                                     _filter.StockStatus = val;
+                                                     await LoadProductsAsync();
+                                                 })"
+                                   AnchorOrigin="Origin.BottomCenter"
+                                   Variant="Variant.Outlined"
+                                   Margin="Margin.Dense">
+                            <MudSelectItem Value="StockStatusFilter.All">همه</MudSelectItem>
+                            <MudSelectItem Value="StockStatusFilter.InStock">موجود</MudSelectItem>
+                            <MudSelectItem Value="StockStatusFilter.OutOfStock">ناموجود</MudSelectItem>
+                            <MudSelectItem Value="StockStatusFilter.LowStock">کم‌موجودی (تا ۵ عدد)</MudSelectItem>
+                        </MudSelect>
+                    </MudItem>
+
+                    <!-- دکمه پاک کردن فیلترها -->
+                    <MudItem xs="12" sm="6" md="1" Class="d-flex justify-center">
+                        <MudTooltip Text="حذف همه فیلترها">
+                            <MudIconButton Icon="@Icons.Material.Filled.FilterAltOff"
+                                           Color="Color.Secondary"
+                                           OnClick="ResetFiltersAsync"
+                                           Disabled="@(!HasActiveFilters || _isLoading)"/>
+                        </MudTooltip>
+                    </MudItem>
+                </MudGrid>
+            </MudPaper>
 
             <!-- جدول داده‌ها -->
             <MudTable Items="@_products"
                       Dense="true"
                       Hover="true"
-                      Bordered="false"
                       Striped="true"
                       Loading="@_isLoading"
                       LoadingProgressColor="Color.Primary"
@@ -87,7 +174,7 @@
                     <MudTh>دسته‌بندی</MudTh>
                     <MudTh>برند</MudTh>
                     <MudTh Style="text-align: left;">قیمت فروش (تومان)</MudTh>
-                    <MudTh Style="text-align: center;">موجودی کل</MudTh>
+                    <MudTh Style="text-align: center;">موجودی</MudTh>
                     <MudTh>انبار پیش‌فرض</MudTh>
                 </HeaderContent>
 
@@ -140,17 +227,23 @@
                         </MudText>
                     </MudTd>
 
-                    <MudTd DataLabel="موجودی کل" Style="text-align: center;">
-                        @if (context.TotalStock > 0)
+                    <MudTd DataLabel="موجودی" Style="text-align: center;">
+                        @if (context.TotalStock > 5)
                         {
                             <MudChip T="string" Size="Size.Small" Color="Color.Success" Variant="Variant.Filled">
                                 @context.TotalStock عدد
                             </MudChip>
                         }
+                        else if (context.TotalStock > 0)
+                        {
+                            <MudChip T="string" Size="Size.Small" Color="Color.Warning" Variant="Variant.Filled">
+                                @context.TotalStock عدد (کم)
+                            </MudChip>
+                        }
                         else
                         {
                             <MudChip T="string" Size="Size.Small" Color="Color.Error" Variant="Variant.Outlined">
-                                اتمام موجودی
+                                ناموجود
                             </MudChip>
                         }
                     </MudTd>
@@ -162,7 +255,7 @@
 
                 <NoRecordsContent>
                     <MudText Typo="Typo.body2" Align="Align.Center" Class="py-6 text-muted">
-                        هیچ کالایی یافت نشد.
+                        هیچ کالایی با فیلترهای انتخابی یافت نشد.
                     </MudText>
                 </NoRecordsContent>
 
@@ -177,12 +270,47 @@
 
 @code {
     private List<ProductListItemDto> _products = new();
+    private ProductFilterDto _filter = new();
     private bool _isLoading = true;
-    private string _searchTerm = string.Empty;
+
+    private List<DropdownItemDto> _categories = new();
+    private List<DropdownItemDto> _brands = new();
+    private List<DropdownItemDto> _warehouses = new();
+
+    private bool HasActiveFilters =>
+        !string.IsNullOrWhiteSpace(_filter.SearchTerm) ||
+        _filter.CategoryId.HasValue ||
+        _filter.BrandId.HasValue ||
+        _filter.WarehouseId.HasValue ||
+        _filter.StockStatus != StockStatusFilter.All;
 
     protected override async Task OnInitializedAsync()
     {
-        await LoadProductsAsync();
+        try
+        {
+            _isLoading = true;
+
+            // دریافت لوک‌آپ‌های فیلترها به صورت همزمان
+            var categoriesTask = ProductService.GetCategoriesLookupAsync();
+            var brandsTask = ProductService.GetBrandsLookupAsync();
+            var warehousesTask = ProductService.GetWarehousesLookupAsync();
+
+            await Task.WhenAll(categoriesTask, brandsTask, warehousesTask);
+
+            _categories = await categoriesTask;
+            _brands = await brandsTask;
+            _warehouses = await warehousesTask;
+
+            await LoadProductsAsync();
+        }
+        catch (Exception ex)
+        {
+            Snackbar.Add($"خطا در بارگذاری اطلاعات اولیه: {ex.Message}", Severity.Error);
+        }
+        finally
+        {
+            _isLoading = false;
+        }
     }
 
     private async Task LoadProductsAsync()
@@ -190,7 +318,7 @@
         try
         {
             _isLoading = true;
-            _products = await ProductService.GetProductsAsync(_searchTerm);
+            _products = await ProductService.GetProductsAsync(_filter);
         }
         catch (Exception ex)
         {
@@ -200,6 +328,12 @@
         {
             _isLoading = false;
         }
+    }
+
+    private async Task ResetFiltersAsync()
+    {
+        _filter = new ProductFilterDto();
+        await LoadProductsAsync();
     }
 
 }
