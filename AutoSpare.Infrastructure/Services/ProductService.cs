@@ -195,7 +195,8 @@ public class ProductService : IProductService
                 break;
 
             case StockStatusFilter.LowStock:
-                projectedQuery = projectedQuery.Where(p => p.TotalStock > 0 && p.TotalStock <= filter.LowStockThreshold);
+                projectedQuery =
+                    projectedQuery.Where(p => p.TotalStock > 0 && p.TotalStock <= filter.LowStockThreshold);
                 break;
 
             case StockStatusFilter.All:
@@ -204,5 +205,75 @@ public class ProductService : IProductService
         }
 
         return await projectedQuery.ToListAsync();
+    }
+
+    public async Task<ProductDetailsDto?> GetProductDetailsByIdAsync(Guid id)
+    {
+        var product = await _context.Products
+            .AsNoTracking()
+            .Include(p => p.Category)
+            .Include(p => p.Brand)
+            .Include(p => p.DefaultWarehouse)
+            .FirstOrDefaultAsync(p => p.Id == id);
+
+        if (product == null)
+        {
+            return null;
+        }
+
+        // ۱. دریافت موجودی در انبارها
+        var warehouseStocks = await _context.Inventories
+            .AsNoTracking()
+            .Where(i => i.ProductId == id)
+            .Select(i => new ProductWarehouseStockDto
+            {
+                WarehouseId = i.WarehouseId,
+                WarehouseName = _context.Warehouses
+                    .Where(w => w.Id == i.WarehouseId)
+                    .Select(w => w.Name)
+                    .FirstOrDefault() ?? "نامشخص",
+                Quantity = i.Quantity
+            })
+            .ToListAsync();
+
+        // ۲. دریافت تاریخچه گردش موجودی (کاردکس)
+        var movements = await _context.StockMovements
+            .AsNoTracking()
+            .Where(sm => sm.ProductId == id)
+            .OrderByDescending(sm => sm.OccurredAt)
+            .Select(sm => new StockMovementDto
+            {
+                Id = sm.Id,
+                WarehouseName = _context.Warehouses
+                    .Where(w => w.Id == sm.WarehouseId)
+                    .Select(w => w.Name)
+                    .FirstOrDefault() ?? "نامشخص",
+                Type = sm.Type,
+                QuantityChange = sm.QuantityChange,
+                BalanceAfter = sm.BalanceAfter,
+                Reference = sm.Reference,
+                Reason = sm.Reason,
+                PerformedBy = sm.PerformedBy,
+                OccurredAt = sm.OccurredAt
+            })
+            .ToListAsync();
+
+        return new ProductDetailsDto
+        {
+            Id = product.Id,
+            Name = product.Name,
+            InternalCode = product.InternalCode,
+            Model = product.Model,
+            ImagePath = product.ImagePath,
+            PurchasePrice = product.PurchasePrice,
+            SalePrice = product.SalePrice,
+            CategoryName = product.Category != null ? product.Category.Name : "-",
+            BrandName = product.Brand != null ? product.Brand.Name : "-",
+            DefaultWarehouseName = product.DefaultWarehouse != null ? product.DefaultWarehouse.Name : "-",
+            TotalStock = warehouseStocks.Sum(ws => ws.Quantity),
+            CreatedAt = product.CreatedAt,
+            WarehouseStocks = warehouseStocks,
+            Movements = movements
+        };
     }
 }
