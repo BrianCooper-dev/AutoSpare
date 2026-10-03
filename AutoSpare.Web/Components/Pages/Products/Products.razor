@@ -254,12 +254,21 @@
                     </MudTd>
 
                     <MudTd DataLabel="عملیات" Style="text-align: center;">
-                        <MudTooltip Text="مشاهده جزئیات و کاردکس">
-                            <MudIconButton Icon="@Icons.Material.Filled.Visibility"
-                                           Color="Color.Primary"
-                                           Size="Size.Small"
-                                           OnClick="@(() => Navigation.NavigateTo($"/products/{context.Id}"))" />
-                        </MudTooltip>
+                        <div class="d-flex justify-center gap-1">
+                            <MudTooltip Text="مشاهده جزئیات و کاردکس">
+                                <MudIconButton Icon="@Icons.Material.Filled.Visibility"
+                                               Color="Color.Primary"
+                                               Size="Size.Small"
+                                               OnClick="@(() => Navigation.NavigateTo($"/products/{context.Id}"))"/>
+                            </MudTooltip>
+
+                            <MudTooltip Text="ویرایش کالا">
+                                <MudIconButton Icon="@Icons.Material.Filled.Edit"
+                                               Color="Color.Warning"
+                                               Size="Size.Small"
+                                               OnClick="@(() => Navigation.NavigateTo($"/products/edit/{context.Id}"))"/>
+                            </MudTooltip>
+                        </div>
                     </MudTd>
 
                 </RowTemplate>
@@ -340,5 +349,6 @@
         _filter = new ProductFilterDto();
         await LoadProductsAsync();
     }
+
 }
 

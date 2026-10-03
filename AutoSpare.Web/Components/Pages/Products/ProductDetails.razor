@@ -9,7 +9,7 @@
 @inject NavigationManager Navigation
 
 <MudContainer MaxWidth="MaxWidth.ExtraLarge" Class="mt-6 mb-10">
-    <!-- هدر صفحه و دکمه بازگشت -->
+    <!-- هدر صفحه و دکمه‌های اکشن -->
     <div class="d-flex justify-space-between align-center mb-4">
         <div class="d-flex align-center gap-3">
             <MudIconButton Icon="@Icons.Material.Filled.ArrowForward"
@@ -18,17 +18,30 @@
                            Title="بازگشت به لیست کالاها"/>
             <div>
                 <MudText Typo="Typo.h5" Class="fw-bold">جزئیات و کاردکس کالا</MudText>
-                <MudText Typo="Typo.caption" Color="Color.Secondary">مشاهده مشخصات کامل، تفکیک انبارها و گردش کالا
+                <MudText Typo="Typo.caption" Color="Color.Secondary">
+                    مشاهده مشخصات کامل، تفکیک انبارها و گردش کالا
                 </MudText>
             </div>
         </div>
 
-        <MudButton Variant="Variant.Outlined"
-                   Color="Color.Primary"
-                   StartIcon="@Icons.Material.Filled.ArrowForward"
-                   OnClick="@(() => Navigation.NavigateTo("/products"))">
-            بازگشت به فهرست
-        </MudButton>
+        <div class="d-flex gap-2">
+            @if (_product != null)
+            {
+                <MudButton Variant="Variant.Filled"
+                           Color="Color.Warning"
+                           StartIcon="@Icons.Material.Filled.Edit"
+                           OnClick="@(() => Navigation.NavigateTo($"/products/edit/{Id}"))">
+                    ویرایش کالا
+                </MudButton>
+            }
+
+            <MudButton Variant="Variant.Outlined"
+                       Color="Color.Primary"
+                       StartIcon="@Icons.Material.Filled.ArrowForward"
+                       OnClick="@(() => Navigation.NavigateTo("/products"))">
+                بازگشت به فهرست
+            </MudButton>
+        </div>
     </div>
 
     @if (_isLoading)
@@ -48,94 +61,106 @@
         <MudGrid Spacing="3">
             <!-- کارت اطلاعات پایه و تصویر -->
             <MudItem xs="12" md="4">
-                <MudCard Elevation="3" Class="rounded-lg h-100">
-                    <MudCardContent Class="d-flex flex-column align-center">
-                        @if (!string.IsNullOrWhiteSpace(_product.ImagePath))
-                        {
-                            <MudImage Src="@_product.ImagePath"
-                                      Alt="@_product.Name"
-                                      Width="200"
-                                      Height="200"
-                                      ObjectFit="ObjectFit.Cover"
-                                      Class="rounded-lg border mb-4 shadow-sm"/>
-                        }
-                        else
-                        {
-                            <MudAvatar Style="width: 140px; height: 140px;" Variant="Variant.Outlined"
-                                       Color="Color.Default" Class="mb-4">
-                                <MudIcon Icon="@Icons.Material.Filled.ImageNotSupported" Size="Size.Large"/>
-                            </MudAvatar>
-                        }
+                <MudCard Elevation="3" Class="rounded-lg h-100 d-flex flex-column justify-space-between">
+                    <div>
+                        <MudCardContent Class="d-flex flex-column align-center">
+                            @if (!string.IsNullOrWhiteSpace(_product.ImagePath))
+                            {
+                                <MudImage Src="@_product.ImagePath"
+                                          Alt="@_product.Name"
+                                          Width="200"
+                                          Height="200"
+                                          ObjectFit="ObjectFit.Cover"
+                                          Class="rounded-lg border mb-4 shadow-sm"/>
+                            }
+                            else
+                            {
+                                <MudAvatar Style="width: 140px; height: 140px;" Variant="Variant.Outlined"
+                                           Color="Color.Default" Class="mb-4">
+                                    <MudIcon Icon="@Icons.Material.Filled.ImageNotSupported" Size="Size.Large"/>
+                                </MudAvatar>
+                            }
 
-                        <MudText Typo="Typo.h6" Class="fw-bold text-center">@_product.Name</MudText>
-                        <MudChip T="string" Color="Color.Dark" Variant="Variant.Filled" Size="Size.Small" Class="mt-1">
-                            کد فنی: @_product.InternalCode
-                        </MudChip>
-                    </MudCardContent>
+                            <MudText Typo="Typo.h6" Class="fw-bold text-center">@_product.Name</MudText>
+                            <MudChip T="string" Color="Color.Dark" Variant="Variant.Filled" Size="Size.Small" Class="mt-1">
+                                کد فنی: @_product.InternalCode
+                            </MudChip>
+                        </MudCardContent>
 
-                    <MudDivider/>
+                        <MudDivider/>
 
-                    <MudCardContent>
-                        <MudList T="string" Dense="true">
-                            <MudListItem Icon="@Icons.Material.Filled.Category">
-                                <div class="d-flex justify-space-between">
-                                    <MudText Typo="Typo.body2" Color="Color.Secondary">دسته‌بندی:</MudText>
-                                    <MudText Typo="Typo.body2" Class="fw-bold">@_product.CategoryName</MudText>
-                                </div>
-                            </MudListItem>
+                        <MudCardContent>
+                            <MudList T="string" Dense="true">
+                                <MudListItem Icon="@Icons.Material.Filled.Category">
+                                    <div class="d-flex justify-space-between">
+                                        <MudText Typo="Typo.body2" Color="Color.Secondary">دسته‌بندی:</MudText>
+                                        <MudText Typo="Typo.body2" Class="fw-bold">@_product.CategoryName</MudText>
+                                    </div>
+                                </MudListItem>
 
-                            <MudListItem Icon="@Icons.Material.Filled.BrandingWatermark">
-                                <div class="d-flex justify-space-between">
-                                    <MudText Typo="Typo.body2" Color="Color.Secondary">برند سازنده:</MudText>
-                                    <MudText Typo="Typo.body2" Class="fw-bold">@_product.BrandName</MudText>
-                                </div>
-                            </MudListItem>
+                                <MudListItem Icon="@Icons.Material.Filled.BrandingWatermark">
+                                    <div class="d-flex justify-space-between">
+                                        <MudText Typo="Typo.body2" Color="Color.Secondary">برند سازنده:</MudText>
+                                        <MudText Typo="Typo.body2" Class="fw-bold">@_product.BrandName</MudText>
+                                    </div>
+                                </MudListItem>
 
-                            <MudListItem Icon="@Icons.Material.Filled.DirectionsCar">
-                                <div class="d-flex justify-space-between">
-                                    <MudText Typo="Typo.body2" Color="Color.Secondary">مدل / خودرو:</MudText>
-                                    <MudText Typo="Typo.body2"
-                                             Class="fw-bold">@(string.IsNullOrWhiteSpace(_product.Model) ? "-" : _product.Model)</MudText>
-                                </div>
-                            </MudListItem>
+                                <MudListItem Icon="@Icons.Material.Filled.DirectionsCar">
+                                    <div class="d-flex justify-space-between">
+                                        <MudText Typo="Typo.body2" Color="Color.Secondary">مدل / خودرو:</MudText>
+                                        <MudText Typo="Typo.body2"
+                                                 Class="fw-bold">@(string.IsNullOrWhiteSpace(_product.Model) ? "-" : _product.Model)</MudText>
+                                    </div>
+                                </MudListItem>
 
-                            <MudListItem Icon="@Icons.Material.Filled.Warehouse">
-                                <div class="d-flex justify-space-between">
-                                    <MudText Typo="Typo.body2" Color="Color.Secondary">انبار پیش‌فرض:</MudText>
-                                    <MudText Typo="Typo.body2" Class="fw-bold">@_product.DefaultWarehouseName</MudText>
-                                </div>
-                            </MudListItem>
+                                <MudListItem Icon="@Icons.Material.Filled.Warehouse">
+                                    <div class="d-flex justify-space-between">
+                                        <MudText Typo="Typo.body2" Color="Color.Secondary">انبار پیش‌فرض:</MudText>
+                                        <MudText Typo="Typo.body2" Class="fw-bold">@_product.DefaultWarehouseName</MudText>
+                                    </div>
+                                </MudListItem>
 
-                            <MudListItem Icon="@Icons.Material.Filled.Payments">
-                                <div class="d-flex justify-space-between">
-                                    <MudText Typo="Typo.body2" Color="Color.Secondary">قیمت خرید:</MudText>
-                                    <MudText Typo="Typo.body2"
-                                             Class="fw-bold">@_product.PurchasePrice.ToString("N0") تومان
-                                    </MudText>
-                                </div>
-                            </MudListItem>
+                                <MudListItem Icon="@Icons.Material.Filled.Payments">
+                                    <div class="d-flex justify-space-between">
+                                        <MudText Typo="Typo.body2" Color="Color.Secondary">قیمت خرید:</MudText>
+                                        <MudText Typo="Typo.body2"
+                                                 Class="fw-bold">@_product.PurchasePrice.ToString("N0") تومان
+                                        </MudText>
+                                    </div>
+                                </MudListItem>
 
-                            <MudListItem Icon="@Icons.Material.Filled.Sell">
-                                <div class="d-flex justify-space-between">
-                                    <MudText Typo="Typo.body2" Color="Color.Secondary">قیمت فروش:</MudText>
-                                    <MudText Typo="Typo.body2" Color="Color.Success"
-                                             Class="fw-bold">@_product.SalePrice.ToString("N0") تومان
-                                    </MudText>
-                                </div>
-                            </MudListItem>
+                                <MudListItem Icon="@Icons.Material.Filled.Sell">
+                                    <div class="d-flex justify-space-between">
+                                        <MudText Typo="Typo.body2" Color="Color.Secondary">قیمت فروش:</MudText>
+                                        <MudText Typo="Typo.body2" Color="Color.Success"
+                                                 Class="fw-bold">@_product.SalePrice.ToString("N0") تومان
+                                        </MudText>
+                                    </div>
+                                </MudListItem>
 
-                            <MudListItem Icon="@Icons.Material.Filled.Inventory">
-                                <div class="d-flex justify-space-between">
-                                    <MudText Typo="Typo.body2" Color="Color.Secondary">مجموع کل موجودی:</MudText>
-                                    <MudChip T="string" Size="Size.Small"
-                                             Color="@(_product.TotalStock > 5 ? Color.Success : (_product.TotalStock > 0 ? Color.Warning : Color.Error))"
-                                             Variant="Variant.Filled">
-                                        @_product.TotalStock عدد
-                                    </MudChip>
-                                </div>
-                            </MudListItem>
-                        </MudList>
-                    </MudCardContent>
+                                <MudListItem Icon="@Icons.Material.Filled.Inventory">
+                                    <div class="d-flex justify-space-between">
+                                        <MudText Typo="Typo.body2" Color="Color.Secondary">مجموع کل موجودی:</MudText>
+                                        <MudChip T="string" Size="Size.Small"
+                                                 Color="@(_product.TotalStock > 5 ? Color.Success : (_product.TotalStock > 0 ? Color.Warning : Color.Error))"
+                                                 Variant="Variant.Filled">
+                                            @_product.TotalStock عدد
+                                        </MudChip>
+                                    </div>
+                                </MudListItem>
+                            </MudList>
+                        </MudCardContent>
+                    </div>
+
+                    <MudCardActions Class="pa-4">
+                        <MudButton Variant="Variant.Outlined"
+                                   Color="Color.Warning"
+                                   FullWidth="true"
+                                   StartIcon="@Icons.Material.Filled.Edit"
+                                   OnClick="@(() => Navigation.NavigateTo($"/products/edit/{Id}"))">
+                            ویرایش مشخصات این کالا
+                        </MudButton>
+                    </MudCardActions>
                 </MudCard>
             </MudItem>
 
@@ -308,5 +333,4 @@
             _isLoading = false;
         }
     }
-
 }
