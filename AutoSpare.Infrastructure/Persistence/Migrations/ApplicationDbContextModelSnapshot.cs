@@ -294,13 +294,7 @@ namespace AutoSpare.Infrastructure.Persistence.Migrations
                     b.Property<Guid>("BrandId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("BrandId1")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<Guid>("CategoryId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("CategoryId1")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("CreatedAt")
@@ -346,11 +340,7 @@ namespace AutoSpare.Infrastructure.Persistence.Migrations
 
                     b.HasIndex("BrandId");
 
-                    b.HasIndex("BrandId1");
-
                     b.HasIndex("CategoryId");
-
-                    b.HasIndex("CategoryId1");
 
                     b.HasIndex("DefaultWarehouseId");
 
@@ -742,24 +732,16 @@ namespace AutoSpare.Infrastructure.Persistence.Migrations
             modelBuilder.Entity("AutoSpare.Domain.Products.Product", b =>
                 {
                     b.HasOne("AutoSpare.Domain.Brands.Brand", "Brand")
-                        .WithMany()
+                        .WithMany("Products")
                         .HasForeignKey("BrandId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("AutoSpare.Domain.Brands.Brand", null)
-                        .WithMany("Products")
-                        .HasForeignKey("BrandId1");
-
                     b.HasOne("AutoSpare.Domain.Categories.Category", "Category")
-                        .WithMany()
+                        .WithMany("Products")
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
-
-                    b.HasOne("AutoSpare.Domain.Categories.Category", null)
-                        .WithMany("Products")
-                        .HasForeignKey("CategoryId1");
 
                     b.HasOne("AutoSpare.Domain.Warehouses.Warehouse", "DefaultWarehouse")
                         .WithMany()
