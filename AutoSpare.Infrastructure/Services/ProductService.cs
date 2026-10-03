@@ -2,6 +2,7 @@ using AutoSpare.Application.Products;
 using AutoSpare.Application.Products.DTOs;
 using AutoSpare.Domain.Inventories;
 using AutoSpare.Domain.Products;
+using AutoSpare.Domain.Products.Enums;
 using AutoSpare.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 
@@ -46,10 +47,8 @@ public class ProductService : IProductService
             .AnyAsync(p => p.InternalCode == trimmed && (!currentProductId.HasValue || p.Id != currentProductId.Value));
     }
 
-
     public async Task<Guid> CreateProductAsync(CreateProductDto dto)
     {
-        // ۱. اعتبارسنجی مقادیر پایه کالا
         if (string.IsNullOrWhiteSpace(dto.Name))
             throw new ArgumentException("نام کالا الزامی است.", nameof(dto));
 
@@ -68,20 +67,16 @@ public class ProductService : IProductService
         if (dto.SalePrice < dto.PurchasePrice)
             throw new ArgumentException("قیمت فروش نمی‌تواند کمتر از قیمت خرید باشد.", nameof(dto));
 
-        // ۲. اعتبارسنجی یکتایی کد فنی
         var isUnique = await IsInternalCodeUniqueAsync(dto.InternalCode);
         if (!isUnique)
             throw new InvalidOperationException($"کد فنی '{dto.InternalCode}' قبلاً در سیستم ثبت شده است.");
 
-        // ۳. اعتبارسنجی بیزینس رول موجودی اولیه
         if (dto.InitialQuantity < 0)
             throw new ArgumentException("تعداد موجودی اولیه نمی‌تواند منفی باشد.", nameof(dto));
 
         if (dto.InitialQuantity > 0 && !dto.DefaultWarehouseId.HasValue)
             throw new InvalidOperationException("در صورت تعیین موجودی اولیه، انتخاب انبار الزامی است.");
 
-
-        // ۴. ساخت انتیتی کالا بر اساس سازنده دامین
         var product = new Product(
             name: dto.Name.Trim(),
             internalCode: dto.InternalCode.Trim(),
@@ -94,10 +89,8 @@ public class ProductService : IProductService
             defaultWarehouseId: dto.DefaultWarehouseId
         );
 
-
         await _context.Products.AddAsync(product);
 
-        // ۵. ثبت موجودی اولیه (Inventory و StockMovement)
         if (dto.InitialQuantity > 0 && dto.DefaultWarehouseId.HasValue)
         {
             var warehouseExists = await _context.Warehouses
@@ -106,7 +99,6 @@ public class ProductService : IProductService
             if (!warehouseExists)
                 throw new InvalidOperationException("انبار انتخاب شده در سیستم یافت نشد.");
 
-            // سازنده Inventory خود به صورت خودکار حرکت Initial در StockMovement را ثبت می‌کند
             var inventory = new Inventory(
                 productId: product.Id,
                 warehouseId: dto.DefaultWarehouseId.Value,
@@ -116,9 +108,7 @@ public class ProductService : IProductService
             await _context.Inventories.AddAsync(inventory);
         }
 
-        // ۶. ذخیره تمامی تغییرات در یک تراکنش اتمیک واحد دیتابیس
         await _context.SaveChangesAsync();
-
         return product.Id;
     }
 
@@ -130,7 +120,6 @@ public class ProductService : IProductService
             .AsNoTracking()
             .AsQueryable();
 
-        // ۱. فیلتر جست‌وجوی متنی (نام، کد فنی، مدل، برند)
         if (!string.IsNullOrWhiteSpace(filter.SearchTerm))
         {
             var term = filter.SearchTerm.Trim();
@@ -141,19 +130,16 @@ public class ProductService : IProductService
                 (p.Brand != null && p.Brand.Name.Contains(term)));
         }
 
-        // ۲. فیلتر دسته‌بندی
         if (filter.CategoryId.HasValue && filter.CategoryId.Value != Guid.Empty)
         {
             query = query.Where(p => p.CategoryId == filter.CategoryId.Value);
         }
 
-        // ۳. فیلتر برند
         if (filter.BrandId.HasValue && filter.BrandId.Value != Guid.Empty)
         {
             query = query.Where(p => p.BrandId == filter.BrandId.Value);
         }
 
-        // ۴. فیلتر انبار (کالاهایی که در این انبار ثبت شده‌اند یا انبار پیش‌فرضشان این است)
         if (filter.WarehouseId.HasValue && filter.WarehouseId.Value != Guid.Empty)
         {
             var warehouseId = filter.WarehouseId.Value;
@@ -162,7 +148,6 @@ public class ProductService : IProductService
                 _context.Inventories.Any(i => i.ProductId == p.Id && i.WarehouseId == warehouseId));
         }
 
-        // ۵. پروجکشن داده‌ها به DTO به همراه محاسبه موجودی
         var projectedQuery = query
             .OrderByDescending(p => p.CreatedAt)
             .Select(p => new ProductListItemDto
@@ -174,6 +159,7 @@ public class ProductService : IProductService
                 ImagePath = p.ImagePath,
                 SalePrice = p.SalePrice,
                 PurchasePrice = p.PurchasePrice,
+                Status = p.Status,
                 CategoryName = p.Category != null ? p.Category.Name : "-",
                 BrandName = p.Brand != null ? p.Brand.Name : "-",
                 DefaultWarehouseName = p.DefaultWarehouse != null ? p.DefaultWarehouse.Name : null,
@@ -186,7 +172,6 @@ public class ProductService : IProductService
                         .Sum(i => (int?)i.Quantity) ?? 0)
             });
 
-        // ۶. فیلتر وضعیت موجودی (موجود / ناموجود / کم‌موجودی)
         switch (filter.StockStatus)
         {
             case StockStatusFilter.InStock:
@@ -219,12 +204,8 @@ public class ProductService : IProductService
             .Include(p => p.DefaultWarehouse)
             .FirstOrDefaultAsync(p => p.Id == id);
 
-        if (product == null)
-        {
-            return null;
-        }
+        if (product == null) return null;
 
-        // ۱. دریافت موجودی در انبارها
         var warehouseStocks = await _context.Inventories
             .AsNoTracking()
             .Where(i => i.ProductId == id)
@@ -239,7 +220,6 @@ public class ProductService : IProductService
             })
             .ToListAsync();
 
-        // ۲. دریافت تاریخچه گردش موجودی (کاردکس)
         var movements = await _context.StockMovements
             .AsNoTracking()
             .Where(sm => sm.ProductId == id)
@@ -305,7 +285,6 @@ public class ProductService : IProductService
 
     public async Task UpdateProductAsync(UpdateProductDto dto)
     {
-        // ۱. اعتبارسنجی مقادیر پایه
         if (string.IsNullOrWhiteSpace(dto.Name))
             throw new ArgumentException("نام کالا الزامی است.", nameof(dto));
 
@@ -324,17 +303,14 @@ public class ProductService : IProductService
         if (dto.SalePrice < dto.PurchasePrice)
             throw new ArgumentException("قیمت فروش نمی‌تواند کمتر از قیمت خرید باشد.", nameof(dto));
 
-        // ۲. واکشی انتیتی کالا
         var product = await _context.Products.FirstOrDefaultAsync(p => p.Id == dto.Id);
         if (product == null)
             throw new InvalidOperationException("کالای مورد نظر یافت نشد.");
 
-        // ۳. بررسی یکتایی کد فنی (با در نظر نگرفتن شناسه خود کالا)
         var isUnique = await IsInternalCodeUniqueAsync(dto.InternalCode, dto.Id);
         if (!isUnique)
             throw new InvalidOperationException($"کد فنی '{dto.InternalCode}' قبلاً برای کالای دیگری ثبت شده است.");
 
-        // ۴. به‌روزرسانی مشخصات پایه و ارتباطات
         product.UpdateDetails(
             name: dto.Name.Trim(),
             internalCode: dto.InternalCode.Trim(),
@@ -344,13 +320,54 @@ public class ProductService : IProductService
             imagePath: dto.ImagePath
         );
 
-        // ۵. به‌روزرسانی قیمت‌ها (بدون تغییر در موجودی‌ها و کاردکس قبلی)
         product.UpdatePrices(dto.PurchasePrice, dto.SalePrice);
-
-        // ۶. به‌روزرسانی انبار پیش‌فرض
         product.SetDefaultWarehouse(dto.DefaultWarehouseId);
 
-        // ۷. ذخیره نهایی
+        await _context.SaveChangesAsync();
+    }
+
+    public async Task ToggleProductStatusAsync(Guid id)
+    {
+        var product = await _context.Products.FirstOrDefaultAsync(p => p.Id == id);
+        if (product == null)
+            throw new InvalidOperationException("کالای مورد نظر یافت نشد.");
+
+        var newStatus = product.Status == ProductStatus.Active
+            ? ProductStatus.Inactive
+            : ProductStatus.Active;
+
+        product.ChangeStatus(newStatus);
+        await _context.SaveChangesAsync();
+    }
+
+    public async Task DeleteProductAsync(Guid id)
+    {
+        var product = await _context.Products.FirstOrDefaultAsync(p => p.Id == id);
+        if (product == null)
+            throw new InvalidOperationException("کالای مورد نظر یافت نشد.");
+
+        // بررسی وجود هرگونه سابقه گردش موجودی (کاردکس)
+        var hasStockMovements = await _context.StockMovements.AnyAsync(sm => sm.ProductId == id);
+
+        // بررسی وجود موجودی در انبارها
+        var totalStock = await _context.Inventories
+            .Where(i => i.ProductId == id)
+            .SumAsync(i => (int?)i.Quantity) ?? 0;
+
+        if (hasStockMovements || totalStock > 0)
+        {
+            throw new InvalidOperationException(
+                "این کالا دارای گردش کاردکس یا موجودی در انبار است و امکان حذف فیزیکی آن وجود ندارد. لطفاً به‌جای حذف، آن را غیرفعال کنید.");
+        }
+
+        // حذف رکوردهای خالی مربوطه در صورت وجود
+        var inventories = await _context.Inventories.Where(i => i.ProductId == id).ToListAsync();
+        if (inventories.Count > 0)
+        {
+            _context.Inventories.RemoveRange(inventories);
+        }
+
+        _context.Products.Remove(product);
         await _context.SaveChangesAsync();
     }
 }

@@ -13,4 +13,6 @@ public interface IProductService
     Task UpdateProductAsync(UpdateProductDto dto);
     Task<List<ProductListItemDto>> GetProductsAsync(ProductFilterDto? filter = null);
     Task<ProductDetailsDto?> GetProductDetailsByIdAsync(Guid id);
+    Task ToggleProductStatusAsync(Guid id);
+    Task DeleteProductAsync(Guid id);
 }
