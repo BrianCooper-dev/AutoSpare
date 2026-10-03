@@ -562,3 +562,47 @@ Microsoft.Extensions.Hosting.HostAbortedException: The host was aborted.
 2026-10-03 13:59:54.143 +03:30 [INF] HTTP GET /uploads/products/b7e9697a9c934c00814ea404237b0a0a.png responded 304 in 0.7541 ms 
 2026-10-03 14:01:17.014 +03:30 [INF] HTTP GET /uploads/products/b7e9697a9c934c00814ea404237b0a0a.png responded 304 in 0.5921 ms 
 2026-10-03 14:01:59.824 +03:30 [INF] HTTP GET /_blazor responded 101 in 133994.3956 ms 
+2026-10-03 22:30:10.060 +03:30 [INF] Storage directories are ready. ImagesPath: D:\porograming\Rider\AutoSpare\AutoSpare.Web\wwwroot\Uploads\Images, BackupPath: D:\AutoSpareBackups 
+2026-10-03 22:30:10.534 +03:30 [INF] Home page loaded at "2026-10-03T22:30:10.5318151+03:30" 
+2026-10-03 22:30:10.538 +03:30 [WRN] This is a test warning from Home page. 
+2026-10-03 22:30:10.673 +03:30 [INF] HTTP GET / responded 200 in 324.7906 ms 
+2026-10-03 22:30:10.706 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 6.5319 ms 
+2026-10-03 22:30:10.728 +03:30 [INF] HTTP GET /app.css responded 200 in 28.3101 ms 
+2026-10-03 22:30:10.735 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 35.2546 ms 
+2026-10-03 22:30:10.778 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 78.8575 ms 
+2026-10-03 22:30:10.810 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 5.0598 ms 
+2026-10-03 22:30:10.810 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 5.0583 ms 
+2026-10-03 22:30:10.819 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 8.0021 ms 
+2026-10-03 22:30:10.840 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 8.3719 ms 
+2026-10-03 22:30:10.984 +03:30 [INF] Home page loaded at "2026-10-03T22:30:10.9843148+03:30" 
+2026-10-03 22:30:10.984 +03:30 [WRN] This is a test warning from Home page. 
+2026-10-03 22:31:49.834 +03:30 [INF] HTTP GET /_blazor responded 101 in 98989.6626 ms 
+2026-10-03 22:36:08.052 +03:30 [INF] Storage directories are ready. ImagesPath: D:\porograming\Rider\AutoSpare\AutoSpare.Web\wwwroot\Uploads\Images, BackupPath: D:\AutoSpareBackups 
+2026-10-03 22:36:08.428 +03:30 [INF] Home page loaded at "2026-10-03T22:36:08.4262696+03:30" 
+2026-10-03 22:36:08.431 +03:30 [WRN] This is a test warning from Home page. 
+2026-10-03 22:36:08.533 +03:30 [INF] HTTP GET / responded 200 in 273.9360 ms 
+2026-10-03 22:36:08.557 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 6.3940 ms 
+2026-10-03 22:36:08.566 +03:30 [INF] HTTP GET /app.css responded 200 in 15.1169 ms 
+2026-10-03 22:36:08.567 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 16.2813 ms 
+2026-10-03 22:36:08.569 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 18.2423 ms 
+2026-10-03 22:36:08.642 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 3.8717 ms 
+2026-10-03 22:36:08.642 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 3.8719 ms 
+2026-10-03 22:36:08.652 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 4.2751 ms 
+2026-10-03 22:36:08.678 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 8.4047 ms 
+2026-10-03 22:36:08.835 +03:30 [INF] Home page loaded at "2026-10-03T22:36:08.8353335+03:30" 
+2026-10-03 22:36:08.835 +03:30 [WRN] This is a test warning from Home page. 
+2026-10-03 22:36:11.251 +03:30 [INF] HTTP GET /uploads/products/b7e9697a9c934c00814ea404237b0a0a.png responded 304 in 1.4429 ms 
+2026-10-03 22:36:11.253 +03:30 [INF] HTTP GET /uploads/products/27b41e9024374db59bf7fe94b1c824da.png responded 304 in 0.5556 ms 
+2026-10-03 22:36:24.277 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 1.1192 ms 
+2026-10-03 22:36:24.463 +03:30 [INF] HTTP GET /categories responded 200 in 136.1710 ms 
+2026-10-03 22:36:24.482 +03:30 [INF] HTTP GET /app.css responded 200 in 2.1500 ms 
+2026-10-03 22:36:24.483 +03:30 [INF] HTTP GET /_blazor responded 101 in 174.8304 ms 
+2026-10-03 22:36:24.487 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 0.6343 ms 
+2026-10-03 22:36:24.489 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 2.5757 ms 
+2026-10-03 22:36:24.493 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 6.8446 ms 
+2026-10-03 22:36:24.496 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 25.6688 ms 
+2026-10-03 22:36:24.530 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.3938 ms 
+2026-10-03 22:36:24.547 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 0.6075 ms 
+2026-10-03 22:36:24.553 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.5161 ms 
+2026-10-03 22:41:14.760 +03:30 [INF] HTTP GET /_blazor responded 101 in 306072.7302 ms 
+2026-10-03 22:41:14.760 +03:30 [INF] HTTP GET /_blazor responded 101 in 290198.1964 ms 
