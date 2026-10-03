@@ -1,0 +1,496 @@
+@page "/products/edit/{Id:guid}"
+
+@using AutoSpare.Application.Common.Interfaces
+@using AutoSpare.Application.Products
+@using AutoSpare.Application.Products.DTOs
+
+@inject IProductService ProductService
+@inject IFileStorageService FileStorageService
+@inject ISnackbar Snackbar
+@inject NavigationManager Navigation
+
+<MudContainer MaxWidth="MaxWidth.Medium" Class="mt-6 mb-10">
+    <MudCard Elevation="3" Class="rounded-lg">
+        <MudCardHeader>
+            <CardHeaderAvatar>
+                <MudAvatar Color="Color.Warning" Variant="Variant.Filled">
+                    <MudIcon Icon="@Icons.Material.Filled.Edit"/>
+                </MudAvatar>
+            </CardHeaderAvatar>
+
+            <CardHeaderContent>
+                <MudText Typo="Typo.h6">ویرایش کالا</MudText>
+                <MudText Typo="Typo.caption" Color="Color.Secondary">
+                    اصلاح مشخصات، دسته‌بندی، برند و قیمت‌های فروش و خرید
+                </MudText>
+            </CardHeaderContent>
+
+            <CardHeaderActions>
+                <MudButton Variant="Variant.Text"
+                           Color="Color.Default"
+                           StartIcon="@Icons.Material.Filled.ArrowForward"
+                           OnClick="GoBack"
+                           Disabled="@_isSubmitting">
+                    بازگشت
+                </MudButton>
+            </CardHeaderActions>
+        </MudCardHeader>
+
+        <MudDivider/>
+
+        <MudCardContent>
+            @if (_isLoading)
+            {
+                <div class="d-flex justify-center my-8">
+                    <MudProgressCircular Color="Color.Primary" Indeterminate="true"/>
+                </div>
+            }
+            else
+            {
+                <MudForm @ref="_form" @bind-IsValid="_isFormValid">
+                    <MudGrid Spacing="3">
+                        <!-- بخش آپلود و پیش‌نمایش تصویر کالا -->
+                        <MudItem xs="12">
+                            <MudText Typo="Typo.subtitle2"
+                                     Color="Color.Primary"
+                                     Class="mb-2">
+                                تصویر کالا
+                            </MudText>
+
+                            <div class="d-flex align-center gap-4 flex-wrap">
+                                <div class="d-flex justify-center align-center rounded border border-dashed pa-2 mud-background-gray"
+                                     style="width: 140px; height: 140px; overflow: hidden;">
+                                    @if (!string.IsNullOrWhiteSpace(_previewImageUrl))
+                                    {
+                                        <MudImage Src="@_previewImageUrl"
+                                                  Alt="پیش‌نمایش تصویر کالا"
+                                                  ObjectFit="ObjectFit.Contain"
+                                                  Width="124"
+                                                  Height="124"
+                                                  Class="rounded"/>
+                                    }
+                                    else if (!string.IsNullOrWhiteSpace(_model.ImagePath))
+                                    {
+                                        <MudImage Src="@_model.ImagePath"
+                                                  Alt="تصویر فعلی کالا"
+                                                  ObjectFit="ObjectFit.Contain"
+                                                  Width="124"
+                                                  Height="124"
+                                                  Class="rounded"/>
+                                    }
+                                    else
+                                    {
+                                        <div class="d-flex flex-column align-center text-muted">
+                                            <MudIcon Icon="@Icons.Material.Filled.Image"
+                                                     Size="Size.Large"
+                                                     Color="Color.Default"/>
+                                            <MudText Typo="Typo.caption" Class="mt-1">بدون تصویر</MudText>
+                                        </div>
+                                    }
+                                </div>
+
+                                <div class="d-flex flex-column gap-2">
+                                    <div class="d-flex gap-2 flex-wrap">
+                                        <MudButton HtmlTag="label"
+                                                   Variant="Variant.Filled"
+                                                   Color="Color.Secondary"
+                                                   StartIcon="@Icons.Material.Filled.CloudUpload"
+                                                   Disabled="@_isSubmitting"
+                                                   for="productEditImageInput">
+                                            تغییر تصویر
+                                        </MudButton>
+
+                                        <InputFile id="productEditImageInput"
+                                                   OnChange="OnImageSelected"
+                                                   accept=".jpg,.jpeg,.png,.webp"
+                                                   style="display: none;"
+                                                   disabled="@_isSubmitting"/>
+
+                                        @if (_selectedImageFile is not null || !string.IsNullOrWhiteSpace(_model.ImagePath))
+                                        {
+                                            <MudButton Variant="Variant.Outlined"
+                                                       Color="Color.Error"
+                                                       StartIcon="@Icons.Material.Filled.Delete"
+                                                       OnClick="RemoveImage"
+                                                       Disabled="@_isSubmitting">
+                                                حذف تصویر
+                                            </MudButton>
+                                        }
+                                    </div>
+
+                                    <MudText Typo="Typo.caption" Color="Color.Secondary">
+                                        فرمت‌های مجاز: JPG، PNG، WEBP (حداکثر حجم: ۳ مگابایت)
+                                    </MudText>
+                                </div>
+                            </div>
+                        </MudItem>
+
+                        <MudItem xs="12">
+                            <MudDivider Class="my-1"/>
+                        </MudItem>
+
+                        <!-- مشخصات اصلی -->
+                        <MudItem xs="12" md="6">
+                            <MudTextField T="string"
+                                          Label="نام قطعه / کالا"
+                                          @bind-Value="_model.Name"
+                                          Validation="@(new Func<string, string?>(ValidateName))"
+                                          Immediate="true"
+                                          Required="true"
+                                          RequiredError="نام کالا الزامی است"
+                                          Variant="Variant.Outlined"
+                                          Margin="Margin.Dense"/>
+                        </MudItem>
+
+                        <MudItem xs="12" md="6">
+                            <MudTextField T="string"
+                                          Label="مدل / تیپ خودرو"
+                                          @bind-Value="_model.Model"
+                                          HelperText="مثال: پراید صبا، پژو ۲۰۶ تیپ ۲"
+                                          Variant="Variant.Outlined"
+                                          Margin="Margin.Dense"/>
+                        </MudItem>
+
+                        <MudItem xs="12" md="6">
+                            <MudTextField T="string"
+                                          Label="کد فنی / شناسه داخلی"
+                                          @bind-Value="_model.InternalCode"
+                                          Validation="@(new Func<string, string?>(ValidateInternalCode))"
+                                          Immediate="true"
+                                          Required="true"
+                                          RequiredError="کد فنی الزامی است"
+                                          Variant="Variant.Outlined"
+                                          Margin="Margin.Dense"/>
+                        </MudItem>
+
+                        <MudItem xs="12" md="6">
+                            <MudSelect T="Guid?"
+                                       Label="دسته‌بندی"
+                                       @bind-Value="_model.CategoryId"
+                                       Required="true"
+                                       RequiredError="انتخاب دسته‌بندی الزامی است"
+                                       AnchorOrigin="Origin.BottomCenter"
+                                       Variant="Variant.Outlined"
+                                       Margin="Margin.Dense">
+                                @foreach (var category in _categories)
+                                {
+                                    <MudSelectItem Value="@((Guid?)category.Id)">
+                                        @category.Title
+                                    </MudSelectItem>
+                                }
+                            </MudSelect>
+                        </MudItem>
+
+                        <MudItem xs="12" md="6">
+                            <MudSelect T="Guid?"
+                                       Label="برند سازنده"
+                                       @bind-Value="_model.BrandId"
+                                       Required="true"
+                                       RequiredError="انتخاب برند الزامی است"
+                                       AnchorOrigin="Origin.BottomCenter"
+                                       Variant="Variant.Outlined"
+                                       Margin="Margin.Dense">
+                                @foreach (var brand in _brands)
+                                {
+                                    <MudSelectItem Value="@((Guid?)brand.Id)">
+                                        @brand.Title
+                                    </MudSelectItem>
+                                }
+                            </MudSelect>
+                        </MudItem>
+
+                        <MudItem xs="12" md="6">
+                            <MudSelect T="Guid?"
+                                       Label="انبار پیش‌فرض"
+                                       @bind-Value="_model.DefaultWarehouseId"
+                                       Clearable="true"
+                                       AnchorOrigin="Origin.BottomCenter"
+                                       Variant="Variant.Outlined"
+                                       Margin="Margin.Dense">
+                                @foreach (var warehouse in _warehouses)
+                                {
+                                    <MudSelectItem Value="@((Guid?)warehouse.Id)">
+                                        @warehouse.Title
+                                    </MudSelectItem>
+                                }
+                            </MudSelect>
+                        </MudItem>
+
+                        <!-- بخش قیمت‌ها -->
+                        <MudItem xs="12">
+                            <MudText Typo="Typo.subtitle2"
+                                     Color="Color.Primary"
+                                     Class="mt-2">
+                                قیمت‌گذاری (تومان/ریال)
+                            </MudText>
+                        </MudItem>
+
+                        <MudItem xs="12" md="6">
+                            <MudNumericField T="decimal"
+                                             Label="قیمت خرید"
+                                             @bind-Value="_model.PurchasePrice"
+                                             Validation="@(new Func<decimal, string?>(ValidatePurchasePrice))"
+                                             Min="0"
+                                             Format="N0"
+                                             Variant="Variant.Outlined"
+                                             Margin="Margin.Dense"/>
+                        </MudItem>
+
+                        <MudItem xs="12" md="6">
+                            <MudNumericField T="decimal"
+                                             Label="قیمت فروش"
+                                             @bind-Value="_model.SalePrice"
+                                             Validation="@(new Func<decimal, string?>(ValidateSalePrice))"
+                                             Min="0"
+                                             Format="N0"
+                                             Variant="Variant.Outlined"
+                                             Margin="Margin.Dense"/>
+                        </MudItem>
+                    </MudGrid>
+                </MudForm>
+            }
+        </MudCardContent>
+
+        <MudCardActions Class="pa-4 d-flex justify-end gap-2">
+            <MudButton Variant="Variant.Outlined"
+                       Color="Color.Secondary"
+                       OnClick="GoBack"
+                       Disabled="@_isSubmitting">
+                انصراف
+            </MudButton>
+
+            <MudButton Variant="Variant.Filled"
+                       Color="Color.Primary"
+                       OnClick="SubmitAsync"
+                       Disabled="@(!_isFormValid || _isSubmitting)"
+                       StartIcon="@Icons.Material.Filled.Save">
+                @if (_isSubmitting)
+                {
+                    <MudProgressCircular Size="Size.Small"
+                                         Indeterminate="true"
+                                         Class="ms-2"/>
+                    <span>در حال ذخیره تغییرات...</span>
+                }
+                else
+                {
+                    <span>ذخیره تغییرات</span>
+                }
+            </MudButton>
+        </MudCardActions>
+    </MudCard>
+</MudContainer>
+
+@code {
+    [Parameter]
+    public Guid Id { get; set; }
+
+    private MudForm _form = null!;
+    private bool _isFormValid;
+    private bool _isLoading = true;
+    private bool _isSubmitting;
+
+    private UpdateProductDto _model = new();
+
+    private List<DropdownItemDto> _categories = new();
+    private List<DropdownItemDto> _brands = new();
+    private List<DropdownItemDto> _warehouses = new();
+
+    private IBrowserFile? _selectedImageFile;
+    private string? _previewImageUrl;
+    private string? _newUploadedImagePath;
+    private bool _imageRemoved;
+
+    private const long MaxFileSize = 3 * 1024 * 1024; // ۳ مگابایت
+
+    private static readonly HashSet<string> AllowedExtensions =
+        new(StringComparer.OrdinalIgnoreCase)
+        {
+            ".jpg",
+            ".jpeg",
+            ".png",
+            ".webp"
+        };
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            _isLoading = true;
+
+            _categories = await ProductService.GetCategoriesLookupAsync();
+            _brands = await ProductService.GetBrandsLookupAsync();
+            _warehouses = await ProductService.GetWarehousesLookupAsync();
+
+            var product = await ProductService.GetProductForEditByIdAsync(Id);
+            if (product == null)
+            {
+                Snackbar.Add("کالای مورد نظر یافت نشد.", Severity.Error);
+                Navigation.NavigateTo("/products");
+                return;
+            }
+
+            _model = product;
+        }
+        catch (Exception ex)
+        {
+            Snackbar.Add($"خطا در بارگذاری اطلاعات: {ex.Message}", Severity.Error);
+        }
+        finally
+        {
+            _isLoading = false;
+        }
+    }
+
+    private async Task OnImageSelected(InputFileChangeEventArgs e)
+    {
+        var file = e.File;
+        if (file is null) return;
+
+        if (file.Size <= 0 || file.Size > MaxFileSize)
+        {
+            Snackbar.Add("حجم فایل باید بین ۰ تا ۳ مگابایت باشد.", Severity.Error);
+            return;
+        }
+
+        var extension = Path.GetExtension(file.Name);
+        if (!AllowedExtensions.Contains(extension))
+        {
+            Snackbar.Add("فرمت فایل مجاز نیست (فقط JPG، PNG، WEBP).", Severity.Error);
+            return;
+        }
+
+        try
+        {
+            var resizedImage = await file.RequestImageFileAsync(file.ContentType, 300, 300);
+            await using var sourceStream = resizedImage.OpenReadStream(MaxFileSize);
+            using var memoryStream = new MemoryStream();
+            await sourceStream.CopyToAsync(memoryStream);
+
+            var base64 = Convert.ToBase64String(memoryStream.ToArray());
+            _previewImageUrl = $"data:{file.ContentType};base64,{base64}";
+            _selectedImageFile = file;
+            _imageRemoved = false;
+        }
+        catch (Exception ex)
+        {
+            _selectedImageFile = null;
+            _previewImageUrl = null;
+            Snackbar.Add($"خطا در بارگذاری تصویر: {ex.Message}", Severity.Error);
+        }
+    }
+
+    private void RemoveImage()
+    {
+        _selectedImageFile = null;
+        _previewImageUrl = null;
+        _model.ImagePath = null;
+        _imageRemoved = true;
+    }
+
+    private string? ValidateName(string name)
+    {
+        if (string.IsNullOrWhiteSpace(name))
+            return "نام کالا الزامی است.";
+        var trimmed = name.Trim();
+        if (trimmed.Length < 3 || trimmed.Length > 200)
+            return "نام کالا باید بین ۳ تا ۲۰۰ کاراکتر باشد.";
+        return null;
+    }
+
+    private string? ValidateInternalCode(string code)
+    {
+        if (string.IsNullOrWhiteSpace(code))
+            return "کد فنی الزامی است.";
+        var trimmed = code.Trim();
+        if (trimmed.Length < 2 || trimmed.Length > 50)
+            return "کد فنی باید بین ۲ تا ۵۰ کاراکتر باشد.";
+        return null;
+    }
+
+    private string? ValidatePurchasePrice(decimal purchasePrice)
+    {
+        if (purchasePrice < 0)
+            return "قیمت خرید نمی‌تواند منفی باشد.";
+        return null;
+    }
+
+    private string? ValidateSalePrice(decimal salePrice)
+    {
+        if (salePrice < 0)
+            return "قیمت فروش نمی‌تواند منفی باشد.";
+        if (salePrice < _model.PurchasePrice)
+            return "قیمت فروش نمی‌تواند کمتر از قیمت خرید باشد.";
+        return null;
+    }
+
+    private async Task SubmitAsync()
+    {
+        await _form.Validate();
+        if (!_form.IsValid) return;
+
+        try
+        {
+            _isSubmitting = true;
+
+            var isUnique = await ProductService.IsInternalCodeUniqueAsync(_model.InternalCode, _model.Id);
+            if (!isUnique)
+            {
+                Snackbar.Add("کد فنی وارد شده تکراری است. لطفاً کد دیگری انتخاب کنید.", Severity.Warning);
+                return;
+            }
+
+            var previousImagePath = _model.ImagePath;
+
+            // آپلود تصویر جدید در صورت انتخاب
+            if (_selectedImageFile is not null)
+            {
+                await using var imageStream = _selectedImageFile.OpenReadStream(MaxFileSize);
+                _newUploadedImagePath = await FileStorageService.SaveProductImageAsync(imageStream, _selectedImageFile.Name);
+                _model.ImagePath = _newUploadedImagePath;
+            }
+            else if (_imageRemoved)
+            {
+                _model.ImagePath = null;
+            }
+
+            await ProductService.UpdateProductAsync(_model);
+
+            // پاک‌سازی تصویر قدیمی در صورت تعویض یا حذف
+            if ((_selectedImageFile is not null || _imageRemoved) && !string.IsNullOrWhiteSpace(previousImagePath))
+            {
+                try
+                {
+                    FileStorageService.DeleteFile(previousImagePath);
+                }
+                catch
+                {
+                    // نادیده گرفتن خطای حذف فایل قدیمی
+                }
+            }
+
+            Snackbar.Add("اطلاعات کالا با موفقیت ویرایش شد.", Severity.Success);
+            Navigation.NavigateTo("/products");
+        }
+        catch (Exception ex)
+        {
+            // Rollback فایل جدید در صورت خطا
+            if (!string.IsNullOrWhiteSpace(_newUploadedImagePath))
+            {
+                try { FileStorageService.DeleteFile(_newUploadedImagePath); } catch { }
+            }
+
+            Snackbar.Add(ex.Message, Severity.Error);
+        }
+        finally
+        {
+            _isSubmitting = false;
+        }
+    }
+
+    private void GoBack()
+    {
+        if (_isSubmitting) return;
+        Navigation.NavigateTo("/products");
+    }
+}
+

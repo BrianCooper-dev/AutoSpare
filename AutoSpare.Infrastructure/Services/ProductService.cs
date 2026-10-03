@@ -37,12 +37,15 @@ public class ProductService : IProductService
             .Select(w => new DropdownItemDto(w.Id, w.Name))
             .ToListAsync();
 
-    public async Task<bool> IsInternalCodeUniqueAsync(string code)
+    public async Task<bool> IsInternalCodeUniqueAsync(string code, Guid? currentProductId = null)
     {
         if (string.IsNullOrWhiteSpace(code)) return true;
         var trimmed = code.Trim();
-        return !await _context.Products.AnyAsync(p => p.InternalCode == trimmed);
+
+        return !await _context.Products
+            .AnyAsync(p => p.InternalCode == trimmed && (!currentProductId.HasValue || p.Id != currentProductId.Value));
     }
+
 
     public async Task<Guid> CreateProductAsync(CreateProductDto dto)
     {
@@ -275,5 +278,79 @@ public class ProductService : IProductService
             WarehouseStocks = warehouseStocks,
             Movements = movements
         };
+    }
+
+    public async Task<UpdateProductDto?> GetProductForEditByIdAsync(Guid id)
+    {
+        var product = await _context.Products
+            .AsNoTracking()
+            .FirstOrDefaultAsync(p => p.Id == id);
+
+        if (product == null) return null;
+
+        return new UpdateProductDto
+        {
+            Id = product.Id,
+            Name = product.Name,
+            InternalCode = product.InternalCode,
+            Model = product.Model,
+            PurchasePrice = product.PurchasePrice,
+            SalePrice = product.SalePrice,
+            CategoryId = product.CategoryId,
+            BrandId = product.BrandId,
+            DefaultWarehouseId = product.DefaultWarehouseId,
+            ImagePath = product.ImagePath
+        };
+    }
+
+    public async Task UpdateProductAsync(UpdateProductDto dto)
+    {
+        // ۱. اعتبارسنجی مقادیر پایه
+        if (string.IsNullOrWhiteSpace(dto.Name))
+            throw new ArgumentException("نام کالا الزامی است.", nameof(dto));
+
+        if (string.IsNullOrWhiteSpace(dto.InternalCode))
+            throw new ArgumentException("کد فنی کالا الزامی است.", nameof(dto));
+
+        if (!dto.CategoryId.HasValue || dto.CategoryId.Value == Guid.Empty)
+            throw new ArgumentException("انتخاب دسته‌بندی الزامی است.", nameof(dto));
+
+        if (!dto.BrandId.HasValue || dto.BrandId.Value == Guid.Empty)
+            throw new ArgumentException("انتخاب برند الزامی است.", nameof(dto));
+
+        if (dto.PurchasePrice < 0)
+            throw new ArgumentException("قیمت خرید نمی‌تواند منفی باشد.", nameof(dto));
+
+        if (dto.SalePrice < dto.PurchasePrice)
+            throw new ArgumentException("قیمت فروش نمی‌تواند کمتر از قیمت خرید باشد.", nameof(dto));
+
+        // ۲. واکشی انتیتی کالا
+        var product = await _context.Products.FirstOrDefaultAsync(p => p.Id == dto.Id);
+        if (product == null)
+            throw new InvalidOperationException("کالای مورد نظر یافت نشد.");
+
+        // ۳. بررسی یکتایی کد فنی (با در نظر نگرفتن شناسه خود کالا)
+        var isUnique = await IsInternalCodeUniqueAsync(dto.InternalCode, dto.Id);
+        if (!isUnique)
+            throw new InvalidOperationException($"کد فنی '{dto.InternalCode}' قبلاً برای کالای دیگری ثبت شده است.");
+
+        // ۴. به‌روزرسانی مشخصات پایه و ارتباطات
+        product.UpdateDetails(
+            name: dto.Name.Trim(),
+            internalCode: dto.InternalCode.Trim(),
+            model: dto.Model?.Trim() ?? string.Empty,
+            categoryId: dto.CategoryId.Value,
+            brandId: dto.BrandId.Value,
+            imagePath: dto.ImagePath
+        );
+
+        // ۵. به‌روزرسانی قیمت‌ها (بدون تغییر در موجودی‌ها و کاردکس قبلی)
+        product.UpdatePrices(dto.PurchasePrice, dto.SalePrice);
+
+        // ۶. به‌روزرسانی انبار پیش‌فرض
+        product.SetDefaultWarehouse(dto.DefaultWarehouseId);
+
+        // ۷. ذخیره نهایی
+        await _context.SaveChangesAsync();
     }
 }
