@@ -9,5 +9,5 @@ public interface IProductService
     Task<List<DropdownItemDto>> GetWarehousesLookupAsync();
     Task<bool> IsInternalCodeUniqueAsync(string code);
     Task<Guid> CreateProductAsync(CreateProductDto dto);
+    Task<List<ProductListItemDto>> GetProductsAsync(string? searchTerm = null);
 }
-

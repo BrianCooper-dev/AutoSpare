@@ -1,0 +1,205 @@
+@page "/products"
+
+@using AutoSpare.Application.Products
+@using AutoSpare.Application.Products.DTOs
+
+@inject IProductService ProductService
+@inject ISnackbar Snackbar
+@inject NavigationManager Navigation
+
+<MudContainer MaxWidth="MaxWidth.ExtraLarge" Class="mt-6 mb-10">
+    <MudCard Elevation="3" Class="rounded-lg">
+        <MudCardHeader>
+            <CardHeaderAvatar>
+                <MudAvatar Color="Color.Primary" Variant="Variant.Filled">
+                    <MudIcon Icon="@Icons.Material.Filled.Inventory2"/>
+                </MudAvatar>
+            </CardHeaderAvatar>
+
+            <CardHeaderContent>
+                <MudText Typo="Typo.h6">مدیریت کالاها و قطعات</MudText>
+                <MudText Typo="Typo.caption" Color="Color.Secondary">
+                    فهرست کلیه کالاها، وضعیت موجودی، قیمت و انبار پیش‌فرض
+                </MudText>
+            </CardHeaderContent>
+
+            <CardHeaderActions>
+                <MudButton Variant="Variant.Filled"
+                           Color="Color.Primary"
+                           StartIcon="@Icons.Material.Filled.Add"
+                           OnClick="@(() => Navigation.NavigateTo("/products/create"))">
+                    تعریف کالای جدید
+                </MudButton>
+            </CardHeaderActions>
+        </MudCardHeader>
+
+        <MudDivider/>
+
+        <MudCardContent>
+            <!-- فیلتر و جستجو -->
+            <div class="d-flex align-center justify-space-between mb-4 flex-wrap gap-3">
+                <MudTextField T="string"
+                              Value="@_searchTerm"
+                              ValueChanged="@(async (string val) =>
+                                            {
+                                                _searchTerm = val;
+                                                await LoadProductsAsync();
+                                            })"
+                              OnClearButtonClick="@(async () =>
+                                                  {
+                                                      _searchTerm = string.Empty;
+                                                      await LoadProductsAsync();
+                                                  })"
+                              Placeholder="جستجو بر اساس نام کالا، کد فنی، مدل یا برند..."
+                              Adornment="Adornment.Start"
+                              AdornmentIcon="@Icons.Material.Filled.Search"
+                              IconSize="Size.Medium"
+                              Clearable="true"
+                              DebounceInterval="400"
+                              Variant="Variant.Outlined"
+                              Margin="Margin.Dense"
+                              Style="max-width: 400px;"/>
+
+
+                <MudButton Variant="Variant.Outlined"
+                           Color="Color.Default"
+                           StartIcon="@Icons.Material.Filled.Refresh"
+                           OnClick="LoadProductsAsync"
+                           Disabled="@_isLoading">
+                    بروزرسانی
+                </MudButton>
+            </div>
+
+            <!-- جدول داده‌ها -->
+            <MudTable Items="@_products"
+                      Dense="true"
+                      Hover="true"
+                      Bordered="false"
+                      Striped="true"
+                      Loading="@_isLoading"
+                      LoadingProgressColor="Color.Primary"
+                      Elevation="0">
+                <HeaderContent>
+                    <MudTh Style="width: 70px; text-align: center;">تصویر</MudTh>
+                    <MudTh>نام قطعه</MudTh>
+                    <MudTh>کد فنی</MudTh>
+                    <MudTh>مدل / خودرو</MudTh>
+                    <MudTh>دسته‌بندی</MudTh>
+                    <MudTh>برند</MudTh>
+                    <MudTh Style="text-align: left;">قیمت فروش (تومان)</MudTh>
+                    <MudTh Style="text-align: center;">موجودی کل</MudTh>
+                    <MudTh>انبار پیش‌فرض</MudTh>
+                </HeaderContent>
+
+                <RowTemplate>
+                    <MudTd Style="text-align: center;">
+                        @if (!string.IsNullOrWhiteSpace(context.ImagePath))
+                        {
+                            <MudImage Src="@context.ImagePath"
+                                      Alt="@context.Name"
+                                      Width="45"
+                                      Height="45"
+                                      ObjectFit="ObjectFit.Cover"
+                                      Class="rounded border"/>
+                        }
+                        else
+                        {
+                            <MudAvatar Size="Size.Medium" Variant="Variant.Outlined" Color="Color.Default">
+                                <MudIcon Icon="@Icons.Material.Filled.ImageNotSupported" Size="Size.Small"/>
+                            </MudAvatar>
+                        }
+                    </MudTd>
+
+                    <MudTd DataLabel="نام قطعه">
+                        <MudText Typo="Typo.body2" Class="fw-bold">@context.Name</MudText>
+                    </MudTd>
+
+                    <MudTd DataLabel="کد فنی">
+                        <MudChip T="string" Size="Size.Small" Variant="Variant.Outlined" Color="Color.Dark">
+                            @context.InternalCode
+                        </MudChip>
+                    </MudTd>
+
+                    <MudTd DataLabel="مدل">
+                        @(string.IsNullOrWhiteSpace(context.Model) ? "-" : context.Model)
+                    </MudTd>
+
+                    <MudTd DataLabel="دسته‌بندی">
+                        @context.CategoryName
+                    </MudTd>
+
+                    <MudTd DataLabel="برند">
+                        <MudChip T="string" Size="Size.Small" Color="Color.Info" Variant="Variant.Text">
+                            @context.BrandName
+                        </MudChip>
+                    </MudTd>
+
+                    <MudTd DataLabel="قیمت فروش" Style="text-align: left;">
+                        <MudText Typo="Typo.body2" Color="Color.Success" Class="fw-bold">
+                            @context.SalePrice.ToString("N0")
+                        </MudText>
+                    </MudTd>
+
+                    <MudTd DataLabel="موجودی کل" Style="text-align: center;">
+                        @if (context.TotalStock > 0)
+                        {
+                            <MudChip T="string" Size="Size.Small" Color="Color.Success" Variant="Variant.Filled">
+                                @context.TotalStock عدد
+                            </MudChip>
+                        }
+                        else
+                        {
+                            <MudChip T="string" Size="Size.Small" Color="Color.Error" Variant="Variant.Outlined">
+                                اتمام موجودی
+                            </MudChip>
+                        }
+                    </MudTd>
+
+                    <MudTd DataLabel="انبار پیش‌فرض">
+                        @(context.DefaultWarehouseName ?? "-")
+                    </MudTd>
+                </RowTemplate>
+
+                <NoRecordsContent>
+                    <MudText Typo="Typo.body2" Align="Align.Center" Class="py-6 text-muted">
+                        هیچ کالایی یافت نشد.
+                    </MudText>
+                </NoRecordsContent>
+
+                <PagerContent>
+                    <MudTablePager RowsPerPageString="تعداد در هر صفحه:"
+                                   InfoFormat="{first_item}-{last_item} از {all_items}"/>
+                </PagerContent>
+            </MudTable>
+        </MudCardContent>
+    </MudCard>
+</MudContainer>
+
+@code {
+    private List<ProductListItemDto> _products = new();
+    private bool _isLoading = true;
+    private string _searchTerm = string.Empty;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadProductsAsync();
+    }
+
+    private async Task LoadProductsAsync()
+    {
+        try
+        {
+            _isLoading = true;
+            _products = await ProductService.GetProductsAsync(_searchTerm);
+        }
+        catch (Exception ex)
+        {
+            Snackbar.Add($"خطا در بارگذاری فهرست کالاها: {ex.Message}", Severity.Error);
+        }
+        finally
+        {
+            _isLoading = false;
+        }
+    }
+
+}

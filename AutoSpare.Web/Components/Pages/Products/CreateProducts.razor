@@ -14,7 +14,7 @@
         <MudCardHeader>
             <CardHeaderAvatar>
                 <MudAvatar Color="Color.Primary" Variant="Variant.Filled">
-                    <MudIcon Icon="@Icons.Material.Filled.AddShoppingCart" />
+                    <MudIcon Icon="@Icons.Material.Filled.AddShoppingCart"/>
                 </MudAvatar>
             </CardHeaderAvatar>
 
@@ -36,13 +36,13 @@
             </CardHeaderActions>
         </MudCardHeader>
 
-        <MudDivider />
+        <MudDivider/>
 
         <MudCardContent>
             @if (_isLoading)
             {
                 <div class="d-flex justify-center my-8">
-                    <MudProgressCircular Color="Color.Primary" Indeterminate="true" />
+                    <MudProgressCircular Color="Color.Primary" Indeterminate="true"/>
                 </div>
             }
             else
@@ -58,8 +58,9 @@
                             </MudText>
 
                             <div class="d-flex align-center gap-4 flex-wrap">
-                                <div class="d-flex justify-center align-center rounded border border-dashed pa-2 mud-background-gray"
-                                     style="width: 140px; height: 140px; overflow: hidden;">
+                                <div
+                                    class="d-flex justify-center align-center rounded border border-dashed pa-2 mud-background-gray"
+                                    style="width: 140px; height: 140px; overflow: hidden;">
                                     @if (!string.IsNullOrWhiteSpace(_previewImageUrl))
                                     {
                                         <MudImage Src="@_previewImageUrl"
@@ -67,14 +68,14 @@
                                                   ObjectFit="ObjectFit.Contain"
                                                   Width="124"
                                                   Height="124"
-                                                  Class="rounded" />
+                                                  Class="rounded"/>
                                     }
                                     else
                                     {
                                         <div class="d-flex flex-column align-center text-muted">
                                             <MudIcon Icon="@Icons.Material.Filled.Image"
                                                      Size="Size.Large"
-                                                     Color="Color.Default" />
+                                                     Color="Color.Default"/>
 
                                             <MudText Typo="Typo.caption" Class="mt-1">
                                                 بدون تصویر
@@ -98,7 +99,7 @@
                                                    OnChange="OnImageSelected"
                                                    accept=".jpg,.jpeg,.png,.webp"
                                                    style="display: none;"
-                                                   disabled="@_isSubmitting" />
+                                                   disabled="@_isSubmitting"/>
 
                                         @if (_selectedImageFile is not null)
                                         {
@@ -130,7 +131,7 @@
                         </MudItem>
 
                         <MudItem xs="12">
-                            <MudDivider Class="my-1" />
+                            <MudDivider Class="my-1"/>
                         </MudItem>
 
                         <!-- ردیف اول: نام کالا و مدل -->
@@ -143,7 +144,7 @@
                                           Required="true"
                                           RequiredError="نام کالا الزامی است"
                                           Variant="Variant.Outlined"
-                                          Margin="Margin.Dense" />
+                                          Margin="Margin.Dense"/>
                         </MudItem>
 
                         <MudItem xs="12" md="6">
@@ -152,7 +153,7 @@
                                           @bind-Value="_model.Model"
                                           HelperText="مثال: پراید صبا، پژو ۲۰۶ تیپ ۲"
                                           Variant="Variant.Outlined"
-                                          Margin="Margin.Dense" />
+                                          Margin="Margin.Dense"/>
                         </MudItem>
 
                         <!-- ردیف دوم: کد فنی -->
@@ -165,7 +166,7 @@
                                           Required="true"
                                           RequiredError="کد فنی الزامی است"
                                           Variant="Variant.Outlined"
-                                          Margin="Margin.Dense" />
+                                          Margin="Margin.Dense"/>
                         </MudItem>
 
                         <!-- ردیف سوم: دسته‌بندی و برند -->
@@ -222,7 +223,7 @@
                                              Min="0"
                                              Format="N0"
                                              Variant="Variant.Outlined"
-                                             Margin="Margin.Dense" />
+                                             Margin="Margin.Dense"/>
                         </MudItem>
 
                         <MudItem xs="12" md="6">
@@ -233,7 +234,7 @@
                                              Min="0"
                                              Format="N0"
                                              Variant="Variant.Outlined"
-                                             Margin="Margin.Dense" />
+                                             Margin="Margin.Dense"/>
                         </MudItem>
 
                         <!-- بخش انبار و موجودی -->
@@ -274,7 +275,7 @@
                                                              ? "ابتدا انبار را مشخص کنید"
                                                              : "این تعداد در کاردکس ثبت خواهد شد")"
                                              Variant="Variant.Outlined"
-                                             Margin="Margin.Dense" />
+                                             Margin="Margin.Dense"/>
                         </MudItem>
                     </MudGrid>
                 </MudForm>
@@ -298,7 +299,7 @@
                 {
                     <MudProgressCircular Size="Size.Small"
                                          Indeterminate="true"
-                                         Class="ms-2" />
+                                         Class="ms-2"/>
                     <span>در حال ذخیره...</span>
                 }
                 else
@@ -528,4 +529,5 @@
         if (_isSubmitting) return;
         Navigation.NavigateTo("/products");
     }
+
 }
