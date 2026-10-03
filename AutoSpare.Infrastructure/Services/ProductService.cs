@@ -119,23 +119,48 @@ public class ProductService : IProductService
         return product.Id;
     }
 
-    public async Task<List<ProductListItemDto>> GetProductsAsync(string? searchTerm = null)
+    public async Task<List<ProductListItemDto>> GetProductsAsync(ProductFilterDto? filter = null)
     {
+        filter ??= new ProductFilterDto();
+
         var query = _context.Products
             .AsNoTracking()
             .AsQueryable();
 
-        if (!string.IsNullOrWhiteSpace(searchTerm))
+        // ۱. فیلتر جست‌وجوی متنی (نام، کد فنی، مدل، برند)
+        if (!string.IsNullOrWhiteSpace(filter.SearchTerm))
         {
-            var term = searchTerm.Trim();
+            var term = filter.SearchTerm.Trim();
             query = query.Where(p =>
                 p.Name.Contains(term) ||
                 p.InternalCode.Contains(term) ||
                 p.Model.Contains(term) ||
-                (p.Brand != null && p.Brand.Name.Contains(term))); // اضافه شدن جستجو روی برند
+                (p.Brand != null && p.Brand.Name.Contains(term)));
         }
 
-        return await query
+        // ۲. فیلتر دسته‌بندی
+        if (filter.CategoryId.HasValue && filter.CategoryId.Value != Guid.Empty)
+        {
+            query = query.Where(p => p.CategoryId == filter.CategoryId.Value);
+        }
+
+        // ۳. فیلتر برند
+        if (filter.BrandId.HasValue && filter.BrandId.Value != Guid.Empty)
+        {
+            query = query.Where(p => p.BrandId == filter.BrandId.Value);
+        }
+
+        // ۴. فیلتر انبار (کالاهایی که در این انبار ثبت شده‌اند یا انبار پیش‌فرضشان این است)
+        if (filter.WarehouseId.HasValue && filter.WarehouseId.Value != Guid.Empty)
+        {
+            var warehouseId = filter.WarehouseId.Value;
+            query = query.Where(p =>
+                p.DefaultWarehouseId == warehouseId ||
+                _context.Inventories.Any(i => i.ProductId == p.Id && i.WarehouseId == warehouseId));
+        }
+
+        // ۵. پروجکشن داده‌ها به DTO به همراه محاسبه موجودی
+        var projectedQuery = query
             .OrderByDescending(p => p.CreatedAt)
             .Select(p => new ProductListItemDto
             {
@@ -149,10 +174,35 @@ public class ProductService : IProductService
                 CategoryName = p.Category != null ? p.Category.Name : "-",
                 BrandName = p.Brand != null ? p.Brand.Name : "-",
                 DefaultWarehouseName = p.DefaultWarehouse != null ? p.DefaultWarehouse.Name : null,
-                TotalStock = _context.Inventories
-                    .Where(i => i.ProductId == p.Id)
-                    .Sum(i => (int?)i.Quantity) ?? 0
-            })
-            .ToListAsync();
+                TotalStock = filter.WarehouseId.HasValue
+                    ? (_context.Inventories
+                        .Where(i => i.ProductId == p.Id && i.WarehouseId == filter.WarehouseId.Value)
+                        .Sum(i => (int?)i.Quantity) ?? 0)
+                    : (_context.Inventories
+                        .Where(i => i.ProductId == p.Id)
+                        .Sum(i => (int?)i.Quantity) ?? 0)
+            });
+
+        // ۶. فیلتر وضعیت موجودی (موجود / ناموجود / کم‌موجودی)
+        switch (filter.StockStatus)
+        {
+            case StockStatusFilter.InStock:
+                projectedQuery = projectedQuery.Where(p => p.TotalStock > 0);
+                break;
+
+            case StockStatusFilter.OutOfStock:
+                projectedQuery = projectedQuery.Where(p => p.TotalStock == 0);
+                break;
+
+            case StockStatusFilter.LowStock:
+                projectedQuery = projectedQuery.Where(p => p.TotalStock > 0 && p.TotalStock <= filter.LowStockThreshold);
+                break;
+
+            case StockStatusFilter.All:
+            default:
+                break;
+        }
+
+        return await projectedQuery.ToListAsync();
     }
 }
