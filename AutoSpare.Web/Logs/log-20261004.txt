@@ -59,3 +59,926 @@
 2026-10-04 11:16:10.360 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 0.4917 ms 
 2026-10-04 11:16:10.367 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.6663 ms 
 2026-10-04 11:16:46.055 +03:30 [INF] HTTP GET /_blazor responded 101 in 35675.3314 ms 
+2026-10-04 13:15:05.991 +03:30 [INF] Storage directories are ready. ImagesPath: D:\porograming\Rider\AutoSpare\AutoSpare.Web\wwwroot\Uploads\Images, BackupPath: D:\AutoSpareBackups 
+2026-10-04 13:15:06.448 +03:30 [INF] Home page loaded at "2026-10-04T13:15:06.4467405+03:30" 
+2026-10-04 13:15:06.451 +03:30 [WRN] This is a test warning from Home page. 
+2026-10-04 13:15:06.560 +03:30 [INF] HTTP GET / responded 200 in 296.4521 ms 
+2026-10-04 13:15:06.585 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 6.7839 ms 
+2026-10-04 13:15:06.614 +03:30 [INF] HTTP GET /app.css responded 200 in 35.2260 ms 
+2026-10-04 13:15:06.627 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 48.4160 ms 
+2026-10-04 13:15:06.682 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 103.8898 ms 
+2026-10-04 13:15:06.701 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 5.4029 ms 
+2026-10-04 13:15:06.701 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 5.4030 ms 
+2026-10-04 13:15:06.715 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 9.0809 ms 
+2026-10-04 13:15:06.733 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 6.0683 ms 
+2026-10-04 13:15:06.881 +03:30 [INF] Home page loaded at "2026-10-04T13:15:06.8809556+03:30" 
+2026-10-04 13:15:06.882 +03:30 [WRN] This is a test warning from Home page. 
+2026-10-04 13:15:10.176 +03:30 [INF] HTTP GET /inventory/transactions responded 404 in 0.4480 ms 
+2026-10-04 13:15:10.220 +03:30 [INF] HTTP GET /not-found responded 404 in 19.9614 ms 
+2026-10-04 13:15:10.236 +03:30 [INF] HTTP GET /app.css responded 200 in 1.4702 ms 
+2026-10-04 13:15:10.259 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 20.6665 ms 
+2026-10-04 13:15:10.260 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 12.2223 ms 
+2026-10-04 13:15:10.265 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 25.6833 ms 
+2026-10-04 13:15:10.265 +03:30 [INF] HTTP GET /_blazor responded 101 in 3527.3069 ms 
+2026-10-04 13:15:10.274 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.3974 ms 
+2026-10-04 13:15:10.274 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 0.3984 ms 
+2026-10-04 13:15:10.279 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 51.1564 ms 
+2026-10-04 13:15:10.296 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 0.8846 ms 
+2026-10-04 13:15:10.301 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.8349 ms 
+2026-10-04 13:15:11.808 +03:30 [INF] HTTP GET /sales responded 404 in 0.5769 ms 
+2026-10-04 13:15:11.830 +03:30 [INF] HTTP GET /not-found responded 404 in 13.0435 ms 
+2026-10-04 13:15:11.845 +03:30 [INF] HTTP GET /_blazor responded 101 in 1535.5397 ms 
+2026-10-04 13:15:11.849 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 1.4894 ms 
+2026-10-04 13:15:11.850 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 6.2876 ms 
+2026-10-04 13:15:11.852 +03:30 [INF] HTTP GET /app.css responded 200 in 1.4446 ms 
+2026-10-04 13:15:11.852 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 1.3713 ms 
+2026-10-04 13:15:11.860 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 8.8020 ms 
+2026-10-04 13:15:11.887 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.3563 ms 
+2026-10-04 13:15:11.887 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 0.3562 ms 
+2026-10-04 13:15:11.904 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 0.6925 ms 
+2026-10-04 13:15:11.911 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.7397 ms 
+2026-10-04 13:15:14.018 +03:30 [INF] HTTP GET /sales/new responded 404 in 0.3843 ms 
+2026-10-04 13:15:14.026 +03:30 [INF] HTTP GET /not-found responded 404 in 7.0594 ms 
+2026-10-04 13:15:14.035 +03:30 [INF] HTTP GET /_blazor responded 101 in 2117.7168 ms 
+2026-10-04 13:15:14.036 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 1.9712 ms 
+2026-10-04 13:15:14.042 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 0.2613 ms 
+2026-10-04 13:15:14.052 +03:30 [INF] HTTP GET /app.css responded 200 in 10.8061 ms 
+2026-10-04 13:15:14.053 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 11.9172 ms 
+2026-10-04 13:15:14.059 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 17.4312 ms 
+2026-10-04 13:15:14.089 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 0.4385 ms 
+2026-10-04 13:15:14.089 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.4421 ms 
+2026-10-04 13:15:14.100 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 0.5026 ms 
+2026-10-04 13:15:14.108 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 1.4159 ms 
+2026-10-04 13:15:18.783 +03:30 [INF] HTTP GET /purchases responded 404 in 0.3231 ms 
+2026-10-04 13:15:18.787 +03:30 [INF] HTTP GET /not-found responded 404 in 3.3980 ms 
+2026-10-04 13:15:18.800 +03:30 [INF] HTTP GET /_blazor responded 101 in 4681.6355 ms 
+2026-10-04 13:15:18.805 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 0.2921 ms 
+2026-10-04 13:15:18.807 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 2.2229 ms 
+2026-10-04 13:15:18.809 +03:30 [INF] HTTP GET /app.css responded 200 in 4.5486 ms 
+2026-10-04 13:15:18.812 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 7.6518 ms 
+2026-10-04 13:15:18.818 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.4402 ms 
+2026-10-04 13:15:18.819 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 0.5582 ms 
+2026-10-04 13:15:18.843 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 1.3778 ms 
+2026-10-04 13:15:18.847 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 47.3486 ms 
+2026-10-04 13:15:18.850 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.5575 ms 
+2026-10-04 13:15:29.345 +03:30 [INF] HTTP GET /customers responded 404 in 0.3276 ms 
+2026-10-04 13:15:29.352 +03:30 [INF] HTTP GET /not-found responded 404 in 6.6633 ms 
+2026-10-04 13:15:29.370 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 1.9606 ms 
+2026-10-04 13:15:29.373 +03:30 [INF] HTTP GET /_blazor responded 101 in 10515.1376 ms 
+2026-10-04 13:15:29.375 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 0.1633 ms 
+2026-10-04 13:15:29.376 +03:30 [INF] HTTP GET /app.css responded 200 in 1.4605 ms 
+2026-10-04 13:15:29.382 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 7.8894 ms 
+2026-10-04 13:15:29.383 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 7.5602 ms 
+2026-10-04 13:15:29.385 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.8052 ms 
+2026-10-04 13:15:29.388 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 0.9375 ms 
+2026-10-04 13:15:29.419 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 0.3770 ms 
+2026-10-04 13:15:29.426 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.3122 ms 
+2026-10-04 13:15:32.771 +03:30 [INF] HTTP GET /customers/create responded 404 in 0.1692 ms 
+2026-10-04 13:15:32.775 +03:30 [INF] HTTP GET /not-found responded 404 in 3.8570 ms 
+2026-10-04 13:15:32.800 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 1.3856 ms 
+2026-10-04 13:15:32.800 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 0.3995 ms 
+2026-10-04 13:15:32.801 +03:30 [INF] HTTP GET /_blazor responded 101 in 3367.5558 ms 
+2026-10-04 13:15:32.802 +03:30 [INF] HTTP GET /app.css responded 200 in 2.9124 ms 
+2026-10-04 13:15:32.802 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 2.0694 ms 
+2026-10-04 13:15:32.808 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 6.5673 ms 
+2026-10-04 13:15:32.832 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 0.2315 ms 
+2026-10-04 13:15:32.832 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.2314 ms 
+2026-10-04 13:15:32.843 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 0.3792 ms 
+2026-10-04 13:15:32.849 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.5944 ms 
+2026-10-04 13:17:35.449 +03:30 [INF] HTTP GET /_blazor responded 101 in 122591.8338 ms 
+2026-10-04 13:17:46.049 +03:30 [INF] Storage directories are ready. ImagesPath: D:\porograming\Rider\AutoSpare\AutoSpare.Web\wwwroot\Uploads\Images, BackupPath: D:\AutoSpareBackups 
+2026-10-04 13:17:46.577 +03:30 [INF] Home page loaded at "2026-10-04T13:17:46.5739261+03:30" 
+2026-10-04 13:17:46.582 +03:30 [WRN] This is a test warning from Home page. 
+2026-10-04 13:17:46.704 +03:30 [INF] HTTP GET / responded 200 in 386.6866 ms 
+2026-10-04 13:17:46.724 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 6.1526 ms 
+2026-10-04 13:17:46.732 +03:30 [INF] HTTP GET /app.css responded 200 in 13.9320 ms 
+2026-10-04 13:17:46.773 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 54.6352 ms 
+2026-10-04 13:17:46.773 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 54.6936 ms 
+2026-10-04 13:17:46.792 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 5.6909 ms 
+2026-10-04 13:17:46.792 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 5.6910 ms 
+2026-10-04 13:17:46.801 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 15.4824 ms 
+2026-10-04 13:17:46.825 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 6.5505 ms 
+2026-10-04 13:17:46.888 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 2.3029 ms 
+2026-10-04 13:17:46.892 +03:30 [INF] HTTP GET /customers/create responded 404 in 0.4574 ms 
+2026-10-04 13:17:46.960 +03:30 [INF] HTTP GET /not-found responded 404 in 25.3132 ms 
+2026-10-04 13:17:47.004 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 35.1325 ms 
+2026-10-04 13:17:47.004 +03:30 [INF] HTTP GET /app.css responded 200 in 21.3368 ms 
+2026-10-04 13:17:47.005 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 0.7011 ms 
+2026-10-04 13:17:47.004 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 20.6656 ms 
+2026-10-04 13:17:47.006 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 22.6894 ms 
+2026-10-04 13:17:47.007 +03:30 [INF] HTTP GET /_blazor responded 101 in 197.1925 ms 
+2026-10-04 13:17:47.047 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.8996 ms 
+2026-10-04 13:17:47.047 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 1.3154 ms 
+2026-10-04 13:17:47.049 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 1.3996 ms 
+2026-10-04 13:17:47.058 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.6628 ms 
+2026-10-04 13:17:47.110 +03:30 [INF] Home page loaded at "2026-10-04T13:17:47.1104917+03:30" 
+2026-10-04 13:17:47.110 +03:30 [WRN] This is a test warning from Home page. 
+2026-10-04 13:17:54.435 +03:30 [INF] HTTP GET /sales/new responded 404 in 0.5655 ms 
+2026-10-04 13:17:54.457 +03:30 [INF] HTTP GET /not-found responded 404 in 16.0498 ms 
+2026-10-04 13:17:54.467 +03:30 [INF] HTTP GET /_blazor responded 101 in 7551.7133 ms 
+2026-10-04 13:17:54.470 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 0.5577 ms 
+2026-10-04 13:17:54.476 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 2.8266 ms 
+2026-10-04 13:17:54.476 +03:30 [INF] HTTP GET /app.css responded 200 in 7.0831 ms 
+2026-10-04 13:17:54.480 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 8.9838 ms 
+2026-10-04 13:17:54.489 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 24.2238 ms 
+2026-10-04 13:17:54.516 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 0.4052 ms 
+2026-10-04 13:17:54.516 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.4053 ms 
+2026-10-04 13:17:54.519 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 0.5583 ms 
+2026-10-04 13:17:54.535 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.6321 ms 
+2026-10-04 13:17:58.170 +03:30 [INF] HTTP GET /sales responded 404 in 0.8240 ms 
+2026-10-04 13:17:58.183 +03:30 [INF] HTTP GET /not-found responded 404 in 11.1451 ms 
+2026-10-04 13:17:58.194 +03:30 [INF] HTTP GET /_blazor responded 101 in 3650.7456 ms 
+2026-10-04 13:17:58.200 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 6.4420 ms 
+2026-10-04 13:17:58.201 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 0.4965 ms 
+2026-10-04 13:17:58.201 +03:30 [INF] HTTP GET /app.css responded 200 in 1.3340 ms 
+2026-10-04 13:17:58.202 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 1.3289 ms 
+2026-10-04 13:17:58.208 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 7.9374 ms 
+2026-10-04 13:17:58.230 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 0.4234 ms 
+2026-10-04 13:17:58.230 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.4246 ms 
+2026-10-04 13:17:58.234 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 0.4208 ms 
+2026-10-04 13:17:58.238 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.5957 ms 
+2026-10-04 13:18:00.533 +03:30 [INF] HTTP GET /inventory/transactions responded 404 in 0.3289 ms 
+2026-10-04 13:18:00.538 +03:30 [INF] HTTP GET /not-found responded 404 in 4.6361 ms 
+2026-10-04 13:18:00.548 +03:30 [INF] HTTP GET /_blazor responded 101 in 2211.8794 ms 
+2026-10-04 13:18:00.550 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 2.2459 ms 
+2026-10-04 13:18:00.556 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 0.5249 ms 
+2026-10-04 13:18:00.557 +03:30 [INF] HTTP GET /app.css responded 200 in 1.0317 ms 
+2026-10-04 13:18:00.557 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 1.6298 ms 
+2026-10-04 13:18:00.560 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 4.4051 ms 
+2026-10-04 13:18:00.566 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.5295 ms 
+2026-10-04 13:18:00.566 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 0.5294 ms 
+2026-10-04 13:18:00.588 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 0.5569 ms 
+2026-10-04 13:18:00.594 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.4082 ms 
+2026-10-04 13:18:36.264 +03:30 [INF] HTTP GET /uploads/products/b7e9697a9c934c00814ea404237b0a0a.png responded 304 in 0.5022 ms 
+2026-10-04 13:18:36.264 +03:30 [INF] HTTP GET /uploads/products/27b41e9024374db59bf7fe94b1c824da.png responded 304 in 0.5022 ms 
+2026-10-04 13:18:45.327 +03:30 [INF] HTTP GET /purchases responded 404 in 1.0874 ms 
+2026-10-04 13:18:45.331 +03:30 [INF] HTTP GET /not-found responded 404 in 3.7145 ms 
+2026-10-04 13:18:45.346 +03:30 [INF] HTTP GET /_blazor responded 101 in 44743.5341 ms 
+2026-10-04 13:18:45.364 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 0.6984 ms 
+2026-10-04 13:18:45.364 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 11.4688 ms 
+2026-10-04 13:18:45.365 +03:30 [INF] HTTP GET /app.css responded 200 in 10.8108 ms 
+2026-10-04 13:18:45.367 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 14.6616 ms 
+2026-10-04 13:18:45.394 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 50.0846 ms 
+2026-10-04 13:18:45.397 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.1852 ms 
+2026-10-04 13:18:45.397 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 0.3241 ms 
+2026-10-04 13:18:45.407 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 0.4940 ms 
+2026-10-04 13:18:45.416 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.3771 ms 
+2026-10-04 13:18:51.567 +03:30 [INF] HTTP GET /purchases responded 404 in 0.2001 ms 
+2026-10-04 13:18:51.573 +03:30 [INF] HTTP GET /not-found responded 404 in 5.5739 ms 
+2026-10-04 13:18:51.589 +03:30 [INF] HTTP GET /_blazor responded 101 in 6164.7944 ms 
+2026-10-04 13:18:51.592 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 3.1948 ms 
+2026-10-04 13:18:51.597 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 0.1735 ms 
+2026-10-04 13:18:51.598 +03:30 [INF] HTTP GET /app.css responded 200 in 1.0423 ms 
+2026-10-04 13:18:51.598 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 0.9588 ms 
+2026-10-04 13:18:51.602 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 5.1430 ms 
+2026-10-04 13:18:51.606 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.3189 ms 
+2026-10-04 13:18:51.607 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 0.4439 ms 
+2026-10-04 13:18:51.631 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 0.4423 ms 
+2026-10-04 13:18:51.640 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.6678 ms 
+2026-10-04 13:21:35.723 +03:30 [INF] HTTP GET /_blazor responded 101 in 164073.2815 ms 
+2026-10-04 13:21:35.725 +03:30 [INF] HTTP GET /_blazor responded 101 in 228656.0781 ms 
+2026-10-04 13:21:52.367 +03:30 [INF] Storage directories are ready. ImagesPath: D:\porograming\Rider\AutoSpare\AutoSpare.Web\wwwroot\Uploads\Images, BackupPath: D:\AutoSpareBackups 
+2026-10-04 13:21:52.804 +03:30 [INF] Home page loaded at "2026-10-04T13:21:52.8004031+03:30" 
+2026-10-04 13:21:52.807 +03:30 [WRN] This is a test warning from Home page. 
+2026-10-04 13:21:52.932 +03:30 [INF] HTTP GET / responded 200 in 313.5016 ms 
+2026-10-04 13:21:52.954 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 8.2365 ms 
+2026-10-04 13:21:52.962 +03:30 [INF] HTTP GET /app.css responded 200 in 16.7230 ms 
+2026-10-04 13:21:52.963 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 17.6957 ms 
+2026-10-04 13:21:52.965 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 19.5671 ms 
+2026-10-04 13:21:53.031 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 3.3350 ms 
+2026-10-04 13:21:53.031 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 3.3203 ms 
+2026-10-04 13:21:53.040 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 4.1434 ms 
+2026-10-04 13:21:53.062 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 7.3174 ms 
+2026-10-04 13:21:53.201 +03:30 [INF] Home page loaded at "2026-10-04T13:21:53.2016673+03:30" 
+2026-10-04 13:21:53.202 +03:30 [WRN] This is a test warning from Home page. 
+2026-10-04 13:21:54.295 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.7421 ms 
+2026-10-04 13:21:54.780 +03:30 [INF] HTTP GET /purchases/create responded 200 in 456.7845 ms 
+2026-10-04 13:21:54.796 +03:30 [INF] HTTP GET /app.css responded 200 in 1.8436 ms 
+2026-10-04 13:21:54.800 +03:30 [INF] HTTP GET /_blazor responded 101 in 498.4574 ms 
+2026-10-04 13:21:54.804 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 1.8623 ms 
+2026-10-04 13:21:54.805 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 18.5947 ms 
+2026-10-04 13:21:54.821 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 14.9154 ms 
+2026-10-04 13:21:54.823 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 17.2830 ms 
+2026-10-04 13:21:54.851 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.6565 ms 
+2026-10-04 13:21:54.851 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 0.6717 ms 
+2026-10-04 13:21:54.865 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 1.0431 ms 
+2026-10-04 13:21:54.872 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 1.1559 ms 
+2026-10-04 13:21:55.287 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.5359 ms 
+2026-10-04 13:21:55.309 +03:30 [INF] HTTP GET /customers/create responded 404 in 0.4648 ms 
+2026-10-04 13:21:55.344 +03:30 [INF] HTTP GET /not-found responded 404 in 10.4921 ms 
+2026-10-04 13:21:55.352 +03:30 [INF] HTTP GET /_blazor responded 101 in 60.9256 ms 
+2026-10-04 13:21:55.353 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 1.3763 ms 
+2026-10-04 13:21:55.358 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 0.6380 ms 
+2026-10-04 13:21:55.360 +03:30 [INF] HTTP GET /app.css responded 200 in 2.5070 ms 
+2026-10-04 13:21:55.363 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 6.2009 ms 
+2026-10-04 13:21:55.367 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 3.7958 ms 
+2026-10-04 13:21:55.393 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.9759 ms 
+2026-10-04 13:21:55.393 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 0.9759 ms 
+2026-10-04 13:21:55.410 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 0.7316 ms 
+2026-10-04 13:21:55.421 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.9750 ms 
+2026-10-04 13:22:25.336 +03:30 [ERR] An exception occurred in the database while saving changes for context type 'AutoSpare.Infrastructure.Persistence.ApplicationDbContext'.
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Microsoft.Data.SqlClient.SqlException (0x80131904): Cannot insert duplicate key row in object 'dbo.Purchases' with unique index 'IX_Purchases_InvoiceNumber'. The duplicate key value is (PUR-00001).
+   at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, SqlCommand command, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryHasMoreRows(Boolean& moreRows)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryHasMoreResults(Boolean& moreResults)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryNextResult(Boolean& more)
+   at Microsoft.Data.SqlClient.SqlDataReader.NextResultAsyncExecute(Task task, Object state)
+   at Microsoft.Data.SqlClient.SqlDataReader.InvokeAsyncCall[T](SqlDataReaderBaseAsyncCallContext`1 context)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeAsync(RelationalDataReader reader, CancellationToken cancellationToken)
+ClientConnectionId:acba9609-6299-41b3-8331-9fb723b7c874
+Error Number:2601,State:1,Class:14
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeAsync(RelationalDataReader reader, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Update.Internal.SqlServerModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalDatabase.SaveChangesAsync(IList`1 entries, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken) 
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Microsoft.Data.SqlClient.SqlException (0x80131904): Cannot insert duplicate key row in object 'dbo.Purchases' with unique index 'IX_Purchases_InvoiceNumber'. The duplicate key value is (PUR-00001).
+   at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, SqlCommand command, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryHasMoreRows(Boolean& moreRows)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryHasMoreResults(Boolean& moreResults)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryNextResult(Boolean& more)
+   at Microsoft.Data.SqlClient.SqlDataReader.NextResultAsyncExecute(Task task, Object state)
+   at Microsoft.Data.SqlClient.SqlDataReader.InvokeAsyncCall[T](SqlDataReaderBaseAsyncCallContext`1 context)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeAsync(RelationalDataReader reader, CancellationToken cancellationToken)
+ClientConnectionId:acba9609-6299-41b3-8331-9fb723b7c874
+Error Number:2601,State:1,Class:14
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeAsync(RelationalDataReader reader, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Update.Internal.SqlServerModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalDatabase.SaveChangesAsync(IList`1 entries, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+2026-10-04 13:23:49.420 +03:30 [INF] HTTP GET /_blazor responded 101 in 113709.0067 ms 
+2026-10-04 13:23:49.420 +03:30 [INF] HTTP GET /_blazor responded 101 in 114539.3167 ms 
+2026-10-04 13:23:49.420 +03:30 [INF] HTTP GET /_blazor responded 101 in 116351.6390 ms 
+2026-10-04 13:25:23.304 +03:30 [INF] Storage directories are ready. ImagesPath: D:\porograming\Rider\AutoSpare\AutoSpare.Web\wwwroot\Uploads\Images, BackupPath: D:\AutoSpareBackups 
+2026-10-04 13:25:23.606 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 35.7591 ms 
+2026-10-04 13:25:23.606 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 35.7582 ms 
+2026-10-04 13:25:23.606 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 35.7580 ms 
+2026-10-04 13:25:23.790 +03:30 [INF] Home page loaded at "2026-10-04T13:25:23.7884586+03:30" 
+2026-10-04 13:25:23.791 +03:30 [WRN] This is a test warning from Home page. 
+2026-10-04 13:25:23.920 +03:30 [INF] HTTP GET / responded 200 in 351.9970 ms 
+2026-10-04 13:25:23.949 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 8.6259 ms 
+2026-10-04 13:25:23.957 +03:30 [INF] HTTP GET /app.css responded 200 in 16.8237 ms 
+2026-10-04 13:25:23.961 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 20.6657 ms 
+2026-10-04 13:25:23.961 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 20.6654 ms 
+2026-10-04 13:25:24.017 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.5395 ms 
+2026-10-04 13:25:24.017 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 0.5395 ms 
+2026-10-04 13:25:24.043 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 4.8352 ms 
+2026-10-04 13:25:24.055 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 5.6899 ms 
+2026-10-04 13:25:24.225 +03:30 [INF] Home page loaded at "2026-10-04T13:25:24.2251876+03:30" 
+2026-10-04 13:25:24.225 +03:30 [WRN] This is a test warning from Home page. 
+2026-10-04 13:26:04.429 +03:30 [ERR] An exception occurred in the database while saving changes for context type 'AutoSpare.Infrastructure.Persistence.ApplicationDbContext'.
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Microsoft.Data.SqlClient.SqlException (0x80131904): Cannot insert duplicate key row in object 'dbo.Purchases' with unique index 'IX_Purchases_InvoiceNumber'. The duplicate key value is (PUR-00005).
+   at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, SqlCommand command, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryHasMoreRows(Boolean& moreRows)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryHasMoreResults(Boolean& moreResults)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryNextResult(Boolean& more)
+   at Microsoft.Data.SqlClient.SqlDataReader.NextResultAsyncExecute(Task task, Object state)
+   at Microsoft.Data.SqlClient.SqlDataReader.InvokeAsyncCall[T](SqlDataReaderBaseAsyncCallContext`1 context)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeAsync(RelationalDataReader reader, CancellationToken cancellationToken)
+ClientConnectionId:9a3064fd-728b-453c-8f49-c3e0354658bf
+Error Number:2601,State:1,Class:14
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeAsync(RelationalDataReader reader, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Update.Internal.SqlServerModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalDatabase.SaveChangesAsync(IList`1 entries, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken) 
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Microsoft.Data.SqlClient.SqlException (0x80131904): Cannot insert duplicate key row in object 'dbo.Purchases' with unique index 'IX_Purchases_InvoiceNumber'. The duplicate key value is (PUR-00005).
+   at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, SqlCommand command, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryHasMoreRows(Boolean& moreRows)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryHasMoreResults(Boolean& moreResults)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryNextResult(Boolean& more)
+   at Microsoft.Data.SqlClient.SqlDataReader.NextResultAsyncExecute(Task task, Object state)
+   at Microsoft.Data.SqlClient.SqlDataReader.InvokeAsyncCall[T](SqlDataReaderBaseAsyncCallContext`1 context)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeAsync(RelationalDataReader reader, CancellationToken cancellationToken)
+ClientConnectionId:9a3064fd-728b-453c-8f49-c3e0354658bf
+Error Number:2601,State:1,Class:14
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeAsync(RelationalDataReader reader, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Update.Internal.SqlServerModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalDatabase.SaveChangesAsync(IList`1 entries, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+2026-10-04 13:26:32.596 +03:30 [ERR] An exception occurred in the database while saving changes for context type 'AutoSpare.Infrastructure.Persistence.ApplicationDbContext'.
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Microsoft.Data.SqlClient.SqlException (0x80131904): Cannot insert duplicate key row in object 'dbo.Purchases' with unique index 'IX_Purchases_InvoiceNumber'. The duplicate key value is (PUR-00005).
+   at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, SqlCommand command, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryHasMoreRows(Boolean& moreRows)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryHasMoreResults(Boolean& moreResults)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryNextResult(Boolean& more)
+   at Microsoft.Data.SqlClient.SqlDataReader.NextResultAsyncExecute(Task task, Object state)
+   at Microsoft.Data.SqlClient.SqlDataReader.InvokeAsyncCall[T](SqlDataReaderBaseAsyncCallContext`1 context)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeAsync(RelationalDataReader reader, CancellationToken cancellationToken)
+ClientConnectionId:9a3064fd-728b-453c-8f49-c3e0354658bf
+Error Number:2601,State:1,Class:14
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeAsync(RelationalDataReader reader, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Update.Internal.SqlServerModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalDatabase.SaveChangesAsync(IList`1 entries, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken) 
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Microsoft.Data.SqlClient.SqlException (0x80131904): Cannot insert duplicate key row in object 'dbo.Purchases' with unique index 'IX_Purchases_InvoiceNumber'. The duplicate key value is (PUR-00005).
+   at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, SqlCommand command, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryHasMoreRows(Boolean& moreRows)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryHasMoreResults(Boolean& moreResults)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryNextResult(Boolean& more)
+   at Microsoft.Data.SqlClient.SqlDataReader.NextResultAsyncExecute(Task task, Object state)
+   at Microsoft.Data.SqlClient.SqlDataReader.InvokeAsyncCall[T](SqlDataReaderBaseAsyncCallContext`1 context)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeAsync(RelationalDataReader reader, CancellationToken cancellationToken)
+ClientConnectionId:9a3064fd-728b-453c-8f49-c3e0354658bf
+Error Number:2601,State:1,Class:14
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeAsync(RelationalDataReader reader, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Update.Internal.SqlServerModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalDatabase.SaveChangesAsync(IList`1 entries, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+2026-10-04 13:33:49.075 +03:30 [INF] HTTP GET /_blazor responded 101 in 505014.1296 ms 
+2026-10-04 13:33:59.503 +03:30 [INF] Storage directories are ready. ImagesPath: D:\porograming\Rider\AutoSpare\AutoSpare.Web\wwwroot\Uploads\Images, BackupPath: D:\AutoSpareBackups 
+2026-10-04 13:33:59.854 +03:30 [INF] Home page loaded at "2026-10-04T13:33:59.8519820+03:30" 
+2026-10-04 13:33:59.857 +03:30 [WRN] This is a test warning from Home page. 
+2026-10-04 13:33:59.948 +03:30 [INF] HTTP GET / responded 200 in 251.4490 ms 
+2026-10-04 13:33:59.971 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 6.6860 ms 
+2026-10-04 13:33:59.980 +03:30 [INF] HTTP GET /app.css responded 200 in 16.1718 ms 
+2026-10-04 13:33:59.983 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 19.1647 ms 
+2026-10-04 13:33:59.984 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 20.1110 ms 
+2026-10-04 13:34:00.050 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 3.6122 ms 
+2026-10-04 13:34:00.050 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 3.6123 ms 
+2026-10-04 13:34:00.057 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 6.1691 ms 
+2026-10-04 13:34:00.077 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 5.4416 ms 
+2026-10-04 13:34:00.210 +03:30 [INF] Home page loaded at "2026-10-04T13:34:00.2104692+03:30" 
+2026-10-04 13:34:00.210 +03:30 [WRN] This is a test warning from Home page. 
+2026-10-04 13:34:02.286 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 1.4035 ms 
+2026-10-04 13:34:02.894 +03:30 [INF] HTTP GET /purchases/create responded 200 in 562.6335 ms 
+2026-10-04 13:34:02.914 +03:30 [INF] HTTP GET /_blazor responded 101 in 607.7977 ms 
+2026-10-04 13:34:02.919 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 0.6457 ms 
+2026-10-04 13:34:02.919 +03:30 [INF] HTTP GET /app.css responded 200 in 3.6032 ms 
+2026-10-04 13:34:02.941 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 21.7284 ms 
+2026-10-04 13:34:02.941 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 38.8579 ms 
+2026-10-04 13:34:02.944 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 24.3880 ms 
+2026-10-04 13:34:02.973 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 0.6001 ms 
+2026-10-04 13:34:02.973 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.5972 ms 
+2026-10-04 13:34:03.006 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 0.9551 ms 
+2026-10-04 13:34:03.018 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.5579 ms 
+2026-10-04 13:35:05.122 +03:30 [INF] HTTP GET /_blazor responded 101 in 65038.9809 ms 
+2026-10-04 13:35:05.122 +03:30 [INF] HTTP GET /_blazor responded 101 in 62096.5726 ms 
+2026-10-04 13:35:10.584 +03:30 [INF] Storage directories are ready. ImagesPath: D:\porograming\Rider\AutoSpare\AutoSpare.Web\wwwroot\Uploads\Images, BackupPath: D:\AutoSpareBackups 
+2026-10-04 13:35:10.924 +03:30 [INF] Home page loaded at "2026-10-04T13:35:10.9223291+03:30" 
+2026-10-04 13:35:10.927 +03:30 [WRN] This is a test warning from Home page. 
+2026-10-04 13:35:11.020 +03:30 [INF] HTTP GET / responded 200 in 255.9500 ms 
+2026-10-04 13:35:11.040 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 6.1705 ms 
+2026-10-04 13:35:11.050 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 15.9896 ms 
+2026-10-04 13:35:11.050 +03:30 [INF] HTTP GET /app.css responded 200 in 14.8325 ms 
+2026-10-04 13:35:11.051 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 17.2756 ms 
+2026-10-04 13:35:11.115 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 4.2910 ms 
+2026-10-04 13:35:11.115 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 4.2910 ms 
+2026-10-04 13:35:11.125 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 6.7985 ms 
+2026-10-04 13:35:11.146 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 6.9627 ms 
+2026-10-04 13:35:11.277 +03:30 [INF] Home page loaded at "2026-10-04T13:35:11.2774580+03:30" 
+2026-10-04 13:35:11.277 +03:30 [WRN] This is a test warning from Home page. 
+2026-10-04 13:35:11.284 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.5122 ms 
+2026-10-04 13:35:11.318 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.5085 ms 
+2026-10-04 13:35:11.832 +03:30 [INF] HTTP GET /purchases/create responded 200 in 474.4198 ms 
+2026-10-04 13:35:11.850 +03:30 [INF] HTTP GET /app.css responded 200 in 3.1155 ms 
+2026-10-04 13:35:11.851 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 0.7084 ms 
+2026-10-04 13:35:11.872 +03:30 [INF] HTTP GET /_blazor responded 101 in 554.5005 ms 
+2026-10-04 13:35:11.872 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 5.4688 ms 
+2026-10-04 13:35:11.873 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 22.0972 ms 
+2026-10-04 13:35:11.880 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 39.4903 ms 
+2026-10-04 13:35:11.907 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 0.6103 ms 
+2026-10-04 13:35:11.907 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.6104 ms 
+2026-10-04 13:35:11.916 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 0.8427 ms 
+2026-10-04 13:35:11.936 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.7465 ms 
+2026-10-04 13:35:11.997 +03:30 [INF] HTTP GET /purchases/create responded 200 in 163.0038 ms 
+2026-10-04 13:35:12.010 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 1.1193 ms 
+2026-10-04 13:35:12.010 +03:30 [INF] HTTP GET /_blazor responded 101 in 668.8960 ms 
+2026-10-04 13:35:12.015 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 0.4508 ms 
+2026-10-04 13:35:12.016 +03:30 [INF] HTTP GET /app.css responded 200 in 1.2586 ms 
+2026-10-04 13:35:12.018 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 2.7789 ms 
+2026-10-04 13:35:12.022 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 1.6061 ms 
+2026-10-04 13:35:12.050 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.7578 ms 
+2026-10-04 13:35:12.050 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 0.8052 ms 
+2026-10-04 13:35:12.086 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 0.5999 ms 
+2026-10-04 13:35:12.098 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.5722 ms 
+2026-10-04 13:36:29.647 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 1.1749 ms 
+2026-10-04 13:36:29.647 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 1.1749 ms 
+2026-10-04 13:36:29.647 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 1.1750 ms 
+2026-10-04 13:36:29.957 +03:30 [INF] HTTP GET /_blazor responded 101 in 78803.9098 ms 
+2026-10-04 13:36:29.957 +03:30 [INF] HTTP GET /_blazor responded 101 in 77843.3992 ms 
+2026-10-04 13:36:29.957 +03:30 [INF] HTTP GET /_blazor responded 101 in 78012.8897 ms 
+2026-10-04 13:41:56.633 +03:30 [INF] HTTP GET /_blazor responded 101 in 326959.3294 ms 
+2026-10-04 13:50:00.633 +03:30 [INF] HTTP GET /_blazor responded 101 in 810975.9594 ms 
+2026-10-04 13:53:49.878 +03:30 [INF] HTTP GET /_blazor responded 101 in 1040188.1816 ms 
+2026-10-04 13:54:02.168 +03:30 [INF] Storage directories are ready. ImagesPath: D:\porograming\Rider\AutoSpare\AutoSpare.Web\wwwroot\Uploads\Images, BackupPath: D:\AutoSpareBackups 
+2026-10-04 13:54:02.411 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 27.1838 ms 
+2026-10-04 13:54:02.585 +03:30 [INF] Home page loaded at "2026-10-04T13:54:02.5828380+03:30" 
+2026-10-04 13:54:02.586 +03:30 [WRN] This is a test warning from Home page. 
+2026-10-04 13:54:02.721 +03:30 [INF] HTTP GET / responded 200 in 338.6427 ms 
+2026-10-04 13:54:02.740 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 6.1114 ms 
+2026-10-04 13:54:02.746 +03:30 [INF] HTTP GET /app.css responded 200 in 12.5873 ms 
+2026-10-04 13:54:02.750 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 16.1866 ms 
+2026-10-04 13:54:02.753 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 19.3871 ms 
+2026-10-04 13:54:02.810 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 0.5657 ms 
+2026-10-04 13:54:02.810 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.5695 ms 
+2026-10-04 13:54:02.843 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 5.6070 ms 
+2026-10-04 13:54:02.851 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.5313 ms 
+2026-10-04 13:54:02.981 +03:30 [INF] Home page loaded at "2026-10-04T13:54:02.9813513+03:30" 
+2026-10-04 13:54:02.981 +03:30 [WRN] This is a test warning from Home page. 
+2026-10-04 13:54:03.153 +03:30 [INF] HTTP GET /purchases/create responded 200 in 672.8416 ms 
+2026-10-04 13:54:03.169 +03:30 [INF] HTTP GET /_blazor responded 101 in 740.9680 ms 
+2026-10-04 13:54:03.172 +03:30 [INF] HTTP GET /app.css responded 200 in 2.5840 ms 
+2026-10-04 13:54:03.175 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 14.5460 ms 
+2026-10-04 13:54:03.176 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 3.6892 ms 
+2026-10-04 13:54:03.176 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 1.9571 ms 
+2026-10-04 13:54:03.176 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 0.5783 ms 
+2026-10-04 13:54:03.228 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.3717 ms 
+2026-10-04 13:54:03.228 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 0.3720 ms 
+2026-10-04 13:54:03.258 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 0.8020 ms 
+2026-10-04 13:54:03.268 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.5633 ms 
+2026-10-04 13:54:57.725 +03:30 [ERR] An exception occurred in the database while saving changes for context type 'AutoSpare.Infrastructure.Persistence.ApplicationDbContext'.
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Microsoft.Data.SqlClient.SqlException (0x80131904): Cannot insert duplicate key row in object 'dbo.Purchases' with unique index 'IX_Purchases_InvoiceNumber'. The duplicate key value is (PUR-00001).
+   at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, SqlCommand command, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryHasMoreRows(Boolean& moreRows)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryHasMoreResults(Boolean& moreResults)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryNextResult(Boolean& more)
+   at Microsoft.Data.SqlClient.SqlDataReader.NextResultAsyncExecute(Task task, Object state)
+   at Microsoft.Data.SqlClient.SqlDataReader.InvokeAsyncCall[T](SqlDataReaderBaseAsyncCallContext`1 context)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeAsync(RelationalDataReader reader, CancellationToken cancellationToken)
+ClientConnectionId:9d8e2391-9cf6-4f26-9114-203c803d3d7e
+Error Number:2601,State:1,Class:14
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeAsync(RelationalDataReader reader, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Update.Internal.SqlServerModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalDatabase.SaveChangesAsync(IList`1 entries, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken) 
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Microsoft.Data.SqlClient.SqlException (0x80131904): Cannot insert duplicate key row in object 'dbo.Purchases' with unique index 'IX_Purchases_InvoiceNumber'. The duplicate key value is (PUR-00001).
+   at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, SqlCommand command, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryHasMoreRows(Boolean& moreRows)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryHasMoreResults(Boolean& moreResults)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryNextResult(Boolean& more)
+   at Microsoft.Data.SqlClient.SqlDataReader.NextResultAsyncExecute(Task task, Object state)
+   at Microsoft.Data.SqlClient.SqlDataReader.InvokeAsyncCall[T](SqlDataReaderBaseAsyncCallContext`1 context)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeAsync(RelationalDataReader reader, CancellationToken cancellationToken)
+ClientConnectionId:9d8e2391-9cf6-4f26-9114-203c803d3d7e
+Error Number:2601,State:1,Class:14
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeAsync(RelationalDataReader reader, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Update.Internal.SqlServerModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalDatabase.SaveChangesAsync(IList`1 entries, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+2026-10-04 13:58:16.089 +03:30 [INF] HTTP GET /_blazor responded 101 in 252813.4140 ms 
+2026-10-04 13:58:16.089 +03:30 [INF] HTTP GET /_blazor responded 101 in 253230.4992 ms 
+2026-10-04 13:58:26.578 +03:30 [INF] Storage directories are ready. ImagesPath: D:\porograming\Rider\AutoSpare\AutoSpare.Web\wwwroot\Uploads\Images, BackupPath: D:\AutoSpareBackups 
+2026-10-04 13:58:27.054 +03:30 [INF] Home page loaded at "2026-10-04T13:58:27.0520719+03:30" 
+2026-10-04 13:58:27.059 +03:30 [WRN] This is a test warning from Home page. 
+2026-10-04 13:58:27.193 +03:30 [INF] HTTP GET / responded 200 in 349.7875 ms 
+2026-10-04 13:58:27.217 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 6.5230 ms 
+2026-10-04 13:58:27.227 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 16.6556 ms 
+2026-10-04 13:58:27.229 +03:30 [INF] HTTP GET /app.css responded 200 in 17.5505 ms 
+2026-10-04 13:58:27.231 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 19.9909 ms 
+2026-10-04 13:58:27.309 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 6.7730 ms 
+2026-10-04 13:58:27.309 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 6.7773 ms 
+2026-10-04 13:58:27.325 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 7.3385 ms 
+2026-10-04 13:58:27.342 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 5.4952 ms 
+2026-10-04 13:58:27.477 +03:30 [INF] Home page loaded at "2026-10-04T13:58:27.4771470+03:30" 
+2026-10-04 13:58:27.477 +03:30 [WRN] This is a test warning from Home page. 
+2026-10-04 13:58:28.284 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 1.3524 ms 
+2026-10-04 13:58:28.643 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 14.4076 ms 
+2026-10-04 13:58:28.953 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 1.5726 ms 
+2026-10-04 13:58:29.203 +03:30 [INF] HTTP GET /purchases/create responded 200 in 741.7989 ms 
+2026-10-04 13:58:29.215 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 2.5842 ms 
+2026-10-04 13:58:29.222 +03:30 [INF] HTTP GET /app.css responded 200 in 2.0707 ms 
+2026-10-04 13:58:29.227 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 2.3558 ms 
+2026-10-04 13:58:29.229 +03:30 [INF] HTTP GET /_blazor responded 101 in 939.6270 ms 
+2026-10-04 13:58:29.228 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 1.4994 ms 
+2026-10-04 13:58:29.231 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 4.9489 ms 
+2026-10-04 13:58:29.271 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 0.5097 ms 
+2026-10-04 13:58:29.271 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.5120 ms 
+2026-10-04 13:58:29.283 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 1.0929 ms 
+2026-10-04 13:58:29.287 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.6385 ms 
+2026-10-04 13:58:29.301 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 1.2006 ms 
+2026-10-04 13:58:29.443 +03:30 [INF] HTTP GET /_blazor responded 101 in 129.4372 ms 
+2026-10-04 13:58:29.443 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 91.7040 ms 
+2026-10-04 13:58:29.461 +03:30 [INF] HTTP GET /purchases/create responded 200 in 135.3385 ms 
+2026-10-04 13:58:29.473 +03:30 [INF] HTTP GET /_blazor responded 101 in 177.0869 ms 
+2026-10-04 13:58:29.475 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 1.1468 ms 
+2026-10-04 13:58:29.479 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 0.9505 ms 
+2026-10-04 13:58:29.485 +03:30 [INF] HTTP GET /app.css responded 200 in 6.5169 ms 
+2026-10-04 13:58:29.487 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 9.0140 ms 
+2026-10-04 13:58:29.488 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 2.7961 ms 
+2026-10-04 13:58:29.517 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 0.6437 ms 
+2026-10-04 13:58:29.517 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.6439 ms 
+2026-10-04 13:58:29.551 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 0.9395 ms 
+2026-10-04 13:58:29.560 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.8838 ms 
+2026-10-04 13:58:29.738 +03:30 [INF] HTTP GET /_blazor responded 101 in 167.3636 ms 
+2026-10-04 13:58:29.761 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 26.1915 ms 
+2026-10-04 13:59:07.649 +03:30 [INF] HTTP GET /_blazor responded 101 in 40300.2645 ms 
+2026-10-04 13:59:15.680 +03:30 [INF] Storage directories are ready. ImagesPath: D:\porograming\Rider\AutoSpare\AutoSpare.Web\wwwroot\Uploads\Images, BackupPath: D:\AutoSpareBackups 
+2026-10-04 13:59:15.912 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 35.3761 ms 
+2026-10-04 13:59:16.110 +03:30 [INF] Home page loaded at "2026-10-04T13:59:16.1082760+03:30" 
+2026-10-04 13:59:16.111 +03:30 [WRN] This is a test warning from Home page. 
+2026-10-04 13:59:16.234 +03:30 [INF] HTTP GET / responded 200 in 358.8413 ms 
+2026-10-04 13:59:16.258 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 5.4599 ms 
+2026-10-04 13:59:16.266 +03:30 [INF] HTTP GET /app.css responded 200 in 13.1603 ms 
+2026-10-04 13:59:16.273 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 20.9433 ms 
+2026-10-04 13:59:16.273 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 19.7918 ms 
+2026-10-04 13:59:16.345 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 0.4621 ms 
+2026-10-04 13:59:16.345 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.5671 ms 
+2026-10-04 13:59:16.364 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 3.6867 ms 
+2026-10-04 13:59:16.379 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.5953 ms 
+2026-10-04 13:59:16.506 +03:30 [INF] Home page loaded at "2026-10-04T13:59:16.5064112+03:30" 
+2026-10-04 13:59:16.506 +03:30 [WRN] This is a test warning from Home page. 
+2026-10-04 13:59:16.667 +03:30 [INF] HTTP GET /purchases/create responded 200 in 663.5748 ms 
+2026-10-04 13:59:16.684 +03:30 [INF] HTTP GET /app.css responded 200 in 2.0135 ms 
+2026-10-04 13:59:16.688 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 0.6311 ms 
+2026-10-04 13:59:16.688 +03:30 [INF] HTTP GET /_blazor responded 101 in 753.5098 ms 
+2026-10-04 13:59:16.689 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 1.4888 ms 
+2026-10-04 13:59:16.692 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 5.4285 ms 
+2026-10-04 13:59:16.693 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 20.3349 ms 
+2026-10-04 13:59:16.728 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 0.4365 ms 
+2026-10-04 13:59:16.728 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.4343 ms 
+2026-10-04 13:59:16.754 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 1.1606 ms 
+2026-10-04 13:59:16.763 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 1.6005 ms 
+2026-10-04 13:59:58.296 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 1.1822 ms 
+2026-10-04 14:00:02.743 +03:30 [INF] HTTP GET /_blazor responded 101 in 46356.6744 ms 
+2026-10-04 14:00:03.428 +03:30 [ERR] An exception occurred in the database while saving changes for context type 'AutoSpare.Infrastructure.Persistence.ApplicationDbContext'.
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Microsoft.Data.SqlClient.SqlException (0x80131904): Cannot insert duplicate key row in object 'dbo.Purchases' with unique index 'IX_Purchases_InvoiceNumber'. The duplicate key value is (PUR-00001).
+   at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, SqlCommand command, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryHasMoreRows(Boolean& moreRows)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryHasMoreResults(Boolean& moreResults)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryNextResult(Boolean& more)
+   at Microsoft.Data.SqlClient.SqlDataReader.NextResultAsyncExecute(Task task, Object state)
+   at Microsoft.Data.SqlClient.SqlDataReader.InvokeAsyncCall[T](SqlDataReaderBaseAsyncCallContext`1 context)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeAsync(RelationalDataReader reader, CancellationToken cancellationToken)
+ClientConnectionId:ebb80663-29c1-4151-999d-f780e8c0a41e
+Error Number:2601,State:1,Class:14
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeAsync(RelationalDataReader reader, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Update.Internal.SqlServerModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalDatabase.SaveChangesAsync(IList`1 entries, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken) 
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Microsoft.Data.SqlClient.SqlException (0x80131904): Cannot insert duplicate key row in object 'dbo.Purchases' with unique index 'IX_Purchases_InvoiceNumber'. The duplicate key value is (PUR-00001).
+   at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, SqlCommand command, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryHasMoreRows(Boolean& moreRows)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryHasMoreResults(Boolean& moreResults)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryNextResult(Boolean& more)
+   at Microsoft.Data.SqlClient.SqlDataReader.NextResultAsyncExecute(Task task, Object state)
+   at Microsoft.Data.SqlClient.SqlDataReader.InvokeAsyncCall[T](SqlDataReaderBaseAsyncCallContext`1 context)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeAsync(RelationalDataReader reader, CancellationToken cancellationToken)
+ClientConnectionId:ebb80663-29c1-4151-999d-f780e8c0a41e
+Error Number:2601,State:1,Class:14
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeAsync(RelationalDataReader reader, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Update.Internal.SqlServerModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalDatabase.SaveChangesAsync(IList`1 entries, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+2026-10-04 14:00:03.734 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.4268 ms 
+2026-10-04 14:00:04.144 +03:30 [INF] HTTP GET /_blazor responded 101 in 47373.0966 ms 
+2026-10-04 14:00:26.290 +03:30 [ERR] An exception occurred in the database while saving changes for context type 'AutoSpare.Infrastructure.Persistence.ApplicationDbContext'.
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Microsoft.Data.SqlClient.SqlException (0x80131904): Cannot insert duplicate key row in object 'dbo.Purchases' with unique index 'IX_Purchases_InvoiceNumber'. The duplicate key value is (PUR-00001).
+   at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, SqlCommand command, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryHasMoreRows(Boolean& moreRows)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryHasMoreResults(Boolean& moreResults)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryNextResult(Boolean& more)
+   at Microsoft.Data.SqlClient.SqlDataReader.NextResultAsyncExecute(Task task, Object state)
+   at Microsoft.Data.SqlClient.SqlDataReader.InvokeAsyncCall[T](SqlDataReaderBaseAsyncCallContext`1 context)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeAsync(RelationalDataReader reader, CancellationToken cancellationToken)
+ClientConnectionId:ebb80663-29c1-4151-999d-f780e8c0a41e
+Error Number:2601,State:1,Class:14
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeAsync(RelationalDataReader reader, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Update.Internal.SqlServerModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalDatabase.SaveChangesAsync(IList`1 entries, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken) 
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Microsoft.Data.SqlClient.SqlException (0x80131904): Cannot insert duplicate key row in object 'dbo.Purchases' with unique index 'IX_Purchases_InvoiceNumber'. The duplicate key value is (PUR-00001).
+   at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, SqlCommand command, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryHasMoreRows(Boolean& moreRows)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryHasMoreResults(Boolean& moreResults)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryNextResult(Boolean& more)
+   at Microsoft.Data.SqlClient.SqlDataReader.NextResultAsyncExecute(Task task, Object state)
+   at Microsoft.Data.SqlClient.SqlDataReader.InvokeAsyncCall[T](SqlDataReaderBaseAsyncCallContext`1 context)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeAsync(RelationalDataReader reader, CancellationToken cancellationToken)
+ClientConnectionId:ebb80663-29c1-4151-999d-f780e8c0a41e
+Error Number:2601,State:1,Class:14
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeAsync(RelationalDataReader reader, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Update.Internal.SqlServerModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalDatabase.SaveChangesAsync(IList`1 entries, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+2026-10-04 14:02:45.656 +03:30 [INF] HTTP GET /purchases/create responded 200 in 46.5105 ms 
+2026-10-04 14:02:45.667 +03:30 [INF] HTTP GET /_blazor responded 101 in 167362.7770 ms 
+2026-10-04 14:02:45.672 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 0.3463 ms 
+2026-10-04 14:02:45.673 +03:30 [INF] HTTP GET /app.css responded 200 in 1.8349 ms 
+2026-10-04 14:02:45.676 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 3.3497 ms 
+2026-10-04 14:02:45.679 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 5.6726 ms 
+2026-10-04 14:02:45.689 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 23.8520 ms 
+2026-10-04 14:02:45.705 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 0.4887 ms 
+2026-10-04 14:02:45.705 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.4782 ms 
+2026-10-04 14:02:45.735 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 0.8134 ms 
+2026-10-04 14:02:45.745 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.6453 ms 
+2026-10-04 14:08:18.246 +03:30 [INF] HTTP GET /_blazor responded 101 in 494505.8508 ms 
+2026-10-04 14:08:18.257 +03:30 [INF] HTTP GET /_blazor responded 101 in 332503.2596 ms 
+2026-10-04 14:08:27.719 +03:30 [INF] Storage directories are ready. ImagesPath: D:\porograming\Rider\AutoSpare\AutoSpare.Web\wwwroot\Uploads\Images, BackupPath: D:\AutoSpareBackups 
+2026-10-04 14:08:28.115 +03:30 [INF] Home page loaded at "2026-10-04T14:08:28.1137784+03:30" 
+2026-10-04 14:08:28.119 +03:30 [WRN] This is a test warning from Home page. 
+2026-10-04 14:08:28.217 +03:30 [INF] HTTP GET / responded 200 in 299.8721 ms 
+2026-10-04 14:08:28.239 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 6.0340 ms 
+2026-10-04 14:08:28.247 +03:30 [INF] HTTP GET /app.css responded 200 in 13.7213 ms 
+2026-10-04 14:08:28.248 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 15.0100 ms 
+2026-10-04 14:08:28.252 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 18.8116 ms 
+2026-10-04 14:08:28.314 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 4.1288 ms 
+2026-10-04 14:08:28.314 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 4.1289 ms 
+2026-10-04 14:08:28.321 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 7.1933 ms 
+2026-10-04 14:08:28.345 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 6.0091 ms 
+2026-10-04 14:08:28.491 +03:30 [INF] Home page loaded at "2026-10-04T14:08:28.4911065+03:30" 
+2026-10-04 14:08:28.491 +03:30 [WRN] This is a test warning from Home page. 
+2026-10-04 14:08:31.292 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 1.1542 ms 
+2026-10-04 14:08:31.292 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 1.1547 ms 
+2026-10-04 14:08:31.709 +03:30 [INF] HTTP GET /purchases/create responded 200 in 389.9065 ms 
+2026-10-04 14:08:31.723 +03:30 [INF] HTTP GET /_blazor responded 101 in 425.1206 ms 
+2026-10-04 14:08:31.726 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 0.5642 ms 
+2026-10-04 14:08:31.730 +03:30 [INF] HTTP GET /app.css responded 200 in 4.5466 ms 
+2026-10-04 14:08:31.732 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 16.4932 ms 
+2026-10-04 14:08:31.732 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 4.2176 ms 
+2026-10-04 14:08:31.734 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 2.6549 ms 
+2026-10-04 14:08:31.764 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.6529 ms 
+2026-10-04 14:08:31.764 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 0.6527 ms 
+2026-10-04 14:08:31.772 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 1.3774 ms 
+2026-10-04 14:08:31.785 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.9332 ms 
+2026-10-04 14:08:31.846 +03:30 [INF] HTTP GET /purchases/create responded 200 in 135.5965 ms 
+2026-10-04 14:08:31.854 +03:30 [INF] HTTP GET /_blazor responded 101 in 541.3885 ms 
+2026-10-04 14:08:31.855 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 1.0831 ms 
+2026-10-04 14:08:31.860 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 0.6569 ms 
+2026-10-04 14:08:31.864 +03:30 [INF] HTTP GET /app.css responded 200 in 3.6894 ms 
+2026-10-04 14:08:31.866 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 6.6340 ms 
+2026-10-04 14:08:31.868 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 2.1480 ms 
+2026-10-04 14:08:31.890 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 0.4494 ms 
+2026-10-04 14:08:31.890 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.4493 ms 
+2026-10-04 14:08:31.913 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 0.7672 ms 
+2026-10-04 14:08:31.921 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.7743 ms 
+2026-10-04 14:12:56.376 +03:30 [INF] HTTP GET /_blazor responded 101 in 268023.5290 ms 
+2026-10-04 14:12:56.376 +03:30 [INF] HTTP GET /_blazor responded 101 in 264585.3388 ms 
+2026-10-04 14:12:56.376 +03:30 [INF] HTTP GET /_blazor responded 101 in 264444.8681 ms 
+2026-10-04 14:13:04.818 +03:30 [INF] Storage directories are ready. ImagesPath: D:\porograming\Rider\AutoSpare\AutoSpare.Web\wwwroot\Uploads\Images, BackupPath: D:\AutoSpareBackups 
+2026-10-04 14:13:05.047 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 30.2844 ms 
+2026-10-04 14:13:05.047 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 30.3142 ms 
+2026-10-04 14:13:05.047 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 30.2742 ms 
+2026-10-04 14:13:05.231 +03:30 [INF] Home page loaded at "2026-10-04T14:13:05.2298208+03:30" 
+2026-10-04 14:13:05.232 +03:30 [WRN] This is a test warning from Home page. 
+2026-10-04 14:13:05.343 +03:30 [INF] HTTP GET / responded 200 in 327.6896 ms 
+2026-10-04 14:13:05.364 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 6.0816 ms 
+2026-10-04 14:13:05.370 +03:30 [INF] HTTP GET /app.css responded 200 in 12.2452 ms 
+2026-10-04 14:13:05.371 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 10.7157 ms 
+2026-10-04 14:13:05.372 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 14.6293 ms 
+2026-10-04 14:13:05.438 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.8244 ms 
+2026-10-04 14:13:05.438 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 0.8181 ms 
+2026-10-04 14:13:05.455 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 3.3766 ms 
+2026-10-04 14:13:05.467 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.5672 ms 
+2026-10-04 14:13:05.587 +03:30 [INF] Home page loaded at "2026-10-04T14:13:05.5876158+03:30" 
+2026-10-04 14:13:05.587 +03:30 [WRN] This is a test warning from Home page. 
+2026-10-04 14:13:05.739 +03:30 [INF] HTTP GET /purchases/create responded 200 in 618.2975 ms 
+2026-10-04 14:13:05.758 +03:30 [INF] HTTP GET /_blazor responded 101 in 671.7032 ms 
+2026-10-04 14:13:05.760 +03:30 [INF] HTTP GET /app.css responded 200 in 4.0120 ms 
+2026-10-04 14:13:05.762 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 1.3516 ms 
+2026-10-04 14:13:05.763 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 5.1566 ms 
+2026-10-04 14:13:05.766 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 3.4612 ms 
+2026-10-04 14:13:05.767 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 20.9439 ms 
+2026-10-04 14:13:05.795 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.5175 ms 
+2026-10-04 14:13:05.795 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 0.5001 ms 
+2026-10-04 14:13:05.804 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 0.8951 ms 
+2026-10-04 14:13:05.817 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.9503 ms 
+2026-10-04 14:13:05.872 +03:30 [INF] HTTP GET /purchases/create responded 200 in 131.4933 ms 
+2026-10-04 14:13:05.888 +03:30 [INF] HTTP GET /_blazor responded 101 in 826.0227 ms 
+2026-10-04 14:13:05.889 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 3.7037 ms 
+2026-10-04 14:13:05.890 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 0.4571 ms 
+2026-10-04 14:13:05.893 +03:30 [INF] HTTP GET /app.css responded 200 in 3.3683 ms 
+2026-10-04 14:13:05.895 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 5.0888 ms 
+2026-10-04 14:13:05.900 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 1.8689 ms 
+2026-10-04 14:13:05.919 +03:30 [INF] HTTP GET /purchases/create responded 200 in 41.6458 ms 
+2026-10-04 14:13:05.919 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 0.3646 ms 
+2026-10-04 14:13:05.919 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.3648 ms 
+2026-10-04 14:13:05.928 +03:30 [INF] HTTP GET /_blazor responded 101 in 825.8388 ms 
+2026-10-04 14:13:05.929 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 1.1131 ms 
+2026-10-04 14:13:05.939 +03:30 [INF] HTTP GET /app.css responded 200 in 3.0421 ms 
+2026-10-04 14:13:05.944 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 2.8632 ms 
+2026-10-04 14:13:05.946 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 9.7419 ms 
+2026-10-04 14:13:05.951 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 3.0256 ms 
+2026-10-04 14:13:05.954 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 0.7376 ms 
+2026-10-04 14:13:05.971 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.7951 ms 
+2026-10-04 14:13:05.979 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.4793 ms 
+2026-10-04 14:13:05.980 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 0.3350 ms 
+2026-10-04 14:13:06.019 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 1.7609 ms 
+2026-10-04 14:13:06.030 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.4107 ms 
+2026-10-04 14:14:22.880 +03:30 [INF] HTTP GET /_blazor responded 101 in 77055.8762 ms 
+2026-10-04 14:18:11.035 +03:30 [INF] HTTP GET /_blazor responded 101 in 305048.7358 ms 
+2026-10-04 14:18:11.035 +03:30 [INF] HTTP GET /_blazor responded 101 in 304992.7420 ms 
+2026-10-04 14:18:11.035 +03:30 [INF] HTTP GET /_blazor responded 101 in 305562.8066 ms 
+2026-10-04 14:18:18.904 +03:30 [INF] Storage directories are ready. ImagesPath: D:\porograming\Rider\AutoSpare\AutoSpare.Web\wwwroot\Uploads\Images, BackupPath: D:\AutoSpareBackups 
+2026-10-04 14:18:19.251 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 45.0517 ms 
+2026-10-04 14:18:19.251 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 45.0617 ms 
+2026-10-04 14:18:19.498 +03:30 [INF] Home page loaded at "2026-10-04T14:18:19.4955664+03:30" 
+2026-10-04 14:18:19.498 +03:30 [WRN] This is a test warning from Home page. 
+2026-10-04 14:18:19.629 +03:30 [INF] HTTP GET / responded 200 in 425.2904 ms 
+2026-10-04 14:18:19.650 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 4.3004 ms 
+2026-10-04 14:18:19.658 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 12.7761 ms 
+2026-10-04 14:18:19.659 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 13.2640 ms 
+2026-10-04 14:18:19.672 +03:30 [INF] HTTP GET /app.css responded 200 in 26.6665 ms 
+2026-10-04 14:18:19.846 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.7156 ms 
+2026-10-04 14:18:19.846 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 0.9429 ms 
+2026-10-04 14:18:19.865 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 6.6908 ms 
+2026-10-04 14:18:19.873 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.8895 ms 
+2026-10-04 14:18:19.962 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 49.7777 ms 
+2026-10-04 14:18:20.043 +03:30 [INF] Home page loaded at "2026-10-04T14:18:20.0432526+03:30" 
+2026-10-04 14:18:20.043 +03:30 [WRN] This is a test warning from Home page. 
+2026-10-04 14:18:20.058 +03:30 [INF] HTTP GET /purchases/create responded 200 in 687.5004 ms 
+2026-10-04 14:18:20.085 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 14.1652 ms 
+2026-10-04 14:18:20.089 +03:30 [INF] HTTP GET /app.css responded 200 in 3.4538 ms 
+2026-10-04 14:18:20.090 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 0.6754 ms 
+2026-10-04 14:18:20.097 +03:30 [INF] HTTP GET /_blazor responded 101 in 811.2078 ms 
+2026-10-04 14:18:20.100 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 7.4181 ms 
+2026-10-04 14:18:20.108 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 8.8276 ms 
+2026-10-04 14:18:20.141 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.4673 ms 
+2026-10-04 14:18:20.141 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 0.4675 ms 
+2026-10-04 14:18:20.157 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 0.8624 ms 
+2026-10-04 14:18:20.235 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.4543 ms 
+2026-10-04 14:18:20.246 +03:30 [INF] HTTP GET /purchases/create responded 200 in 186.6619 ms 
+2026-10-04 14:18:20.259 +03:30 [INF] HTTP GET /_blazor responded 101 in 940.2004 ms 
+2026-10-04 14:18:20.262 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 1.5599 ms 
+2026-10-04 14:18:20.271 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 0.4614 ms 
+2026-10-04 14:18:20.271 +03:30 [INF] HTTP GET /app.css responded 200 in 2.8219 ms 
+2026-10-04 14:18:20.277 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 6.3992 ms 
+2026-10-04 14:18:20.280 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 2.3476 ms 
+2026-10-04 14:18:20.295 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 0.9921 ms 
+2026-10-04 14:18:20.333 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.5092 ms 
+2026-10-04 14:18:20.333 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 0.3274 ms 
+2026-10-04 14:18:20.379 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 0.4958 ms 
+2026-10-04 14:18:20.389 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.4798 ms 
+2026-10-04 14:18:20.572 +03:30 [INF] HTTP GET /_blazor responded 101 in 328.5612 ms 
+2026-10-04 14:18:20.600 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 32.4317 ms 
+2026-10-04 14:18:20.927 +03:30 [INF] HTTP GET /_blazor responded 101 in 524.9638 ms 
+2026-10-04 14:18:20.927 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 8.7269 ms 
+2026-10-04 14:18:43.621 +03:30 [INF] HTTP GET /sales responded 404 in 0.6772 ms 
+2026-10-04 14:18:43.648 +03:30 [INF] HTTP GET /not-found responded 404 in 7.0460 ms 
+2026-10-04 14:18:43.656 +03:30 [INF] HTTP GET /_blazor responded 101 in 23774.6574 ms 
+2026-10-04 14:18:43.658 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 3.7382 ms 
+2026-10-04 14:18:43.664 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 0.7284 ms 
+2026-10-04 14:18:43.666 +03:30 [INF] HTTP GET /app.css responded 200 in 2.9768 ms 
+2026-10-04 14:18:43.667 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 2.1689 ms 
+2026-10-04 14:18:43.671 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 6.3131 ms 
+2026-10-04 14:18:43.701 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 0.4373 ms 
+2026-10-04 14:18:43.701 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.4361 ms 
+2026-10-04 14:18:43.704 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 0.4259 ms 
+2026-10-04 14:18:43.721 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.6055 ms 
+2026-10-04 14:37:23.009 +03:30 [INF] HTTP GET /_blazor responded 101 in 1119280.4396 ms 
