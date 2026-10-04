@@ -2,13 +2,13 @@
     <!-- هدر منو با آیکون قطعات/سیستم -->
     <div class="pa-4 d-flex flex-column align-center">
         <MudAvatar Color="Color.Primary" Size="Size.Large" Elevation="4">
-            <MudIcon Icon="@Icons.Material.Filled.BuildCircle" Size="Size.Large" />
+            <MudIcon Icon="@Icons.Material.Filled.BuildCircle" Size="Size.Large"/>
         </MudAvatar>
         <MudText Typo="Typo.subtitle1" Class="mt-2 font-weight-bold">پنل مدیریت AutoSpare</MudText>
         <MudText Typo="Typo.caption" Color="Color.Secondary">مدیریت موجودی و فروشگاه</MudText>
     </div>
 
-    <MudDivider Class="mb-3" />
+    <MudDivider Class="mb-3"/>
 
     <!-- داشبورد اصلی -->
     <MudNavLink Href="/" Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.Dashboard">
@@ -36,7 +36,7 @@
 
     <!-- فاکتورها و فروش -->
     <MudNavGroup Title="فروش و فاکتورها" Icon="@Icons.Material.Filled.PointOfSale" Expanded="false">
-        <MudNavLink Href="/sales" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.ReceiptLong">
+        <MudNavLink Href="/sales" Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.ReceiptLong">
             فاکتورهای فروش
         </MudNavLink>
         <MudNavLink Href="/sales/new" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.AddShoppingCart">
@@ -49,8 +49,11 @@
         <MudNavLink Href="/suppliers" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Store">
             فهرست تأمین‌کنندگان
         </MudNavLink>
-        <MudNavLink Href="/purchases" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.ShoppingBag">
+        <MudNavLink Href="/purchases" Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.ShoppingBag">
             فاکتورهای خرید
+        </MudNavLink>
+        <MudNavLink Href="/purchases/create" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.PostAdd">
+            ثبت فاکتور خرید جدید
         </MudNavLink>
     </MudNavGroup>
 
@@ -74,7 +77,7 @@
         </MudNavLink>
     </MudNavGroup>
 
-    <MudDivider Class="my-2" />
+    <MudDivider Class="my-2"/>
 
     <!-- تنظیمات سیستم -->
     <MudNavLink Href="/settings" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Settings">
