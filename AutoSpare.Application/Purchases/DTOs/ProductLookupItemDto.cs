@@ -7,8 +7,10 @@ public record ProductLookupItemDto(
     string? Model = null,
     string? BrandName = null,
     decimal DefaultPurchasePrice = 0m,
-    string? ImagePath = null
+    string? ImagePath = null,
+    Guid? DefaultWarehouseId = null
 )
 {
     public string DisplayText => $"{Name} ({BrandName ?? "-"}) - {InternalCode}";
 }
+

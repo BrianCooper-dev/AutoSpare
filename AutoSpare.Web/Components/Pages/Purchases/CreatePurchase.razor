@@ -311,11 +311,6 @@
 
             _model.InvoiceNumber = await PurchaseService.GenerateInvoiceNumberAsync();
 
-            if (_warehouses.Any())
-            {
-                _model.WarehouseId = _warehouses.First().Id;
-            }
-
             if (!_model.Items.Any())
             {
                 AddNewItemRow();
@@ -356,6 +351,13 @@
         {
             item.ProductId = selectedProduct.Id;
             item.UnitPrice = selectedProduct.DefaultPurchasePrice;
+
+            // اگر کالا انبار پیش‌فرض داشت و در لیست انبارهای فعال موجود بود، انبار فاکتور خودکار تنظیم می‌شود
+            if (selectedProduct.DefaultWarehouseId.HasValue &&
+                _warehouses.Any(w => w.Id == selectedProduct.DefaultWarehouseId.Value))
+            {
+                _model.WarehouseId = selectedProduct.DefaultWarehouseId.Value;
+            }
         }
         else
         {

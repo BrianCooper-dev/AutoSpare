@@ -46,7 +46,8 @@ public class PurchaseService : IPurchaseService
                 p.Model,
                 p.Brand != null ? p.Brand.Name : null,
                 p.PurchasePrice,
-                p.ImagePath
+                p.ImagePath,
+                p.DefaultWarehouseId
             ))
             .ToListAsync();
 
