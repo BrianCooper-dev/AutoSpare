@@ -45,7 +45,7 @@
             {
                 <EditForm Model="@_model" OnValidSubmit="HandleSubmit">
                     <!-- مشخصات سربرگ فاکتور -->
-                    <MudPaper Elevation="0" Outlined="true" Class="pa-4 rounded-lg mb-4 bg-light">
+                    <MudPaper Elevation="0" Outlined="true" Class="pa-4 rounded-lg mb-4 mud-theme-background-gray">
                         <MudText Typo="Typo.subtitle1" Class="fw-bold mb-3" Color="Color.Primary">
                             <MudIcon Icon="@Icons.Material.Filled.Info" Size="Size.Small" Class="me-1"/>
                             اطلاعات سربرگ فاکتور
@@ -117,7 +117,7 @@
                     </MudPaper>
 
                     <!-- اقلام و ردیف‌های کالا -->
-                    <MudPaper Elevation="0" Outlined="true" Class="pa-4 rounded-lg mb-4">
+                    <MudPaper Elevation="0" Outlined="true" Class="pa-4 rounded-lg mb-4 mud-theme-surface">
                         <div class="d-flex justify-space-between align-center mb-3">
                             <MudText Typo="Typo.subtitle1" Class="fw-bold" Color="Color.Primary">
                                 <MudIcon Icon="@Icons.Material.Filled.ListAlt" Size="Size.Small" Class="me-1"/>
@@ -136,7 +136,7 @@
                                   Striped="true" Elevation="0">
                             <HeaderContent>
                                 <MudTh Style="width: 50px;">ردیف</MudTh>
-                                <MudTh Style="min-width: 280px;">انتخاب کالا</MudTh>
+                                <MudTh Style="min-width: 320px;">انتخاب کالا</MudTh>
                                 <MudTh Style="width: 130px;">تعداد</MudTh>
                                 <MudTh Style="width: 200px;">قیمت فی (تومان)</MudTh>
                                 <MudTh Style="width: 200px;">جمع ردیف (تومان)</MudTh>
@@ -145,22 +145,57 @@
                             <RowTemplate Context="item">
                                 <MudTd>@(_model.Items.IndexOf(item) + 1)</MudTd>
                                 <MudTd>
-                                    <MudSelect T="Guid?"
-                                               Value="@item.ProductId"
-                                               ValueChanged="@(val => OnProductSelected(item, val))"
-                                               Variant="Variant.Outlined"
-                                               Margin="Margin.Dense"
-                                               Dense="true"
-                                               Placeholder="کالا را انتخاب کنید..."
-                                               AnchorOrigin="Origin.BottomCenter">
-                                        <MudSelectItem T="Guid?" Value="@((Guid?)null)">انتخاب کالا...</MudSelectItem>
-                                        @foreach (var p in _products)
-                                        {
-                                            <MudSelectItem T="Guid?" Value="@p.Id">
-                                                @p.Name (@p.InternalCode)
-                                            </MudSelectItem>
-                                        }
-                                    </MudSelect>
+                                    <MudAutocomplete T="ProductLookupItemDto"
+                                                     Value="@GetSelectedProduct(item.ProductId)"
+                                                     ValueChanged="@(p => OnAutocompleteProductSelected(item, p))"
+                                                     SearchFunc="SearchProductsAsync"
+                                                     ToStringFunc="@(p => p?.DisplayText)"
+                                                     Placeholder="جستجو با نام، برند، مدل یا کد..."
+                                                     Variant="Variant.Outlined"
+                                                     Margin="Margin.Dense"
+                                                     Dense="true"
+                                                     ResetValueOnEmptyText="true"
+                                                     CoerceText="true"
+                                                     AdornmentIcon="@Icons.Material.Filled.Search"
+                                                     AdornmentColor="Color.Primary">
+                                        <ItemTemplate Context="product">
+                                            <div class="d-flex align-center gap-3 py-1">
+                                                <MudAvatar Size="Size.Medium" Rounded="true" Variant="Variant.Outlined"
+                                                           Color="Color.Surface">
+                                                    @if (!string.IsNullOrWhiteSpace(product.ImagePath))
+                                                    {
+                                                        <MudImage Src="@product.ImagePath" Alt="@product.Name"
+                                                                  ObjectFit="ObjectFit.Cover"/>
+                                                    }
+                                                    else
+                                                    {
+                                                        <MudIcon Icon="@Icons.Material.Filled.Build"
+                                                                 Color="Color.Primary" Size="Size.Small"/>
+                                                    }
+                                                </MudAvatar>
+
+                                                <div class="d-flex flex-column flex-grow-1">
+                                                    <MudText Typo="Typo.body2" Class="fw-bold">@product.Name</MudText>
+                                                    <div class="d-flex align-center gap-2 mt-1">
+                                                        @if (!string.IsNullOrEmpty(product.BrandName))
+                                                        {
+                                                            <MudChip T="string" Size="Size.Small" Color="Color.Info"
+                                                                     Variant="Variant.Text"
+                                                                     Class="ma-0 pa-1">@product.BrandName</MudChip>
+                                                        }
+                                                        @if (!string.IsNullOrEmpty(product.Model))
+                                                        {
+                                                            <MudChip T="string" Size="Size.Small"
+                                                                     Color="Color.Secondary" Variant="Variant.Text"
+                                                                     Class="ma-0 pa-1">@product.Model</MudChip>
+                                                        }
+                                                        <MudText Typo="Typo.caption" Color="Color.Secondary">
+                                                            کد: @product.InternalCode</MudText>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </ItemTemplate>
+                                    </MudAutocomplete>
                                 </MudTd>
                                 <MudTd>
                                     <MudNumericField @bind-Value="item.Quantity"
@@ -176,8 +211,10 @@
                                                      Variant="Variant.Outlined"
                                                      Margin="Margin.Dense"/>
                                 </MudTd>
-                                <MudTd Class="fw-bold text-success">
-                                    @item.TotalPrice.ToString("N0")
+                                <MudTd>
+                                    <MudText Typo="Typo.body2" Class="fw-bold" Color="Color.Success">
+                                        @item.TotalPrice.ToString("N0")
+                                    </MudText>
                                 </MudTd>
                                 <MudTd Style="text-align: center;">
                                     <MudIconButton Icon="@Icons.Material.Filled.Delete"
@@ -192,7 +229,7 @@
 
                     <!-- خلاصه مالی و دکمه‌های فرم -->
                     <MudPaper Elevation="0" Outlined="true"
-                              Class="pa-4 rounded-lg d-flex flex-column flex-sm-row justify-space-between align-center gap-4 bg-light">
+                              Class="pa-4 rounded-lg d-flex flex-column flex-sm-row justify-space-between align-center gap-4 mud-theme-background-gray">
                         <div class="d-flex align-center gap-4">
                             <MudText Typo="Typo.subtitle1">
                                 تعداد اقلام: <b>@_model.Items.Count(i => i.ProductId.HasValue)</b>
@@ -272,7 +309,6 @@
 
             _products = await PurchaseService.GetProductsLookupAsync();
 
-            // تولید شماره فاکتور یکتا و بدون تداخل
             _model.InvoiceNumber = await PurchaseService.GenerateInvoiceNumberAsync();
 
             if (_warehouses.Any())
@@ -308,17 +344,40 @@
         }
     }
 
-    private void OnProductSelected(CreatePurchaseItemDto item, Guid? productId)
+    private ProductLookupItemDto? GetSelectedProduct(Guid? productId)
     {
-        item.ProductId = productId;
-        if (productId.HasValue)
+        if (!productId.HasValue) return null;
+        return _products.FirstOrDefault(p => p.Id == productId.Value);
+    }
+
+    private void OnAutocompleteProductSelected(CreatePurchaseItemDto item, ProductLookupItemDto? selectedProduct)
+    {
+        if (selectedProduct != null)
         {
-            var product = _products.FirstOrDefault(p => p.Id == productId.Value);
-            if (product != null)
-            {
-                item.UnitPrice = product.DefaultPurchasePrice;
-            }
+            item.ProductId = selectedProduct.Id;
+            item.UnitPrice = selectedProduct.DefaultPurchasePrice;
         }
+        else
+        {
+            item.ProductId = null;
+            item.UnitPrice = 0;
+        }
+    }
+
+    private Task<IEnumerable<ProductLookupItemDto>> SearchProductsAsync(string value, CancellationToken token)
+    {
+        if (string.IsNullOrWhiteSpace(value))
+            return Task.FromResult<IEnumerable<ProductLookupItemDto>>(_products);
+
+        var query = value.Trim();
+        var filtered = _products.Where(p =>
+            (p.Name != null && p.Name.Contains(query, StringComparison.OrdinalIgnoreCase)) ||
+            (p.InternalCode != null && p.InternalCode.Contains(query, StringComparison.OrdinalIgnoreCase)) ||
+            (p.BrandName != null && p.BrandName.Contains(query, StringComparison.OrdinalIgnoreCase)) ||
+            (p.Model != null && p.Model.Contains(query, StringComparison.OrdinalIgnoreCase))
+        );
+
+        return Task.FromResult(filtered);
     }
 
     private async Task HandleSubmit()
@@ -339,6 +398,13 @@
         if (!validItems.Any())
         {
             Snackbar.Add("حداقل باید یک کالا برای خرید انتخاب شده باشد.", Severity.Warning);
+            return;
+        }
+
+        var invalidQuantity = validItems.FirstOrDefault(i => i.Quantity <= 0);
+        if (invalidQuantity is not null)
+        {
+            Snackbar.Add("تعداد خرید برای هر ردیف کالا باید بیشتر از صفر باشد.", Severity.Warning);
             return;
         }
 
@@ -363,5 +429,5 @@
     {
         NavigationManager.NavigateTo("/purchases");
     }
-}
 
+}
