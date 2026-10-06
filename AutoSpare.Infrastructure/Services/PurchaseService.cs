@@ -53,137 +53,130 @@ public class PurchaseService : IPurchaseService
 
     public async Task<Guid> CreatePurchaseAsync(CreatePurchaseDto dto, string? currentUserName = null)
     {
-        if (dto == null)
-            throw new ArgumentNullException(nameof(dto));
+        ArgumentNullException.ThrowIfNull(dto);
 
         if (string.IsNullOrWhiteSpace(dto.InvoiceNumber))
-            throw new ArgumentException("شماره فاکتور خرید الزامی است.", nameof(dto));
+            throw new ArgumentException("شماره فاکتور خرید الزامی است.");
 
         if (!dto.SupplierId.HasValue || dto.SupplierId.Value == Guid.Empty)
-            throw new ArgumentException("انتخاب تأمین‌کننده الزامی است.", nameof(dto));
+            throw new ArgumentException("انتخاب تأمین‌کننده الزامی است.");
 
         if (!dto.WarehouseId.HasValue || dto.WarehouseId.Value == Guid.Empty)
-            throw new ArgumentException("انتخاب انبار الزامی است.", nameof(dto));
+            throw new ArgumentException("انتخاب انبار مقصد الزامی است.");
 
-        if (dto.Items == null || !dto.Items.Any())
-            throw new ArgumentException("ثبت حداقل یک قلم کالا برای فاکتور خرید الزامی است.", nameof(dto));
+        if (dto.Items == null || dto.Items.Count == 0)
+            throw new ArgumentException("ثبت حداقل یک قلم کالا برای فاکتور خرید الزامی است.");
 
-        var validItems = dto.Items.Where(i => i.ProductId.HasValue && i.ProductId.Value != Guid.Empty).ToList();
-        if (!validItems.Any())
-            throw new ArgumentException("هیچ کالای معتبری در ردیف‌های خرید انتخاب نشده است.", nameof(dto));
+        var validItems = dto.Items
+            .Where(i => i.ProductId.HasValue && i.ProductId.Value != Guid.Empty)
+            .ToList();
 
-        // بررسی یکتایی شماره فاکتور
-        var isDuplicateInvoice = await _context.Purchases
-            .AnyAsync(p => p.InvoiceNumber == dto.InvoiceNumber.Trim());
-        if (isDuplicateInvoice)
-            throw new InvalidOperationException($"فاکتور خرید با شماره '{dto.InvoiceNumber}' قبلاً ثبت شده است.");
+        if (validItems.Count == 0)
+            throw new ArgumentException("حداقل یک ردیف کالای معتبر باید در فاکتور وجود داشته باشد.");
 
-        // ۱. ساخت موجودیت خرید
-        var purchase = new Purchase(
-            invoiceNumber: dto.InvoiceNumber.Trim(),
-            supplierId: dto.SupplierId.Value,
-            warehouseId: dto.WarehouseId.Value,
-            purchaseDate: dto.PurchaseDate.HasValue
-                ? DateTime.SpecifyKind(dto.PurchaseDate.Value, DateTimeKind.Utc)
-                : DateTime.UtcNow,
-            notes: dto.Notes
-        );
+        // استفاده از ExecutionStrategy برای سازگاری کامل با SQL Server Retry و مدیریت تراکنش
+        var strategy = _context.Database.CreateExecutionStrategy();
 
-        foreach (var item in validItems)
+        return await strategy.ExecuteAsync(async () =>
         {
-            if (item.Quantity <= 0)
-                throw new ArgumentException("تعداد کالای خریداری شده باید بزرگتر از صفر باشد.");
-            if (item.UnitPrice < 0)
-                throw new ArgumentException("قیمت واحد نمی‌تواند منفی باشد.");
+            await using var transaction = await _context.Database.BeginTransactionAsync();
 
-            purchase.AddOrUpdateItem(item.ProductId!.Value, item.Quantity, item.UnitPrice);
-        }
-
-        await _context.Purchases.AddAsync(purchase);
-
-        // ۲. در صورت نهایی‌سازی و افزایش فوری موجودی انبار:
-        // ۲. در صورت نهایی‌سازی و افزایش فوری موجودی انبار:
-        if (dto.FinalizeImmediately)
-        {
-            purchase.Complete();
-
-            foreach (var item in validItems)
+            try
             {
-                var productId = item.ProductId!.Value;
-                var warehouseId = dto.WarehouseId.Value;
+                // ۱. بررسی یکتایی شماره فاکتور درون تراکنش
+                var invoiceTrimmed = dto.InvoiceNumber.Trim();
+                var isDuplicateInvoice = await _context.Purchases
+                    .AnyAsync(p => p.InvoiceNumber == invoiceTrimmed);
 
-                // دریافت کالا برای به‌روزرسانی قیمت
-                var product = await _context.Products.FindAsync(productId);
-                if (product != null && item.UnitPrice > 0)
+                if (isDuplicateInvoice)
+                    throw new InvalidOperationException($"فاکتور خرید با شماره '{invoiceTrimmed}' قبلاً ثبت شده است.");
+
+                // ۲. ایجاد موجودیت فاکتور خرید
+                var purchase = new Purchase(
+                    invoiceNumber: invoiceTrimmed,
+                    supplierId: dto.SupplierId.Value,
+                    warehouseId: dto.WarehouseId.Value,
+                    purchaseDate: dto.PurchaseDate.HasValue
+                        ? DateTime.SpecifyKind(dto.PurchaseDate.Value, DateTimeKind.Utc)
+                        : DateTime.UtcNow,
+                    notes: dto.Notes);
+
+                // اضافه کردن ردیف‌ها به خرید
+                foreach (var item in validItems)
                 {
-                    var newSalePrice = Math.Max(product.SalePrice, item.UnitPrice);
-                    product.UpdatePrices(item.UnitPrice, newSalePrice);
+                    if (item.Quantity <= 0)
+                        throw new ArgumentException("تعداد کالا باید بزرگتر از صفر باشد.");
+
+                    if (item.UnitPrice < 0)
+                        throw new ArgumentException("قیمت واحد نمی‌تواند منفی باشد.");
+
+                    purchase.AddOrUpdateItem(item.ProductId!.Value, item.Quantity, item.UnitPrice);
                 }
 
-                // بررسی وجود رکورد موجودی بدون Include اضافی
-                var inventory = await _context.Inventories
-                    .FirstOrDefaultAsync(i => i.ProductId == productId && i.WarehouseId == warehouseId);
+                await _context.Purchases.AddAsync(purchase);
 
-                if (inventory == null)
+                // ۳. در صورت نهایی‌سازی، ثبت گردش انبار و موجودی
+                if (dto.FinalizeImmediately)
                 {
-                    // رکورد جدید
-                    var newInventory = new Inventory(productId, warehouseId, initialQuantity: item.Quantity);
-                    await _context.Inventories.AddAsync(newInventory);
-                }
-                else
-                {
-                    // افزایش موجودی
-                    inventory.IncreaseQuantity(
-                        amount: item.Quantity,
-                        type: StockMovementType.Purchase,
-                        reason: $"خرید طی فاکتور {purchase.InvoiceNumber}",
-                        reference: purchase.InvoiceNumber,
-                        performedBy: currentUserName ?? "سیستم"
-                    );
+                    purchase.Complete();
 
-                    // اطمینان از این‌که حرکات اضافه شده جدید در وضعیت Added قرار می‌گیرند
-                    foreach (var movement in inventory.Movements)
+                    foreach (var item in purchase.Items)
                     {
-                        var entry = _context.Entry(movement);
-                        if (entry.State == EntityState.Detached || entry.State == EntityState.Modified)
+                        var product = await _context.Products.FindAsync(item.ProductId);
+                        if (product != null)
                         {
-                            entry.State = EntityState.Added;
+                            var newSalePrice = Math.Max(product.SalePrice, item.UnitPrice);
+                            product.UpdatePrices(item.UnitPrice, newSalePrice);
+                        }
+
+                        // دریافت یا ایجاد موجودی انبار
+                        var inventory = await _context.Inventories
+                            .Include(i => i.Movements)
+                            .FirstOrDefaultAsync(i => i.ProductId == item.ProductId && i.WarehouseId == purchase.WarehouseId);
+
+                        if (inventory == null)
+                        {
+                            inventory = new Inventory(item.ProductId, purchase.WarehouseId, initialQuantity: item.Quantity);
+                            await _context.Inventories.AddAsync(inventory);
+                        }
+                        else
+                        {
+                            inventory.IncreaseQuantity(
+                                amount: item.Quantity,
+                                type: StockMovementType.Purchase,
+                                reason: $"خرید طی فاکتور {purchase.InvoiceNumber}",
+                                reference: purchase.InvoiceNumber,
+                                performedBy: currentUserName ?? "سیستم");
+                        }
+
+                        // تصحیح وضعیت گردش انبار برای Track شدن در EF
+                        foreach (var movement in inventory.Movements)
+                        {
+                            var movementEntry = _context.Entry(movement);
+                            if (movementEntry.State == EntityState.Detached || movementEntry.State == EntityState.Modified)
+                            {
+                                movementEntry.State = EntityState.Added;
+                            }
                         }
                     }
                 }
+
+                // ۴. ذخیره کلیه انتیتی‌ها
+                await _context.SaveChangesAsync();
+
+                // ۵. ثبت قطعی تراکنش
+                await transaction.CommitAsync();
+
+                return purchase.Id;
             }
-        }
-
-
-        // ذخیره یکپارچه کلیه تغییرات
-        // لاگ وضعیت همه‌ی انتیتی‌ها قبل از ذخیره
-        foreach (var entry in _context.ChangeTracker.Entries())
-        {
-            Console.WriteLine($"[EF STATE] {entry.Entity.GetType().Name} => {entry.State}");
-        }
-
-        try
-        {
-            await _context.SaveChangesAsync();
-        }
-        catch (DbUpdateConcurrencyException ex)
-        {
-            foreach (var entry in ex.Entries)
+            catch (Exception ex)
             {
-                Console.WriteLine(
-                    $"[CONCURRENCY CULPRIT] Entity: {entry.Entity.GetType().FullName}, State: {entry.State}");
+                // در صورت بروز هرگونه خطا، تغییرات بازگردانی می‌شوند
+                await transaction.RollbackAsync();
+                Console.WriteLine($"[TRANSACTION ROLLBACK] خطا در ثبت تراکنشی خرید: {ex.Message}");
+                throw;
             }
-
-            throw;
-        }
-        catch (DbUpdateException ex)
-        {
-            Console.WriteLine($"[DB UPDATE ERROR] {ex.InnerException?.Message}");
-            throw;
-        }
-
-
-        return purchase.Id;
+        });
     }
 
     public async Task<List<PurchaseListDto>> GetPurchasesAsync()
