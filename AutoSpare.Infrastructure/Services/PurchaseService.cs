@@ -39,7 +39,15 @@ public class PurchaseService : IPurchaseService
             .AsNoTracking()
             .Where(p => p.Status == Domain.Products.Enums.ProductStatus.Active)
             .OrderBy(p => p.Name)
-            .Select(p => new ProductLookupItemDto(p.Id, p.Name, p.InternalCode, p.PurchasePrice))
+            .Select(p => new ProductLookupItemDto(
+                p.Id,
+                p.Name,
+                p.InternalCode,
+                p.Model,
+                p.Brand != null ? p.Brand.Name : null,
+                p.PurchasePrice,
+                p.ImagePath
+            ))
             .ToListAsync();
 
     public async Task<Guid> CreatePurchaseAsync(CreatePurchaseDto dto, string? currentUserName = null)
@@ -177,7 +185,6 @@ public class PurchaseService : IPurchaseService
         return purchase.Id;
     }
 
-
     public async Task<List<PurchaseListDto>> GetPurchasesAsync()
     {
         return await _context.Purchases
@@ -199,7 +206,6 @@ public class PurchaseService : IPurchaseService
             })
             .ToListAsync();
     }
-
 
     public async Task<string> GenerateInvoiceNumberAsync()
     {
