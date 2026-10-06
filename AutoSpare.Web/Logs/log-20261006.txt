@@ -114,3 +114,18 @@
 2026-10-06 12:47:29.691 +03:30 [INF] HTTP GET /uploads/products/27b41e9024374db59bf7fe94b1c824da.png responded 304 in 0.7011 ms 
 2026-10-06 12:48:01.557 +03:30 [INF] HTTP GET /_blazor responded 101 in 45487.3878 ms 
 2026-10-06 12:58:57.274 +03:30 [INF] HTTP GET /_blazor responded 101 in 701982.5275 ms 
+2026-10-06 13:42:33.820 +03:30 [INF] Storage directories are ready. ImagesPath: D:\porograming\Rider\AutoSpare\AutoSpare.Web\wwwroot\Uploads\Images, BackupPath: D:\AutoSpareBackups 
+2026-10-06 13:42:34.180 +03:30 [INF] Home page loaded at "2026-10-06T13:42:34.1781934+03:30" 
+2026-10-06 13:42:34.183 +03:30 [WRN] This is a test warning from Home page. 
+2026-10-06 13:42:34.279 +03:30 [INF] HTTP GET / responded 200 in 258.3842 ms 
+2026-10-06 13:42:34.302 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 6.2875 ms 
+2026-10-06 13:42:34.309 +03:30 [INF] HTTP GET /app.css responded 200 in 13.5101 ms 
+2026-10-06 13:42:34.345 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 49.8272 ms 
+2026-10-06 13:42:34.345 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 49.7000 ms 
+2026-10-06 13:42:34.416 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 2.5771 ms 
+2026-10-06 13:42:34.416 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 2.5775 ms 
+2026-10-06 13:42:34.430 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 6.7850 ms 
+2026-10-06 13:42:34.453 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 7.7561 ms 
+2026-10-06 13:42:34.602 +03:30 [INF] Home page loaded at "2026-10-06T13:42:34.6027790+03:30" 
+2026-10-06 13:42:34.603 +03:30 [WRN] This is a test warning from Home page. 
+2026-10-06 13:45:11.748 +03:30 [INF] HTTP GET /_blazor responded 101 in 157287.7622 ms 
