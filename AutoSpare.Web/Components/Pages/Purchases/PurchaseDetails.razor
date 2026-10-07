@@ -1,0 +1,280 @@
+@page "/purchases/{Id:guid}"
+@using System.Globalization
+@using AutoSpare.Application.Purchases
+@using AutoSpare.Application.Purchases.DTOs
+@using AutoSpare.Domain.Purchases.Enums
+@using MudBlazor
+@inject IPurchaseService PurchaseService
+@inject ISnackbar Snackbar
+@inject NavigationManager NavigationManager
+
+<PageTitle>جزئیات فاکتور خرید @(_purchase?.InvoiceNumber ?? "")</PageTitle>
+
+<MudContainer MaxWidth="MaxWidth.ExtraLarge" Class="mt-4 mb-8">
+    <MudBreadcrumbs Items="_breadcrumbItems" Class="pa-0 mb-4"/>
+
+    @if (_isLoading)
+    {
+        <div class="d-flex flex-column align-center justify-center pa-12">
+            <MudProgressCircular Color="Color.Primary" Size="Size.Large" Indeterminate="true"/>
+            <MudText Typo="Typo.subtitle1" Class="mt-4" Color="Color.Secondary">در حال بارگذاری اطلاعات فاکتور خرید...
+            </MudText>
+        </div>
+    }
+    else if (_purchase == null)
+    {
+        <MudAlert Severity="Severity.Error" Variant="Variant.Filled" Class="rounded-lg">
+            فاکتور خرید مورد نظر یافت نشد یا ممکن است حذف شده باشد.
+            <div class="mt-2">
+                <MudButton Variant="Variant.Outlined" Color="Color.Surface"
+                           OnClick="@(() => NavigationManager.NavigateTo("/purchases"))">
+                    بازگشت به فهرست خریدها
+                </MudButton>
+            </div>
+        </MudAlert>
+    }
+    else
+    {
+        <!-- هدر و دکمه‌های عملیاتی -->
+        <div class="d-flex flex-column flex-sm-row justify-space-between align-start align-sm-center gap-3 mb-4">
+            <div>
+                <div class="d-flex align-center gap-2">
+                    <MudText Typo="Typo.h5" Class="fw-bold">
+                        فاکتور شماره: @_purchase.InvoiceNumber
+                    </MudText>
+                    @switch (_purchase.Status)
+                    {
+                        case PurchaseStatus.Completed:
+                            <MudChip T="string" Color="Color.Success" Size="Size.Medium" Variant="Variant.Filled">
+                                نهایی‌شده
+                            </MudChip>
+                            break;
+                        case PurchaseStatus.Draft:
+                            <MudChip T="string" Color="Color.Warning" Size="Size.Medium" Variant="Variant.Filled">
+                                پیش‌نویس
+                            </MudChip>
+                            break;
+                        case PurchaseStatus.Cancelled:
+                            <MudChip T="string" Color="Color.Error" Size="Size.Medium" Variant="Variant.Filled">لغو
+                                شده
+                            </MudChip>
+                            break;
+                    }
+                </div>
+                <MudText Typo="Typo.body2" Color="Color.Secondary" Class="mt-1">
+                    ثبت شده در تاریخ: @ToPersianDate(_purchase.PurchaseDate)
+                </MudText>
+            </div>
+
+            <div class="d-flex align-center gap-2">
+                <MudButton Variant="Variant.Outlined"
+                           Color="Color.Secondary"
+                           StartIcon="@Icons.Material.Filled.ArrowBack"
+                           OnClick="@(() => NavigationManager.NavigateTo("/purchases"))">
+                    بازگشت به فهرست
+                </MudButton>
+            </div>
+        </div>
+
+        <!-- کارت‌های اطلاعات کلیدی -->
+        <MudGrid Spacing="3" Class="mb-4">
+            <MudItem xs="12" sm="6" md="3">
+                <MudPaper Elevation="2" Class="pa-4 rounded-lg d-flex align-center justify-space-between">
+                    <div>
+                        <MudText Typo="Typo.caption" Color="Color.Secondary">تأمین‌کننده</MudText>
+                        <MudText Typo="Typo.subtitle1" Class="fw-bold">@_purchase.SupplierName</MudText>
+                    </div>
+                    <MudAvatar Color="Color.Primary" Variant="Variant.Text" Size="Size.Medium">
+                        <MudIcon Icon="@Icons.Material.Filled.Store"/>
+                    </MudAvatar>
+                </MudPaper>
+            </MudItem>
+
+            <MudItem xs="12" sm="6" md="3">
+                <MudPaper Elevation="2" Class="pa-4 rounded-lg d-flex align-center justify-space-between">
+                    <div>
+                        <MudText Typo="Typo.caption" Color="Color.Secondary">انبار مقصد</MudText>
+                        <MudText Typo="Typo.subtitle1" Class="fw-bold">@_purchase.WarehouseName</MudText>
+                    </div>
+                    <MudAvatar Color="Color.Secondary" Variant="Variant.Text" Size="Size.Medium">
+                        <MudIcon Icon="@Icons.Material.Filled.Warehouse"/>
+                    </MudAvatar>
+                </MudPaper>
+            </MudItem>
+
+            <MudItem xs="12" sm="6" md="3">
+                <MudPaper Elevation="2" Class="pa-4 rounded-lg d-flex align-center justify-space-between">
+                    <div>
+                        <MudText Typo="Typo.caption" Color="Color.Secondary">تعداد ردیف‌های کالا</MudText>
+                        <MudText Typo="Typo.subtitle1" Class="fw-bold">@_purchase.Items.Count قلم</MudText>
+                    </div>
+                    <MudAvatar Color="Color.Info" Variant="Variant.Text" Size="Size.Medium">
+                        <MudIcon Icon="@Icons.Material.Filled.Category"/>
+                    </MudAvatar>
+                </MudPaper>
+            </MudItem>
+
+            <MudItem xs="12" sm="6" md="3">
+                <MudPaper Elevation="2" Class="pa-4 rounded-lg d-flex align-center justify-space-between">
+                    <div>
+                        <MudText Typo="Typo.caption" Color="Color.Secondary">مبلغ کل فاکتور</MudText>
+                        <MudText Typo="Typo.subtitle1" Class="fw-bold" Color="Color.Success">
+                            @_purchase.TotalAmount.ToString("N0") تومان
+                        </MudText>
+                    </div>
+                    <MudAvatar Color="Color.Success" Variant="Variant.Text" Size="Size.Medium">
+                        <MudIcon Icon="@Icons.Material.Filled.Payments"/>
+                    </MudAvatar>
+                </MudPaper>
+            </MudItem>
+        </MudGrid>
+
+        <!-- جدول اقلام خریداری‌شده -->
+        <MudCard Elevation="2" Class="rounded-lg mb-4">
+            <MudCardHeader>
+                <CardHeaderContent>
+                    <MudText Typo="Typo.h6" Class="fw-bold">
+                        <MudIcon Icon="@Icons.Material.Filled.ListAlt" Color="Color.Primary" Class="me-2"
+                                 Size="Size.Medium"/>
+                        ردیف‌های کالای فاکتور
+                    </MudText>
+                </CardHeaderContent>
+            </MudCardHeader>
+            <MudCardContent Class="pa-0">
+                <MudTable Items="_purchase.Items" Dense="true" Hover="true" Striped="true" Elevation="0">
+                    <HeaderContent>
+                        <MudTh Style="width: 50px;">ردیف</MudTh>
+                        <MudTh>نام و مشخصات کالا</MudTh>
+                        <MudTh>کد فنی / کاتالوگ</MudTh>
+                        <MudTh>برند / مدل</MudTh>
+                        <MudTh Style="text-align: center;">تعداد</MudTh>
+                        <MudTh>قیمت واحد (تومان)</MudTh>
+                        <MudTh>قیمت کل (تومان)</MudTh>
+                    </HeaderContent>
+                    <RowTemplate Context="item">
+                        <MudTd>@(_purchase.Items.IndexOf(item) + 1)</MudTd>
+                        <MudTd>
+                            <div class="d-flex align-center gap-2">
+                                <MudAvatar Size="Size.Medium" Rounded="true" Variant="Variant.Outlined"
+                                           Color="Color.Surface">
+                                    @if (!string.IsNullOrWhiteSpace(item.ImagePath))
+                                    {
+                                        <MudImage Src="@item.ImagePath" Alt="@item.ProductName"
+                                                  ObjectFit="ObjectFit.Cover"/>
+                                    }
+                                    else
+                                    {
+                                        <MudIcon Icon="@Icons.Material.Filled.PrecisionManufacturing" Size="Size.Small"
+                                                 Color="Color.Primary"/>
+                                    }
+                                </MudAvatar>
+                                <MudText Typo="Typo.body2" Class="fw-bold">@item.ProductName</MudText>
+                            </div>
+                        </MudTd>
+                        <MudTd>
+                            <MudChip T="string" Size="Size.Small" Variant="Variant.Outlined" Color="Color.Default">
+                                @item.InternalCode
+                            </MudChip>
+                        </MudTd>
+                        <MudTd>
+                            <MudText Typo="Typo.body2">
+                                @(string.IsNullOrWhiteSpace(item.BrandName) ? "-" : item.BrandName)
+                                @if (!string.IsNullOrWhiteSpace(item.Model))
+                                {
+                                    <span class="text-muted ms-1">(@item.Model)</span>
+                                }
+                            </MudText>
+                        </MudTd>
+                        <MudTd Style="text-align: center;">
+                            <MudBadge Content="@item.Quantity" Color="Color.Primary" Overlap="false"/>
+                        </MudTd>
+                        <MudTd>@item.UnitPrice.ToString("N0")</MudTd>
+                        <MudTd>
+                            <MudText Typo="Typo.body2" Class="fw-bold" Color="Color.Success">
+                                @item.TotalPrice.ToString("N0")
+                            </MudText>
+                        </MudTd>
+                    </RowTemplate>
+                    <FooterContent>
+                        <MudTd ColSpan="4" Class="fw-bold text-end">جمع کل اقلام:</MudTd>
+                        <MudTd Style="text-align: center;" Class="fw-bold">@_purchase.Items.Sum(i => i.Quantity)</MudTd>
+                        <MudTd Class="fw-bold text-end">مبلغ قابل پرداخت:</MudTd>
+                        <MudTd Class="fw-bold" Color="Color.Success">@_purchase.TotalAmount.ToString("N0") تومان</MudTd>
+                    </FooterContent>
+                </MudTable>
+            </MudCardContent>
+        </MudCard>
+
+        <!-- توضیحات و یادداشت‌ها -->
+        @if (!string.IsNullOrWhiteSpace(_purchase.Notes))
+        {
+            <MudPaper Elevation="2" Class="pa-4 rounded-lg">
+                <MudText Typo="Typo.subtitle2" Class="fw-bold mb-2">
+                    <MudIcon Icon="@Icons.Material.Filled.Notes" Size="Size.Small" Class="me-1"/>
+                    یادداشت و توضیحات فاکتور:
+                </MudText>
+                <MudText Typo="Typo.body2" Color="Color.Secondary" Style="white-space: pre-wrap;">
+                    @_purchase.Notes
+                </MudText>
+            </MudPaper>
+        }
+    }
+</MudContainer>
+
+@code {
+    [Parameter] public Guid Id { get; set; }
+    private PurchaseDetailsDto? _purchase;
+    private bool _isLoading = true;
+    private readonly PersianCalendar _persianCalendar = new();
+
+    private List<BreadcrumbItem> _breadcrumbItems = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        UpdateBreadcrumbs();
+        await LoadPurchaseDetailsAsync();
+    }
+
+    private void UpdateBreadcrumbs()
+    {
+        _breadcrumbItems = new List<BreadcrumbItem>
+        {
+            new BreadcrumbItem("داشبورد", href: "/"),
+            new BreadcrumbItem("مدیریت خریدها", href: "/purchases"),
+            new BreadcrumbItem(_purchase?.InvoiceNumber ?? "جزئیات فاکتور", href: null, disabled: true)
+        };
+    }
+
+    private async Task LoadPurchaseDetailsAsync()
+    {
+        try
+        {
+            _isLoading = true;
+            _purchase = await PurchaseService.GetPurchaseDetailsByIdAsync(Id);
+
+            if (_purchase != null)
+            {
+                UpdateBreadcrumbs();
+            }
+            else
+            {
+                Snackbar.Add("فاکتور خرید پیدا نشد.", Severity.Warning);
+            }
+        }
+        catch (Exception ex)
+        {
+            Snackbar.Add($"خطا در دریافت جزئیات فاکتور: {ex.Message}", Severity.Error);
+        }
+        finally
+        {
+            _isLoading = false;
+        }
+    }
+
+    private string ToPersianDate(DateTime dateTime)
+    {
+        if (dateTime == default) return "-";
+        return $"{_persianCalendar.GetYear(dateTime):0000}/{_persianCalendar.GetMonth(dateTime):00}/{_persianCalendar.GetDayOfMonth(dateTime):00}";
+    }
+
+}
