@@ -93,7 +93,8 @@ public class Purchase : BaseEntity
         var existingItem = _items.FirstOrDefault(i => i.ProductId == productId);
         if (existingItem != null)
         {
-            existingItem.Update(quantity, unitPrice);
+            // به جای جایگزینی، تعداد جدید به تعداد قبلی اضافه می‌شود و آخرین قیمت واحد ملاک قرار می‌گیرد
+            existingItem.Update(existingItem.Quantity + quantity, unitPrice);
         }
         else
         {
