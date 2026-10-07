@@ -1,76 +1,91 @@
 @page "/purchases/{Id:guid}"
+@rendermode InteractiveServer
+@attribute [Authorize]
+
 @using System.Globalization
 @using AutoSpare.Application.Purchases
 @using AutoSpare.Application.Purchases.DTOs
 @using AutoSpare.Domain.Purchases.Enums
+@using AutoSpare.Web.Components.Common
 @using MudBlazor
+
 @inject IPurchaseService PurchaseService
 @inject ISnackbar Snackbar
+@inject IDialogService DialogService
 @inject NavigationManager NavigationManager
 
-<PageTitle>جزئیات فاکتور خرید @(_purchase?.InvoiceNumber ?? "")</PageTitle>
+<PageTitle>جزئیات فاکتور خرید</PageTitle>
 
 <MudContainer MaxWidth="MaxWidth.ExtraLarge" Class="mt-4 mb-8">
     <MudBreadcrumbs Items="_breadcrumbItems" Class="pa-0 mb-4"/>
 
     @if (_isLoading)
     {
-        <div class="d-flex flex-column align-center justify-center pa-12">
-            <MudProgressCircular Color="Color.Primary" Size="Size.Large" Indeterminate="true"/>
-            <MudText Typo="Typo.subtitle1" Class="mt-4" Color="Color.Secondary">در حال بارگذاری اطلاعات فاکتور خرید...
-            </MudText>
-        </div>
+        <MudPaper Class="pa-8 d-flex justify-center align-center" Elevation="1">
+            <MudProgressCircular Color="Color.Primary" Indeterminate="true" Size="Size.Large"/>
+        </MudPaper>
     }
     else if (_purchase == null)
     {
-        <MudAlert Severity="Severity.Error" Variant="Variant.Filled" Class="rounded-lg">
-            فاکتور خرید مورد نظر یافت نشد یا ممکن است حذف شده باشد.
-            <div class="mt-2">
-                <MudButton Variant="Variant.Outlined" Color="Color.Surface"
-                           OnClick="@(() => NavigationManager.NavigateTo("/purchases"))">
-                    بازگشت به فهرست خریدها
-                </MudButton>
-            </div>
+        <MudAlert Severity="Severity.Error" Variant="Variant.Filled" Class="mb-4">
+            فاکتور خرید مورد نظر یافت نشد.
         </MudAlert>
+        <MudButton Variant="Variant.Filled" Color="Color.Primary" Href="/purchases">
+            بازگشت به فهرست
+        </MudButton>
     }
     else
     {
-        <!-- هدر و دکمه‌های عملیاتی -->
-        <div class="d-flex flex-column flex-sm-row justify-space-between align-start align-sm-center gap-3 mb-4">
-            <div>
-                <div class="d-flex align-center gap-2">
-                    <MudText Typo="Typo.h5" Class="fw-bold">
-                        فاکتور شماره: @_purchase.InvoiceNumber
-                    </MudText>
-                    @switch (_purchase.Status)
-                    {
-                        case PurchaseStatus.Completed:
-                            <MudChip T="string" Color="Color.Success" Size="Size.Medium" Variant="Variant.Filled">
-                                نهایی‌شده
-                            </MudChip>
-                            break;
-                        case PurchaseStatus.Draft:
-                            <MudChip T="string" Color="Color.Warning" Size="Size.Medium" Variant="Variant.Filled">
-                                پیش‌نویس
-                            </MudChip>
-                            break;
-                        case PurchaseStatus.Cancelled:
-                            <MudChip T="string" Color="Color.Error" Size="Size.Medium" Variant="Variant.Filled">لغو
-                                شده
-                            </MudChip>
-                            break;
-                    }
-                </div>
-                <MudText Typo="Typo.body2" Color="Color.Secondary" Class="mt-1">
-                    ثبت شده در تاریخ: @ToPersianDate(_purchase.PurchaseDate)
+        <!-- هدر و دکمه‌های عملیات -->
+        <div class="d-flex justify-space-between align-center mb-4 flex-wrap gap-2">
+            <div class="d-flex align-center gap-3">
+                <MudText Typo="Typo.h5" Style="font-weight: 700;">
+                    فاکتور شماره: @_purchase.InvoiceNumber
                 </MudText>
+                @if (_purchase.Status == PurchaseStatus.Draft)
+                {
+                    <MudChip T="string" Color="Color.Warning" Size="Size.Small" Variant="Variant.Filled">
+                        پیش‌نویس
+                    </MudChip>
+                }
+                else if (_purchase.Status == PurchaseStatus.Completed)
+                {
+                    <MudChip T="string" Color="Color.Success" Size="Size.Small" Variant="Variant.Filled">
+                        نهایی شده
+                    </MudChip>
+                }
+                else if (_purchase.Status == PurchaseStatus.Cancelled)
+                {
+                    <MudChip T="string" Color="Color.Error" Size="Size.Small" Variant="Variant.Filled">
+                        لغو شده
+                    </MudChip>
+                }
             </div>
 
-            <div class="d-flex align-center gap-2">
+            <div class="d-flex gap-2">
+                @if (_purchase.Status == PurchaseStatus.Draft)
+                {
+                    <MudButton Variant="Variant.Filled"
+                               Color="Color.Success"
+                               StartIcon="@Icons.Material.Filled.CheckCircle"
+                               OnClick="FinalizeInvoiceAsync"
+                               Disabled="_processing">
+                        نهایی‌سازی و ورود به انبار
+                    </MudButton>
+
+                    <MudButton Variant="Variant.Outlined"
+                               Color="Color.Error"
+                               StartIcon="@Icons.Material.Filled.Cancel"
+                               OnClick="CancelInvoiceAsync"
+                               Disabled="_processing">
+                        لغو فاکتور
+                    </MudButton>
+                }
+
                 <MudButton Variant="Variant.Outlined"
-                           Color="Color.Secondary"
+                           Color="Color.Primary"
                            StartIcon="@Icons.Material.Filled.ArrowBack"
-                           OnClick="@(() => NavigationManager.NavigateTo("/purchases"))">
+                           Href="/purchases">
                     بازگشت به فهرست
                 </MudButton>
             </div>
@@ -225,6 +240,7 @@
     [Parameter] public Guid Id { get; set; }
     private PurchaseDetailsDto? _purchase;
     private bool _isLoading = true;
+    private bool _processing;
     private readonly PersianCalendar _persianCalendar = new();
 
     private List<BreadcrumbItem> _breadcrumbItems = new();
@@ -277,4 +293,87 @@
         return $"{_persianCalendar.GetYear(dateTime):0000}/{_persianCalendar.GetMonth(dateTime):00}/{_persianCalendar.GetDayOfMonth(dateTime):00}";
     }
 
+    private async Task FinalizeInvoiceAsync()
+    {
+        var parameters = new DialogParameters<ConfirmDialog>
+        {
+            { x => x.Title, "تأیید نهایی‌سازی فاکتور" },
+            { x => x.ContentText, $"آیا از نهایی‌سازی فاکتور «{_purchase?.InvoiceNumber}» و ورود اقلام آن به انبار اطمینان دارید؟ پس از این مرحله امکان تغییر وجود نخواهد داشت." },
+            { x => x.ConfirmButtonText, "بله، نهایی و ثبت شود" },
+            { x => x.Color, Color.Success },
+            { x => x.Icon, Icons.Material.Filled.CheckCircle }
+        };
+
+        var options = new DialogOptions
+        {
+            CloseButton = false,
+            CloseOnEscapeKey = true,
+            MaxWidth = MaxWidth.Small,
+            FullWidth = true
+        };
+
+        var dialog = await DialogService.ShowAsync<ConfirmDialog>("تأیید نهایی‌سازی", parameters, options);
+        var result = await dialog.Result;
+
+        if (result != null && !result.Canceled)
+        {
+            _processing = true;
+            try
+            {
+                await PurchaseService.FinalizePurchaseAsync(Id);
+                Snackbar.Add("فاکتور با موفقیت نهایی شد و موجودی انبار افزایش یافت.", Severity.Success);
+                await LoadPurchaseDetailsAsync();
+            }
+            catch (Exception ex)
+            {
+                Snackbar.Add($"خطا در نهایی‌سازی فاکتور: {ex.Message}", Severity.Error);
+            }
+            finally
+            {
+                _processing = false;
+            }
+        }
+    }
+
+    private async Task CancelInvoiceAsync()
+    {
+        var parameters = new DialogParameters<ConfirmDialog>
+        {
+            { x => x.Title, "تأیید لغو فاکتور" },
+            { x => x.ContentText, $"آیا از لغو فاکتور خرید «{_purchase?.InvoiceNumber}» اطمینان دارید؟" },
+            { x => x.ConfirmButtonText, "بله، لغو شود" },
+            { x => x.Color, Color.Error },
+            { x => x.Icon, Icons.Material.Filled.Cancel }
+        };
+
+        var options = new DialogOptions
+        {
+            CloseButton = false,
+            CloseOnEscapeKey = true,
+            MaxWidth = MaxWidth.ExtraSmall,
+            FullWidth = true
+        };
+
+        var dialog = await DialogService.ShowAsync<ConfirmDialog>("تأیید لغو فاکتور", parameters, options);
+        var result = await dialog.Result;
+
+        if (result != null && !result.Canceled)
+        {
+            _processing = true;
+            try
+            {
+                await PurchaseService.CancelPurchaseAsync(Id);
+                Snackbar.Add("فاکتور با موفقیت لغو شد.", Severity.Warning);
+                await LoadPurchaseDetailsAsync();
+            }
+            catch (Exception ex)
+            {
+                Snackbar.Add($"خطا در لغو فاکتور: {ex.Message}", Severity.Error);
+            }
+            finally
+            {
+                _processing = false;
+            }
+        }
+    }
 }

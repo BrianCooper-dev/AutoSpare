@@ -4,6 +4,7 @@ using AutoSpare.Application.Purchases.DTOs;
 using AutoSpare.Domain.Inventories;
 using AutoSpare.Domain.Inventories.Enums;
 using AutoSpare.Domain.Purchases;
+using AutoSpare.Domain.Purchases.Enums;
 using AutoSpare.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 
@@ -293,4 +294,98 @@ public class PurchaseService : IPurchaseService
             .FirstOrDefaultAsync();
     }
 
+    public async Task FinalizePurchaseAsync(Guid id, string? currentUserName = null)
+    {
+        var strategy = _context.Database.CreateExecutionStrategy();
+
+        await strategy.ExecuteAsync(async () =>
+        {
+            await using var transaction = await _context.Database.BeginTransactionAsync();
+
+            try
+            {
+                var purchase = await _context.Purchases
+                    .Include(p => p.Items)
+                    .FirstOrDefaultAsync(p => p.Id == id);
+
+                if (purchase == null)
+                    throw new InvalidOperationException("فاکتور خرید مورد نظر یافت نشد.");
+
+                if (purchase.Status != PurchaseStatus.Draft)
+                    throw new InvalidOperationException("تنها فاکتورهای در وضعیت 'پیش‌نویس' قابل نهایی‌سازی هستند.");
+
+                if (!purchase.Items.Any())
+                    throw new InvalidOperationException("فاکتور بدون اقلام کالا قابل نهایی‌سازی نیست.");
+
+                // ۱. تغییر وضعیت فاکتور به Completed
+                purchase.Complete();
+
+                var productIds = purchase.Items.Select(i => i.ProductId).Distinct().ToList();
+                var products = await _context.Products
+                    .Where(p => productIds.Contains(p.Id))
+                    .ToDictionaryAsync(p => p.Id);
+
+                var inventories = await _context.Inventories
+                    .Where(i => i.WarehouseId == purchase.WarehouseId && productIds.Contains(i.ProductId))
+                    .ToDictionaryAsync(i => i.ProductId);
+
+                // ۲. به‌روزرسانی قیمت و افزایش موجودی انبار
+                foreach (var item in purchase.Items)
+                {
+                    if (products.TryGetValue(item.ProductId, out var product))
+                    {
+                        if (item.UnitPrice > 0)
+                        {
+                            var newSalePrice = Math.Max(product.SalePrice, item.UnitPrice);
+                            product.UpdatePrices(item.UnitPrice, newSalePrice);
+                        }
+                    }
+
+                    if (!inventories.TryGetValue(item.ProductId, out var inventory))
+                    {
+                        inventory = new Inventory(item.ProductId, purchase.WarehouseId, initialQuantity: 0);
+                        await _context.Inventories.AddAsync(inventory);
+                        inventories[item.ProductId] = inventory;
+                    }
+
+                    inventory.IncreaseQuantity(
+                        amount: item.Quantity,
+                        type: StockMovementType.Purchase,
+                        reason: $"نهایی‌سازی فاکتور خرید {purchase.InvoiceNumber}",
+                        reference: purchase.InvoiceNumber,
+                        performedBy: currentUserName ?? "سیستم");
+
+                    // اطمینان از ثبت کاردکس (Movements) جدید
+                    foreach (var movement in inventory.Movements)
+                    {
+                        var movementEntry = _context.Entry(movement);
+                        if (movementEntry.State == EntityState.Detached ||
+                            movementEntry.State == EntityState.Modified)
+                        {
+                            movementEntry.State = EntityState.Added;
+                        }
+                    }
+                }
+
+                await _context.SaveChangesAsync();
+                await transaction.CommitAsync();
+            }
+            catch
+            {
+                await transaction.RollbackAsync();
+                throw;
+            }
+        });
+    }
+
+    public async Task CancelPurchaseAsync(Guid id, string? currentUserName = null)
+    {
+        var purchase = await _context.Purchases.FirstOrDefaultAsync(p => p.Id == id);
+
+        if (purchase == null)
+            throw new InvalidOperationException("فاکتور خرید مورد نظر یافت نشد.");
+
+        purchase.Cancel();
+        await _context.SaveChangesAsync();
+    }
 }
