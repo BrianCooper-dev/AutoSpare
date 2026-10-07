@@ -10,5 +10,6 @@ public interface IPurchaseService
     Task<List<ProductLookupItemDto>> GetProductsLookupAsync();
     Task<Guid> CreatePurchaseAsync(CreatePurchaseDto dto, string? currentUserName = null);
     Task<List<PurchaseListDto>> GetPurchasesAsync();
+    Task<PurchaseDetailsDto?> GetPurchaseDetailsByIdAsync(Guid id);
     Task<string> GenerateInvoiceNumberAsync();
 }
