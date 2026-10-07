@@ -129,37 +129,47 @@ public class PurchaseService : IPurchaseService
                             product.UpdatePrices(item.UnitPrice, newSalePrice);
                         }
 
-                        // دریافت یا ایجاد موجودی انبار
-                        var inventory = await _context.Inventories
-                            .Include(i => i.Movements)
-                            .FirstOrDefaultAsync(i => i.ProductId == item.ProductId && i.WarehouseId == purchase.WarehouseId);
+                        // جستجو در Local (کالاهایی که در همین حلقه اضافه شده‌اند) و سپس دیتابیس
+                        var inventory = _context.Inventories.Local
+                            .FirstOrDefault(i =>
+                                i.ProductId == item.ProductId && i.WarehouseId == purchase.WarehouseId);
 
                         if (inventory == null)
                         {
-                            inventory = new Inventory(item.ProductId, purchase.WarehouseId, initialQuantity: item.Quantity);
-                            await _context.Inventories.AddAsync(inventory);
-                        }
-                        else
-                        {
-                            inventory.IncreaseQuantity(
-                                amount: item.Quantity,
-                                type: StockMovementType.Purchase,
-                                reason: $"خرید طی فاکتور {purchase.InvoiceNumber}",
-                                reference: purchase.InvoiceNumber,
-                                performedBy: currentUserName ?? "سیستم");
+                            inventory = await _context.Inventories
+                                .Include(i => i.Movements)
+                                .FirstOrDefaultAsync(i =>
+                                    i.ProductId == item.ProductId && i.WarehouseId == purchase.WarehouseId);
                         }
 
-                        // تصحیح وضعیت گردش انبار برای Track شدن در EF
+                        // اگر موجودی برای این کالا و انبار هنوز وجود ندارد، با موجودی صفر ساخته می‌شود
+                        if (inventory == null)
+                        {
+                            inventory = new Inventory(item.ProductId, purchase.WarehouseId, initialQuantity: 0);
+                            await _context.Inventories.AddAsync(inventory);
+                        }
+
+                        // در هر دو حالت، افزایش دقیق موجودی به همراه لاگ خرید ثبت می‌شود
+                        inventory.IncreaseQuantity(
+                            amount: item.Quantity,
+                            type: StockMovementType.Purchase,
+                            reason: $"خرید طی فاکتور {purchase.InvoiceNumber}",
+                            reference: purchase.InvoiceNumber,
+                            performedBy: currentUserName ?? "سیستم");
+
+                        // اطمینان از وضعیت گردش‌های جدید برای SaveChanges
                         foreach (var movement in inventory.Movements)
                         {
                             var movementEntry = _context.Entry(movement);
-                            if (movementEntry.State == EntityState.Detached || movementEntry.State == EntityState.Modified)
+                            if (movementEntry.State == EntityState.Detached ||
+                                movementEntry.State == EntityState.Modified)
                             {
                                 movementEntry.State = EntityState.Added;
                             }
                         }
                     }
                 }
+
 
                 // ۴. ذخیره کلیه انتیتی‌ها
                 await _context.SaveChangesAsync();
