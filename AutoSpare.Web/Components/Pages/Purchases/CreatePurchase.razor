@@ -1,7 +1,8 @@
 @page "/purchases/create"
+
 @using AutoSpare.Application.Purchases
 @using AutoSpare.Application.Purchases.DTOs
-@using MudBlazor
+
 @inject IPurchaseService PurchaseService
 @inject ISnackbar Snackbar
 @inject NavigationManager NavigationManager
@@ -18,9 +19,7 @@
                     <MudIcon Icon="@Icons.Material.Filled.AddShoppingCart" Color="Color.Primary" Size="Size.Large"/>
                     <div>
                         <MudText Typo="Typo.h5" Class="fw-bold">ثبت فاکتور خرید جدید</MudText>
-                        <MudText Typo="Typo.caption" Color="Color.Secondary">ورود کالا به انبار و ثبت فاکتور از
-                            تأمین‌کننده
-                        </MudText>
+                        <MudText Typo="Typo.caption" Color="Color.Secondary">ورود کالا به انبار و ثبت فاکتور از تأمین‌کننده</MudText>
                     </div>
                 </div>
             </CardHeaderContent>
@@ -69,8 +68,7 @@
                                            Margin="Margin.Dense"
                                            Required="true"
                                            AnchorOrigin="Origin.BottomCenter">
-                                    <MudSelectItem T="Guid?" Value="@((Guid?)null)">انتخاب تأمین‌کننده...
-                                    </MudSelectItem>
+                                    <MudSelectItem T="Guid?" Value="@((Guid?)null)">انتخاب تأمین‌کننده...</MudSelectItem>
                                     @foreach (var s in _suppliers)
                                     {
                                         <MudSelectItem T="Guid?" Value="@s.Id">@s.Title</MudSelectItem>
@@ -205,9 +203,11 @@
                                                      HideSpinButtons="false"/>
                                 </MudTd>
                                 <MudTd>
-                                    <MudNumericField @bind-Value="item.UnitPrice"
+                                    <MudNumericField T="decimal?"
+                                                     @bind-Value="item.UnitPrice"
                                                      Min="0m"
                                                      Format="N0"
+                                                     Placeholder="بدون تغییر"
                                                      Variant="Variant.Outlined"
                                                      Margin="Margin.Dense"/>
                                 </MudTd>
@@ -352,7 +352,6 @@
             item.ProductId = selectedProduct.Id;
             item.UnitPrice = selectedProduct.DefaultPurchasePrice;
 
-            // اگر کالا انبار پیش‌فرض داشت و در لیست انبارهای فعال موجود بود، انبار فاکتور خودکار تنظیم می‌شود
             if (selectedProduct.DefaultWarehouseId.HasValue &&
                 _warehouses.Any(w => w.Id == selectedProduct.DefaultWarehouseId.Value))
             {
@@ -362,7 +361,7 @@
         else
         {
             item.ProductId = null;
-            item.UnitPrice = 0;
+            item.UnitPrice = null;
         }
     }
 
@@ -431,5 +430,4 @@
     {
         NavigationManager.NavigateTo("/purchases");
     }
-
 }
