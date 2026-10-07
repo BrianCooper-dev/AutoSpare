@@ -202,3 +202,21 @@
 2026-10-07 12:38:33.166 +03:30 [WRN] Savepoints are disabled because Multiple Active Result Sets (MARS) is enabled. If 'SaveChanges' fails, then the transaction cannot be automatically rolled back to a known clean state. Instead, the transaction should be rolled back by the application before retrying 'SaveChanges'. See https://go.microsoft.com/fwlink/?linkid=2149338 for more information and examples. To identify the code which triggers this warning, call 'ConfigureWarnings(w => w.Throw(SqlServerEventId.SavepointsDisabledBecauseOfMARS))'. 
 2026-10-07 12:40:41.119 +03:30 [INF] HTTP GET /_blazor responded 101 in 153740.9283 ms 
 2026-10-07 12:40:41.119 +03:30 [INF] HTTP GET /_blazor responded 101 in 153888.6683 ms 
+2026-10-07 12:54:01.103 +03:30 [INF] Storage directories are ready. ImagesPath: D:\porograming\Rider\AutoSpare\AutoSpare.Web\wwwroot\Uploads\Images, BackupPath: D:\AutoSpareBackups 
+2026-10-07 12:54:01.492 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 48.3278 ms 
+2026-10-07 12:54:01.492 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 50.5307 ms 
+2026-10-07 12:54:01.737 +03:30 [INF] Home page loaded at "2026-10-07T12:54:01.7334029+03:30" 
+2026-10-07 12:54:01.738 +03:30 [WRN] This is a test warning from Home page. 
+2026-10-07 12:54:01.829 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 4.5818 ms 
+2026-10-07 12:54:01.907 +03:30 [INF] HTTP GET / responded 200 in 469.1829 ms 
+2026-10-07 12:54:01.934 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 4.5344 ms 
+2026-10-07 12:54:01.949 +03:30 [INF] HTTP GET /app.css responded 200 in 20.0857 ms 
+2026-10-07 12:54:01.992 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 62.7755 ms 
+2026-10-07 12:54:01.992 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 62.7753 ms 
+2026-10-07 12:54:02.081 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.6400 ms 
+2026-10-07 12:54:02.081 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 0.6408 ms 
+2026-10-07 12:54:02.117 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 6.7135 ms 
+2026-10-07 12:54:02.133 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 7.7161 ms 
+2026-10-07 12:54:02.575 +03:30 [INF] Home page loaded at "2026-10-07T12:54:02.5748872+03:30" 
+2026-10-07 12:54:02.582 +03:30 [WRN] This is a test warning from Home page. 
+2026-10-07 12:55:46.237 +03:30 [INF] HTTP GET /_blazor responded 101 in 104095.2153 ms 
