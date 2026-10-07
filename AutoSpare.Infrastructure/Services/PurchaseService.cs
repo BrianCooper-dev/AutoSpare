@@ -221,7 +221,7 @@ public class PurchaseService : IPurchaseService
                 PurchaseDate = p.PurchaseDate,
                 Status = p.Status,
                 ItemsCount = p.Items.Count,
-                TotalAmount = p.TotalAmount
+                TotalAmount = p.Items.Sum(i => i.Quantity * i.UnitPrice)
             })
             .ToListAsync();
     }
@@ -258,4 +258,39 @@ public class PurchaseService : IPurchaseService
 
         return candidate;
     }
+
+    public async Task<PurchaseDetailsDto?> GetPurchaseDetailsByIdAsync(Guid id)
+    {
+        return await _context.Purchases
+            .AsNoTracking()
+            .Where(p => p.Id == id)
+            .Select(p => new PurchaseDetailsDto
+            {
+                Id = p.Id,
+                InvoiceNumber = p.InvoiceNumber,
+                SupplierId = p.SupplierId,
+                SupplierName = p.Supplier != null ? p.Supplier.Name : "-",
+                WarehouseId = p.WarehouseId,
+                WarehouseName = p.Warehouse != null ? p.Warehouse.Name : "-",
+                PurchaseDate = p.PurchaseDate,
+                Status = p.Status,
+                Notes = p.Notes,
+                TotalAmount = p.Items.Sum(i => i.Quantity * i.UnitPrice),
+                Items = p.Items.Select(item => new PurchaseItemDetailsDto
+                {
+                    Id = item.Id,
+                    ProductId = item.ProductId,
+                    ProductName = item.Product != null ? item.Product.Name : "-",
+                    InternalCode = item.Product != null ? item.Product.InternalCode : "-",
+                    BrandName = item.Product != null && item.Product.Brand != null ? item.Product.Brand.Name : null,
+                    Model = item.Product != null ? item.Product.Model : null,
+                    ImagePath = item.Product != null ? item.Product.ImagePath : null,
+                    Quantity = item.Quantity,
+                    UnitPrice = item.UnitPrice,
+                    TotalPrice = item.TotalPrice
+                }).ToList()
+            })
+            .FirstOrDefaultAsync();
+    }
+
 }
