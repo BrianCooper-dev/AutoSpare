@@ -36,20 +36,25 @@ public class SaleConfiguration : IEntityTypeConfiguration<Sale>
         builder.Property(s => s.Status)
             .IsRequired();
 
-        // فیلد توضیحات با نام Notes
+        // فیلد توضیحات
         builder.Property(s => s.Notes)
             .HasMaxLength(500);
 
-        // فیلد محاسباتی نادیده گرفته می‌شود
-        builder.Ignore(s => s.TotalAmount);
+        // انبار سربرگ (اختیاری است چون انبار برای هر سطر جداگانه مشخص می‌شود)
+        builder.Property(s => s.WarehouseId)
+            .IsRequired(false);
 
-        // رابطه با انبار
+        // رابطه با انبار در سربرگ فاکتور
         builder.HasOne(s => s.Warehouse)
             .WithMany()
             .HasForeignKey(s => s.WarehouseId)
+            .IsRequired(false)
             .OnDelete(DeleteBehavior.Restrict);
 
-        // رابطه با اقلام فروش
+        // فیلد محاسباتی در دیتابیس ذخیره نمی‌شود
+        builder.Ignore(s => s.TotalAmount);
+
+        // رابطه یک به چند با اقلام فروش (SaleItems)
         builder.HasMany(s => s.Items)
             .WithOne()
             .HasForeignKey(i => i.SaleId)

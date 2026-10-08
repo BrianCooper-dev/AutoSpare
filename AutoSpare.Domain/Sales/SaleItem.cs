@@ -1,11 +1,9 @@
 using AutoSpare.Domain.Common;
 using AutoSpare.Domain.Products;
+using AutoSpare.Domain.Warehouses;
 
 namespace AutoSpare.Domain.Sales;
 
-/// <summary>
-/// ردیف کالای فروخته‌شده در فاکتور فروش
-/// </summary>
 public class SaleItem : BaseEntity
 {
     public Guid SaleId { private set; get; }
@@ -13,37 +11,37 @@ public class SaleItem : BaseEntity
     public Guid ProductId { private set; get; }
     public Product? Product { private set; get; }
 
-    /// <summary>
-    /// تعداد فروخته شده
-    /// </summary>
+    /// <summary>انباری که این ردیف کالا از آن خارج می‌شود</summary>
+    public Guid WarehouseId { private set; get; }
+
+    public Warehouse? Warehouse { private set; get; }
+
     public int Quantity { private set; get; }
-
-    /// <summary>
-    /// قیمت فی (واحد) فروش
-    /// </summary>
     public decimal UnitPrice { private set; get; }
-
-    /// <summary>
-    /// جمع کل این ردیف (تعداد * قیمت واحد)
-    /// </summary>
     public decimal TotalPrice => Quantity * UnitPrice;
 
-    // سازنده مخصوص EF Core
     private SaleItem() { }
 
-    internal SaleItem(Guid productId, int quantity, decimal unitPrice)
+    internal SaleItem(Guid productId, Guid warehouseId, int quantity, decimal unitPrice)
     {
         if (productId == Guid.Empty)
             throw new ArgumentException("شناسه محصول نامعتبر است.", nameof(productId));
+        if (warehouseId == Guid.Empty)
+            throw new ArgumentException("شناسه انبار نامعتبر است.", nameof(warehouseId));
 
         SetQuantity(quantity);
         SetUnitPrice(unitPrice);
 
         ProductId = productId;
+        WarehouseId = warehouseId;
     }
 
-    internal void Update(int quantity, decimal unitPrice)
+    internal void Update(Guid warehouseId, int quantity, decimal unitPrice)
     {
+        if (warehouseId == Guid.Empty)
+            throw new ArgumentException("شناسه انبار نامعتبر است.", nameof(warehouseId));
+
+        WarehouseId = warehouseId;
         SetQuantity(quantity);
         SetUnitPrice(unitPrice);
     }
@@ -52,7 +50,6 @@ public class SaleItem : BaseEntity
     {
         if (quantity <= 0)
             throw new ArgumentException("تعداد فروخته‌شده باید بزرگتر از صفر باشد.", nameof(quantity));
-
         Quantity = quantity;
     }
 
@@ -60,8 +57,6 @@ public class SaleItem : BaseEntity
     {
         if (unitPrice < 0)
             throw new ArgumentException("قیمت واحد فروش نمی‌تواند منفی باشد.", nameof(unitPrice));
-
         UnitPrice = unitPrice;
     }
 }
-
