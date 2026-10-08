@@ -14,6 +14,7 @@ using AutoSpare.Application.Brands;
 using AutoSpare.Application.Categories;
 using AutoSpare.Application.Products;
 using AutoSpare.Application.Purchases;
+using AutoSpare.Application.Sales;
 using AutoSpare.Application.Suppliers;
 using AutoSpare.Infrastructure.Services;
 using Microsoft.AspNetCore.Localization;
@@ -71,6 +72,8 @@ try
     builder.Services.AddScoped<IFileStorageService, FileStorageService>();
 
     builder.Services.AddScoped<IPurchaseService, PurchaseService>();
+
+    builder.Services.AddScoped<ISaleService, SaleService>();
 
 
     // -------------------------------------------------------
