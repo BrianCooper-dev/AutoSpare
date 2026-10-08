@@ -43,5 +43,20 @@ public class SaleItemConfiguration : IEntityTypeConfiguration<SaleItem>
 
         // ایندکس جهت بارگذاری سریع اقلام یک فاکتور فروش
         builder.HasIndex(si => si.SaleId);
+
+        // داخل Configure اضافه کنید:
+        builder.Property(si => si.WarehouseId)
+            .IsRequired();
+
+        builder.HasOne(si => si.Warehouse)
+            .WithMany()
+            .HasForeignKey(si => si.WarehouseId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        builder.HasIndex(si => si.WarehouseId);
+
+// ایندکس ترکیبی برای جلوگیری از ردیف تکراریِ یک کالا از یک انبار در یک فاکتور
+        builder.HasIndex(si => new { si.SaleId, si.ProductId, si.WarehouseId })
+            .IsUnique();
     }
 }
