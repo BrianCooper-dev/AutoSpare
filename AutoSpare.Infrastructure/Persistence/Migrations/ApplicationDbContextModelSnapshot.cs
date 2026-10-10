@@ -519,6 +519,9 @@ namespace AutoSpare.Infrastructure.Persistence.Migrations
                         .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)");
 
+                    b.Property<decimal>("UnitPurchasePrice")
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<Guid>("WarehouseId")
                         .HasColumnType("uniqueidentifier");
 

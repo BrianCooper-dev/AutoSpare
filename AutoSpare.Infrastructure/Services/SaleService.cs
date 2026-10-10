@@ -45,7 +45,7 @@ public class SaleService : ISaleService
             {
                 p.Id, p.Name, p.InternalCode, p.Model,
                 BrandName = p.Brand != null ? p.Brand.Name : null,
-                p.PurchasePrice,   // ← این خط اضافه شد
+                p.PurchasePrice, // ← این خط اضافه شد
                 p.SalePrice, p.ImagePath
             })
             .OrderBy(p => p.Name)
@@ -139,6 +139,13 @@ public class SaleService : ISaleService
                 if (isDuplicateInvoice)
                     throw new InvalidOperationException($"فاکتور فروش با شماره '{invoiceTrimmed}' قبلاً ثبت شده است.");
 
+                // دریافت قیمت خرید فعلی محصولات برای ثبت اسنپ‌شات (Snapshot)
+                var distinctProductIds = validItems.Select(i => i.ProductId!.Value).Distinct().ToList();
+                var purchasePrices = await _context.Products
+                    .AsNoTracking()
+                    .Where(p => distinctProductIds.Contains(p.Id))
+                    .ToDictionaryAsync(p => p.Id, p => p.PurchasePrice);
+
                 var sale = new Sale(
                     invoiceNumber: invoiceTrimmed,
                     customerName: customerName,
@@ -155,11 +162,14 @@ public class SaleService : ISaleService
                     if (item.UnitPrice.HasValue && item.UnitPrice.Value < 0)
                         throw new ArgumentException("قیمت واحد نمی‌تواند منفی باشد.");
 
+                    var costPrice = purchasePrices.TryGetValue(item.ProductId!.Value, out var pp) ? pp : 0m;
+
                     sale.AddOrUpdateItem(
                         item.ProductId!.Value,
                         item.WarehouseId!.Value,
                         item.Quantity,
-                        item.UnitPrice ?? 0m);
+                        item.UnitPrice ?? 0m,
+                        costPrice);
                 }
 
                 await _context.Sales.AddAsync(sale);
@@ -169,11 +179,11 @@ public class SaleService : ISaleService
                     sale.Complete();
 
                     var involvedWarehouseIds = sale.Items.Select(i => i.WarehouseId).Distinct().ToList();
-                    var productIds = sale.Items.Select(i => i.ProductId).Distinct().ToList();
 
                     var inventories = await _context.Inventories
                         .Include(i => i.Movements)
-                        .Where(i => involvedWarehouseIds.Contains(i.WarehouseId) && productIds.Contains(i.ProductId))
+                        .Where(i => involvedWarehouseIds.Contains(i.WarehouseId) &&
+                                    distinctProductIds.Contains(i.ProductId))
                         .ToDictionaryAsync(i => (i.ProductId, i.WarehouseId));
 
                     foreach (var item in sale.Items)
@@ -221,5 +231,36 @@ public class SaleService : ISaleService
                 throw;
             }
         });
+    }
+
+    public async Task<SaleDetailsDto?> GetSaleDetailsAsync(Guid saleId)
+    {
+        return await _context.Sales
+            .AsNoTracking()
+            .Where(s => s.Id == saleId)
+            .Select(s => new SaleDetailsDto
+            {
+                Id = s.Id,
+                InvoiceNumber = s.InvoiceNumber,
+                CustomerName = s.CustomerName,
+                SaleDate = s.SaleDate,
+                Status = s.Status.ToString(),
+                Notes = s.Notes,
+                TotalAmount = s.Items.Sum(i => i.Quantity * i.UnitPrice),
+                TotalCost = s.Items.Sum(i => i.Quantity * i.UnitPurchasePrice),
+                Items = s.Items.Select(i => new SaleDetailsItemDto
+                {
+                    Id = i.Id,
+                    ProductId = i.ProductId,
+                    ProductName = i.Product != null ? i.Product.Name : "نامشخص",
+                    ProductCode = i.Product != null ? i.Product.InternalCode : null,
+                    ImageUrl = i.Product != null ? i.Product.ImagePath : null,
+                    WarehouseName = i.Warehouse != null ? i.Warehouse.Name : "نامشخص",
+                    Quantity = i.Quantity,
+                    UnitPrice = i.UnitPrice,
+                    UnitPurchasePrice = i.UnitPurchasePrice
+                }).ToList()
+            })
+            .FirstOrDefaultAsync();
     }
 }
