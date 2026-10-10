@@ -1,0 +1,64 @@
+2026-10-10 12:31:05.447 +03:30 [INF] Storage directories are ready. ImagesPath: D:\porograming\Rider\AutoSpare\AutoSpare.Web\wwwroot\Uploads\Images, BackupPath: D:\AutoSpareBackups 
+2026-10-10 12:31:05.972 +03:30 [INF] HTTP GET / responded 302 in 23.2253 ms 
+2026-10-10 12:31:06.478 +03:30 [INF] HTTP GET /login responded 200 in 474.5173 ms 
+2026-10-10 12:31:06.559 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 14.4854 ms 
+2026-10-10 12:31:06.619 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 74.7876 ms 
+2026-10-10 12:31:06.629 +03:30 [INF] HTTP GET /app.css responded 200 in 85.1071 ms 
+2026-10-10 12:31:06.745 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 118.9584 ms 
+2026-10-10 12:31:06.794 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.3342 ms 
+2026-10-10 12:31:06.794 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 0.3254 ms 
+2026-10-10 12:31:06.814 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 7.1808 ms 
+2026-10-10 12:31:06.912 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 5.0155 ms 
+2026-10-10 12:31:07.021 +03:30 [INF] HTTP GET /favicon.ico responded 404 in 0.3154 ms 
+2026-10-10 12:31:07.060 +03:30 [INF] HTTP GET /not-found responded 302 in 3.2499 ms 
+2026-10-10 12:31:07.081 +03:30 [INF] HTTP GET /login responded 200 in 18.4620 ms 
+2026-10-10 12:33:59.710 +03:30 [INF] HTTP POST /api/auth/login responded 302 in 792.3507 ms 
+2026-10-10 12:33:59.726 +03:30 [INF] Home page loaded at "2026-10-10T12:33:59.7248870+03:30" 
+2026-10-10 12:33:59.727 +03:30 [WRN] This is a test warning from Home page. 
+2026-10-10 12:33:59.733 +03:30 [INF] HTTP GET / responded 200 in 16.5358 ms 
+2026-10-10 12:33:59.752 +03:30 [INF] HTTP GET /app.css responded 200 in 2.4019 ms 
+2026-10-10 12:33:59.755 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 3.2545 ms 
+2026-10-10 12:33:59.762 +03:30 [INF] HTTP GET /_blazor responded 101 in 172743.3781 ms 
+2026-10-10 12:33:59.763 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 1.3324 ms 
+2026-10-10 12:33:59.776 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 21.1804 ms 
+2026-10-10 12:33:59.795 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 54.4293 ms 
+2026-10-10 12:33:59.799 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 0.5280 ms 
+2026-10-10 12:33:59.799 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.5338 ms 
+2026-10-10 12:33:59.845 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 1.8372 ms 
+2026-10-10 12:33:59.849 +03:30 [INF] HTTP GET /favicon.ico responded 404 in 0.5411 ms 
+2026-10-10 12:33:59.852 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 1.0474 ms 
+2026-10-10 12:33:59.879 +03:30 [INF] HTTP GET /not-found responded 404 in 17.8011 ms 
+2026-10-10 12:33:59.900 +03:30 [INF] Home page loaded at "2026-10-10T12:33:59.8999619+03:30" 
+2026-10-10 12:33:59.900 +03:30 [WRN] This is a test warning from Home page. 
+2026-10-10 12:36:28.069 +03:30 [INF] HTTP GET /_blazor responded 101 in 148199.0089 ms 
+2026-10-10 12:45:28.515 +03:30 [INF] Storage directories are ready. ImagesPath: D:\porograming\Rider\AutoSpare\AutoSpare.Web\wwwroot\Uploads\Images, BackupPath: D:\AutoSpareBackups 
+2026-10-10 12:45:28.893 +03:30 [INF] Home page loaded at "2026-10-10T12:45:28.8916428+03:30" 
+2026-10-10 12:45:28.897 +03:30 [WRN] This is a test warning from Home page. 
+2026-10-10 12:45:28.997 +03:30 [INF] HTTP GET / responded 200 in 276.1497 ms 
+2026-10-10 12:45:29.017 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 6.1312 ms 
+2026-10-10 12:45:29.027 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 16.1462 ms 
+2026-10-10 12:45:29.028 +03:30 [INF] HTTP GET /app.css responded 200 in 16.9926 ms 
+2026-10-10 12:45:29.033 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 22.0261 ms 
+2026-10-10 12:45:29.105 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 5.3293 ms 
+2026-10-10 12:45:29.105 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 5.3294 ms 
+2026-10-10 12:45:29.116 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 7.4380 ms 
+2026-10-10 12:45:29.141 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 10.9927 ms 
+2026-10-10 12:45:29.294 +03:30 [INF] Home page loaded at "2026-10-10T12:45:29.2948021+03:30" 
+2026-10-10 12:45:29.295 +03:30 [WRN] This is a test warning from Home page. 
+2026-10-10 12:45:33.997 +03:30 [INF] HTTP GET /uploads/products/b7e9697a9c934c00814ea404237b0a0a.png responded 304 in 0.9594 ms 
+2026-10-10 12:45:33.997 +03:30 [INF] HTTP GET /uploads/products/27b41e9024374db59bf7fe94b1c824da.png responded 304 in 0.9594 ms 
+2026-10-10 12:45:34.091 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 1.2149 ms 
+2026-10-10 12:45:34.249 +03:30 [INF] HTTP GET /sales/create responded 200 in 122.2796 ms 
+2026-10-10 12:45:34.266 +03:30 [INF] HTTP GET /_blazor responded 101 in 166.4212 ms 
+2026-10-10 12:45:34.272 +03:30 [INF] HTTP GET /app.css responded 200 in 7.1003 ms 
+2026-10-10 12:45:34.273 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 0.8246 ms 
+2026-10-10 12:45:34.279 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 22.7862 ms 
+2026-10-10 12:45:34.280 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 9.5936 ms 
+2026-10-10 12:45:34.282 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 3.5987 ms 
+2026-10-10 12:45:34.324 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 0.5614 ms 
+2026-10-10 12:45:34.326 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 0.5200 ms 
+2026-10-10 12:45:34.326 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.5254 ms 
+2026-10-10 12:45:34.344 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.5516 ms 
+2026-10-10 12:45:45.750 +03:30 [WRN] Savepoints are disabled because Multiple Active Result Sets (MARS) is enabled. If 'SaveChanges' fails, then the transaction cannot be automatically rolled back to a known clean state. Instead, the transaction should be rolled back by the application before retrying 'SaveChanges'. See https://go.microsoft.com/fwlink/?linkid=2149338 for more information and examples. To identify the code which triggers this warning, call 'ConfigureWarnings(w => w.Throw(SqlServerEventId.SavepointsDisabledBecauseOfMARS))'. 
+2026-10-10 12:49:55.582 +03:30 [INF] HTTP GET /_blazor responded 101 in 261231.7542 ms 
+2026-10-10 12:53:55.610 +03:30 [INF] HTTP GET /_blazor responded 101 in 506462.4558 ms 
