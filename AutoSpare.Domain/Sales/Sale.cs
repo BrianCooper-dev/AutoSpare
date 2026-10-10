@@ -13,6 +13,7 @@ public class Sale : BaseEntity
 
     /// <summary>انبار پیش‌فرض فاکتور (اختیاری - انبار در سطح هر ردیف تعیین می‌شود)</summary>
     public Guid? WarehouseId { private set; get; }
+
     public Warehouse? Warehouse { private set; get; }
 
     public DateTime SaleDate { private set; get; }
@@ -43,15 +44,18 @@ public class Sale : BaseEntity
         Notes = notes?.Trim();
     }
 
-    public void AddOrUpdateItem(Guid productId, Guid warehouseId, int quantity, decimal unitPrice)
+    public void AddOrUpdateItem(Guid productId, Guid warehouseId, int quantity, decimal unitPrice,
+        decimal unitPurchasePrice = 0m)
     {
-        EnsureIsDraft();
-
         var existingItem = _items.FirstOrDefault(i => i.ProductId == productId && i.WarehouseId == warehouseId);
         if (existingItem != null)
-            existingItem.Update(warehouseId, quantity, unitPrice);
+        {
+            existingItem.Update(warehouseId, quantity, unitPrice, unitPurchasePrice);
+        }
         else
-            _items.Add(new SaleItem(productId, warehouseId, quantity, unitPrice));
+        {
+            _items.Add(new SaleItem(productId, warehouseId, quantity, unitPrice, unitPurchasePrice));
+        }
     }
 
     public void RemoveItem(Guid productId, Guid warehouseId)
@@ -76,7 +80,8 @@ public class Sale : BaseEntity
         Status = SaleStatus.Cancelled;
     }
 
-    public void UpdateHeader(string invoiceNumber, string customerName, Guid? warehouseId, DateTime saleDate, string? notes)
+    public void UpdateHeader(string invoiceNumber, string customerName, Guid? warehouseId, DateTime saleDate,
+        string? notes)
     {
         EnsureIsDraft();
         SetInvoiceNumber(invoiceNumber);

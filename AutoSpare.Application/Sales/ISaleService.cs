@@ -8,5 +8,6 @@ public interface ISaleService
     Task<List<DropdownItemDto>> GetWarehousesLookupAsync();
     Task<List<SaleProductLookupDto>> GetProductsForSaleLookupAsync(); // ← بدون warehouseId
     Task<string> GenerateInvoiceNumberAsync();
+    Task<SaleDetailsDto?> GetSaleDetailsAsync(Guid saleId);
     Task<Guid> CreateSaleAsync(CreateSaleDto dto, string? currentUserName = null);
 }

@@ -17,12 +17,20 @@ public class SaleItem : BaseEntity
     public Warehouse? Warehouse { private set; get; }
 
     public int Quantity { private set; get; }
+
+    /// <summary>قیمت واحد فروش در لحظه ثبت (Snapshot)</summary>
     public decimal UnitPrice { private set; get; }
+
+    /// <summary>قیمت واحد خرید کالا در لحظه فروش (Snapshot برای محاسبه سود)</summary>
+    public decimal UnitPurchasePrice { private set; get; }
+
     public decimal TotalPrice => Quantity * UnitPrice;
+    public decimal TotalCost => Quantity * UnitPurchasePrice;
+    public decimal Profit => TotalPrice - TotalCost;
 
     private SaleItem() { }
 
-    internal SaleItem(Guid productId, Guid warehouseId, int quantity, decimal unitPrice)
+    internal SaleItem(Guid productId, Guid warehouseId, int quantity, decimal unitPrice, decimal unitPurchasePrice = 0m)
     {
         if (productId == Guid.Empty)
             throw new ArgumentException("شناسه محصول نامعتبر است.", nameof(productId));
@@ -31,12 +39,13 @@ public class SaleItem : BaseEntity
 
         SetQuantity(quantity);
         SetUnitPrice(unitPrice);
+        SetUnitPurchasePrice(unitPurchasePrice);
 
         ProductId = productId;
         WarehouseId = warehouseId;
     }
 
-    internal void Update(Guid warehouseId, int quantity, decimal unitPrice)
+    internal void Update(Guid warehouseId, int quantity, decimal unitPrice, decimal unitPurchasePrice = 0m)
     {
         if (warehouseId == Guid.Empty)
             throw new ArgumentException("شناسه انبار نامعتبر است.", nameof(warehouseId));
@@ -44,6 +53,10 @@ public class SaleItem : BaseEntity
         WarehouseId = warehouseId;
         SetQuantity(quantity);
         SetUnitPrice(unitPrice);
+        if (unitPurchasePrice > 0m)
+        {
+            SetUnitPurchasePrice(unitPurchasePrice);
+        }
     }
 
     private void SetQuantity(int quantity)
@@ -58,5 +71,12 @@ public class SaleItem : BaseEntity
         if (unitPrice < 0)
             throw new ArgumentException("قیمت واحد فروش نمی‌تواند منفی باشد.", nameof(unitPrice));
         UnitPrice = unitPrice;
+    }
+
+    private void SetUnitPurchasePrice(decimal unitPurchasePrice)
+    {
+        if (unitPurchasePrice < 0)
+            throw new ArgumentException("قیمت واحد خرید نمی‌تواند منفی باشد.", nameof(unitPurchasePrice));
+        UnitPurchasePrice = unitPurchasePrice;
     }
 }
