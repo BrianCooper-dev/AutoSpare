@@ -45,10 +45,12 @@ public class SaleService : ISaleService
             {
                 p.Id, p.Name, p.InternalCode, p.Model,
                 BrandName = p.Brand != null ? p.Brand.Name : null,
+                p.PurchasePrice,   // ← این خط اضافه شد
                 p.SalePrice, p.ImagePath
             })
             .OrderBy(p => p.Name)
             .ToListAsync();
+
 
         return products.Select(p =>
         {
@@ -62,7 +64,7 @@ public class SaleService : ISaleService
                 .FirstOrDefault();
 
             return new SaleProductLookupDto(
-                p.Id, p.Name, p.InternalCode, p.Model, p.BrandName, p.SalePrice, p.ImagePath,
+                p.Id, p.Name, p.InternalCode, p.Model, p.BrandName, p.PurchasePrice, p.SalePrice, p.ImagePath,
                 perWarehouse,
                 defaultWh,
                 perWarehouse.Values.Sum());
@@ -103,123 +105,121 @@ public class SaleService : ISaleService
     }
 
     public async Task<Guid> CreateSaleAsync(CreateSaleDto dto, string? currentUserName = null)
-{
-    ArgumentNullException.ThrowIfNull(dto);
-
-    if (string.IsNullOrWhiteSpace(dto.InvoiceNumber))
-        throw new ArgumentException("شماره فاکتور فروش الزامی است.");
-
-    var customerName = string.IsNullOrWhiteSpace(dto.CustomerName) ? "مشتری نقدی" : dto.CustomerName.Trim();
-
-    var validItems = dto.Items
-        .Where(i => i.ProductId.HasValue && i.ProductId.Value != Guid.Empty)
-        .ToList();
-
-    if (validItems.Count == 0)
-        throw new ArgumentException("حداقل یک قلم کالا برای فاکتور فروش الزامی است.");
-
-    if (validItems.Any(i => !i.WarehouseId.HasValue || i.WarehouseId.Value == Guid.Empty))
-        throw new ArgumentException("برای هر ردیف کالا، انتخاب انبار الزامی است.");
-
-    var strategy = _context.Database.CreateExecutionStrategy();
-
-    return await strategy.ExecuteAsync(async () =>
     {
-        await using var transaction = await _context.Database.BeginTransactionAsync();
+        ArgumentNullException.ThrowIfNull(dto);
 
-        try
+        if (string.IsNullOrWhiteSpace(dto.InvoiceNumber))
+            throw new ArgumentException("شماره فاکتور فروش الزامی است.");
+
+        var customerName = string.IsNullOrWhiteSpace(dto.CustomerName) ? "مشتری نقدی" : dto.CustomerName.Trim();
+
+        var validItems = dto.Items
+            .Where(i => i.ProductId.HasValue && i.ProductId.Value != Guid.Empty)
+            .ToList();
+
+        if (validItems.Count == 0)
+            throw new ArgumentException("حداقل یک قلم کالا برای فاکتور فروش الزامی است.");
+
+        if (validItems.Any(i => !i.WarehouseId.HasValue || i.WarehouseId.Value == Guid.Empty))
+            throw new ArgumentException("برای هر ردیف کالا، انتخاب انبار الزامی است.");
+
+        var strategy = _context.Database.CreateExecutionStrategy();
+
+        return await strategy.ExecuteAsync(async () =>
         {
-            var invoiceTrimmed = dto.InvoiceNumber.Trim();
+            await using var transaction = await _context.Database.BeginTransactionAsync();
 
-            var isDuplicateInvoice = await _context.Sales
-                .AnyAsync(s => s.InvoiceNumber == invoiceTrimmed);
-
-            if (isDuplicateInvoice)
-                throw new InvalidOperationException($"فاکتور فروش با شماره '{invoiceTrimmed}' قبلاً ثبت شده است.");
-
-            var sale = new Sale(
-                invoiceNumber: invoiceTrimmed,
-                customerName: customerName,
-                warehouseId: dto.WarehouseId, // اختیاری - می‌تواند null باشد
-                saleDate: dto.SaleDate.HasValue
-                    ? DateTime.SpecifyKind(dto.SaleDate.Value, DateTimeKind.Utc)
-                    : DateTime.UtcNow,
-                notes: dto.Notes);
-
-            foreach (var item in validItems)
+            try
             {
-                if (item.Quantity <= 0)
-                    throw new ArgumentException("تعداد کالا باید بزرگتر از صفر باشد.");
-                if (item.UnitPrice.HasValue && item.UnitPrice.Value < 0)
-                    throw new ArgumentException("قیمت واحد نمی‌تواند منفی باشد.");
+                var invoiceTrimmed = dto.InvoiceNumber.Trim();
 
-                sale.AddOrUpdateItem(
-                    item.ProductId!.Value,
-                    item.WarehouseId!.Value,
-                    item.Quantity,
-                    item.UnitPrice ?? 0m);
-            }
+                var isDuplicateInvoice = await _context.Sales
+                    .AnyAsync(s => s.InvoiceNumber == invoiceTrimmed);
 
-            await _context.Sales.AddAsync(sale);
+                if (isDuplicateInvoice)
+                    throw new InvalidOperationException($"فاکتور فروش با شماره '{invoiceTrimmed}' قبلاً ثبت شده است.");
 
-            if (dto.FinalizeImmediately)
-            {
-                sale.Complete();
+                var sale = new Sale(
+                    invoiceNumber: invoiceTrimmed,
+                    customerName: customerName,
+                    warehouseId: dto.WarehouseId, // اختیاری - می‌تواند null باشد
+                    saleDate: dto.SaleDate.HasValue
+                        ? DateTime.SpecifyKind(dto.SaleDate.Value, DateTimeKind.Utc)
+                        : DateTime.UtcNow,
+                    notes: dto.Notes);
 
-                var involvedWarehouseIds = sale.Items.Select(i => i.WarehouseId).Distinct().ToList();
-                var productIds = sale.Items.Select(i => i.ProductId).Distinct().ToList();
-
-                var inventories = await _context.Inventories
-                    .Include(i => i.Movements)
-                    .Where(i => involvedWarehouseIds.Contains(i.WarehouseId) && productIds.Contains(i.ProductId))
-                    .ToDictionaryAsync(i => (i.ProductId, i.WarehouseId));
-
-                foreach (var item in sale.Items)
+                foreach (var item in validItems)
                 {
-                    if (!inventories.TryGetValue((item.ProductId, item.WarehouseId), out var inventory))
-                        throw new InvalidOperationException(
-                            "برای یکی از کالاها رکورد موجودی در انبار انتخاب‌شده یافت نشد.");
+                    if (item.Quantity <= 0)
+                        throw new ArgumentException("تعداد کالا باید بزرگتر از صفر باشد.");
+                    if (item.UnitPrice.HasValue && item.UnitPrice.Value < 0)
+                        throw new ArgumentException("قیمت واحد نمی‌تواند منفی باشد.");
 
-                    if (inventory.Quantity < item.Quantity)
+                    sale.AddOrUpdateItem(
+                        item.ProductId!.Value,
+                        item.WarehouseId!.Value,
+                        item.Quantity,
+                        item.UnitPrice ?? 0m);
+                }
+
+                await _context.Sales.AddAsync(sale);
+
+                if (dto.FinalizeImmediately)
+                {
+                    sale.Complete();
+
+                    var involvedWarehouseIds = sale.Items.Select(i => i.WarehouseId).Distinct().ToList();
+                    var productIds = sale.Items.Select(i => i.ProductId).Distinct().ToList();
+
+                    var inventories = await _context.Inventories
+                        .Include(i => i.Movements)
+                        .Where(i => involvedWarehouseIds.Contains(i.WarehouseId) && productIds.Contains(i.ProductId))
+                        .ToDictionaryAsync(i => (i.ProductId, i.WarehouseId));
+
+                    foreach (var item in sale.Items)
                     {
-                        var prod = await _context.Products.FindAsync(item.ProductId);
-                        var prodName = prod != null ? prod.Name : "کالا";
-                        throw new InvalidOperationException(
-                            $"موجودی کالای «{prodName}» در این انبار کافی نیست. موجودی فعلی: {inventory.Quantity}، تعداد درخواستی: {item.Quantity}");
-                    }
+                        if (!inventories.TryGetValue((item.ProductId, item.WarehouseId), out var inventory))
+                            throw new InvalidOperationException(
+                                "برای یکی از کالاها رکورد موجودی در انبار انتخاب‌شده یافت نشد.");
 
-                    inventory.DecreaseQuantity(
-                        amount: item.Quantity,
-                        type: StockMovementType.Sale,
-                        reason: $"فروش طی فاکتور {sale.InvoiceNumber}",
-                        reference: sale.InvoiceNumber,
-                        performedBy: currentUserName ?? "سیستم");
-
-                    foreach (var movement in inventory.Movements)
-                    {
-                        var movementEntry = _context.Entry(movement);
-                        if (movementEntry.State == EntityState.Detached ||
-                            movementEntry.State == EntityState.Modified)
+                        if (inventory.Quantity < item.Quantity)
                         {
-                            movementEntry.State = EntityState.Added;
+                            var prod = await _context.Products.FindAsync(item.ProductId);
+                            var prodName = prod != null ? prod.Name : "کالا";
+                            throw new InvalidOperationException(
+                                $"موجودی کالای «{prodName}» در این انبار کافی نیست. موجودی فعلی: {inventory.Quantity}، تعداد درخواستی: {item.Quantity}");
+                        }
+
+                        inventory.DecreaseQuantity(
+                            amount: item.Quantity,
+                            type: StockMovementType.Sale,
+                            reason: $"فروش طی فاکتور {sale.InvoiceNumber}",
+                            reference: sale.InvoiceNumber,
+                            performedBy: currentUserName ?? "سیستم");
+
+                        foreach (var movement in inventory.Movements)
+                        {
+                            var movementEntry = _context.Entry(movement);
+                            if (movementEntry.State == EntityState.Detached ||
+                                movementEntry.State == EntityState.Modified)
+                            {
+                                movementEntry.State = EntityState.Added;
+                            }
                         }
                     }
                 }
+
+                await _context.SaveChangesAsync();
+                await transaction.CommitAsync();
+
+                return sale.Id;
             }
-
-            await _context.SaveChangesAsync();
-            await transaction.CommitAsync();
-
-            return sale.Id;
-        }
-        catch (Exception ex)
-        {
-            await transaction.RollbackAsync();
-            Console.WriteLine($"[TRANSACTION ROLLBACK] خطا در ثبت فاکتور فروش: {ex.Message}");
-            throw;
-        }
-    });
-}
-
-
+            catch (Exception ex)
+            {
+                await transaction.RollbackAsync();
+                Console.WriteLine($"[TRANSACTION ROLLBACK] خطا در ثبت فاکتور فروش: {ex.Message}");
+                throw;
+            }
+        });
+    }
 }
