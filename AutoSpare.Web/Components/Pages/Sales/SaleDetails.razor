@@ -1,0 +1,223 @@
+@page "/sales/{Id:guid}"
+@using AutoSpare.Application.Sales
+@using AutoSpare.Application.Sales.DTOs
+@inject ISaleService SaleService
+@inject NavigationManager Navigation
+@inject ISnackbar Snackbar
+@inject IDialogService DialogService
+
+<PageTitle>جزئیات فاکتور فروش @(_sale?.InvoiceNumber)</PageTitle>
+
+@if (_isLoading)
+{
+    <div class="d-flex justify-center align-center py-12">
+        <MudProgressCircular Color="Color.Primary" Indeterminate="true" Size="Size.Large"/>
+    </div>
+}
+else if (_sale == null)
+{
+    <MudAlert Severity="Severity.Error" Variant="Variant.Filled" Class="my-4">
+        فاکتور فروش مورد نظر یافت نشد.
+    </MudAlert>
+    <MudButton Variant="Variant.Outlined" Color="Color.Primary" OnClick="@(() => Navigation.NavigateTo("/sales"))">
+        بازگشت به لیست فاکتورها
+    </MudButton>
+}
+else
+{
+    <MudStack Spacing="4">
+        <!-- سربرگ و اکشن‌ها -->
+        <div class="d-flex justify-space-between align-center flex-wrap gap-4">
+            <div>
+                <MudBreadcrumbs Items="_breadcrumbs" Class="pa-0 mb-2"/>
+                <MudText Typo="Typo.h5" Style="font-weight: 700;">
+                    فاکتور فروش: @_sale.InvoiceNumber
+                </MudText>
+            </div>
+            <MudStack Row="true" Spacing="2">
+                <MudButton Variant="Variant.Outlined"
+                           Color="Color.Default"
+                           StartIcon="@Icons.Material.Filled.ArrowBack"
+                           OnClick="@(() => Navigation.NavigateTo("/sales"))">
+                    بازگشت
+                </MudButton>
+            </MudStack>
+        </div>
+
+        <!-- خلاصه اطلاعات فاکتور -->
+        <MudGrid>
+            <MudItem xs="12" md="8">
+                <MudCard Elevation="1">
+                    <MudCardHeader>
+                        <CardHeaderContent>
+                            <MudText Typo="Typo.subtitle1" Style="font-weight: 600;">اطلاعات عمومی فاکتور</MudText>
+                        </CardHeaderContent>
+                    </MudCardHeader>
+                    <MudCardContent>
+                        <MudGrid>
+                            <MudItem xs="12" sm="6" md="4">
+                                <MudText Typo="Typo.caption" Color="Color.Secondary">شماره فاکتور</MudText>
+                                <MudText Typo="Typo.body1" Class="font-weight-bold">@_sale.InvoiceNumber</MudText>
+                            </MudItem>
+                            <MudItem xs="12" sm="6" md="4">
+                                <MudText Typo="Typo.caption" Color="Color.Secondary">نام مشتری</MudText>
+                                <MudText Typo="Typo.body1">@_sale.CustomerName</MudText>
+                            </MudItem>
+                            <MudItem xs="12" sm="6" md="4">
+                                <MudText Typo="Typo.caption" Color="Color.Secondary">تاریخ فروش</MudText>
+                                <MudText
+                                    Typo="Typo.body1">@_sale.SaleDate.ToLocalTime().ToString("yyyy/MM/dd HH:mm")</MudText>
+                            </MudItem>
+                            <MudItem xs="12">
+                                <MudText Typo="Typo.caption" Color="Color.Secondary">یادداشت / توضیحات</MudText>
+                                <MudText
+                                    Typo="Typo.body2">@(string.IsNullOrWhiteSpace(_sale.Notes) ? "—" : _sale.Notes)</MudText>
+                            </MudItem>
+                        </MudGrid>
+                    </MudCardContent>
+                </MudCard>
+            </MudItem>
+
+            <!-- کارت خلاصه مالی و سود -->
+            <MudItem xs="12" md="4">
+                <MudCard Elevation="1" Class="h-100">
+                    <MudCardHeader>
+                        <CardHeaderContent>
+                            <MudText Typo="Typo.subtitle1" Style="font-weight: 600;">خلاصه مالی</MudText>
+                        </CardHeaderContent>
+                    </MudCardHeader>
+                    <MudCardContent>
+                        <MudStack Spacing="3">
+                            <div class="d-flex justify-space-between">
+                                <MudText Color="Color.Secondary">جمع فروش:</MudText>
+                                <MudText Typo="Typo.subtitle1" Style="font-weight: bold;">
+                                    @_sale.TotalAmount.ToString("N0") تومان
+                                </MudText>
+                            </div>
+                            <div class="d-flex justify-space-between">
+                                <MudText Color="Color.Secondary">بهای تمام‌شده (خرید):</MudText>
+                                <MudText Typo="Typo.subtitle1" Color="Color.Default">
+                                    @_sale.TotalCost.ToString("N0") تومان
+                                </MudText>
+                            </div>
+                            <MudDivider/>
+                            <div class="d-flex justify-space-between">
+                                <MudText Color="Color.Secondary">سود ناخالص فاکتور:</MudText>
+                                <MudText Typo="Typo.subtitle1"
+                                         Color="@(_sale.TotalProfit >= 0 ? Color.Success : Color.Error)"
+                                         Style="font-weight: bold;">
+                                    @_sale.TotalProfit.ToString("N0") تومان
+                                </MudText>
+                            </div>
+                        </MudStack>
+                    </MudCardContent>
+                </MudCard>
+            </MudItem>
+        </MudGrid>
+
+        <!-- جدول اقلام فروخته‌شده -->
+        <MudCard Elevation="1">
+            <MudCardHeader>
+                <CardHeaderContent>
+                    <MudText Typo="Typo.subtitle1" Style="font-weight: 600;">اقلام فاکتور (@_sale.Items.Count قلم)
+                    </MudText>
+                </CardHeaderContent>
+            </MudCardHeader>
+            <MudCardContent Class="pa-0">
+                <MudTable Items="_sale.Items" Hover="true" Elevation="0" Dense="false">
+                    <HeaderContent>
+                        <MudTh>تصویر</MudTh>
+                        <MudTh>نام کالا / کد</MudTh>
+                        <MudTh>انبار مبدأ</MudTh>
+                        <MudTh Style="text-align: center;">تعداد</MudTh>
+                        <MudTh Style="text-align: end;">قیمت واحد خرید (Snapshot)</MudTh>
+                        <MudTh Style="text-align: end;">قیمت واحد فروش</MudTh>
+                        <MudTh Style="text-align: end;">مبلغ کل فروش</MudTh>
+                        <MudTh Style="text-align: end;">سود سطر</MudTh>
+                    </HeaderContent>
+                    <RowTemplate>
+                        <MudTd DataLabel="تصویر">
+                            @if (!string.IsNullOrEmpty(context.ImageUrl))
+                            {
+                                <MudAvatar Image="@context.ImageUrl" Size="Size.Medium" Rounded="true"/>
+                            }
+                            else
+                            {
+                                <MudAvatar Color="Color.Surface" Size="Size.Medium" Rounded="true">
+                                    <MudIcon Icon="@Icons.Material.Filled.Inventory2" Color="Color.Default"/>
+                                </MudAvatar>
+                            }
+                        </MudTd>
+                        <MudTd DataLabel="نام کالا">
+                            <MudText Typo="Typo.body2" Style="font-weight: 600;">@context.ProductName</MudText>
+                            @if (!string.IsNullOrEmpty(context.ProductCode))
+                            {
+                                <MudText Typo="Typo.caption" Color="Color.Secondary">کد: @context.ProductCode</MudText>
+                            }
+                        </MudTd>
+                        <MudTd DataLabel="انبار">
+                            <MudChip T="string" Size="Size.Small" Color="Color.Default"
+                                     Variant="Variant.Outlined">@context.WarehouseName</MudChip>
+                        </MudTd>
+                        <MudTd DataLabel="تعداد" Style="text-align: center;">
+                            <MudBadge Content="@context.Quantity" Color="Color.Info" Overlap="false" Class="pa-1"/>
+                        </MudTd>
+                        <MudTd DataLabel="قیمت خرید" Style="text-align: end;">
+                            @context.UnitPurchasePrice.ToString("N0") تومان
+                        </MudTd>
+                        <MudTd DataLabel="قیمت فروش" Style="text-align: end; font-weight: bold;">
+                            @context.UnitPrice.ToString("N0") تومان
+                        </MudTd>
+                        <MudTd DataLabel="مبلغ کل" Style="text-align: end; font-weight: bold;">
+                            @context.TotalPrice.ToString("N0") تومان
+                        </MudTd>
+                        <MudTd DataLabel="سود" Style="text-align: end;">
+                            <MudText Typo="Typo.body2" Color="@(context.Profit >= 0 ? Color.Success : Color.Error)">
+                                @context.Profit.ToString("N0") تومان
+                            </MudText>
+                        </MudTd>
+                    </RowTemplate>
+                </MudTable>
+            </MudCardContent>
+        </MudCard>
+    </MudStack>
+}
+
+@code {
+    [Parameter] public Guid Id { get; set; }
+
+    private SaleDetailsDto? _sale;
+    private bool _isLoading = true;
+
+    private List<BreadcrumbItem> _breadcrumbs = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        _breadcrumbs = new List<BreadcrumbItem>
+        {
+            new("داشبورد", href: "/"),
+            new("فاکتورهای فروش", href: "/sales"),
+            new("جزئیات فاکتور", href: null, disabled: true)
+        };
+
+        await LoadSaleAsync();
+    }
+
+    private async Task LoadSaleAsync()
+    {
+        try
+        {
+            _isLoading = true;
+            _sale = await SaleService.GetSaleDetailsAsync(Id);
+        }
+        catch (Exception ex)
+        {
+            Snackbar.Add($"خطا در بارگذاری اطلاعات فاکتور: {ex.Message}", Severity.Error);
+        }
+        finally
+        {
+            _isLoading = false;
+        }
+    }
+
+}
