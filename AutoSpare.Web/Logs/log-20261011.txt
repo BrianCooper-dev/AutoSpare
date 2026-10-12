@@ -1,0 +1,62 @@
+2026-10-11 14:26:56.692 -07:00 [FTL] AutoSpare Web Application terminated unexpectedly. 
+Microsoft.Extensions.Hosting.HostAbortedException: The host was aborted.
+   at Microsoft.Extensions.Hosting.HostFactoryResolver.HostingListener.ThrowHostAborted()
+   at Microsoft.Extensions.Hosting.HostFactoryResolver.HostingListener.OnNext(KeyValuePair`2 value)
+   at System.Diagnostics.DiagnosticListener.Write(String name, Object value)
+   at Microsoft.Extensions.Hosting.HostBuilder.ResolveHost(IServiceProvider serviceProvider, DiagnosticListener diagnosticListener)
+   at Microsoft.Extensions.Hosting.HostApplicationBuilder.Build()
+   at Microsoft.AspNetCore.Builder.WebApplicationBuilder.Build()
+   at Program.<Main>$(String[] args) in D:\porograming\Rider\AutoSpare\AutoSpare.Web\Program.cs:line 133
+2026-10-11 14:27:43.903 -07:00 [WRN] No store type was specified for the decimal property 'UnitPurchasePrice' on entity type 'SaleItem'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'. 
+2026-10-11 14:27:45.503 -07:00 [INF] Default Admin user created successfully (Username: admin) 
+2026-10-11 14:27:46.157 -07:00 [INF] Storage directories are ready. ImagesPath: D:\porograming\Rider\AutoSpare\AutoSpare.Web\wwwroot\Uploads\Images, BackupPath: D:\AutoSpareBackups 
+2026-10-11 14:27:47.768 -07:00 [ERR] Hosting failed to start 
+System.InvalidOperationException: Unable to configure HTTPS endpoint. No server certificate was specified, and the default developer certificate could not be found or is out of date.
+To generate a developer certificate run 'dotnet dev-certs https'. To trust the certificate (Windows and macOS only) run 'dotnet dev-certs https --trust'.
+For more information on configuring HTTPS see https://go.microsoft.com/fwlink/?linkid=848054.
+   at Microsoft.AspNetCore.Hosting.ListenOptionsHttpsExtensions.UseHttps(ListenOptions listenOptions, Action`1 configureOptions)
+   at Microsoft.AspNetCore.Server.Kestrel.Core.Internal.AddressBinder.AddressesStrategy.BindAsync(AddressBindContext context, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerImpl.BindAsync(CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerImpl.StartAsync[TContext](IHttpApplication`1 application, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Hosting.GenericWebHostService.StartAsync(CancellationToken cancellationToken)
+   at Microsoft.Extensions.Hosting.Internal.Host.<StartAsync>b__14_1(IHostedService service, CancellationToken token)
+   at Microsoft.Extensions.Hosting.Internal.Host.ForeachService[T](IEnumerable`1 services, CancellationToken token, Boolean concurrent, Boolean abortOnFirstException, List`1 exceptions, Func`3 operation)
+2026-10-11 14:27:47.800 -07:00 [FTL] AutoSpare Web Application terminated unexpectedly. 
+System.InvalidOperationException: Unable to configure HTTPS endpoint. No server certificate was specified, and the default developer certificate could not be found or is out of date.
+To generate a developer certificate run 'dotnet dev-certs https'. To trust the certificate (Windows and macOS only) run 'dotnet dev-certs https --trust'.
+For more information on configuring HTTPS see https://go.microsoft.com/fwlink/?linkid=848054.
+   at Microsoft.AspNetCore.Hosting.ListenOptionsHttpsExtensions.UseHttps(ListenOptions listenOptions, Action`1 configureOptions)
+   at Microsoft.AspNetCore.Server.Kestrel.Core.Internal.AddressBinder.AddressesStrategy.BindAsync(AddressBindContext context, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerImpl.BindAsync(CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerImpl.StartAsync[TContext](IHttpApplication`1 application, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Hosting.GenericWebHostService.StartAsync(CancellationToken cancellationToken)
+   at Microsoft.Extensions.Hosting.Internal.Host.<StartAsync>b__14_1(IHostedService service, CancellationToken token)
+   at Microsoft.Extensions.Hosting.Internal.Host.ForeachService[T](IEnumerable`1 services, CancellationToken token, Boolean concurrent, Boolean abortOnFirstException, List`1 exceptions, Func`3 operation)
+   at Microsoft.Extensions.Hosting.Internal.Host.StartAsync(CancellationToken cancellationToken)
+   at Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.RunAsync(IHost host, CancellationToken token)
+   at Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.RunAsync(IHost host, CancellationToken token)
+   at Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.Run(IHost host)
+   at Program.<Main>$(String[] args) in D:\porograming\Rider\AutoSpare\AutoSpare.Web\Program.cs:line 296
+2026-10-11 14:40:19.402 -07:00 [WRN] No store type was specified for the decimal property 'UnitPurchasePrice' on entity type 'SaleItem'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'. 
+2026-10-11 14:40:20.306 -07:00 [INF] Storage directories are ready. ImagesPath: D:\porograming\Rider\AutoSpare\AutoSpare.Web\wwwroot\Uploads\Images, BackupPath: D:\AutoSpareBackups 
+2026-10-11 14:40:20.647 -07:00 [INF] Now listening on: http://localhost:5084 
+2026-10-11 14:40:20.653 -07:00 [INF] Application started. Press Ctrl+C to shut down. 
+2026-10-11 14:40:20.655 -07:00 [INF] Hosting environment: Development 
+2026-10-11 14:40:20.655 -07:00 [INF] Content root path: D:\porograming\Rider\AutoSpare\AutoSpare.Web 
+2026-10-11 14:40:31.988 -07:00 [WRN] Failed to determine the https port for redirect. 
+2026-10-11 14:40:32.007 -07:00 [INF] HTTP GET / responded 302 in 13.8791 ms 
+2026-10-11 14:40:32.320 -07:00 [INF] HTTP GET /login responded 200 in 298.9533 ms 
+2026-10-11 14:40:32.355 -07:00 [INF] HTTP GET /app.css responded 200 in 14.6441 ms 
+2026-10-11 14:40:32.382 -07:00 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 21.0876 ms 
+2026-10-11 14:40:32.421 -07:00 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 80.7847 ms 
+2026-10-11 14:40:32.574 -07:00 [INF] HTTP GET /_framework/blazor.web.js responded 200 in 233.4079 ms 
+2026-10-11 14:40:33.649 -07:00 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 200 in 2.2429 ms 
+2026-10-11 14:40:33.649 -07:00 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 200 in 2.2426 ms 
+2026-10-11 14:40:33.669 -07:00 [INF] HTTP GET /_blazor/initializers responded 200 in 8.2319 ms 
+2026-10-11 14:40:33.688 -07:00 [INF] HTTP POST /_blazor/negotiate responded 200 in 5.1818 ms 
+2026-10-11 14:40:34.280 -07:00 [INF] HTTP GET /favicon.ico responded 404 in 0.4910 ms 
+2026-10-11 14:40:34.305 -07:00 [INF] HTTP GET /not-found responded 302 in 1.9654 ms 
+2026-10-11 14:40:34.326 -07:00 [INF] HTTP GET /login responded 200 in 17.1320 ms 
+2026-10-11 14:40:43.126 -07:00 [INF] HTTP GET /_blazor responded 101 in 9432.2240 ms 
+2026-10-11 14:40:43.138 -07:00 [INF] HTTP POST /_blazor/disconnect responded 200 in 23.5381 ms 
+2026-10-11 14:41:01.322 -07:00 [INF] Application is shutting down... 
