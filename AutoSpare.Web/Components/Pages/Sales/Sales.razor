@@ -1,0 +1,319 @@
+@page "/sales"
+
+@using System.Globalization
+@using AutoSpare.Application.Sales
+@using AutoSpare.Application.Sales.DTOs
+@using AutoSpare.Domain.Sales.Enums
+
+@inject ISaleService SaleService
+@inject ISnackbar Snackbar
+@inject NavigationManager NavigationManager
+
+<PageTitle>مدیریت فاکتورهای فروش</PageTitle>
+
+<MudContainer MaxWidth="MaxWidth.ExtraLarge" Class="mt-4 mb-8">
+    <MudBreadcrumbs Items="_breadcrumbItems" Class="pa-0 mb-4" />
+
+    <!-- هدر صفحه -->
+    <div class="d-flex flex-column flex-sm-row justify-space-between align-start align-sm-center gap-3 mb-4">
+        <div>
+            <MudText Typo="Typo.h5" Class="fw-bold">
+                <MudIcon Icon="@Icons.Material.Filled.ReceiptLong" Color="Color.Primary" Class="me-2" Size="Size.Large" />
+                فهرست فاکتورهای فروش
+            </MudText>
+            <MudText Typo="Typo.body2" Color="Color.Secondary">مشاهده، فیلتر و مدیریت فاکتورهای فروش ثبت‌شده در سیستم</MudText>
+        </div>
+        <MudButton Variant="Variant.Filled"
+                   Color="Color.Primary"
+                   StartIcon="@Icons.Material.Filled.AddShoppingCart"
+                   OnClick="@(() => NavigationManager.NavigateTo("/sales/create"))">
+            ثبت فاکتور فروش جدید
+        </MudButton>
+    </div>
+
+    <!-- کارت‌های خلاصه وضعیت -->
+    <MudGrid Spacing="3" Class="mb-4">
+        <MudItem xs="12" sm="6" md="4">
+            <MudPaper Elevation="2" Class="pa-4 rounded-lg d-flex align-center justify-space-between">
+                <div>
+                    <MudText Typo="Typo.caption" Color="Color.Secondary">کل فاکتورها</MudText>
+                    <MudText Typo="Typo.h5" Class="fw-bold">@_sales.Count</MudText>
+                </div>
+                <MudAvatar Color="Color.Primary" Variant="Variant.Filled" Size="Size.Medium">
+                    <MudIcon Icon="@Icons.Material.Filled.Description" />
+                </MudAvatar>
+            </MudPaper>
+        </MudItem>
+        <MudItem xs="12" sm="6" md="4">
+            <MudPaper Elevation="2" Class="pa-4 rounded-lg d-flex align-center justify-space-between">
+                <div>
+                    <MudText Typo="Typo.caption" Color="Color.Secondary">فاکتورهای نهایی‌شده</MudText>
+                    <MudText Typo="Typo.h5" Class="fw-bold" Color="Color.Success">
+                        @_sales.Count(s => s.Status == SaleStatus.Completed)
+                    </MudText>
+                </div>
+                <MudAvatar Color="Color.Success" Variant="Variant.Filled" Size="Size.Medium">
+                    <MudIcon Icon="@Icons.Material.Filled.CheckCircle" />
+                </MudAvatar>
+            </MudPaper>
+        </MudItem>
+        <MudItem xs="12" sm="12" md="4">
+            <MudPaper Elevation="2" Class="pa-4 rounded-lg d-flex align-center justify-space-between">
+                <div>
+                    <MudText Typo="Typo.caption" Color="Color.Secondary">مجموع کل فروش</MudText>
+                    <MudText Typo="Typo.h6" Class="fw-bold" Color="Color.Info">
+                        @_sales.Sum(s => s.TotalAmount).ToString("N0") تومان
+                    </MudText>
+                </div>
+                <MudAvatar Color="Color.Info" Variant="Variant.Filled" Size="Size.Medium">
+                    <MudIcon Icon="@Icons.Material.Filled.Payments" />
+                </MudAvatar>
+            </MudPaper>
+        </MudItem>
+    </MudGrid>
+
+    <!-- پنل فیلترها و جستجو -->
+    <MudPaper Elevation="2" Class="pa-4 rounded-lg mb-4">
+        <MudGrid Spacing="3" Class="align-center">
+            <!-- جستجوی متنی -->
+            <MudItem xs="12" sm="6" md="3">
+                <MudTextField @bind-Value="_searchQuery"
+                              Placeholder="جستجو (شماره فاکتور، نام مشتری، انبار)..."
+                              Adornment="Adornment.Start"
+                              AdornmentIcon="@Icons.Material.Filled.Search"
+                              IconSize="Size.Small"
+                              Clearable="true"
+                              Variant="Variant.Outlined"
+                              Margin="Margin.Dense"
+                              Immediate="true" />
+            </MudItem>
+
+            <!-- فیلتر مشتری -->
+            <MudItem xs="12" sm="6" md="3">
+                <MudSelect T="string"
+                           @bind-Value="_selectedCustomerName"
+                           Label="مشتری"
+                           Variant="Variant.Outlined"
+                           Margin="Margin.Dense"
+                           Clearable="true"
+                           AnchorOrigin="Origin.BottomCenter">
+                    <MudSelectItem T="string" Value="@((string?)null)">همه مشتریان</MudSelectItem>
+                    @foreach (var customer in _customerFilterList)
+                    {
+                        <MudSelectItem T="string" Value="@customer">@customer</MudSelectItem>
+                    }
+                </MudSelect>
+            </MudItem>
+
+            <!-- فیلتر وضعیت -->
+            <MudItem xs="12" sm="6" md="2">
+                <MudSelect T="SaleStatus?"
+                           @bind-Value="_selectedStatus"
+                           Label="وضعیت"
+                           Variant="Variant.Outlined"
+                           Margin="Margin.Dense"
+                           Clearable="true"
+                           AnchorOrigin="Origin.BottomCenter">
+                    <MudSelectItem T="SaleStatus?" Value="@((SaleStatus?)null)">همه وضعیت‌ها</MudSelectItem>
+                    <MudSelectItem T="SaleStatus?" Value="SaleStatus.Completed">نهایی‌شده</MudSelectItem>
+                    <MudSelectItem T="SaleStatus?" Value="SaleStatus.Draft">پیش‌نویس</MudSelectItem>
+                    <MudSelectItem T="SaleStatus?" Value="SaleStatus.Cancelled">لغو شده</MudSelectItem>
+                </MudSelect>
+            </MudItem>
+
+            <!-- فیلتر بازه تاریخ -->
+            <MudItem xs="6" sm="3" md="2">
+                <MudDatePicker Label="از تاریخ"
+                               @bind-Date="_fromDate"
+                               Variant="Variant.Outlined"
+                               Margin="Margin.Dense"
+                               Clearable="true" />
+            </MudItem>
+            <MudItem xs="6" sm="3" md="2">
+                <MudDatePicker Label="تا تاریخ"
+                               @bind-Date="_toDate"
+                               Variant="Variant.Outlined"
+                               Margin="Margin.Dense"
+                               Clearable="true" />
+            </MudItem>
+        </MudGrid>
+    </MudPaper>
+
+    <!-- جدول نمایش فاکتورها -->
+    <MudTable Items="FilteredSales"
+              Dense="true"
+              Hover="true"
+              Striped="true"
+              Loading="@_isLoading"
+              LoadingProgressColor="Color.Primary"
+              Elevation="2"
+              Class="rounded-lg">
+        <HeaderContent>
+            <MudTh Style="width: 50px;">ردیف</MudTh>
+            <MudTh>شماره فاکتور</MudTh>
+            <MudTh>نام مشتری</MudTh>
+            <MudTh>انبار</MudTh>
+            <MudTh>تاریخ فاکتور</MudTh>
+            <MudTh Style="text-align: center;">اقلام</MudTh>
+            <MudTh>مبلغ کل (تومان)</MudTh>
+            <MudTh Style="text-align: center;">وضعیت</MudTh>
+            <MudTh Style="text-align: center; width: 100px;">عملیات</MudTh>
+        </HeaderContent>
+
+        <RowTemplate Context="sale">
+            <MudTd>@(FilteredSales.IndexOf(sale) + 1)</MudTd>
+            <MudTd>
+                <MudText Typo="Typo.body2" Class="fw-bold">@sale.InvoiceNumber</MudText>
+            </MudTd>
+            <MudTd>@sale.CustomerName</MudTd>
+            <MudTd>
+                <MudChip T="string" Size="Size.Small" Variant="Variant.Text" Color="Color.Default">
+                    @(string.IsNullOrWhiteSpace(sale.WarehouseName) ? "نامشخص / ترکیبی" : sale.WarehouseName)
+                </MudChip>
+            </MudTd>
+            <MudTd>@ToPersianDate(sale.SaleDate)</MudTd>
+            <MudTd Style="text-align: center;">
+                <MudBadge Content="@sale.ItemsCount" Color="Color.Primary" Overlap="false" Class="mx-2" />
+            </MudTd>
+            <MudTd>
+                <MudText Typo="Typo.body2" Class="fw-bold" Color="Color.Success">
+                    @sale.TotalAmount.ToString("N0")
+                </MudText>
+            </MudTd>
+            <MudTd Style="text-align: center;">
+                @switch (sale.Status)
+                {
+                    case SaleStatus.Completed:
+                        <MudChip T="string" Color="Color.Success" Size="Size.Small" Variant="Variant.Filled">نهایی‌شده</MudChip>
+                        break;
+                    case SaleStatus.Draft:
+                        <MudChip T="string" Color="Color.Warning" Size="Size.Small" Variant="Variant.Filled">پیش‌نویس</MudChip>
+                        break;
+                    case SaleStatus.Cancelled:
+                        <MudChip T="string" Color="Color.Error" Size="Size.Small" Variant="Variant.Filled">لغو شده</MudChip>
+                        break;
+                }
+            </MudTd>
+            <MudTd Style="text-align: center;">
+                <MudTooltip Text="مشاهده جزئیات">
+                    <MudIconButton Icon="@Icons.Material.Filled.Visibility"
+                                   Color="Color.Primary"
+                                   Size="Size.Small"
+                                   OnClick="@(() => NavigationManager.NavigateTo($"/sales/{sale.Id}"))" />
+                </MudTooltip>
+            </MudTd>
+        </RowTemplate>
+
+        <NoRecordsContent>
+            <div class="d-flex flex-column align-center justify-center pa-6">
+                <MudIcon Icon="@Icons.Material.Filled.HourglassEmpty" Size="Size.Large" Color="Color.Secondary" Class="mb-2" />
+                <MudText Typo="Typo.subtitle1" Color="Color.Secondary">هیچ فاکتور فروشی با شرایط مشخص‌شده یافت نشد.</MudText>
+            </div>
+        </NoRecordsContent>
+
+        <PagerContent>
+            <MudTablePager RowsPerPageString="تعداد در صفحه:"
+                           InfoFormat="{first_item}-{last_item} از {all_items}"
+                           PageSizeOptions="new int[] { 10, 25, 50, 100 }" />
+        </PagerContent>
+    </MudTable>
+</MudContainer>
+
+@code {
+    private List<SaleListDto> _sales = new();
+    private List<string> _customerFilterList = new();
+
+    private bool _isLoading = true;
+    private string? _searchQuery;
+    private string? _selectedCustomerName;
+    private SaleStatus? _selectedStatus;
+    private DateTime? _fromDate;
+    private DateTime? _toDate;
+
+    private readonly PersianCalendar _persianCalendar = new();
+
+    private List<BreadcrumbItem> _breadcrumbItems = new()
+    {
+        new BreadcrumbItem("داشبورد", href: "/"),
+        new BreadcrumbItem("مدیریت فروش‌ها", href: null, disabled: true)
+    };
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadSalesAsync();
+    }
+
+    private async Task LoadSalesAsync()
+    {
+        try
+        {
+            _isLoading = true;
+            _sales = await SaleService.GetSalesAsync();
+            _customerFilterList = _sales
+                .Select(s => s.CustomerName)
+                .Where(c => !string.IsNullOrWhiteSpace(c))
+                .Distinct()
+                .OrderBy(c => c)
+                .ToList();
+        }
+        catch (Exception ex)
+        {
+            Snackbar.Add($"خطا در دریافت لیست فاکتورهای فروش: {ex.Message}", Severity.Error);
+        }
+        finally
+        {
+            _isLoading = false;
+        }
+    }
+
+    private List<SaleListDto> FilteredSales
+    {
+        get
+        {
+            var result = _sales.AsEnumerable();
+
+            // فیلتر جستجوی متنی
+            if (!string.IsNullOrWhiteSpace(_searchQuery))
+            {
+                var query = _searchQuery.Trim();
+                result = result.Where(s =>
+                    (s.InvoiceNumber != null && s.InvoiceNumber.Contains(query, StringComparison.OrdinalIgnoreCase)) ||
+                    (s.CustomerName != null && s.CustomerName.Contains(query, StringComparison.OrdinalIgnoreCase)) ||
+                    (s.WarehouseName != null && s.WarehouseName.Contains(query, StringComparison.OrdinalIgnoreCase))
+                );
+            }
+
+            // فیلتر نام مشتری
+            if (!string.IsNullOrWhiteSpace(_selectedCustomerName))
+            {
+                result = result.Where(s => s.CustomerName == _selectedCustomerName);
+            }
+
+            // فیلتر وضعیت
+            if (_selectedStatus.HasValue)
+            {
+                result = result.Where(s => s.Status == _selectedStatus.Value);
+            }
+
+            // فیلتر تاریخ از
+            if (_fromDate.HasValue)
+            {
+                result = result.Where(s => s.SaleDate.Date >= _fromDate.Value.Date);
+            }
+
+            // فیلتر تاریخ تا
+            if (_toDate.HasValue)
+            {
+                result = result.Where(s => s.SaleDate.Date <= _toDate.Value.Date);
+            }
+
+            return result.OrderByDescending(s => s.SaleDate).ToList();
+        }
+    }
+
+    private string ToPersianDate(DateTime dateTime)
+    {
+        if (dateTime == default) return "-";
+        return $"{_persianCalendar.GetYear(dateTime):0000}/{_persianCalendar.GetMonth(dateTime):00}/{_persianCalendar.GetDayOfMonth(dateTime):00}";
+    }
+}
