@@ -234,7 +234,6 @@ public class SaleService : ISaleService
         });
     }
 
-
     public async Task<SaleDetailsDto?> GetSaleDetailsAsync(Guid saleId)
     {
         return await _context.Sales
@@ -248,6 +247,8 @@ public class SaleService : ISaleService
                 SaleDate = s.SaleDate,
                 Status = s.Status.ToString(),
                 Notes = s.Notes,
+                CancelledAt = s.CancelledAt,
+                CancellationReason = s.CancellationReason,
                 TotalAmount = s.Items.Sum(i => i.Quantity * i.UnitPrice),
                 TotalCost = s.Items.Sum(i => i.Quantity * i.UnitPurchasePrice),
                 Items = s.Items.Select(i => new SaleDetailsItemDto
@@ -387,7 +388,7 @@ public class SaleService : ISaleService
         });
     }
 
-    public async Task CancelSaleAsync(Guid saleId)
+    public async Task CancelSaleAsync(Guid saleId, string? reason = null)
     {
         var strategy = _context.Database.CreateExecutionStrategy();
 
@@ -395,7 +396,6 @@ public class SaleService : ISaleService
         {
             await using var transaction = await _context.Database.BeginTransactionAsync();
 
-            // 1. بارگذاری فاکتور و اقلام
             var sale = await _context.Sales
                 .Include(s => s.Items)
                 .FirstOrDefaultAsync(s => s.Id == saleId);
@@ -406,13 +406,13 @@ public class SaleService : ISaleService
             if (sale.Status == SaleStatus.Cancelled)
                 throw new InvalidOperationException("این فاکتور قبلاً باطل شده است.");
 
-            // 2. بازگرداندن موجودی اگر نهایی شده باشد
+            var effectiveReason = string.IsNullOrWhiteSpace(reason) ? "بدون درج دلیل" : reason.Trim();
+
             if (sale.Status == SaleStatus.Completed)
             {
                 var productIds = sale.Items.Select(i => i.ProductId).Distinct().ToList();
                 var warehouseIds = sale.Items.Select(i => i.WarehouseId).Distinct().ToList();
 
-                // << اصلاح کلیدی: شامل کردن Movements برای جلوگیری از خطای Concurrency >>
                 var inventories = await _context.Inventories
                     .Include(i => i.Movements)
                     .Where(i => productIds.Contains(i.ProductId) && warehouseIds.Contains(i.WarehouseId))
@@ -426,16 +426,14 @@ public class SaleService : ISaleService
                     if (inventory == null)
                         throw new InvalidOperationException($"رکورد انبار برای کالا یافت نشد.");
 
-                    // اعمال افزایش موجودی و ثبت تاریخچه
                     inventory.IncreaseQuantity(
                         amount: item.Quantity,
                         type: StockMovementType.CustomerReturn,
-                        reason: $"ابطال فاکتور فروش شماره {sale.InvoiceNumber}",
+                        reason: $"ابطال فاکتور فروش {sale.InvoiceNumber} - دلیل: {effectiveReason}",
                         reference: sale.InvoiceNumber,
                         performedBy: "سیستم"
                     );
 
-                    // اطمینان از اینکه حرکات جدید انبار به عنوان Added درج شوند
                     foreach (var movement in inventory.Movements)
                     {
                         var movementEntry = _context.Entry(movement);
@@ -450,11 +448,10 @@ public class SaleService : ISaleService
                 }
             }
 
-            // 3. لغو فاکتور
-            sale.Cancel();
+            // ثبت لغو به همراه دلیل و زمان
+            sale.Cancel(effectiveReason);
             _context.Entry(sale).State = EntityState.Modified;
 
-            // 4. ثبت نهایی در دیتابیس
             await _context.SaveChangesAsync();
             await transaction.CommitAsync();
         });

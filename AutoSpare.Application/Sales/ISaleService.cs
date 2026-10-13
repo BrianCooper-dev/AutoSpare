@@ -16,5 +16,5 @@ public interface ISaleService
     Task<SaleDetailsDto?> GetSaleDetailsAsync(Guid saleId);
     Task<Guid> CreateSaleAsync(CreateSaleDto dto, string? currentUserName = null);
     Task<bool> FinalizeSaleAsync(Guid saleId, CancellationToken cancellationToken = default);
-    Task CancelSaleAsync(Guid saleId);
+    Task CancelSaleAsync(Guid saleId, string? reason = null);
 }
