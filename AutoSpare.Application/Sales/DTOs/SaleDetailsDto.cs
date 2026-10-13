@@ -11,7 +11,8 @@ public class SaleDetailsDto
     public decimal TotalAmount { get; set; }
     public decimal TotalCost { get; set; }
     public decimal TotalProfit => TotalAmount - TotalCost;
-
+    public DateTime? CancelledAt { get; set; }
+    public string? CancellationReason { get; set; }
     public List<SaleDetailsItemDto> Items { get; set; } = new();
 }
 

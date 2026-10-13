@@ -21,6 +21,8 @@ public class Sale : BaseEntity
     public string? Notes { private set; get; }
     public IReadOnlyCollection<SaleItem> Items => _items.AsReadOnly();
     public decimal TotalAmount => _items.Sum(item => item.TotalPrice);
+    public DateTime? CancelledAt { get; private set; }
+    public string? CancellationReason { get; private set; }
 
     // سازنده مخصوص EF Core
     private Sale() { }
@@ -73,14 +75,15 @@ public class Sale : BaseEntity
         Status = SaleStatus.Completed;
     }
 
-    public void Cancel()
+    public void Cancel(string? reason = null)
     {
         if (Status == SaleStatus.Cancelled)
-            throw new InvalidOperationException("این فاکتور قبلاً لغو/ابطال شده است.");
+            throw new InvalidOperationException("این فاکتور قبلاً باطل شده است.");
 
         Status = SaleStatus.Cancelled;
+        CancelledAt = DateTime.UtcNow;
+        CancellationReason = string.IsNullOrWhiteSpace(reason) ? "بدون درج دلیل" : reason.Trim();
     }
-
 
     public void UpdateHeader(string invoiceNumber, string customerName, Guid? warehouseId, DateTime saleDate,
         string? notes)

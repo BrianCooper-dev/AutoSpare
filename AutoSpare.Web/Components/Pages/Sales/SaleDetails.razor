@@ -17,12 +17,12 @@
 <PageTitle>جزئیات فاکتور فروش @(_sale?.InvoiceNumber)</PageTitle>
 
 <MudContainer MaxWidth="MaxWidth.ExtraLarge" Class="mt-4 mb-8">
-    <MudBreadcrumbs Items="_breadcrumbItems" Class="pa-0 mb-4" />
+    <MudBreadcrumbs Items="_breadcrumbItems" Class="pa-0 mb-4"/>
 
     @if (_isLoading)
     {
         <MudPaper Class="pa-8 d-flex justify-center align-center" Elevation="1">
-            <MudProgressCircular Color="Color.Primary" Indeterminate="true" Size="Size.Large" />
+            <MudProgressCircular Color="Color.Primary" Indeterminate="true" Size="Size.Large"/>
         </MudPaper>
     }
     else if (_sale == null)
@@ -44,15 +44,18 @@
                 </MudText>
                 @if (_sale.Status == nameof(SaleStatus.Draft))
                 {
-                    <MudChip T="string" Color="Color.Warning" Size="Size.Small" Variant="Variant.Filled">پیش‌نویس</MudChip>
+                    <MudChip T="string" Color="Color.Warning" Size="Size.Small" Variant="Variant.Filled">پیش‌نویس
+                    </MudChip>
                 }
                 else if (_sale.Status == nameof(SaleStatus.Completed))
                 {
-                    <MudChip T="string" Color="Color.Success" Size="Size.Small" Variant="Variant.Filled">نهایی شده</MudChip>
+                    <MudChip T="string" Color="Color.Success" Size="Size.Small" Variant="Variant.Filled">نهایی شده
+                    </MudChip>
                 }
                 else if (_sale.Status == nameof(SaleStatus.Cancelled))
                 {
-                    <MudChip T="string" Color="Color.Error" Size="Size.Small" Variant="Variant.Filled">لغو شده</MudChip>
+                    <MudChip T="string" Color="Color.Error" Size="Size.Small" Variant="Variant.Filled">ابطال شده
+                    </MudChip>
                 }
             </div>
 
@@ -69,7 +72,7 @@
                     </MudButton>
                 }
 
-                @* دکمه ابطال هم برای پیش‌نویس و هم برای نهایی‌شده فعال است *@
+                @* دکمه ابطال هم برای پیش‌نویس و هم برای نهایی‌شده *@
                 @if (_sale.Status != nameof(SaleStatus.Cancelled))
                 {
                     <MudButton Variant="Variant.Outlined"
@@ -77,7 +80,7 @@
                                StartIcon="@Icons.Material.Filled.Cancel"
                                OnClick="CancelSaleAsync"
                                Disabled="_processing">
-                        @(_sale.Status == nameof(SaleStatus.Completed) ? "ابطال فاکتور" : "لغو فاکتور")
+                        @(_sale.Status == nameof(SaleStatus.Completed) ? "ابطال فاکتور" : "لغو پیش‌نویس")
                     </MudButton>
                 }
 
@@ -90,6 +93,30 @@
             </div>
         </div>
 
+        @* نمایش بنر اطلاعات ابطال در صورت لغو بودن فاکتور *@
+        @if (_sale.Status == nameof(SaleStatus.Cancelled))
+        {
+            <MudAlert Severity="Severity.Error" Variant="Variant.Outlined" Class="mb-4 rounded-lg">
+                <div class="d-flex flex-column gap-1">
+                    <div class="d-flex align-center gap-2">
+                        <MudText Typo="Typo.subtitle2" Class="fw-bold">
+                            این فاکتور باطل شده است.
+                        </MudText>
+                        @if (_sale.CancelledAt.HasValue)
+                        {
+                            <MudText Typo="Typo.caption" Color="Color.Secondary">
+                                (زمان ثبت ابطال: @_sale.CancelledAt.Value.ToLocalTime().ToString("yyyy/MM/dd HH:mm"))
+                            </MudText>
+                        }
+                    </div>
+                    <MudText Typo="Typo.body2">
+                        <strong>دلیل
+                            ابطال:</strong> @(!string.IsNullOrWhiteSpace(_sale.CancellationReason) ? _sale.CancellationReason : "دلیلی ثبت نشده است.")
+                    </MudText>
+                </div>
+            </MudAlert>
+        }
+
         <!-- کارت‌های اطلاعات کلیدی -->
         <MudGrid Spacing="3" Class="mb-4">
             <MudItem xs="12" sm="6" md="3">
@@ -99,7 +126,7 @@
                         <MudText Typo="Typo.subtitle1" Class="fw-bold">@_sale.CustomerName</MudText>
                     </div>
                     <MudAvatar Color="Color.Primary" Variant="Variant.Text" Size="Size.Medium">
-                        <MudIcon Icon="@Icons.Material.Filled.Person" />
+                        <MudIcon Icon="@Icons.Material.Filled.Person"/>
                     </MudAvatar>
                 </MudPaper>
             </MudItem>
@@ -111,7 +138,7 @@
                         <MudText Typo="Typo.subtitle1" Class="fw-bold">@_sale.Items.Count قلم</MudText>
                     </div>
                     <MudAvatar Color="Color.Info" Variant="Variant.Text" Size="Size.Medium">
-                        <MudIcon Icon="@Icons.Material.Filled.Category" />
+                        <MudIcon Icon="@Icons.Material.Filled.Category"/>
                     </MudAvatar>
                 </MudPaper>
             </MudItem>
@@ -125,7 +152,7 @@
                         </MudText>
                     </div>
                     <MudAvatar Color="Color.Success" Variant="Variant.Text" Size="Size.Medium">
-                        <MudIcon Icon="@Icons.Material.Filled.Payments" />
+                        <MudIcon Icon="@Icons.Material.Filled.Payments"/>
                     </MudAvatar>
                 </MudPaper>
             </MudItem>
@@ -134,12 +161,14 @@
                 <MudPaper Elevation="2" Class="pa-4 rounded-lg d-flex align-center justify-space-between">
                     <div>
                         <MudText Typo="Typo.caption" Color="Color.Secondary">سود ناخالص فاکتور</MudText>
-                        <MudText Typo="Typo.subtitle1" Class="fw-bold" Color="@(_sale.TotalProfit >= 0 ? Color.Success : Color.Error)">
+                        <MudText Typo="Typo.subtitle1" Class="fw-bold"
+                                 Color="@(_sale.TotalProfit >= 0 ? Color.Success : Color.Error)">
                             @_sale.TotalProfit.ToString("N0") تومان
                         </MudText>
                     </div>
-                    <MudAvatar Color="@(_sale.TotalProfit >= 0 ? Color.Success : Color.Error)" Variant="Variant.Text" Size="Size.Medium">
-                        <MudIcon Icon="@Icons.Material.Filled.TrendingUp" />
+                    <MudAvatar Color="@(_sale.TotalProfit >= 0 ? Color.Success : Color.Error)" Variant="Variant.Text"
+                               Size="Size.Medium">
+                        <MudIcon Icon="@Icons.Material.Filled.TrendingUp"/>
                     </MudAvatar>
                 </MudPaper>
             </MudItem>
@@ -150,7 +179,8 @@
             <MudCardHeader>
                 <CardHeaderContent>
                     <MudText Typo="Typo.h6" Class="fw-bold">
-                        <MudIcon Icon="@Icons.Material.Filled.ListAlt" Color="Color.Primary" Class="me-2" Size="Size.Medium" />
+                        <MudIcon Icon="@Icons.Material.Filled.ListAlt" Color="Color.Primary" Class="me-2"
+                                 Size="Size.Medium"/>
                         ردیف‌های کالای فاکتور
                     </MudText>
                 </CardHeaderContent>
@@ -170,14 +200,16 @@
                         <MudTd>@(_sale.Items.IndexOf(item) + 1)</MudTd>
                         <MudTd>
                             <div class="d-flex align-center gap-2">
-                                <MudAvatar Size="Size.Medium" Rounded="true" Variant="Variant.Outlined" Color="Color.Surface">
+                                <MudAvatar Size="Size.Medium" Rounded="true" Variant="Variant.Outlined"
+                                           Color="Color.Surface">
                                     @if (!string.IsNullOrWhiteSpace(item.ImageUrl))
                                     {
-                                        <MudImage Src="@item.ImageUrl" Alt="@item.ProductName" />
+                                        <MudImage Src="@item.ImageUrl" Alt="@item.ProductName"/>
                                     }
                                     else
                                     {
-                                        <MudIcon Icon="@Icons.Material.Filled.PrecisionManufacturing" Size="Size.Small" Color="Color.Primary" />
+                                        <MudIcon Icon="@Icons.Material.Filled.PrecisionManufacturing" Size="Size.Small"
+                                                 Color="Color.Primary"/>
                                     }
                                 </MudAvatar>
                                 <MudText Typo="Typo.body2" Class="fw-bold">@item.ProductName</MudText>
@@ -187,14 +219,16 @@
                             <MudChip T="string" Size="Size.Small" Variant="Variant.Outlined">@item.ProductCode</MudChip>
                         </MudTd>
                         <MudTd Style="text-align: center;">
-                            <MudBadge Content="@item.Quantity" Color="Color.Primary" Overlap="false" />
+                            <MudBadge Content="@item.Quantity" Color="Color.Primary" Overlap="false"/>
                         </MudTd>
                         <MudTd>@item.UnitPrice.ToString("N0")</MudTd>
                         <MudTd>
-                            <MudText Typo="Typo.body2" Class="fw-bold" Color="Color.Success">@item.TotalPrice.ToString("N0")</MudText>
+                            <MudText Typo="Typo.body2" Class="fw-bold"
+                                     Color="Color.Success">@item.TotalPrice.ToString("N0")</MudText>
                         </MudTd>
                         <MudTd Style="text-align: end;">
-                            <MudText Typo="Typo.body2" Color="@(item.Profit >= 0 ? Color.Success : Color.Error)">@item.Profit.ToString("N0")</MudText>
+                            <MudText Typo="Typo.body2"
+                                     Color="@(item.Profit >= 0 ? Color.Success : Color.Error)">@item.Profit.ToString("N0")</MudText>
                         </MudTd>
                     </RowTemplate>
                     <FooterContent>
@@ -218,12 +252,56 @@
     }
 </MudContainer>
 
+@* دیالوگ دریافت دلیل ابطال *@
+<MudDialog @bind-Visible="_isCancelDialogOpen" Options="_dialogOptions">
+    <TitleContent>
+        <MudText Typo="Typo.h6" Color="Color.Error">
+            <MudIcon Icon="@Icons.Material.Filled.WarningAmber" Class="me-2"/>
+            @(_sale?.Status == nameof(SaleStatus.Completed) ? "تأیید ابطال فاکتور فروش" : "تأیید لغو پیش‌نویس")
+        </MudText>
+    </TitleContent>
+    <DialogContent>
+        <MudText Typo="Typo.body2" Class="mb-3">
+            @if (_sale?.Status == nameof(SaleStatus.Completed))
+            {
+                <span>این فاکتور نهایی شده است. با ابطال آن، تمام اقلام به موجودی انبار بازگردانده می‌شوند. لطفاً دلیل ابطال را وارد کنید:</span>
+            }
+            else
+            {
+                <span>آیا از لغو این پیش‌نویس اطمینان دارید؟ لطفاً دلیل لغو را وارد کنید:</span>
+            }
+        </MudText>
+        <MudTextField @bind-Value="_cancelReason"
+                      Label="دلیل ابطال / لغو"
+                      Placeholder="مثال: انصراف مشتری، تغییر اقلام، خطای اپراتور و ..."
+                      Variant="Variant.Outlined"
+                      Lines="3"
+                      AutoGrow
+                      Required="true"
+                      RequiredError="ثبت دلیل الزامی است."/>
+    </DialogContent>
+    <DialogActions>
+        <MudButton Variant="Variant.Text" OnClick="() => _isCancelDialogOpen = false">انصراف</MudButton>
+        <MudButton Variant="Variant.Filled"
+                   Color="Color.Error"
+                   Disabled="@(string.IsNullOrWhiteSpace(_cancelReason) || _processing)"
+                   OnClick="ConfirmCancellationAsync">
+            تأیید و ثبت ابطال
+        </MudButton>
+    </DialogActions>
+</MudDialog>
+
 @code {
     [Parameter] public Guid Id { get; set; }
     private SaleDetailsDto? _sale;
     private bool _isLoading = true;
     private bool _processing;
     private List<BreadcrumbItem> _breadcrumbItems = new();
+
+    // متغیرهای مدیریت دیالوگ ابطال
+    private bool _isCancelDialogOpen;
+    private string _cancelReason = string.Empty;
+    private readonly DialogOptions _dialogOptions = new() { CloseOnEscapeKey = true, MaxWidth = MaxWidth.Small, FullWidth = true };
 
     protected override async Task OnInitializedAsync()
     {
@@ -243,13 +321,20 @@
 
     private async Task LoadSaleDetailsAsync()
     {
-        try {
+        try
+        {
             _isLoading = true;
             _sale = await SaleService.GetSaleDetailsAsync(Id);
             UpdateBreadcrumbs();
         }
-        catch (Exception ex) { Snackbar.Add(ex.Message, Severity.Error); }
-        finally { _isLoading = false; }
+        catch (Exception ex)
+        {
+            Snackbar.Add(ex.Message, Severity.Error);
+        }
+        finally
+        {
+            _isLoading = false;
+        }
     }
 
     private async Task FinalizeSaleAsync()
@@ -267,41 +352,10 @@
         if (result != null && !result.Canceled)
         {
             _processing = true;
-            try {
-                await SaleService.FinalizeSaleAsync(Id);
-                Snackbar.Add("فاکتور نهایی شد.", Severity.Success);
-                await LoadSaleDetailsAsync();
-            }
-            catch (Exception ex) { Snackbar.Add(ex.Message, Severity.Error); }
-            finally { _processing = false; }
-        }
-    }
-
-    private async Task CancelSaleAsync()
-    {
-        bool isCompleted = _sale?.Status == nameof(SaleStatus.Completed);
-        string message = isCompleted
-            ? "این فاکتور نهایی شده است. با ابطال آن، موجودی اقلام به انبار بازگردانده خواهد شد. آیا مطمئن هستید؟"
-            : "آیا از لغو این پیش‌نویس فاکتور اطمینان دارید؟";
-
-        var parameters = new DialogParameters<ConfirmDialog>
-        {
-            { x => x.Title, isCompleted ? "تأیید ابطال فاکتور" : "تأیید لغو فاکتور" },
-            { x => x.ContentText, message },
-            { x => x.ConfirmButtonText, isCompleted ? "بله، ابطال شود" : "بله، لغو شود" },
-            { x => x.Color, Color.Error }
-        };
-
-        var dialog = await DialogService.ShowAsync<ConfirmDialog>("تأیید عملیات", parameters);
-        var result = await dialog.Result;
-
-        if (result != null && !result.Canceled)
-        {
-            _processing = true;
             try
             {
-                await SaleService.CancelSaleAsync(Id);
-                Snackbar.Add(isCompleted ? "فاکتور ابطال و موجودی به انبار برگشت داده شد." : "فاکتور لغو شد.", Severity.Warning);
+                await SaleService.FinalizeSaleAsync(Id);
+                Snackbar.Add("فاکتور با موفقیت نهایی شد و کالاها از انبار کسر گردیدند.", Severity.Success);
                 await LoadSaleDetailsAsync();
             }
             catch (Exception ex)
@@ -314,4 +368,46 @@
             }
         }
     }
+
+    private void CancelSaleAsync()
+    {
+        if (_sale == null || _sale.Status == nameof(SaleStatus.Cancelled))
+        {
+            Snackbar.Add("این فاکتور قبلاً باطل شده است و امکان ابطال مجدد آن وجود ندارد.", Severity.Warning);
+            return;
+        }
+
+        _cancelReason = string.Empty;
+        _isCancelDialogOpen = true;
+    }
+
+    private async Task ConfirmCancellationAsync()
+    {
+        if (string.IsNullOrWhiteSpace(_cancelReason))
+        {
+            Snackbar.Add("لطفاً دلیل ابطال را وارد کنید.", Severity.Warning);
+            return;
+        }
+
+        _isCancelDialogOpen = false;
+        _processing = true;
+
+        try
+        {
+            bool isCompleted = _sale?.Status == nameof(SaleStatus.Completed);
+            await SaleService.CancelSaleAsync(Id, _cancelReason.Trim());
+
+            Snackbar.Add(isCompleted ? "فاکتور ابطال و موجودی اقلام به انبار بازگردانده شد." : "پیش‌نویس فاکتور لغو شد.", Severity.Warning);
+            await LoadSaleDetailsAsync();
+        }
+        catch (Exception ex)
+        {
+            Snackbar.Add(ex.Message, Severity.Error);
+        }
+        finally
+        {
+            _processing = false;
+        }
+    }
+
 }
