@@ -1,0 +1,367 @@
+2026-10-13 11:05:18.622 +03:30 [WRN] No store type was specified for the decimal property 'UnitPurchasePrice' on entity type 'SaleItem'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'. 
+2026-10-13 11:05:19.374 +03:30 [INF] Storage directories are ready. ImagesPath: D:\porograming\Rider\AutoSpare\AutoSpare.Web\wwwroot\Uploads\Images, BackupPath: D:\AutoSpareBackups 
+2026-10-13 11:05:19.632 +03:30 [INF] HTTP GET / responded 302 in 12.8447 ms 
+2026-10-13 11:05:19.917 +03:30 [INF] HTTP GET /login responded 200 in 266.6619 ms 
+2026-10-13 11:05:19.954 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 7.2300 ms 
+2026-10-13 11:05:19.987 +03:30 [INF] HTTP GET /app.css responded 200 in 41.2637 ms 
+2026-10-13 11:05:19.994 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 47.0157 ms 
+2026-10-13 11:05:20.099 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 0.4957 ms 
+2026-10-13 11:05:20.099 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.5424 ms 
+2026-10-13 11:05:20.100 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 154.4724 ms 
+2026-10-13 11:05:20.121 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 6.1430 ms 
+2026-10-13 11:05:20.144 +03:30 [INF] HTTP GET /favicon.ico responded 404 in 0.2573 ms 
+2026-10-13 11:05:20.147 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 4.2836 ms 
+2026-10-13 11:05:20.171 +03:30 [INF] HTTP GET /not-found responded 302 in 1.9084 ms 
+2026-10-13 11:05:20.194 +03:30 [INF] HTTP GET /login responded 200 in 20.7804 ms 
+2026-10-13 11:05:23.658 +03:30 [INF] HTTP POST /api/auth/login responded 302 in 310.6561 ms 
+2026-10-13 11:05:23.669 +03:30 [INF] Home page loaded at "2026-10-13T11:05:23.6687136+03:30" 
+2026-10-13 11:05:23.670 +03:30 [WRN] This is a test warning from Home page. 
+2026-10-13 11:05:23.674 +03:30 [INF] HTTP GET / responded 200 in 11.2156 ms 
+2026-10-13 11:05:23.693 +03:30 [INF] HTTP GET /app.css responded 200 in 4.0209 ms 
+2026-10-13 11:05:23.697 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 0.6345 ms 
+2026-10-13 11:05:23.698 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 1.8099 ms 
+2026-10-13 11:05:23.700 +03:30 [INF] HTTP GET /_blazor responded 101 in 3544.9783 ms 
+2026-10-13 11:05:23.707 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 11.1258 ms 
+2026-10-13 11:05:23.724 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 41.2172 ms 
+2026-10-13 11:05:23.739 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.8865 ms 
+2026-10-13 11:05:23.739 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 0.7463 ms 
+2026-10-13 11:05:23.749 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 1.6631 ms 
+2026-10-13 11:05:23.757 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 1.0342 ms 
+2026-10-13 11:05:23.757 +03:30 [INF] HTTP GET /favicon.ico responded 404 in 0.4646 ms 
+2026-10-13 11:05:23.781 +03:30 [INF] HTTP GET /not-found responded 404 in 9.2173 ms 
+2026-10-13 11:05:23.789 +03:30 [INF] Home page loaded at "2026-10-13T11:05:23.7898377+03:30" 
+2026-10-13 11:05:23.790 +03:30 [WRN] This is a test warning from Home page. 
+2026-10-13 11:06:20.699 +03:30 [WRN] Savepoints are disabled because Multiple Active Result Sets (MARS) is enabled. If 'SaveChanges' fails, then the transaction cannot be automatically rolled back to a known clean state. Instead, the transaction should be rolled back by the application before retrying 'SaveChanges'. See https://go.microsoft.com/fwlink/?linkid=2149338 for more information and examples. To identify the code which triggers this warning, call 'ConfigureWarnings(w => w.Throw(SqlServerEventId.SavepointsDisabledBecauseOfMARS))'. 
+2026-10-13 11:06:24.586 +03:30 [WRN] Savepoints are disabled because Multiple Active Result Sets (MARS) is enabled. If 'SaveChanges' fails, then the transaction cannot be automatically rolled back to a known clean state. Instead, the transaction should be rolled back by the application before retrying 'SaveChanges'. See https://go.microsoft.com/fwlink/?linkid=2149338 for more information and examples. To identify the code which triggers this warning, call 'ConfigureWarnings(w => w.Throw(SqlServerEventId.SavepointsDisabledBecauseOfMARS))'. 
+2026-10-13 11:09:53.734 +03:30 [INF] HTTP GET /_blazor responded 101 in 269964.8949 ms 
+2026-10-13 11:10:05.116 +03:30 [WRN] No store type was specified for the decimal property 'UnitPurchasePrice' on entity type 'SaleItem'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'. 
+2026-10-13 11:10:05.697 +03:30 [INF] Storage directories are ready. ImagesPath: D:\porograming\Rider\AutoSpare\AutoSpare.Web\wwwroot\Uploads\Images, BackupPath: D:\AutoSpareBackups 
+2026-10-13 11:10:06.046 +03:30 [INF] Home page loaded at "2026-10-13T11:10:06.0445018+03:30" 
+2026-10-13 11:10:06.048 +03:30 [WRN] This is a test warning from Home page. 
+2026-10-13 11:10:06.141 +03:30 [INF] HTTP GET / responded 200 in 254.6372 ms 
+2026-10-13 11:10:06.163 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 7.3801 ms 
+2026-10-13 11:10:06.172 +03:30 [INF] HTTP GET /app.css responded 200 in 15.9127 ms 
+2026-10-13 11:10:06.175 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 18.7107 ms 
+2026-10-13 11:10:06.176 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 20.7294 ms 
+2026-10-13 11:10:06.247 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 4.0960 ms 
+2026-10-13 11:10:06.247 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 4.0960 ms 
+2026-10-13 11:10:06.259 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 5.7675 ms 
+2026-10-13 11:10:06.283 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 5.4707 ms 
+2026-10-13 11:10:06.419 +03:30 [INF] Home page loaded at "2026-10-13T11:10:06.4196198+03:30" 
+2026-10-13 11:10:06.419 +03:30 [WRN] This is a test warning from Home page. 
+2026-10-13 11:10:06.803 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.7565 ms 
+2026-10-13 11:10:07.115 +03:30 [INF] HTTP GET /sales/335545c4-6354-4742-bee5-e375ebf7bd69 responded 200 in 286.7108 ms 
+2026-10-13 11:10:07.139 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 0.7613 ms 
+2026-10-13 11:10:07.140 +03:30 [INF] HTTP GET /_blazor responded 101 in 332.6779 ms 
+2026-10-13 11:10:07.142 +03:30 [INF] HTTP GET /app.css responded 200 in 4.9896 ms 
+2026-10-13 11:10:07.144 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 5.3815 ms 
+2026-10-13 11:10:07.150 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 2.4065 ms 
+2026-10-13 11:10:07.153 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 29.4753 ms 
+2026-10-13 11:10:07.172 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 0.7551 ms 
+2026-10-13 11:10:07.175 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.5350 ms 
+2026-10-13 11:10:07.175 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 0.4856 ms 
+2026-10-13 11:10:07.176 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.4311 ms 
+2026-10-13 11:10:54.515 +03:30 [INF] HTTP GET /inventory/transactions responded 404 in 0.5903 ms 
+2026-10-13 11:10:54.557 +03:30 [INF] HTTP GET /not-found responded 404 in 14.0142 ms 
+2026-10-13 11:10:54.573 +03:30 [INF] HTTP GET /_blazor responded 101 in 48281.2675 ms 
+2026-10-13 11:10:54.576 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 2.0165 ms 
+2026-10-13 11:10:54.577 +03:30 [INF] HTTP GET /app.css responded 200 in 3.7152 ms 
+2026-10-13 11:10:54.593 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 1.8920 ms 
+2026-10-13 11:10:54.595 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 15.8811 ms 
+2026-10-13 11:10:54.600 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 34.2633 ms 
+2026-10-13 11:10:54.602 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.6778 ms 
+2026-10-13 11:10:54.607 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 0.7461 ms 
+2026-10-13 11:10:54.630 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 0.6378 ms 
+2026-10-13 11:10:54.638 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 1.8666 ms 
+2026-10-13 11:11:19.253 +03:30 [WRN] Savepoints are disabled because Multiple Active Result Sets (MARS) is enabled. If 'SaveChanges' fails, then the transaction cannot be automatically rolled back to a known clean state. Instead, the transaction should be rolled back by the application before retrying 'SaveChanges'. See https://go.microsoft.com/fwlink/?linkid=2149338 for more information and examples. To identify the code which triggers this warning, call 'ConfigureWarnings(w => w.Throw(SqlServerEventId.SavepointsDisabledBecauseOfMARS))'. 
+2026-10-13 11:22:17.443 +03:30 [INF] HTTP GET /_blazor responded 101 in 682797.2670 ms 
+2026-10-13 11:22:17.443 +03:30 [INF] HTTP GET /_blazor responded 101 in 730262.2776 ms 
+2026-10-13 11:22:29.261 +03:30 [WRN] No store type was specified for the decimal property 'UnitPurchasePrice' on entity type 'SaleItem'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'. 
+2026-10-13 11:22:29.807 +03:30 [INF] Storage directories are ready. ImagesPath: D:\porograming\Rider\AutoSpare\AutoSpare.Web\wwwroot\Uploads\Images, BackupPath: D:\AutoSpareBackups 
+2026-10-13 11:22:30.020 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 29.0973 ms 
+2026-10-13 11:22:30.020 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 29.0782 ms 
+2026-10-13 11:22:30.176 +03:30 [INF] Home page loaded at "2026-10-13T11:22:30.1751336+03:30" 
+2026-10-13 11:22:30.177 +03:30 [WRN] This is a test warning from Home page. 
+2026-10-13 11:22:30.270 +03:30 [INF] HTTP GET / responded 200 in 281.1682 ms 
+2026-10-13 11:22:30.289 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 4.4789 ms 
+2026-10-13 11:22:30.295 +03:30 [INF] HTTP GET /app.css responded 200 in 10.8052 ms 
+2026-10-13 11:22:30.296 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 12.1625 ms 
+2026-10-13 11:22:30.300 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 14.4354 ms 
+2026-10-13 11:22:30.355 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 0.5703 ms 
+2026-10-13 11:22:30.355 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.5701 ms 
+2026-10-13 11:22:30.373 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 3.4707 ms 
+2026-10-13 11:22:30.384 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.4799 ms 
+2026-10-13 11:22:30.472 +03:30 [INF] HTTP GET /sales/335545c4-6354-4742-bee5-e375ebf7bd69 responded 200 in 385.4830 ms 
+2026-10-13 11:22:30.486 +03:30 [INF] HTTP GET /_blazor responded 101 in 451.1558 ms 
+2026-10-13 11:22:30.489 +03:30 [INF] HTTP GET /app.css responded 200 in 1.2544 ms 
+2026-10-13 11:22:30.530 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 35.9201 ms 
+2026-10-13 11:22:30.530 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 0.6300 ms 
+2026-10-13 11:22:30.532 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 38.2495 ms 
+2026-10-13 11:22:30.538 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 57.3679 ms 
+2026-10-13 11:22:30.546 +03:30 [INF] Home page loaded at "2026-10-13T11:22:30.5459493+03:30" 
+2026-10-13 11:22:30.546 +03:30 [WRN] This is a test warning from Home page. 
+2026-10-13 11:22:30.569 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 0.4982 ms 
+2026-10-13 11:22:30.569 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.5051 ms 
+2026-10-13 11:22:30.597 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 0.4791 ms 
+2026-10-13 11:22:30.602 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.6946 ms 
+2026-10-13 11:22:30.643 +03:30 [INF] HTTP GET /sales/335545c4-6354-4742-bee5-e375ebf7bd69 responded 200 in 169.3929 ms 
+2026-10-13 11:22:30.658 +03:30 [INF] HTTP GET /_blazor responded 101 in 595.2696 ms 
+2026-10-13 11:22:30.659 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 2.9686 ms 
+2026-10-13 11:22:30.660 +03:30 [INF] HTTP GET /app.css responded 200 in 1.5748 ms 
+2026-10-13 11:22:30.660 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 0.6843 ms 
+2026-10-13 11:22:30.668 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 9.3077 ms 
+2026-10-13 11:22:30.671 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 3.3886 ms 
+2026-10-13 11:22:30.706 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 0.3942 ms 
+2026-10-13 11:22:30.706 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.3948 ms 
+2026-10-13 11:22:30.730 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 0.4791 ms 
+2026-10-13 11:22:30.739 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.5847 ms 
+2026-10-13 11:22:39.977 +03:30 [WRN] Savepoints are disabled because Multiple Active Result Sets (MARS) is enabled. If 'SaveChanges' fails, then the transaction cannot be automatically rolled back to a known clean state. Instead, the transaction should be rolled back by the application before retrying 'SaveChanges'. See https://go.microsoft.com/fwlink/?linkid=2149338 for more information and examples. To identify the code which triggers this warning, call 'ConfigureWarnings(w => w.Throw(SqlServerEventId.SavepointsDisabledBecauseOfMARS))'. 
+2026-10-13 11:22:51.900 +03:30 [INF] HTTP GET /sales/335545c4-6354-4742-bee5-e375ebf7bd69 responded 200 in 10.8530 ms 
+2026-10-13 11:22:51.913 +03:30 [INF] HTTP GET /_blazor responded 101 in 21523.5848 ms 
+2026-10-13 11:22:51.917 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 0.9093 ms 
+2026-10-13 11:22:51.918 +03:30 [INF] HTTP GET /app.css responded 200 in 1.9565 ms 
+2026-10-13 11:22:51.920 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 2.3431 ms 
+2026-10-13 11:22:51.922 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 3.5336 ms 
+2026-10-13 11:22:51.935 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 26.3687 ms 
+2026-10-13 11:22:51.964 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 0.3706 ms 
+2026-10-13 11:22:51.964 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.3708 ms 
+2026-10-13 11:22:51.977 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 0.6578 ms 
+2026-10-13 11:22:51.989 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.6332 ms 
+2026-10-13 11:22:54.301 +03:30 [WRN] Savepoints are disabled because Multiple Active Result Sets (MARS) is enabled. If 'SaveChanges' fails, then the transaction cannot be automatically rolled back to a known clean state. Instead, the transaction should be rolled back by the application before retrying 'SaveChanges'. See https://go.microsoft.com/fwlink/?linkid=2149338 for more information and examples. To identify the code which triggers this warning, call 'ConfigureWarnings(w => w.Throw(SqlServerEventId.SavepointsDisabledBecauseOfMARS))'. 
+2026-10-13 11:23:48.843 +03:30 [INF] HTTP GET /_blazor responded 101 in 78230.6648 ms 
+2026-10-13 11:23:52.147 +03:30 [INF] HTTP GET /sales/335545c4-6354-4742-bee5-e375ebf7bd69 responded 200 in 45.4427 ms 
+2026-10-13 11:23:52.156 +03:30 [INF] HTTP GET /_blazor responded 101 in 60155.6011 ms 
+2026-10-13 11:23:52.160 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 3.7623 ms 
+2026-10-13 11:23:52.166 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 2.7080 ms 
+2026-10-13 11:23:52.167 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 0.6188 ms 
+2026-10-13 11:23:52.167 +03:30 [INF] HTTP GET /app.css responded 200 in 3.8226 ms 
+2026-10-13 11:23:52.170 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 6.4977 ms 
+2026-10-13 11:23:52.196 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 0.3543 ms 
+2026-10-13 11:23:52.196 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.3547 ms 
+2026-10-13 11:23:52.212 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 0.6119 ms 
+2026-10-13 11:23:52.222 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.3879 ms 
+2026-10-13 11:23:53.813 +03:30 [WRN] Savepoints are disabled because Multiple Active Result Sets (MARS) is enabled. If 'SaveChanges' fails, then the transaction cannot be automatically rolled back to a known clean state. Instead, the transaction should be rolled back by the application before retrying 'SaveChanges'. See https://go.microsoft.com/fwlink/?linkid=2149338 for more information and examples. To identify the code which triggers this warning, call 'ConfigureWarnings(w => w.Throw(SqlServerEventId.SavepointsDisabledBecauseOfMARS))'. 
+2026-10-13 11:25:30.888 +03:30 [INF] HTTP GET /_blazor responded 101 in 98658.6346 ms 
+2026-10-13 11:25:30.889 +03:30 [INF] HTTP GET /_blazor responded 101 in 180144.2874 ms 
+2026-10-13 11:25:40.184 +03:30 [WRN] No store type was specified for the decimal property 'UnitPurchasePrice' on entity type 'SaleItem'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'. 
+2026-10-13 11:25:40.785 +03:30 [INF] Storage directories are ready. ImagesPath: D:\porograming\Rider\AutoSpare\AutoSpare.Web\wwwroot\Uploads\Images, BackupPath: D:\AutoSpareBackups 
+2026-10-13 11:25:41.004 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 30.9138 ms 
+2026-10-13 11:25:41.004 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 30.9201 ms 
+2026-10-13 11:25:41.186 +03:30 [INF] Home page loaded at "2026-10-13T11:25:41.1845992+03:30" 
+2026-10-13 11:25:41.186 +03:30 [WRN] This is a test warning from Home page. 
+2026-10-13 11:25:41.300 +03:30 [INF] HTTP GET / responded 200 in 328.3183 ms 
+2026-10-13 11:25:41.319 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 4.3822 ms 
+2026-10-13 11:25:41.328 +03:30 [INF] HTTP GET /app.css responded 200 in 13.5914 ms 
+2026-10-13 11:25:41.331 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 15.8370 ms 
+2026-10-13 11:25:41.333 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 18.0092 ms 
+2026-10-13 11:25:41.387 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.6836 ms 
+2026-10-13 11:25:41.387 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 0.6837 ms 
+2026-10-13 11:25:41.416 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 5.4375 ms 
+2026-10-13 11:25:41.427 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 1.4908 ms 
+2026-10-13 11:25:41.535 +03:30 [INF] HTTP GET /sales/335545c4-6354-4742-bee5-e375ebf7bd69 responded 200 in 457.1876 ms 
+2026-10-13 11:25:41.555 +03:30 [INF] HTTP GET /app.css responded 200 in 3.1910 ms 
+2026-10-13 11:25:41.559 +03:30 [INF] HTTP GET /_blazor responded 101 in 532.9179 ms 
+2026-10-13 11:25:41.594 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 33.8833 ms 
+2026-10-13 11:25:41.596 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 36.8535 ms 
+2026-10-13 11:25:41.597 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 2.6523 ms 
+2026-10-13 11:25:41.597 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 54.2595 ms 
+2026-10-13 11:25:41.608 +03:30 [INF] Home page loaded at "2026-10-13T11:25:41.6085181+03:30" 
+2026-10-13 11:25:41.608 +03:30 [WRN] This is a test warning from Home page. 
+2026-10-13 11:25:41.641 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.6545 ms 
+2026-10-13 11:25:41.641 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 0.6533 ms 
+2026-10-13 11:25:41.649 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 1.0645 ms 
+2026-10-13 11:25:41.674 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 1.9667 ms 
+2026-10-13 11:25:41.722 +03:30 [INF] HTTP GET /sales/335545c4-6354-4742-bee5-e375ebf7bd69 responded 200 in 186.4009 ms 
+2026-10-13 11:25:41.730 +03:30 [INF] HTTP GET /_blazor responded 101 in 678.1784 ms 
+2026-10-13 11:25:41.736 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 2.8969 ms 
+2026-10-13 11:25:41.737 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 1.1698 ms 
+2026-10-13 11:25:41.742 +03:30 [INF] HTTP GET /app.css responded 200 in 1.3608 ms 
+2026-10-13 11:25:41.747 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 9.2102 ms 
+2026-10-13 11:25:41.749 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 2.5112 ms 
+2026-10-13 11:25:41.774 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 0.3229 ms 
+2026-10-13 11:25:41.774 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.5311 ms 
+2026-10-13 11:25:41.803 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 0.6175 ms 
+2026-10-13 11:25:41.809 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 1.5318 ms 
+2026-10-13 11:25:53.654 +03:30 [WRN] Savepoints are disabled because Multiple Active Result Sets (MARS) is enabled. If 'SaveChanges' fails, then the transaction cannot be automatically rolled back to a known clean state. Instead, the transaction should be rolled back by the application before retrying 'SaveChanges'. See https://go.microsoft.com/fwlink/?linkid=2149338 for more information and examples. To identify the code which triggers this warning, call 'ConfigureWarnings(w => w.Throw(SqlServerEventId.SavepointsDisabledBecauseOfMARS))'. 
+2026-10-13 11:26:19.141 +03:30 [INF] HTTP GET /_blazor responded 101 in 37706.2899 ms 
+2026-10-13 11:26:19.141 +03:30 [INF] HTTP GET /_blazor responded 101 in 37461.5055 ms 
+2026-10-13 11:26:19.141 +03:30 [INF] HTTP GET /_blazor responded 101 in 37323.1009 ms 
+2026-10-13 11:26:23.020 +03:30 [FTL] AutoSpare Web Application terminated unexpectedly. 
+Microsoft.Extensions.Hosting.HostAbortedException: The host was aborted.
+   at Microsoft.Extensions.Hosting.HostFactoryResolver.HostingListener.ThrowHostAborted()
+   at Microsoft.Extensions.Hosting.HostFactoryResolver.HostingListener.OnNext(KeyValuePair`2 value)
+   at System.Diagnostics.DiagnosticListener.Write(String name, Object value)
+   at Microsoft.Extensions.Hosting.HostBuilder.ResolveHost(IServiceProvider serviceProvider, DiagnosticListener diagnosticListener)
+   at Microsoft.Extensions.Hosting.HostApplicationBuilder.Build()
+   at Microsoft.AspNetCore.Builder.WebApplicationBuilder.Build()
+   at Program.<Main>$(String[] args) in D:\porograming\Rider\AutoSpare\AutoSpare.Web\Program.cs:line 133
+2026-10-13 11:26:48.003 +03:30 [FTL] AutoSpare Web Application terminated unexpectedly. 
+Microsoft.Extensions.Hosting.HostAbortedException: The host was aborted.
+   at Microsoft.Extensions.Hosting.HostFactoryResolver.HostingListener.ThrowHostAborted()
+   at Microsoft.Extensions.Hosting.HostFactoryResolver.HostingListener.OnNext(KeyValuePair`2 value)
+   at System.Diagnostics.DiagnosticListener.Write(String name, Object value)
+   at Microsoft.Extensions.Hosting.HostBuilder.ResolveHost(IServiceProvider serviceProvider, DiagnosticListener diagnosticListener)
+   at Microsoft.Extensions.Hosting.HostApplicationBuilder.Build()
+   at Microsoft.AspNetCore.Builder.WebApplicationBuilder.Build()
+   at Program.<Main>$(String[] args) in D:\porograming\Rider\AutoSpare\AutoSpare.Web\Program.cs:line 133
+2026-10-13 11:27:08.591 +03:30 [FTL] AutoSpare Web Application terminated unexpectedly. 
+Microsoft.Extensions.Hosting.HostAbortedException: The host was aborted.
+   at Microsoft.Extensions.Hosting.HostFactoryResolver.HostingListener.ThrowHostAborted()
+   at Microsoft.Extensions.Hosting.HostFactoryResolver.HostingListener.OnNext(KeyValuePair`2 value)
+   at System.Diagnostics.DiagnosticListener.Write(String name, Object value)
+   at Microsoft.Extensions.Hosting.HostBuilder.ResolveHost(IServiceProvider serviceProvider, DiagnosticListener diagnosticListener)
+   at Microsoft.Extensions.Hosting.HostApplicationBuilder.Build()
+   at Microsoft.AspNetCore.Builder.WebApplicationBuilder.Build()
+   at Program.<Main>$(String[] args) in D:\porograming\Rider\AutoSpare\AutoSpare.Web\Program.cs:line 133
+2026-10-13 11:27:47.014 +03:30 [WRN] No store type was specified for the decimal property 'UnitPurchasePrice' on entity type 'SaleItem'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'. 
+2026-10-13 11:27:47.576 +03:30 [INF] Storage directories are ready. ImagesPath: D:\porograming\Rider\AutoSpare\AutoSpare.Web\wwwroot\Uploads\Images, BackupPath: D:\AutoSpareBackups 
+2026-10-13 11:27:47.933 +03:30 [INF] Home page loaded at "2026-10-13T11:27:47.9318079+03:30" 
+2026-10-13 11:27:47.936 +03:30 [WRN] This is a test warning from Home page. 
+2026-10-13 11:27:48.049 +03:30 [INF] HTTP GET / responded 200 in 291.9115 ms 
+2026-10-13 11:27:48.074 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 8.4049 ms 
+2026-10-13 11:27:48.082 +03:30 [INF] HTTP GET /app.css responded 200 in 18.7923 ms 
+2026-10-13 11:27:48.086 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 23.5693 ms 
+2026-10-13 11:27:48.123 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 25.0239 ms 
+2026-10-13 11:27:48.138 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 0.4846 ms 
+2026-10-13 11:27:48.138 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.4848 ms 
+2026-10-13 11:27:48.146 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 4.4857 ms 
+2026-10-13 11:27:48.181 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 7.3054 ms 
+2026-10-13 11:27:48.309 +03:30 [INF] Home page loaded at "2026-10-13T11:27:48.3091940+03:30" 
+2026-10-13 11:27:48.309 +03:30 [WRN] This is a test warning from Home page. 
+2026-10-13 11:27:48.865 +03:30 [INF] Home page loaded at "2026-10-13T11:27:48.8658036+03:30" 
+2026-10-13 11:27:48.866 +03:30 [WRN] This is a test warning from Home page. 
+2026-10-13 11:27:48.874 +03:30 [INF] HTTP GET / responded 200 in 34.9431 ms 
+2026-10-13 11:27:48.889 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 1.8966 ms 
+2026-10-13 11:27:48.889 +03:30 [INF] HTTP GET /app.css responded 200 in 2.1295 ms 
+2026-10-13 11:27:48.892 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 5.5879 ms 
+2026-10-13 11:27:48.892 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 1.9476 ms 
+2026-10-13 11:28:00.925 +03:30 [WRN] Savepoints are disabled because Multiple Active Result Sets (MARS) is enabled. If 'SaveChanges' fails, then the transaction cannot be automatically rolled back to a known clean state. Instead, the transaction should be rolled back by the application before retrying 'SaveChanges'. See https://go.microsoft.com/fwlink/?linkid=2149338 for more information and examples. To identify the code which triggers this warning, call 'ConfigureWarnings(w => w.Throw(SqlServerEventId.SavepointsDisabledBecauseOfMARS))'. 
+2026-10-13 11:28:08.791 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.8179 ms 
+2026-10-13 11:28:08.910 +03:30 [INF] HTTP GET /sales/335545c4-6354-4742-bee5-e375ebf7bd69 responded 200 in 93.1162 ms 
+2026-10-13 11:28:08.927 +03:30 [INF] HTTP GET /app.css responded 200 in 2.1485 ms 
+2026-10-13 11:28:08.932 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 3.2806 ms 
+2026-10-13 11:28:08.932 +03:30 [INF] HTTP GET /_blazor responded 101 in 134.9163 ms 
+2026-10-13 11:28:08.934 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 7.3253 ms 
+2026-10-13 11:28:08.938 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 20.4687 ms 
+2026-10-13 11:28:08.940 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 2.1813 ms 
+2026-10-13 11:28:08.973 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.5104 ms 
+2026-10-13 11:28:08.973 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 0.5136 ms 
+2026-10-13 11:28:09.007 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 0.8216 ms 
+2026-10-13 11:28:09.013 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.6490 ms 
+2026-10-13 11:28:18.170 +03:30 [INF] HTTP GET /sales/335545c4-6354-4742-bee5-e375ebf7bd69 responded 200 in 9.3734 ms 
+2026-10-13 11:28:18.181 +03:30 [INF] HTTP GET /_blazor responded 101 in 29994.2469 ms 
+2026-10-13 11:28:18.184 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 0.4174 ms 
+2026-10-13 11:28:18.214 +03:30 [INF] HTTP GET /app.css responded 200 in 31.0199 ms 
+2026-10-13 11:28:18.214 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 30.9437 ms 
+2026-10-13 11:28:18.217 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 33.2196 ms 
+2026-10-13 11:28:18.227 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 49.2199 ms 
+2026-10-13 11:28:18.235 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.2716 ms 
+2026-10-13 11:28:18.235 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 0.2704 ms 
+2026-10-13 11:28:18.252 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 0.7108 ms 
+2026-10-13 11:28:18.256 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.3868 ms 
+2026-10-13 11:28:20.574 +03:30 [WRN] Savepoints are disabled because Multiple Active Result Sets (MARS) is enabled. If 'SaveChanges' fails, then the transaction cannot be automatically rolled back to a known clean state. Instead, the transaction should be rolled back by the application before retrying 'SaveChanges'. See https://go.microsoft.com/fwlink/?linkid=2149338 for more information and examples. To identify the code which triggers this warning, call 'ConfigureWarnings(w => w.Throw(SqlServerEventId.SavepointsDisabledBecauseOfMARS))'. 
+2026-10-13 11:28:58.792 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.4261 ms 
+2026-10-13 11:28:58.792 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.8090 ms 
+2026-10-13 11:28:58.842 +03:30 [INF] HTTP GET /sales/335545c4-6354-4742-bee5-e375ebf7bd69 responded 200 in 29.9674 ms 
+2026-10-13 11:28:58.850 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 0.4557 ms 
+2026-10-13 11:28:58.850 +03:30 [INF] HTTP GET /_blazor responded 101 in 51.2958 ms 
+2026-10-13 11:28:58.851 +03:30 [INF] HTTP GET /sales/335545c4-6354-4742-bee5-e375ebf7bd69 responded 200 in 6.2293 ms 
+2026-10-13 11:28:58.855 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 0.3061 ms 
+2026-10-13 11:28:58.856 +03:30 [INF] HTTP GET /app.css responded 200 in 0.9989 ms 
+2026-10-13 11:28:58.860 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 4.4600 ms 
+2026-10-13 11:28:58.863 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 2.2216 ms 
+2026-10-13 11:28:58.879 +03:30 [INF] HTTP GET /_blazor responded 101 in 65.8383 ms 
+2026-10-13 11:28:58.887 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 1.0614 ms 
+2026-10-13 11:28:58.887 +03:30 [INF] HTTP GET /app.css responded 200 in 1.8724 ms 
+2026-10-13 11:28:58.888 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 0.4222 ms 
+2026-10-13 11:28:58.889 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 3.7207 ms 
+2026-10-13 11:28:58.898 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 0.8285 ms 
+2026-10-13 11:28:58.898 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.6429 ms 
+2026-10-13 11:28:58.910 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 4.9929 ms 
+2026-10-13 11:28:58.919 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 0.9424 ms 
+2026-10-13 11:28:58.937 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.6523 ms 
+2026-10-13 11:28:58.946 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 0.3133 ms 
+2026-10-13 11:28:58.946 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.4574 ms 
+2026-10-13 11:28:58.966 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 0.4466 ms 
+2026-10-13 11:28:58.998 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.4940 ms 
+2026-10-13 11:31:19.957 +03:30 [INF] HTTP GET /_blazor responded 101 in 141007.5749 ms 
+2026-10-13 11:31:19.957 +03:30 [INF] HTTP GET /_blazor responded 101 in 181693.3488 ms 
+2026-10-13 11:31:19.957 +03:30 [INF] HTTP GET /_blazor responded 101 in 190937.1035 ms 
+2026-10-13 11:31:19.957 +03:30 [INF] HTTP GET /_blazor responded 101 in 140942.6288 ms 
+2026-10-13 11:31:29.561 +03:30 [WRN] No store type was specified for the decimal property 'UnitPurchasePrice' on entity type 'SaleItem'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'. 
+2026-10-13 11:31:30.237 +03:30 [INF] Storage directories are ready. ImagesPath: D:\porograming\Rider\AutoSpare\AutoSpare.Web\wwwroot\Uploads\Images, BackupPath: D:\AutoSpareBackups 
+2026-10-13 11:31:30.546 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 35.3336 ms 
+2026-10-13 11:31:30.546 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 35.2627 ms 
+2026-10-13 11:31:30.546 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 35.2849 ms 
+2026-10-13 11:31:30.546 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 35.3032 ms 
+2026-10-13 11:31:30.739 +03:30 [INF] Home page loaded at "2026-10-13T11:31:30.7382297+03:30" 
+2026-10-13 11:31:30.740 +03:30 [WRN] This is a test warning from Home page. 
+2026-10-13 11:31:30.876 +03:30 [INF] HTTP GET / responded 200 in 367.4734 ms 
+2026-10-13 11:31:30.896 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 4.7251 ms 
+2026-10-13 11:31:30.903 +03:30 [INF] HTTP GET /app.css responded 200 in 10.4305 ms 
+2026-10-13 11:31:30.904 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 12.2219 ms 
+2026-10-13 11:31:30.905 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 13.6405 ms 
+2026-10-13 11:31:30.971 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 0.7534 ms 
+2026-10-13 11:31:30.971 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.7534 ms 
+2026-10-13 11:31:30.993 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 4.0861 ms 
+2026-10-13 11:31:31.008 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.6266 ms 
+2026-10-13 11:31:31.096 +03:30 [INF] HTTP GET /sales/335545c4-6354-4742-bee5-e375ebf7bd69 responded 200 in 476.8761 ms 
+2026-10-13 11:31:31.115 +03:30 [INF] HTTP GET /app.css responded 200 in 1.8685 ms 
+2026-10-13 11:31:31.119 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 0.5711 ms 
+2026-10-13 11:31:31.124 +03:30 [INF] HTTP GET /_blazor responded 101 in 522.4856 ms 
+2026-10-13 11:31:31.124 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 17.2129 ms 
+2026-10-13 11:31:31.165 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 1.7288 ms 
+2026-10-13 11:31:31.165 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 45.0318 ms 
+2026-10-13 11:31:31.171 +03:30 [INF] Home page loaded at "2026-10-13T11:31:31.1713749+03:30" 
+2026-10-13 11:31:31.171 +03:30 [WRN] This is a test warning from Home page. 
+2026-10-13 11:31:31.207 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 0.9609 ms 
+2026-10-13 11:31:31.211 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 0.5479 ms 
+2026-10-13 11:31:31.211 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.5639 ms 
+2026-10-13 11:31:31.214 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.7080 ms 
+2026-10-13 11:31:31.264 +03:30 [INF] HTTP GET /sales/335545c4-6354-4742-bee5-e375ebf7bd69 responded 200 in 166.7612 ms 
+2026-10-13 11:31:31.274 +03:30 [INF] HTTP GET /_blazor responded 101 in 711.2574 ms 
+2026-10-13 11:31:31.276 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 1.4417 ms 
+2026-10-13 11:31:31.280 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 0.3851 ms 
+2026-10-13 11:31:31.284 +03:30 [INF] HTTP GET /app.css responded 200 in 4.5484 ms 
+2026-10-13 11:31:31.286 +03:30 [INF] HTTP GET /sales/335545c4-6354-4742-bee5-e375ebf7bd69 responded 200 in 18.5579 ms 
+2026-10-13 11:31:31.286 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 6.3088 ms 
+2026-10-13 11:31:31.288 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 2.3764 ms 
+2026-10-13 11:31:31.307 +03:30 [INF] HTTP GET /_blazor responded 101 in 688.5780 ms 
+2026-10-13 11:31:31.311 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 1.0360 ms 
+2026-10-13 11:31:31.315 +03:30 [INF] HTTP GET /sales/335545c4-6354-4742-bee5-e375ebf7bd69 responded 200 in 22.5913 ms 
+2026-10-13 11:31:31.317 +03:30 [INF] HTTP GET /app.css responded 200 in 1.3073 ms 
+2026-10-13 11:31:31.317 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 0.7113 ms 
+2026-10-13 11:31:31.323 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 5.3439 ms 
+2026-10-13 11:31:31.330 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 2.6739 ms 
+2026-10-13 11:31:31.344 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.5845 ms 
+2026-10-13 11:31:31.346 +03:30 [INF] HTTP GET /_blazor responded 101 in 710.8660 ms 
+2026-10-13 11:31:31.349 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 1.1102 ms 
+2026-10-13 11:31:31.351 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 0.9660 ms 
+2026-10-13 11:31:31.365 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 0.9875 ms 
+2026-10-13 11:31:31.365 +03:30 [INF] HTTP GET /app.css responded 200 in 1.8248 ms 
+2026-10-13 11:31:31.366 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.3321 ms 
+2026-10-13 11:31:31.368 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 2.8576 ms 
+2026-10-13 11:31:31.370 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 0.9483 ms 
+2026-10-13 11:31:31.370 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 6.2343 ms 
+2026-10-13 11:31:31.372 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 0.5982 ms 
+2026-10-13 11:31:31.401 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 5.3323 ms 
+2026-10-13 11:31:31.404 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 1.0843 ms 
+2026-10-13 11:31:31.417 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.5931 ms 
+2026-10-13 11:31:31.424 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 1.2996 ms 
+2026-10-13 11:31:31.425 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 0.9316 ms 
+2026-10-13 11:31:31.457 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 0.5948 ms 
+2026-10-13 11:31:31.464 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.9839 ms 
+2026-10-13 11:31:35.369 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 1.1348 ms 
+2026-10-13 11:31:35.689 +03:30 [INF] HTTP GET /_blazor responded 101 in 4465.3047 ms 
+2026-10-13 11:31:35.701 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 14.9944 ms 
+2026-10-13 11:31:36.045 +03:30 [INF] HTTP GET /_blazor responded 101 in 4613.7730 ms 
+2026-10-13 11:31:36.046 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 2.3750 ms 
+2026-10-13 11:31:36.397 +03:30 [INF] HTTP GET /_blazor responded 101 in 4918.3104 ms 
+2026-10-13 11:31:36.397 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 2.0979 ms 
+2026-10-13 11:31:36.808 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 3.4286 ms 
+2026-10-13 11:31:36.812 +03:30 [INF] HTTP GET /_blazor responded 101 in 5359.5147 ms 
+2026-10-13 11:31:44.005 +03:30 [WRN] Savepoints are disabled because Multiple Active Result Sets (MARS) is enabled. If 'SaveChanges' fails, then the transaction cannot be automatically rolled back to a known clean state. Instead, the transaction should be rolled back by the application before retrying 'SaveChanges'. See https://go.microsoft.com/fwlink/?linkid=2149338 for more information and examples. To identify the code which triggers this warning, call 'ConfigureWarnings(w => w.Throw(SqlServerEventId.SavepointsDisabledBecauseOfMARS))'. 
+2026-10-13 11:32:06.661 +03:30 [WRN] Savepoints are disabled because Multiple Active Result Sets (MARS) is enabled. If 'SaveChanges' fails, then the transaction cannot be automatically rolled back to a known clean state. Instead, the transaction should be rolled back by the application before retrying 'SaveChanges'. See https://go.microsoft.com/fwlink/?linkid=2149338 for more information and examples. To identify the code which triggers this warning, call 'ConfigureWarnings(w => w.Throw(SqlServerEventId.SavepointsDisabledBecauseOfMARS))'. 
+2026-10-13 11:32:13.193 +03:30 [WRN] Savepoints are disabled because Multiple Active Result Sets (MARS) is enabled. If 'SaveChanges' fails, then the transaction cannot be automatically rolled back to a known clean state. Instead, the transaction should be rolled back by the application before retrying 'SaveChanges'. See https://go.microsoft.com/fwlink/?linkid=2149338 for more information and examples. To identify the code which triggers this warning, call 'ConfigureWarnings(w => w.Throw(SqlServerEventId.SavepointsDisabledBecauseOfMARS))'. 
+2026-10-13 11:32:30.257 +03:30 [WRN] Savepoints are disabled because Multiple Active Result Sets (MARS) is enabled. If 'SaveChanges' fails, then the transaction cannot be automatically rolled back to a known clean state. Instead, the transaction should be rolled back by the application before retrying 'SaveChanges'. See https://go.microsoft.com/fwlink/?linkid=2149338 for more information and examples. To identify the code which triggers this warning, call 'ConfigureWarnings(w => w.Throw(SqlServerEventId.SavepointsDisabledBecauseOfMARS))'. 
+2026-10-13 11:32:33.842 +03:30 [WRN] Savepoints are disabled because Multiple Active Result Sets (MARS) is enabled. If 'SaveChanges' fails, then the transaction cannot be automatically rolled back to a known clean state. Instead, the transaction should be rolled back by the application before retrying 'SaveChanges'. See https://go.microsoft.com/fwlink/?linkid=2149338 for more information and examples. To identify the code which triggers this warning, call 'ConfigureWarnings(w => w.Throw(SqlServerEventId.SavepointsDisabledBecauseOfMARS))'. 
