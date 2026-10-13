@@ -57,6 +57,7 @@
             </div>
 
             <div class="d-flex gap-2">
+                @* دکمه نهایی‌سازی فقط مخصوص فاکتورهای پیش‌نویس *@
                 @if (_sale.Status == nameof(SaleStatus.Draft))
                 {
                     <MudButton Variant="Variant.Filled"
@@ -66,13 +67,17 @@
                                Disabled="_processing">
                         نهایی‌سازی و کسر از انبار
                     </MudButton>
+                }
 
+                @* دکمه ابطال هم برای پیش‌نویس و هم برای نهایی‌شده فعال است *@
+                @if (_sale.Status != nameof(SaleStatus.Cancelled))
+                {
                     <MudButton Variant="Variant.Outlined"
                                Color="Color.Error"
                                StartIcon="@Icons.Material.Filled.Cancel"
                                OnClick="CancelSaleAsync"
                                Disabled="_processing">
-                        لغو فاکتور
+                        @(_sale.Status == nameof(SaleStatus.Completed) ? "ابطال فاکتور" : "لغو فاکتور")
                     </MudButton>
                 }
 
@@ -168,7 +173,7 @@
                                 <MudAvatar Size="Size.Medium" Rounded="true" Variant="Variant.Outlined" Color="Color.Surface">
                                     @if (!string.IsNullOrWhiteSpace(item.ImageUrl))
                                     {
-                                        <MudImage Src="@item.ImageUrl" Alt="@item.ProductName" ObjectFit="ObjectFit.Cover" />
+                                        <MudImage Src="@item.ImageUrl" Alt="@item.ProductName" />
                                     }
                                     else
                                     {
@@ -274,26 +279,39 @@
 
     private async Task CancelSaleAsync()
     {
+        bool isCompleted = _sale?.Status == nameof(SaleStatus.Completed);
+        string message = isCompleted
+            ? "این فاکتور نهایی شده است. با ابطال آن، موجودی اقلام به انبار بازگردانده خواهد شد. آیا مطمئن هستید؟"
+            : "آیا از لغو این پیش‌نویس فاکتور اطمینان دارید؟";
+
         var parameters = new DialogParameters<ConfirmDialog>
         {
-            { x => x.Title, "لغو فاکتور" },
-            { x => x.ContentText, "آیا از لغو این فاکتور اطمینان دارید؟" },
-            { x => x.ConfirmButtonText, "بله، لغو شود" },
+            { x => x.Title, isCompleted ? "تأیید ابطال فاکتور" : "تأیید لغو فاکتور" },
+            { x => x.ContentText, message },
+            { x => x.ConfirmButtonText, isCompleted ? "بله، ابطال شود" : "بله، لغو شود" },
             { x => x.Color, Color.Error }
         };
-        var dialog = await DialogService.ShowAsync<ConfirmDialog>("تأیید لغو", parameters);
+
+        var dialog = await DialogService.ShowAsync<ConfirmDialog>("تأیید عملیات", parameters);
         var result = await dialog.Result;
 
         if (result != null && !result.Canceled)
         {
             _processing = true;
-            try {
+            try
+            {
                 await SaleService.CancelSaleAsync(Id);
-                Snackbar.Add("فاکتور لغو شد.", Severity.Warning);
+                Snackbar.Add(isCompleted ? "فاکتور ابطال و موجودی به انبار برگشت داده شد." : "فاکتور لغو شد.", Severity.Warning);
                 await LoadSaleDetailsAsync();
             }
-            catch (Exception ex) { Snackbar.Add(ex.Message, Severity.Error); }
-            finally { _processing = false; }
+            catch (Exception ex)
+            {
+                Snackbar.Add(ex.Message, Severity.Error);
+            }
+            finally
+            {
+                _processing = false;
+            }
         }
     }
 }
