@@ -366,3 +366,104 @@ Microsoft.Extensions.Hosting.HostAbortedException: The host was aborted.
 2026-10-13 11:32:30.257 +03:30 [WRN] Savepoints are disabled because Multiple Active Result Sets (MARS) is enabled. If 'SaveChanges' fails, then the transaction cannot be automatically rolled back to a known clean state. Instead, the transaction should be rolled back by the application before retrying 'SaveChanges'. See https://go.microsoft.com/fwlink/?linkid=2149338 for more information and examples. To identify the code which triggers this warning, call 'ConfigureWarnings(w => w.Throw(SqlServerEventId.SavepointsDisabledBecauseOfMARS))'. 
 2026-10-13 11:32:33.842 +03:30 [WRN] Savepoints are disabled because Multiple Active Result Sets (MARS) is enabled. If 'SaveChanges' fails, then the transaction cannot be automatically rolled back to a known clean state. Instead, the transaction should be rolled back by the application before retrying 'SaveChanges'. See https://go.microsoft.com/fwlink/?linkid=2149338 for more information and examples. To identify the code which triggers this warning, call 'ConfigureWarnings(w => w.Throw(SqlServerEventId.SavepointsDisabledBecauseOfMARS))'. 
 2026-10-13 11:35:39.033 +03:30 [INF] HTTP GET /_blazor responded 101 in 248018.8623 ms 
+2026-10-13 12:41:44.407 +03:30 [WRN] No store type was specified for the decimal property 'UnitPurchasePrice' on entity type 'SaleItem'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'. 
+2026-10-13 12:41:45.156 +03:30 [INF] Storage directories are ready. ImagesPath: D:\porograming\Rider\AutoSpare\AutoSpare.Web\wwwroot\Uploads\Images, BackupPath: D:\AutoSpareBackups 
+2026-10-13 12:41:45.544 +03:30 [INF] Home page loaded at "2026-10-13T12:41:45.5431048+03:30" 
+2026-10-13 12:41:45.547 +03:30 [WRN] This is a test warning from Home page. 
+2026-10-13 12:41:45.648 +03:30 [INF] HTTP GET / responded 200 in 266.6764 ms 
+2026-10-13 12:41:45.668 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 6.4113 ms 
+2026-10-13 12:41:45.699 +03:30 [INF] HTTP GET /app.css responded 200 in 37.5097 ms 
+2026-10-13 12:41:45.707 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 45.3883 ms 
+2026-10-13 12:41:45.754 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 92.9479 ms 
+2026-10-13 12:41:45.781 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 5.5240 ms 
+2026-10-13 12:41:45.781 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 5.5113 ms 
+2026-10-13 12:41:45.790 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 6.4536 ms 
+2026-10-13 12:41:45.813 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 6.3727 ms 
+2026-10-13 12:41:45.944 +03:30 [INF] Home page loaded at "2026-10-13T12:41:45.9442927+03:30" 
+2026-10-13 12:41:45.944 +03:30 [WRN] This is a test warning from Home page. 
+2026-10-13 12:54:04.076 +03:30 [INF] HTTP GET /_blazor responded 101 in 738258.4863 ms 
+2026-10-13 13:05:03.926 +03:30 [FTL] AutoSpare Web Application terminated unexpectedly. 
+Microsoft.Extensions.Hosting.HostAbortedException: The host was aborted.
+   at Microsoft.Extensions.Hosting.HostFactoryResolver.HostingListener.ThrowHostAborted()
+   at Microsoft.Extensions.Hosting.HostFactoryResolver.HostingListener.OnNext(KeyValuePair`2 value)
+   at System.Diagnostics.DiagnosticListener.Write(String name, Object value)
+   at Microsoft.Extensions.Hosting.HostBuilder.ResolveHost(IServiceProvider serviceProvider, DiagnosticListener diagnosticListener)
+   at Microsoft.Extensions.Hosting.HostApplicationBuilder.Build()
+   at Microsoft.AspNetCore.Builder.WebApplicationBuilder.Build()
+   at Program.<Main>$(String[] args) in D:\porograming\Rider\AutoSpare\AutoSpare.Web\Program.cs:line 133
+2026-10-13 13:05:27.044 +03:30 [FTL] AutoSpare Web Application terminated unexpectedly. 
+Microsoft.Extensions.Hosting.HostAbortedException: The host was aborted.
+   at Microsoft.Extensions.Hosting.HostFactoryResolver.HostingListener.ThrowHostAborted()
+   at Microsoft.Extensions.Hosting.HostFactoryResolver.HostingListener.OnNext(KeyValuePair`2 value)
+   at System.Diagnostics.DiagnosticListener.Write(String name, Object value)
+   at Microsoft.Extensions.Hosting.HostBuilder.ResolveHost(IServiceProvider serviceProvider, DiagnosticListener diagnosticListener)
+   at Microsoft.Extensions.Hosting.HostApplicationBuilder.Build()
+   at Microsoft.AspNetCore.Builder.WebApplicationBuilder.Build()
+   at Program.<Main>$(String[] args) in D:\porograming\Rider\AutoSpare\AutoSpare.Web\Program.cs:line 133
+2026-10-13 13:14:28.987 +03:30 [WRN] No store type was specified for the decimal property 'UnitPurchasePrice' on entity type 'SaleItem'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'. 
+2026-10-13 13:14:29.766 +03:30 [INF] Storage directories are ready. ImagesPath: D:\porograming\Rider\AutoSpare\AutoSpare.Web\wwwroot\Uploads\Images, BackupPath: D:\AutoSpareBackups 
+2026-10-13 13:14:30.206 +03:30 [INF] Home page loaded at "2026-10-13T13:14:30.2046387+03:30" 
+2026-10-13 13:14:30.209 +03:30 [WRN] This is a test warning from Home page. 
+2026-10-13 13:14:30.339 +03:30 [INF] HTTP GET / responded 200 in 365.7781 ms 
+2026-10-13 13:14:30.364 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 8.3821 ms 
+2026-10-13 13:14:30.374 +03:30 [INF] HTTP GET /app.css responded 200 in 19.3550 ms 
+2026-10-13 13:14:30.375 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 19.4672 ms 
+2026-10-13 13:14:30.380 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 25.1454 ms 
+2026-10-13 13:14:30.469 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 5.3895 ms 
+2026-10-13 13:14:30.469 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 5.3962 ms 
+2026-10-13 13:14:30.478 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 5.7650 ms 
+2026-10-13 13:14:30.509 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 7.6407 ms 
+2026-10-13 13:14:30.666 +03:30 [INF] Home page loaded at "2026-10-13T13:14:30.6663340+03:30" 
+2026-10-13 13:14:30.666 +03:30 [WRN] This is a test warning from Home page. 
+2026-10-13 13:14:59.670 +03:30 [WRN] Savepoints are disabled because Multiple Active Result Sets (MARS) is enabled. If 'SaveChanges' fails, then the transaction cannot be automatically rolled back to a known clean state. Instead, the transaction should be rolled back by the application before retrying 'SaveChanges'. See https://go.microsoft.com/fwlink/?linkid=2149338 for more information and examples. To identify the code which triggers this warning, call 'ConfigureWarnings(w => w.Throw(SqlServerEventId.SavepointsDisabledBecauseOfMARS))'. 
+2026-10-13 13:16:46.180 +03:30 [WRN] Savepoints are disabled because Multiple Active Result Sets (MARS) is enabled. If 'SaveChanges' fails, then the transaction cannot be automatically rolled back to a known clean state. Instead, the transaction should be rolled back by the application before retrying 'SaveChanges'. See https://go.microsoft.com/fwlink/?linkid=2149338 for more information and examples. To identify the code which triggers this warning, call 'ConfigureWarnings(w => w.Throw(SqlServerEventId.SavepointsDisabledBecauseOfMARS))'. 
+2026-10-13 13:21:25.847 +03:30 [INF] HTTP GET /_blazor responded 101 in 415325.6188 ms 
+2026-10-13 13:21:37.691 +03:30 [WRN] No store type was specified for the decimal property 'UnitPurchasePrice' on entity type 'SaleItem'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'. 
+2026-10-13 13:21:38.239 +03:30 [INF] Storage directories are ready. ImagesPath: D:\porograming\Rider\AutoSpare\AutoSpare.Web\wwwroot\Uploads\Images, BackupPath: D:\AutoSpareBackups 
+2026-10-13 13:21:38.567 +03:30 [INF] Home page loaded at "2026-10-13T13:21:38.5661745+03:30" 
+2026-10-13 13:21:38.570 +03:30 [WRN] This is a test warning from Home page. 
+2026-10-13 13:21:38.672 +03:30 [INF] HTTP GET / responded 200 in 255.9824 ms 
+2026-10-13 13:21:38.693 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 6.4637 ms 
+2026-10-13 13:21:38.701 +03:30 [INF] HTTP GET /app.css responded 200 in 14.2371 ms 
+2026-10-13 13:21:38.702 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 15.6436 ms 
+2026-10-13 13:21:38.704 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 17.0831 ms 
+2026-10-13 13:21:38.767 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 3.1614 ms 
+2026-10-13 13:21:38.767 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 3.1616 ms 
+2026-10-13 13:21:38.774 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 6.7334 ms 
+2026-10-13 13:21:38.796 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 8.8356 ms 
+2026-10-13 13:21:38.796 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 4.5127 ms 
+2026-10-13 13:21:38.945 +03:30 [INF] Home page loaded at "2026-10-13T13:21:38.9452622+03:30" 
+2026-10-13 13:21:38.945 +03:30 [WRN] This is a test warning from Home page. 
+2026-10-13 13:21:39.202 +03:30 [INF] HTTP GET /sales/2c1b9d5c-6ca1-4e94-9b8d-cc4ad4809878 responded 200 in 339.7484 ms 
+2026-10-13 13:21:39.219 +03:30 [INF] HTTP GET /app.css responded 200 in 1.5335 ms 
+2026-10-13 13:21:39.223 +03:30 [INF] HTTP GET /_blazor responded 101 in 415.1003 ms 
+2026-10-13 13:21:39.224 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 0.7315 ms 
+2026-10-13 13:21:39.226 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 1.8125 ms 
+2026-10-13 13:21:39.228 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 3.8825 ms 
+2026-10-13 13:21:39.231 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 21.0899 ms 
+2026-10-13 13:21:39.257 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 0.3027 ms 
+2026-10-13 13:21:39.257 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.3674 ms 
+2026-10-13 13:21:39.269 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 0.8235 ms 
+2026-10-13 13:21:39.281 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 1.0015 ms 
+2026-10-13 13:21:50.908 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 1.0451 ms 
+2026-10-13 13:21:52.601 +03:30 [INF] Home page loaded at "2026-10-13T13:21:52.6013701+03:30" 
+2026-10-13 13:21:52.601 +03:30 [WRN] This is a test warning from Home page. 
+2026-10-13 13:22:12.521 +03:30 [WRN] Savepoints are disabled because Multiple Active Result Sets (MARS) is enabled. If 'SaveChanges' fails, then the transaction cannot be automatically rolled back to a known clean state. Instead, the transaction should be rolled back by the application before retrying 'SaveChanges'. See https://go.microsoft.com/fwlink/?linkid=2149338 for more information and examples. To identify the code which triggers this warning, call 'ConfigureWarnings(w => w.Throw(SqlServerEventId.SavepointsDisabledBecauseOfMARS))'. 
+2026-10-13 13:32:18.284 +03:30 [INF] HTTP GET /_blazor responded 101 in 638996.5438 ms 
+2026-10-13 13:37:42.287 +03:30 [INF] HTTP GET /_blazor responded 101 in 963453.5639 ms 
+2026-10-13 14:53:18.953 +03:30 [WRN] No store type was specified for the decimal property 'UnitPurchasePrice' on entity type 'SaleItem'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'. 
+2026-10-13 14:53:19.560 +03:30 [INF] Storage directories are ready. ImagesPath: D:\porograming\Rider\AutoSpare\AutoSpare.Web\wwwroot\Uploads\Images, BackupPath: D:\AutoSpareBackups 
+2026-10-13 14:53:19.904 +03:30 [INF] Home page loaded at "2026-10-13T14:53:19.9026009+03:30" 
+2026-10-13 14:53:19.906 +03:30 [WRN] This is a test warning from Home page. 
+2026-10-13 14:53:19.997 +03:30 [INF] HTTP GET / responded 200 in 254.4667 ms 
+2026-10-13 14:53:20.017 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 5.4201 ms 
+2026-10-13 14:53:20.025 +03:30 [INF] HTTP GET /app.css responded 200 in 13.5045 ms 
+2026-10-13 14:53:20.027 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 14.8882 ms 
+2026-10-13 14:53:20.028 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 16.1644 ms 
+2026-10-13 14:53:20.105 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 3.1126 ms 
+2026-10-13 14:53:20.105 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 3.1127 ms 
+2026-10-13 14:53:20.114 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 4.5462 ms 
+2026-10-13 14:53:20.133 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 5.6152 ms 
+2026-10-13 14:53:20.270 +03:30 [INF] Home page loaded at "2026-10-13T14:53:20.2702821+03:30" 
+2026-10-13 14:53:20.270 +03:30 [WRN] This is a test warning from Home page. 
+2026-10-13 14:54:43.582 +03:30 [INF] HTTP GET /_blazor responded 101 in 83422.8877 ms 
