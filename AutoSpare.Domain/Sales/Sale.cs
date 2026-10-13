@@ -75,10 +75,12 @@ public class Sale : BaseEntity
 
     public void Cancel()
     {
-        if (Status == SaleStatus.Completed)
-            throw new InvalidOperationException("فاکتور نهایی‌شده را نمی‌توان لغو کرد.");
+        if (Status == SaleStatus.Cancelled)
+            throw new InvalidOperationException("این فاکتور قبلاً لغو/ابطال شده است.");
+
         Status = SaleStatus.Cancelled;
     }
+
 
     public void UpdateHeader(string invoiceNumber, string customerName, Guid? warehouseId, DateTime saleDate,
         string? notes)

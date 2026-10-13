@@ -389,10 +389,74 @@ public class SaleService : ISaleService
 
     public async Task CancelSaleAsync(Guid saleId)
     {
-        var sale = await _context.Sales.FindAsync(saleId);
-        if (sale == null) throw new InvalidOperationException("فاکتور یافت نشد.");
+        var strategy = _context.Database.CreateExecutionStrategy();
 
-        sale.Cancel();
-        await _context.SaveChangesAsync();
+        await strategy.ExecuteAsync(async () =>
+        {
+            await using var transaction = await _context.Database.BeginTransactionAsync();
+
+            // 1. بارگذاری فاکتور و اقلام
+            var sale = await _context.Sales
+                .Include(s => s.Items)
+                .FirstOrDefaultAsync(s => s.Id == saleId);
+
+            if (sale == null)
+                throw new InvalidOperationException("فاکتور یافت نشد.");
+
+            if (sale.Status == SaleStatus.Cancelled)
+                throw new InvalidOperationException("این فاکتور قبلاً باطل شده است.");
+
+            // 2. بازگرداندن موجودی اگر نهایی شده باشد
+            if (sale.Status == SaleStatus.Completed)
+            {
+                var productIds = sale.Items.Select(i => i.ProductId).Distinct().ToList();
+                var warehouseIds = sale.Items.Select(i => i.WarehouseId).Distinct().ToList();
+
+                // << اصلاح کلیدی: شامل کردن Movements برای جلوگیری از خطای Concurrency >>
+                var inventories = await _context.Inventories
+                    .Include(i => i.Movements)
+                    .Where(i => productIds.Contains(i.ProductId) && warehouseIds.Contains(i.WarehouseId))
+                    .ToListAsync();
+
+                foreach (var item in sale.Items)
+                {
+                    var inventory = inventories.FirstOrDefault(i =>
+                        i.ProductId == item.ProductId && i.WarehouseId == item.WarehouseId);
+
+                    if (inventory == null)
+                        throw new InvalidOperationException($"رکورد انبار برای کالا یافت نشد.");
+
+                    // اعمال افزایش موجودی و ثبت تاریخچه
+                    inventory.IncreaseQuantity(
+                        amount: item.Quantity,
+                        type: StockMovementType.CustomerReturn,
+                        reason: $"ابطال فاکتور فروش شماره {sale.InvoiceNumber}",
+                        reference: sale.InvoiceNumber,
+                        performedBy: "سیستم"
+                    );
+
+                    // اطمینان از اینکه حرکات جدید انبار به عنوان Added درج شوند
+                    foreach (var movement in inventory.Movements)
+                    {
+                        var movementEntry = _context.Entry(movement);
+                        if (movementEntry.State == EntityState.Detached ||
+                            movementEntry.State == EntityState.Modified)
+                        {
+                            movementEntry.State = EntityState.Added;
+                        }
+                    }
+
+                    _context.Entry(inventory).State = EntityState.Modified;
+                }
+            }
+
+            // 3. لغو فاکتور
+            sale.Cancel();
+            _context.Entry(sale).State = EntityState.Modified;
+
+            // 4. ثبت نهایی در دیتابیس
+            await _context.SaveChangesAsync();
+            await transaction.CommitAsync();
+        });
     }
 }
