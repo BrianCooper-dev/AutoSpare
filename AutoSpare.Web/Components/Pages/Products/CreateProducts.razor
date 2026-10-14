@@ -237,6 +237,41 @@
                                              Margin="Margin.Dense"/>
                         </MudItem>
 
+                        <!-- تنظیم هشدار موجودی -->
+                        <MudItem xs="12">
+                            <MudDivider Class="my-2"/>
+                            <MudText Typo="Typo.subtitle2"
+                                     Color="Color.Primary"
+                                     Class="mt-2">
+                                هشدار موجودی کم
+                            </MudText>
+                        </MudItem>
+
+                        <MudItem xs="12" md="6">
+                            <MudSwitch T="bool"
+                                       Label="فعال‌سازی هشدار موجودی کم"
+                                       Color="Color.Primary"
+                                       @bind-Value="_model.IsLowStockAlertEnabled"
+                                       Disabled="@_isSubmitting"/>
+
+                            <MudText Typo="Typo.caption" Color="Color.Secondary">
+                                با فعال‌بودن این گزینه، هنگام رسیدن موجودی کالا به آستانهٔ تعیین‌شده هشدار داده می‌شود.
+                            </MudText>
+                        </MudItem>
+
+                        <MudItem xs="12" md="6">
+                            <MudNumericField T="int"
+                                             Label="حداقل موجودی برای هشدار"
+                                             @bind-Value="_model.MinStockThreshold"
+                                             Min="0"
+                                             Required="@_model.IsLowStockAlertEnabled"
+                                             RequiredError="تعیین آستانهٔ هشدار الزامی است."
+                                             Disabled="@(!_model.IsLowStockAlertEnabled || _isSubmitting)"
+                                             Variant="Variant.Outlined"
+                                             Margin="Margin.Dense"
+                                             HelperText="عدد صفر یا بیشتر وارد کنید."/>
+                        </MudItem>
+
                         <!-- بخش انبار و موجودی -->
                         <MudItem xs="12">
                             <MudText Typo="Typo.subtitle2"

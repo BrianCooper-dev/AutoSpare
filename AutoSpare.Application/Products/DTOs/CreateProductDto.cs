@@ -7,6 +7,8 @@ public class CreateProductDto
     public string Model { get; set; } = string.Empty;
     public decimal PurchasePrice { get; set; }
     public decimal SalePrice { get; set; }
+    public bool IsLowStockAlertEnabled { get; set; } = false;
+    public int MinStockThreshold { get; set; } = 0;
 
     public Guid? CategoryId { get; set; }
     public Guid? BrandId { get; set; }

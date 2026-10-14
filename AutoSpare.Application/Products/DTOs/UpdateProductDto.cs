@@ -12,5 +12,6 @@ public class UpdateProductDto
     public Guid? BrandId { get; set; }
     public Guid? DefaultWarehouseId { get; set; }
     public string? ImagePath { get; set; }
+    public bool IsLowStockAlertEnabled { get; set; }
+    public int MinStockThreshold { get; set; }
 }
-

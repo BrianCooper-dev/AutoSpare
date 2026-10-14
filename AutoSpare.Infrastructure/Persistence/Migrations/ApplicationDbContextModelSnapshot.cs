@@ -312,8 +312,18 @@ namespace AutoSpare.Infrastructure.Persistence.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
+                    b.Property<bool>("IsLowStockAlertEnabled")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
+
                     b.Property<DateTime?>("LastModifiedAt")
                         .HasColumnType("datetime2");
+
+                    b.Property<int>("MinStockThreshold")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(0);
 
                     b.Property<string>("Model")
                         .IsRequired()
@@ -353,6 +363,8 @@ namespace AutoSpare.Infrastructure.Persistence.Migrations
 
                     b.ToTable("Products", null, t =>
                         {
+                            t.HasCheckConstraint("CK_Products_MinStockThreshold_NonNegative", "[MinStockThreshold] >= 0");
+
                             t.HasCheckConstraint("CK_Products_PurchasePrice_NonNegative", "[PurchasePrice] >= 0");
 
                             t.HasCheckConstraint("CK_Products_SalePrice_NonNegative", "[SalePrice] >= 0");
