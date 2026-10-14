@@ -379,4 +379,35 @@ public class ProductService : IProductService
         _context.Products.Remove(product);
         await _context.SaveChangesAsync();
     }
+
+    public async Task<List<LowStockAlertDto>> GetLowStockAlertsAsync(Guid? warehouseId = null)
+    {
+        var query = _context.Inventories
+            .AsNoTracking()
+            .Where(i => i.Product != null && i.Product.IsLowStockAlertEnabled &&
+                        i.Quantity <= i.Product.MinStockThreshold);
+
+        if (warehouseId.HasValue && warehouseId.Value != Guid.Empty)
+        {
+            query = query.Where(i => i.WarehouseId == warehouseId.Value);
+        }
+
+        return await query
+            .OrderBy(i => i.Quantity) // ابتدا کالاهایی با بحرانی‌ترین موجودی (کمترین مقدار)
+            .Select(i => new LowStockAlertDto
+            {
+                ProductId = i.ProductId,
+                WarehouseId = i.WarehouseId,
+                ProductName = i.Product!.Name,
+                InternalCode = i.Product.InternalCode,
+                Model = i.Product.Model,
+                BrandName = i.Product.Brand != null ? i.Product.Brand.Name : "-",
+                CategoryName = i.Product.Category != null ? i.Product.Category.Name : "-",
+                WarehouseName = i.Warehouse != null ? i.Warehouse.Name : "-",
+                CurrentStock = i.Quantity,
+                MinStockThreshold = i.Product.MinStockThreshold,
+                ImagePath = i.Product.ImagePath
+            })
+            .ToListAsync();
+    }
 }
