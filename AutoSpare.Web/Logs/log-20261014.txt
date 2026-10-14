@@ -207,3 +207,65 @@ Microsoft.Extensions.Hosting.HostAbortedException: The host was aborted.
 2026-10-14 13:06:05.620 +03:30 [INF] HTTP GET /_blazor responded 101 in 173881.7950 ms 
 2026-10-14 13:06:05.620 +03:30 [INF] HTTP GET /_blazor responded 101 in 173153.8472 ms 
 2026-10-14 13:06:05.620 +03:30 [INF] HTTP GET /_blazor responded 101 in 173304.1694 ms 
+2026-10-14 13:22:20.781 +03:30 [WRN] No store type was specified for the decimal property 'UnitPurchasePrice' on entity type 'SaleItem'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'. 
+2026-10-14 13:22:21.359 +03:30 [INF] Storage directories are ready. ImagesPath: D:\porograming\Rider\AutoSpare\AutoSpare.Web\wwwroot\Uploads\Images, BackupPath: D:\AutoSpareBackups 
+2026-10-14 13:22:21.781 +03:30 [INF] Home page loaded at "2026-10-14T13:22:21.7791228+03:30" 
+2026-10-14 13:22:21.786 +03:30 [WRN] This is a test warning from Home page. 
+2026-10-14 13:22:21.916 +03:30 [INF] HTTP GET / responded 200 in 333.6800 ms 
+2026-10-14 13:22:21.936 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 6.3164 ms 
+2026-10-14 13:22:21.949 +03:30 [INF] HTTP GET /app.css responded 200 in 19.3203 ms 
+2026-10-14 13:22:21.949 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 19.7113 ms 
+2026-10-14 13:22:21.952 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 23.0681 ms 
+2026-10-14 13:22:22.020 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 3.6857 ms 
+2026-10-14 13:22:22.020 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 3.7159 ms 
+2026-10-14 13:22:22.029 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 5.8481 ms 
+2026-10-14 13:22:22.053 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 8.5681 ms 
+2026-10-14 13:22:22.180 +03:30 [INF] Home page loaded at "2026-10-14T13:22:22.1806604+03:30" 
+2026-10-14 13:22:22.181 +03:30 [WRN] This is a test warning from Home page. 
+2026-10-14 13:34:50.452 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 1.7705 ms 
+2026-10-14 13:34:50.734 +03:30 [INF] HTTP GET /_blazor responded 101 in 748674.5987 ms 
+2026-10-14 13:35:40.098 +03:30 [INF] HTTP GET /_blazor responded 101 in 49639.2171 ms 
+2026-10-14 13:52:58.657 +03:30 [WRN] No store type was specified for the decimal property 'UnitPurchasePrice' on entity type 'SaleItem'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'. 
+2026-10-14 13:52:59.505 +03:30 [INF] Storage directories are ready. ImagesPath: D:\porograming\Rider\AutoSpare\AutoSpare.Web\wwwroot\Uploads\Images, BackupPath: D:\AutoSpareBackups 
+2026-10-14 13:53:00.003 +03:30 [INF] Home page loaded at "2026-10-14T13:53:00.0013592+03:30" 
+2026-10-14 13:53:00.005 +03:30 [WRN] This is a test warning from Home page. 
+2026-10-14 13:53:00.130 +03:30 [INF] HTTP GET / responded 200 in 353.8362 ms 
+2026-10-14 13:53:00.158 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 12.1262 ms 
+2026-10-14 13:53:00.172 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 23.1755 ms 
+2026-10-14 13:53:00.176 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 29.5935 ms 
+2026-10-14 13:53:00.179 +03:30 [INF] HTTP GET /app.css responded 200 in 33.0264 ms 
+2026-10-14 13:53:00.250 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 2.7401 ms 
+2026-10-14 13:53:00.250 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 2.7403 ms 
+2026-10-14 13:53:00.268 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 5.9132 ms 
+2026-10-14 13:53:00.286 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 7.8521 ms 
+2026-10-14 13:53:00.422 +03:30 [INF] Home page loaded at "2026-10-14T13:53:00.4226702+03:30" 
+2026-10-14 13:53:00.422 +03:30 [WRN] This is a test warning from Home page. 
+2026-10-14 13:56:25.641 +03:30 [INF] HTTP GET /_blazor responded 101 in 205347.8828 ms 
+2026-10-14 13:56:37.817 +03:30 [WRN] No store type was specified for the decimal property 'UnitPurchasePrice' on entity type 'SaleItem'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'. 
+2026-10-14 13:56:38.450 +03:30 [INF] Storage directories are ready. ImagesPath: D:\porograming\Rider\AutoSpare\AutoSpare.Web\wwwroot\Uploads\Images, BackupPath: D:\AutoSpareBackups 
+2026-10-14 13:56:38.690 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 31.1270 ms 
+2026-10-14 13:56:38.892 +03:30 [INF] Home page loaded at "2026-10-14T13:56:38.8906015+03:30" 
+2026-10-14 13:56:38.893 +03:30 [WRN] This is a test warning from Home page. 
+2026-10-14 13:56:39.025 +03:30 [INF] HTTP GET / responded 200 in 366.9273 ms 
+2026-10-14 13:56:39.042 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 5.0972 ms 
+2026-10-14 13:56:39.051 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 12.0471 ms 
+2026-10-14 13:56:39.051 +03:30 [INF] HTTP GET /app.css responded 200 in 13.6568 ms 
+2026-10-14 13:56:39.061 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 24.0393 ms 
+2026-10-14 13:56:39.122 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.6529 ms 
+2026-10-14 13:56:39.122 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 0.5961 ms 
+2026-10-14 13:56:39.140 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 5.5720 ms 
+2026-10-14 13:56:39.151 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 1.4268 ms 
+2026-10-14 13:56:39.311 +03:30 [INF] Home page loaded at "2026-10-14T13:56:39.3111018+03:30" 
+2026-10-14 13:56:39.312 +03:30 [WRN] This is a test warning from Home page. 
+2026-10-14 13:56:39.367 +03:30 [INF] HTTP GET /inventory/alerts responded 200 in 596.0361 ms 
+2026-10-14 13:56:39.389 +03:30 [INF] HTTP GET /app.css responded 200 in 1.7218 ms 
+2026-10-14 13:56:39.398 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 3.0257 ms 
+2026-10-14 13:56:39.398 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 6.8523 ms 
+2026-10-14 13:56:39.399 +03:30 [INF] HTTP GET /_blazor responded 101 in 692.0429 ms 
+2026-10-14 13:56:39.398 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 1.3099 ms 
+2026-10-14 13:56:39.406 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 29.9333 ms 
+2026-10-14 13:56:39.440 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.8985 ms 
+2026-10-14 13:56:39.460 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 1.4093 ms 
+2026-10-14 13:56:39.473 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.7274 ms 
+2026-10-14 13:58:25.116 +03:30 [INF] HTTP GET /_blazor responded 101 in 105924.8487 ms 
+2026-10-14 13:58:25.116 +03:30 [INF] HTTP GET /_blazor responded 101 in 105634.5897 ms 
