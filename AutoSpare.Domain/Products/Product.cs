@@ -29,6 +29,9 @@ public class Product : BaseEntity
     public Guid? DefaultWarehouseId { get; private set; }
     public Warehouse? DefaultWarehouse { get; private set; }
 
+    public bool IsLowStockAlertEnabled { get; private set; }
+    public int MinStockThreshold { get; private set; }
+
     // سازنده خالی برای EF Core
     protected Product()
     {
@@ -43,13 +46,16 @@ public class Product : BaseEntity
         Guid categoryId,
         Guid brandId,
         string? imagePath = null,
-        Guid? defaultWarehouseId = null)
+        Guid? defaultWarehouseId = null,
+        bool isLowStockAlertEnabled = false,
+        int minStockThreshold = 0)
     {
         SetBasicInformation(name, internalCode, model);
         SetPrices(purchasePrice, salePrice);
         SetCategory(categoryId);
         SetBrand(brandId);
         SetDefaultWarehouse(defaultWarehouseId);
+        SetLowStockAlert(isLowStockAlertEnabled, minStockThreshold);
 
         ImagePath = NormalizeOptional(imagePath);
         Status = ProductStatus.Active;
@@ -156,6 +162,18 @@ public class Product : BaseEntity
         PurchasePrice = purchasePrice;
         SalePrice = salePrice;
     }
+
+    public void SetLowStockAlert(bool isEnabled, int minStockThreshold)
+    {
+        if (minStockThreshold < 0)
+            throw new ArgumentOutOfRangeException(nameof(minStockThreshold),
+                "آستانه هشدار موجودی نمی‌تواند منفی باشد.");
+
+        IsLowStockAlertEnabled = isEnabled;
+        MinStockThreshold = minStockThreshold;
+        UpdateModificationTime();
+    }
+
 
     private static string? NormalizeOptional(string? value)
     {

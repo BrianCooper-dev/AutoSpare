@@ -13,6 +13,7 @@ public class ProductConfiguration : IEntityTypeConfiguration<Product>
         {
             t.HasCheckConstraint("CK_Products_PurchasePrice_NonNegative", "[PurchasePrice] >= 0");
             t.HasCheckConstraint("CK_Products_SalePrice_NonNegative", "[SalePrice] >= 0");
+            t.HasCheckConstraint("CK_Products_MinStockThreshold_NonNegative", "[MinStockThreshold] >= 0");
         });
 
         // کلید اصلی
@@ -73,6 +74,14 @@ public class ProductConfiguration : IEntityTypeConfiguration<Product>
         // دسترسی به فیلد پشتیبان _inventories
         builder.Navigation(p => p.Inventories)
             .UsePropertyAccessMode(PropertyAccessMode.Field);
+
+        builder.Property(p => p.IsLowStockAlertEnabled)
+            .IsRequired()
+            .HasDefaultValue(false);
+
+        builder.Property(p => p.MinStockThreshold)
+            .IsRequired()
+            .HasDefaultValue(0);
 
         // --- ایندکس‌ها ---
         // ۱. ایندکس یکتا روی کد کالا

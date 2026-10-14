@@ -16,6 +16,8 @@ public class ProductDetailsDto
     public string? DefaultWarehouseName { get; set; }
     public int TotalStock { get; set; }
     public DateTime CreatedAt { get; set; }
+    public bool IsLowStockAlertEnabled { get; set; }
+    public int MinStockThreshold { get; set; }
 
     public List<ProductWarehouseStockDto> WarehouseStocks { get; set; } = new();
     public List<StockMovementDto> Movements { get; set; } = new();

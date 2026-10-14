@@ -78,15 +78,17 @@ public class ProductService : IProductService
             throw new InvalidOperationException("در صورت تعیین موجودی اولیه، انتخاب انبار الزامی است.");
 
         var product = new Product(
-            name: dto.Name.Trim(),
-            internalCode: dto.InternalCode.Trim(),
-            model: dto.Model?.Trim() ?? string.Empty,
-            purchasePrice: dto.PurchasePrice,
-            salePrice: dto.SalePrice,
-            categoryId: dto.CategoryId.Value,
-            brandId: dto.BrandId.Value,
+            dto.Name,
+            dto.InternalCode,
+            dto.Model,
+            dto.PurchasePrice,
+            dto.SalePrice,
+            dto.CategoryId.Value,
+            dto.BrandId.Value,
             imagePath: dto.ImagePath,
-            defaultWarehouseId: dto.DefaultWarehouseId
+            defaultWarehouseId: dto.DefaultWarehouseId,
+            isLowStockAlertEnabled: dto.IsLowStockAlertEnabled,
+            minStockThreshold: dto.MinStockThreshold
         );
 
         await _context.Products.AddAsync(product);
@@ -163,6 +165,8 @@ public class ProductService : IProductService
                 CategoryName = p.Category != null ? p.Category.Name : "-",
                 BrandName = p.Brand != null ? p.Brand.Name : "-",
                 DefaultWarehouseName = p.DefaultWarehouse != null ? p.DefaultWarehouse.Name : null,
+                IsLowStockAlertEnabled = p.IsLowStockAlertEnabled,
+                MinStockThreshold = p.MinStockThreshold,
                 TotalStock = filter.WarehouseId.HasValue
                     ? (_context.Inventories
                         .Where(i => i.ProductId == p.Id && i.WarehouseId == filter.WarehouseId.Value)
@@ -183,8 +187,11 @@ public class ProductService : IProductService
                 break;
 
             case StockStatusFilter.LowStock:
-                projectedQuery =
-                    projectedQuery.Where(p => p.TotalStock > 0 && p.TotalStock <= filter.LowStockThreshold);
+                projectedQuery = projectedQuery.Where(p =>
+                    p.TotalStock > 0 &&
+                    (p.IsLowStockAlertEnabled
+                        ? p.TotalStock <= p.MinStockThreshold
+                        : p.TotalStock <= filter.LowStockThreshold));
                 break;
 
             case StockStatusFilter.All:
@@ -256,7 +263,9 @@ public class ProductService : IProductService
             TotalStock = warehouseStocks.Sum(ws => ws.Quantity),
             CreatedAt = product.CreatedAt,
             WarehouseStocks = warehouseStocks,
-            Movements = movements
+            Movements = movements,
+            IsLowStockAlertEnabled = product.IsLowStockAlertEnabled,
+            MinStockThreshold = product.MinStockThreshold,
         };
     }
 
@@ -279,7 +288,9 @@ public class ProductService : IProductService
             CategoryId = product.CategoryId,
             BrandId = product.BrandId,
             DefaultWarehouseId = product.DefaultWarehouseId,
-            ImagePath = product.ImagePath
+            ImagePath = product.ImagePath,
+            IsLowStockAlertEnabled = product.IsLowStockAlertEnabled,
+            MinStockThreshold = product.MinStockThreshold
         };
     }
 
@@ -312,16 +323,17 @@ public class ProductService : IProductService
             throw new InvalidOperationException($"کد فنی '{dto.InternalCode}' قبلاً برای کالای دیگری ثبت شده است.");
 
         product.UpdateDetails(
-            name: dto.Name.Trim(),
-            internalCode: dto.InternalCode.Trim(),
-            model: dto.Model?.Trim() ?? string.Empty,
-            categoryId: dto.CategoryId.Value,
-            brandId: dto.BrandId.Value,
-            imagePath: dto.ImagePath
+            dto.Name,
+            dto.InternalCode,
+            dto.Model,
+            dto.CategoryId.Value,
+            dto.BrandId.Value,
+            dto.ImagePath
         );
 
         product.UpdatePrices(dto.PurchasePrice, dto.SalePrice);
         product.SetDefaultWarehouse(dto.DefaultWarehouseId);
+        product.SetLowStockAlert(dto.IsLowStockAlertEnabled, dto.MinStockThreshold);
 
         await _context.SaveChangesAsync();
     }
@@ -346,10 +358,8 @@ public class ProductService : IProductService
         if (product == null)
             throw new InvalidOperationException("کالای مورد نظر یافت نشد.");
 
-        // بررسی وجود هرگونه سابقه گردش موجودی (کاردکس)
         var hasStockMovements = await _context.StockMovements.AnyAsync(sm => sm.ProductId == id);
 
-        // بررسی وجود موجودی در انبارها
         var totalStock = await _context.Inventories
             .Where(i => i.ProductId == id)
             .SumAsync(i => (int?)i.Quantity) ?? 0;
@@ -360,7 +370,6 @@ public class ProductService : IProductService
                 "این کالا دارای گردش کاردکس یا موجودی در انبار است و امکان حذف فیزیکی آن وجود ندارد. لطفاً به‌جای حذف، آن را غیرفعال کنید.");
         }
 
-        // حذف رکوردهای خالی مربوطه در صورت وجود
         var inventories = await _context.Inventories.Where(i => i.ProductId == id).ToListAsync();
         if (inventories.Count > 0)
         {

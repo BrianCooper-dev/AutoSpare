@@ -16,4 +16,8 @@ public class ProductListItemDto
     public decimal PurchasePrice { get; set; }
     public int TotalStock { get; set; }
     public ProductStatus Status { get; set; } = ProductStatus.Active;
+    public bool IsLowStockAlertEnabled { get; set; }
+    public int MinStockThreshold { get; set; }
+    public bool IsLowStock => IsLowStockAlertEnabled && TotalStock <= MinStockThreshold;
+
 }

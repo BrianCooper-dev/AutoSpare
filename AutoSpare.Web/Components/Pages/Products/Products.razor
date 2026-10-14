@@ -144,7 +144,7 @@
                             <MudSelectItem Value="StockStatusFilter.All">همه</MudSelectItem>
                             <MudSelectItem Value="StockStatusFilter.InStock">موجود</MudSelectItem>
                             <MudSelectItem Value="StockStatusFilter.OutOfStock">ناموجود</MudSelectItem>
-                            <MudSelectItem Value="StockStatusFilter.LowStock">کم‌موجودی (تا ۵ عدد)</MudSelectItem>
+                            <MudSelectItem Value="StockStatusFilter.LowStock">کم‌موجودی / هشدار</MudSelectItem>
                         </MudSelect>
                     </MudItem>
 
@@ -232,22 +232,32 @@
                     </MudTd>
 
                     <MudTd DataLabel="موجودی" Style="text-align: center;">
-                        @if (context.TotalStock > 5)
-                        {
-                            <MudChip T="string" Size="Size.Small" Color="Color.Success" Variant="Variant.Filled">
-                                @context.TotalStock عدد
-                            </MudChip>
+                        @{
+                            bool isLowStock = context.IsLowStockAlertEnabled
+                                ? (context.TotalStock <= context.MinStockThreshold)
+                                : (context.TotalStock <= 5);
                         }
-                        else if (context.TotalStock > 0)
-                        {
-                            <MudChip T="string" Size="Size.Small" Color="Color.Warning" Variant="Variant.Filled">
-                                @context.TotalStock عدد (کم)
-                            </MudChip>
-                        }
-                        else
+
+                        @if (context.TotalStock == 0)
                         {
                             <MudChip T="string" Size="Size.Small" Color="Color.Error" Variant="Variant.Outlined">
                                 ناموجود
+                            </MudChip>
+                        }
+                        else if (isLowStock)
+                        {
+                            <MudTooltip
+                                Text="@(context.IsLowStockAlertEnabled ? $"هشدار کمبود موجودی! (آستانه: {context.MinStockThreshold} عدد)" : "موجودی رو به اتمام")">
+                                <MudChip T="string" Size="Size.Small" Color="Color.Warning" Variant="Variant.Filled"
+                                         Icon="@Icons.Material.Filled.WarningAmber">
+                                    @context.TotalStock عدد
+                                </MudChip>
+                            </MudTooltip>
+                        }
+                        else
+                        {
+                            <MudChip T="string" Size="Size.Small" Color="Color.Success" Variant="Variant.Filled">
+                                @context.TotalStock عدد
                             </MudChip>
                         }
                     </MudTd>
@@ -372,7 +382,6 @@
     {
         var actionText = item.Status == ProductStatus.Active ? "غیرفعال" : "فعال";
 
-        // تنظیم پارامترهای دایالوگ تایید
         var parameters = new DialogParameters<ConfirmDialog>
         {
             { x => x.Title, $"{actionText}‌سازی کالا" },
@@ -390,11 +399,9 @@
             FullWidth = true
         };
 
-        // فراخوانی دایالوگ اختصاصی ConfirmDialog
         var dialog = await DialogService.ShowAsync<ConfirmDialog>("تأیید عملیات", parameters, options);
         var result = await dialog.Result;
 
-        // بررسی نتیجه
         if (result != null && !result.Canceled)
         {
             try
@@ -409,7 +416,6 @@
             }
         }
     }
-
 
     private async Task ResetFiltersAsync()
     {

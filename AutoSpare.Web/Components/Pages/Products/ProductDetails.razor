@@ -82,7 +82,8 @@
                             }
 
                             <MudText Typo="Typo.h6" Class="fw-bold text-center">@_product.Name</MudText>
-                            <MudChip T="string" Color="Color.Dark" Variant="Variant.Filled" Size="Size.Small" Class="mt-1">
+                            <MudChip T="string" Color="Color.Dark" Variant="Variant.Filled" Size="Size.Small"
+                                     Class="mt-1">
                                 کد فنی: @_product.InternalCode
                             </MudChip>
                         </MudCardContent>
@@ -116,7 +117,8 @@
                                 <MudListItem Icon="@Icons.Material.Filled.Warehouse">
                                     <div class="d-flex justify-space-between">
                                         <MudText Typo="Typo.body2" Color="Color.Secondary">انبار پیش‌فرض:</MudText>
-                                        <MudText Typo="Typo.body2" Class="fw-bold">@_product.DefaultWarehouseName</MudText>
+                                        <MudText Typo="Typo.body2"
+                                                 Class="fw-bold">@_product.DefaultWarehouseName</MudText>
                                     </div>
                                 </MudListItem>
 
@@ -138,14 +140,57 @@
                                     </div>
                                 </MudListItem>
 
+                                <MudListItem Icon="@Icons.Material.Filled.NotificationsActive">
+                                    <div class="d-flex justify-space-between align-center">
+                                        <MudText Typo="Typo.body2" Color="Color.Secondary">وضعیت هشدار موجودی:</MudText>
+                                        @if (_product.IsLowStockAlertEnabled)
+                                        {
+                                            <MudChip T="string" Size="Size.Small" Color="Color.Info"
+                                                     Variant="Variant.Outlined">
+                                                فعال (آستانه: @_product.MinStockThreshold عدد)
+                                            </MudChip>
+                                        }
+                                        else
+                                        {
+                                            <MudChip T="string" Size="Size.Small" Color="Color.Default"
+                                                     Variant="Variant.Text">
+                                                غیرفعال
+                                            </MudChip>
+                                        }
+                                    </div>
+                                </MudListItem>
+
                                 <MudListItem Icon="@Icons.Material.Filled.Inventory">
-                                    <div class="d-flex justify-space-between">
+                                    <div class="d-flex justify-space-between align-center">
                                         <MudText Typo="Typo.body2" Color="Color.Secondary">مجموع کل موجودی:</MudText>
-                                        <MudChip T="string" Size="Size.Small"
-                                                 Color="@(_product.TotalStock > 5 ? Color.Success : (_product.TotalStock > 0 ? Color.Warning : Color.Error))"
-                                                 Variant="Variant.Filled">
-                                            @_product.TotalStock عدد
-                                        </MudChip>
+                                        @{
+                                            bool isLow = _product.IsLowStockAlertEnabled
+                                                ? (_product.TotalStock <= _product.MinStockThreshold)
+                                                : (_product.TotalStock <= 5);
+                                        }
+
+                                        @if (_product.TotalStock == 0)
+                                        {
+                                            <MudChip T="string" Size="Size.Small" Color="Color.Error"
+                                                     Variant="Variant.Filled">
+                                                ناموجود
+                                            </MudChip>
+                                        }
+                                        else if (isLow)
+                                        {
+                                            <MudChip T="string" Size="Size.Small" Color="Color.Warning"
+                                                     Variant="Variant.Filled"
+                                                     Icon="@Icons.Material.Filled.WarningAmber">
+                                                @_product.TotalStock عدد (هشدار موجودی)
+                                            </MudChip>
+                                        }
+                                        else
+                                        {
+                                            <MudChip T="string" Size="Size.Small" Color="Color.Success"
+                                                     Variant="Variant.Filled">
+                                                @_product.TotalStock عدد
+                                            </MudChip>
+                                        }
                                     </div>
                                 </MudListItem>
                             </MudList>
@@ -333,4 +378,5 @@
             _isLoading = false;
         }
     }
+
 }
