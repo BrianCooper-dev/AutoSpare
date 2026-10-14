@@ -1,0 +1,270 @@
+@page "/inventory/alerts"
+
+@using AutoSpare.Application.Products
+@using AutoSpare.Application.Products.DTOs
+@inject IProductService ProductService
+@inject NavigationManager NavigationManager
+@inject ISnackbar Snackbar
+
+<PageTitle>هشدارهای کمبود موجودی انبار | AutoSpare</PageTitle>
+
+<MudContainer MaxWidth="MaxWidth.ExtraLarge" Class="mt-4 mb-8">
+    <!-- هدر صفحه -->
+    <MudPaper Elevation="2" Class="pa-4 mb-4 rounded-lg">
+        <MudGrid AlignItems="Center">
+            <MudItem xs="12" md="6">
+                <div class="d-flex align-center gap-3">
+                    <MudAvatar Color="Color.Warning" Size="Size.Large" Elevation="2">
+                        <MudIcon Icon="@Icons.Material.Filled.WarningAmber" Size="Size.Medium" />
+                    </MudAvatar>
+                    <div>
+                        <MudText Typo="Typo.h5" Class="font-weight-bold">هشدارهای کمبود موجودی</MudText>
+                        <MudText Typo="Typo.body2" Color="Color.Secondary">
+                            کالاهایی که موجودی آن‌ها در انبارها به آستانه بحرانی یا کمتر رسیده است
+                        </MudText>
+                    </div>
+                </div>
+            </MudItem>
+            <MudItem xs="12" md="6" Class="d-flex justify-md-end align-center gap-2">
+                <MudChip T="string" Color="Color.Error" Variant="Variant.Filled" Size="Size.Medium" Icon="@Icons.Material.Filled.ProductionQuantityLimits">
+                    موجودی صفر: @(_alerts.Count(a => a.CurrentStock == 0)) قلم
+                </MudChip>
+                <MudChip T="string" Color="Color.Warning" Variant="Variant.Filled" Size="Size.Medium" Icon="@Icons.Material.Filled.Warning">
+                    نیازمند شارژ: @(_alerts.Count(a => a.CurrentStock > 0)) قلم
+                </MudChip>
+                <MudButton Variant="Variant.Outlined"
+                           Color="Color.Primary"
+                           StartIcon="@Icons.Material.Filled.Refresh"
+                           OnClick="LoadAlertsAsync">
+                    بروزرسانی
+                </MudButton>
+            </MudItem>
+        </MudGrid>
+    </MudPaper>
+
+    <!-- فیلترها و جستجو -->
+    <MudCard Elevation="1" Class="mb-4 rounded-lg">
+        <MudCardContent Class="py-3">
+            <MudGrid AlignItems="Center">
+                <MudItem xs="12" md="6">
+                    <MudTextField @bind-Value="_searchQuery"
+                                  Placeholder="جستجو بر اساس نام قطعه، کد فنی، مدل یا برند..."
+                                  Adornment="Adornment.Start"
+                                  AdornmentIcon="@Icons.Material.Filled.Search"
+                                  Immediate="true"
+                                  Clearable="true"
+                                  Variant="Variant.Outlined"
+                                  Margin="Margin.Dense" />
+                </MudItem>
+                <MudItem xs="12" md="4">
+                    <MudSelect T="Guid?"
+                               Value="_selectedWarehouseId"
+                               ValueChanged="OnWarehouseChanged"
+                               Label="فیلتر بر اساس انبار"
+                               Variant="Variant.Outlined"
+                               Dense="true"
+                               Margin="Margin.Dense"
+                               Clearable="true">
+                        <MudSelectItem T="Guid?" Value="@((Guid?)null)">همه انبارها</MudSelectItem>
+                        @foreach (var warehouse in _warehouses)
+                        {
+                            <MudSelectItem T="Guid?" Value="@((Guid?)warehouse.Id)">@warehouse.Title</MudSelectItem>
+                        }
+                    </MudSelect>
+                </MudItem>
+                <MudItem xs="12" md="2" Class="d-flex justify-end">
+                    <MudText Typo="Typo.body2" Color="Color.Secondary" Class="mt-2">
+                        مجموع هشدارها: @(FilteredAlerts.Count) مورد
+                    </MudText>
+                </MudItem>
+            </MudGrid>
+        </MudCardContent>
+    </MudCard>
+
+    <!-- جدول نمایش هشدارها -->
+    <MudTable Items="FilteredAlerts"
+              Hover="true"
+              Bordered="false"
+              Striped="true"
+              Elevation="2"
+              Loading="_isLoading"
+              LoadingProgressColor="Color.Primary"
+              Class="rounded-lg">
+        <HeaderContent>
+            <MudTh>کد فنی</MudTh>
+            <MudTh>نام کالا و مدل</MudTh>
+            <MudTh>برند / گروه</MudTh>
+            <MudTh>انبار مربوطه</MudTh>
+            <MudTh Style="text-align: center;">موجودی فعلی</MudTh>
+            <MudTh Style="text-align: center;">حداقل مجاز</MudTh>
+            <MudTh Style="text-align: center;">کسری تا حد نصاب</MudTh>
+            <MudTh Style="text-align: center;">وضعیت</MudTh>
+            <MudTh Style="text-align: center;">عملیات</MudTh>
+        </HeaderContent>
+        <RowTemplate>
+            <MudTd DataLabel="کد فنی">
+                <MudChip T="string" Size="Size.Small" Variant="Variant.Outlined" Color="Color.Dark">
+                    @context.InternalCode
+                </MudChip>
+            </MudTd>
+
+            <MudTd DataLabel="نام کالا و مدل">
+                <div class="d-flex align-center gap-2">
+                    @if (!string.IsNullOrWhiteSpace(context.ImagePath))
+                    {
+                        <MudAvatar Rounded="true" Size="Size.Medium">
+                            <MudImage Src="@context.ImagePath" Alt="@context.ProductName" />
+                        </MudAvatar>
+                    }
+                    else
+                    {
+                        <MudAvatar Color="Color.Surface" Rounded="true" Size="Size.Medium">
+                            <MudIcon Icon="@Icons.Material.Filled.Build" Color="Color.Secondary" />
+                        </MudAvatar>
+                    }
+                    <div>
+                        <MudText Typo="Typo.body2" Class="font-weight-bold">@context.ProductName</MudText>
+                        <MudText Typo="Typo.caption" Color="Color.Secondary">@context.Model</MudText>
+                    </div>
+                </div>
+            </MudTd>
+
+            <MudTd DataLabel="برند / گروه">
+                <MudText Typo="Typo.body2">@context.BrandName</MudText>
+                <MudText Typo="Typo.caption" Color="Color.Secondary">@context.CategoryName</MudText>
+            </MudTd>
+
+            <MudTd DataLabel="انبار مربوطه">
+                <div class="d-flex align-center gap-1">
+                    <MudIcon Icon="@Icons.Material.Filled.Warehouse" Size="Size.Small" Color="Color.Default" />
+                    <MudText Typo="Typo.body2" Class="font-weight-medium">@context.WarehouseName</MudText>
+                </div>
+            </MudTd>
+
+            <MudTd DataLabel="موجودی فعلی" Style="text-align: center;">
+                @if (context.CurrentStock == 0)
+                {
+                    <MudChip T="string" Color="Color.Error" Size="Size.Small" Variant="Variant.Filled">اتمام موجودی (۰)</MudChip>
+                }
+                else
+                {
+                    <MudChip T="string" Color="Color.Warning" Size="Size.Small" Variant="Variant.Filled">@context.CurrentStock عدد</MudChip>
+                }
+            </MudTd>
+
+            <MudTd DataLabel="حداقل مجاز" Style="text-align: center;">
+                <MudText Typo="Typo.body2">@context.MinStockThreshold</MudText>
+            </MudTd>
+
+            <MudTd DataLabel="کسری تا حد نصاب" Style="text-align: center;">
+                <MudText Typo="Typo.body2" Color="Color.Error" Class="font-weight-bold">
+                    +@context.Deficit عدد
+                </MudText>
+            </MudTd>
+
+            <MudTd DataLabel="وضعیت" Style="text-align: center;">
+                @if (context.CurrentStock == 0)
+                {
+                    <MudBadge Dot="true" Color="Color.Error" Class="mr-2" />
+                    <span class="text-danger font-weight-bold">بحرانی</span>
+                }
+                else
+                {
+                    <MudBadge Dot="true" Color="Color.Warning" Class="mr-2" />
+                    <span class="text-warning font-weight-bold">کمبود</span>
+                }
+            </MudTd>
+
+            <MudTd DataLabel="عملیات" Style="text-align: center;">
+                <div class="d-flex justify-center gap-1">
+                    <MudTooltip Text="ثبت فاکتور خرید برای این کالا">
+                        <MudIconButton Icon="@Icons.Material.Filled.AddShoppingCart"
+                                       Color="Color.Primary"
+                                       Size="Size.Small"
+                                       OnClick="@(() => NavigateToPurchase(context.ProductId))" />
+                    </MudTooltip>
+                    <MudTooltip Text="مشاهده جزئیات کالا">
+                        <MudIconButton Icon="@Icons.Material.Filled.Visibility"
+                                       Color="Color.Default"
+                                       Size="Size.Small"
+                                       OnClick="@(() => NavigateToDetails(context.ProductId))" />
+                    </MudTooltip>
+                </div>
+            </MudTd>
+        </RowTemplate>
+        <NoRecordsContent>
+            <div class="pa-8 d-flex flex-column align-center justify-center">
+                <MudIcon Icon="@Icons.Material.Filled.CheckCircleOutline" Color="Color.Success" Size="Size.Large" Class="mb-2" />
+                <MudText Typo="Typo.h6" Color="Color.Success">تمامی موجودی‌ها در سطح مطلوب قرار دارند</MudText>
+                <MudText Typo="Typo.body2" Color="Color.Secondary">هیچ کالایی به کمتر از آستانه هشدار نرسیده است.</MudText>
+            </div>
+        </NoRecordsContent>
+    </MudTable>
+</MudContainer>
+
+@code {
+    private List<LowStockAlertDto> _alerts = new();
+    private List<DropdownItemDto> _warehouses = new();
+    private Guid? _selectedWarehouseId;
+    private string _searchQuery = string.Empty;
+    private bool _isLoading = true;
+
+    private List<LowStockAlertDto> FilteredAlerts => _alerts
+        .Where(a => string.IsNullOrWhiteSpace(_searchQuery) ||
+                    a.ProductName.Contains(_searchQuery, StringComparison.OrdinalIgnoreCase) ||
+                    a.InternalCode.Contains(_searchQuery, StringComparison.OrdinalIgnoreCase) ||
+                    a.Model.Contains(_searchQuery, StringComparison.OrdinalIgnoreCase) ||
+                    a.BrandName.Contains(_searchQuery, StringComparison.OrdinalIgnoreCase))
+        .ToList();
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadLookupsAsync();
+        await LoadAlertsAsync();
+    }
+
+    private async Task LoadLookupsAsync()
+    {
+        try
+        {
+            _warehouses = await ProductService.GetWarehousesLookupAsync();
+        }
+        catch (Exception ex)
+        {
+            Snackbar.Add($"خطا در بارگذاری لیست انبارها: {ex.Message}", Severity.Error);
+        }
+    }
+
+    private async Task LoadAlertsAsync()
+    {
+        _isLoading = true;
+        try
+        {
+            _alerts = await ProductService.GetLowStockAlertsAsync(_selectedWarehouseId);
+        }
+        catch (Exception ex)
+        {
+            Snackbar.Add($"خطا در دریافت لیست هشدارها: {ex.Message}", Severity.Error);
+        }
+        finally
+        {
+            _isLoading = false;
+        }
+    }
+
+    private async Task OnWarehouseChanged(Guid? warehouseId)
+    {
+        _selectedWarehouseId = warehouseId;
+        await LoadAlertsAsync();
+    }
+
+    private void NavigateToPurchase(Guid productId)
+    {
+        NavigationManager.NavigateTo($"/purchases/create?productId={productId}");
+    }
+
+    private void NavigateToDetails(Guid productId)
+    {
+        NavigationManager.NavigateTo($"/products/{productId}");
+    }
+}

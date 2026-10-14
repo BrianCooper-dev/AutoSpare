@@ -232,22 +232,15 @@
                     </MudTd>
 
                     <MudTd DataLabel="موجودی" Style="text-align: center;">
-                        @{
-                            bool isLowStock = context.IsLowStockAlertEnabled
-                                ? (context.TotalStock <= context.MinStockThreshold)
-                                : (context.TotalStock <= 5);
-                        }
-
                         @if (context.TotalStock == 0)
                         {
                             <MudChip T="string" Size="Size.Small" Color="Color.Error" Variant="Variant.Outlined">
                                 ناموجود
                             </MudChip>
                         }
-                        else if (isLowStock)
+                        else if (context.IsLowStock)
                         {
-                            <MudTooltip
-                                Text="@(context.IsLowStockAlertEnabled ? $"هشدار کمبود موجودی! (آستانه: {context.MinStockThreshold} عدد)" : "موجودی رو به اتمام")">
+                            <MudTooltip Text="@($"هشدار کمبود موجودی! (آستانه: {context.MinStockThreshold} عدد)")">
                                 <MudChip T="string" Size="Size.Small" Color="Color.Warning" Variant="Variant.Filled"
                                          Icon="@Icons.Material.Filled.WarningAmber">
                                     @context.TotalStock عدد

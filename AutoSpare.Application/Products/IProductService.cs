@@ -15,4 +15,5 @@ public interface IProductService
     Task<ProductDetailsDto?> GetProductDetailsByIdAsync(Guid id);
     Task ToggleProductStatusAsync(Guid id);
     Task DeleteProductAsync(Guid id);
+    Task<List<LowStockAlertDto>> GetLowStockAlertsAsync(Guid? warehouseId = null);
 }
