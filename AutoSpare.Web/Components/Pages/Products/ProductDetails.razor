@@ -3,6 +3,7 @@
 @using AutoSpare.Application.Products
 @using AutoSpare.Application.Products.DTOs
 @using AutoSpare.Domain.Inventories.Enums
+@using AutoSpare.Domain.Products.Enums
 
 @inject IProductService ProductService
 @inject ISnackbar Snackbar
@@ -344,6 +345,95 @@
                                 </NoRecordsContent>
                             </MudTable>
                         </MudTabPanel>
+
+                        <!-- تب ۳: تاریخچه تغییرات قیمت -->
+                        <MudTabPanel Text="تاریخچه تغییرات قیمت" Icon="@Icons.Material.Filled.PriceChange">
+                            <MudTable Items="@_product.PriceHistories" Dense="true" Hover="true" Striped="true"
+                                      Elevation="0">
+                                <HeaderContent>
+                                    <MudTh>نوع تغییر</MudTh>
+                                    <MudTh Style="text-align: center;">قیمت فروش قبلی</MudTh>
+                                    <MudTh Style="text-align: center;">قیمت فروش جدید</MudTh>
+                                    <MudTh Style="text-align: center;">اختلاف / درصد</MudTh>
+                                    <MudTh>علت / توضیحات</MudTh>
+                                    <MudTh Style="text-align: left;">تاریخ و زمان</MudTh>
+                                </HeaderContent>
+                                <RowTemplate>
+                                    <MudTd DataLabel="نوع تغییر">
+                                        @switch (context.ChangeType)
+                                        {
+                                            case PriceChangeType.Manual:
+                                                <MudChip T="string" Size="Size.Small" Color="Color.Primary"
+                                                         Variant="Variant.Filled">دستی
+                                                </MudChip>
+                                                break;
+                                            case PriceChangeType.BatchPercentage:
+                                                <MudChip T="string" Size="Size.Small" Color="Color.Warning"
+                                                         Variant="Variant.Filled">درصدی گروهی
+                                                </MudChip>
+                                                break;
+                                            case PriceChangeType.BatchFixedAmount:
+                                                <MudChip T="string" Size="Size.Small" Color="Color.Info"
+                                                         Variant="Variant.Filled">مبلغ ثابت گروهی
+                                                </MudChip>
+                                                break;
+                                            case PriceChangeType.PurchaseUpdate:
+                                                <MudChip T="string" Size="Size.Small" Color="Color.Success"
+                                                         Variant="Variant.Outlined">بروزرسانی از خرید
+                                                </MudChip>
+                                                break;
+                                            case PriceChangeType.Import:
+                                                <MudChip T="string" Size="Size.Small" Color="Color.Dark"
+                                                         Variant="Variant.Outlined">واردات / اکسل
+                                                </MudChip>
+                                                break;
+                                            default:
+                                                <MudChip T="string" Size="Size.Small"
+                                                         Color="Color.Default">@context.ChangeType</MudChip>
+                                                break;
+                                        }
+                                    </MudTd>
+
+                                    <MudTd DataLabel="قیمت فروش قبلی" Style="text-align: center;">
+                                        @context.OldSalePrice.ToString("N0") تومان
+                                    </MudTd>
+
+                                    <MudTd DataLabel="قیمت فروش جدید" Style="text-align: center;">
+                                        <span class="fw-bold">@context.NewSalePrice.ToString("N0") تومان</span>
+                                    </MudTd>
+
+                                    <MudTd DataLabel="اختلاف / درصد" Style="text-align: center;">
+                                        <div class="d-flex flex-column align-center">
+                                            <MudText Typo="Typo.body2"
+                                                     Color="@(context.SalePriceDifference >= 0 ? Color.Success : Color.Error)"
+                                                     Class="fw-bold">
+                                                @(context.SalePriceDifference > 0 ? $"+{context.SalePriceDifference:N0}" : context.SalePriceDifference.ToString("N0"))
+                                            </MudText>
+                                            <MudChip T="string" Size="Size.Small"
+                                                     Color="@(context.SalePricePercentageChange >= 0 ? Color.Success : Color.Error)"
+                                                     Variant="Variant.Text">
+                                                @(context.SalePricePercentageChange > 0 ? $"+{context.SalePricePercentageChange}%" : $"{context.SalePricePercentageChange}%")
+                                            </MudChip>
+                                        </div>
+                                    </MudTd>
+
+                                    <MudTd DataLabel="علت / توضیحات">
+                                        @(string.IsNullOrWhiteSpace(context.Reason) ? "-" : context.Reason)
+                                    </MudTd>
+
+                                    <MudTd DataLabel="تاریخ" Style="text-align: left;">
+                                        <MudText
+                                            Typo="Typo.caption">@context.ChangeDate.ToLocalTime().ToString("yyyy/MM/dd HH:mm")</MudText>
+                                    </MudTd>
+                                </RowTemplate>
+                                <NoRecordsContent>
+                                    <MudText Typo="Typo.body2" Align="Align.Center" Class="py-4 text-muted">
+                                        هیچ تاریخچه تغییر قیمتی برای این کالا ثبت نشده است.
+                                    </MudText>
+                                </NoRecordsContent>
+                            </MudTable>
+                        </MudTabPanel>
+
                     </MudTabs>
                 </MudCard>
             </MudItem>

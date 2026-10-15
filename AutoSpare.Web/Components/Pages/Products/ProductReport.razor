@@ -1,0 +1,456 @@
+@page "/products/report"
+@page "/products/report/{ProductId:guid}"
+
+@using AutoSpare.Application.Products
+@using AutoSpare.Application.Products.DTOs
+@using AutoSpare.Domain.Inventories.Enums
+@using AutoSpare.Domain.Products.Enums
+
+@inject IProductService ProductService
+@inject ISnackbar Snackbar
+@inject NavigationManager Navigation
+
+<MudContainer MaxWidth="MaxWidth.ExtraLarge" Class="mt-6 mb-10">
+    <!-- هدر گزارش جامع -->
+    <div class="d-flex justify-space-between align-center mb-4">
+        <div class="d-flex align-center gap-3">
+            <MudIconButton Icon="@Icons.Material.Filled.ArrowForward"
+                           Color="Color.Default"
+                           OnClick="@(() => Navigation.NavigateTo("/products"))"
+                           Title="بازگشت به فهرست کالاها"/>
+            <div>
+                <MudText Typo="Typo.h5" Class="fw-bold">گزارش جامع و تحلیل کالا</MudText>
+                <MudText Typo="Typo.caption" Color="Color.Secondary">
+                    تحلیل موجودی انبارها، گردش کاردکس (ورود/خروج) و تاریخچه تغییرات قیمت
+                </MudText>
+            </div>
+        </div>
+
+        <div class="d-flex gap-2">
+            @if (_selectedProductId.HasValue && _product != null)
+            {
+                <MudButton Variant="Variant.Outlined"
+                           Color="Color.Info"
+                           StartIcon="@Icons.Material.Filled.OpenInNew"
+                           OnClick="@(() => Navigation.NavigateTo($"/products/{_selectedProductId.Value}"))">
+                    صفحه اختصاصی کالا
+                </MudButton>
+            }
+        </div>
+    </div>
+
+    <!-- فیلتر انتخاب کالا با جستجوی سریع -->
+    <MudCard Elevation="2" Class="pa-4 mb-4 rounded-lg">
+        <MudGrid Spacing="2" Class="align-center">
+            <MudItem xs="12" md="6">
+                <MudAutocomplete T="ProductListItemDto"
+                                 Label="جستجو و انتخاب کالا (نام یا کد فنی)"
+                                 Value="@_selectedProductItem"
+                                 ValueChanged="OnProductSelected"
+                                 SearchFunc="@SearchProductsAsync"
+                                 ToStringFunc="@(p => p == null ? string.Empty : $"{p.Name} ({p.InternalCode})")"
+                                 ResetValueOnEmptyText="true"
+                                 CoerceText="false"
+                                 Clearable="true"
+                                 AdornmentIcon="@Icons.Material.Filled.Search"
+                                 AdornmentColor="Color.Primary"
+                                 Placeholder="نام کالا یا کد فنی را تایپ کنید..."/>
+            </MudItem>
+            <MudItem xs="12" md="6" Class="d-flex align-center justify-end gap-2">
+                @if (_isLoading)
+                {
+                    <MudProgressCircular Size="Size.Small" Indeterminate="true" Color="Color.Primary"/>
+                    <MudText Typo="Typo.body2" Color="Color.Secondary">در حال دریافت اطلاعات...</MudText>
+                }
+            </MudItem>
+        </MudGrid>
+    </MudCard>
+
+    @if (_selectedProductId == null || _selectedProductId == Guid.Empty)
+    {
+        <MudAlert Severity="Severity.Info" Variant="Variant.Outlined" Class="my-4">
+            لطفاً از کادر جستجوی بالا یک کالا را انتخاب کنید تا اطلاعات جامع و نمودارهای آن بارگذاری شود.
+        </MudAlert>
+    }
+    else if (_isLoading)
+    {
+        <div class="d-flex justify-center align-center pa-12">
+            <MudProgressCircular Color="Color.Primary" Indeterminate="true" Size="Size.Large"/>
+        </div>
+    }
+    else if (_product == null)
+    {
+        <MudAlert Severity="Severity.Error" Variant="Variant.Filled" Class="my-4">
+            کالای انتخابی یافت نشد یا غیرفعال شده است.
+        </MudAlert>
+    }
+    else
+    {
+        <!-- مشخصات کارت بالا و موجودی کل -->
+        <MudGrid Spacing="3" Class="mb-3">
+            <MudItem xs="12" sm="6" md="3">
+                <MudPaper Class="pa-4 rounded-lg d-flex justify-space-between align-center" Elevation="2">
+                    <div>
+                        <MudText Typo="Typo.caption" Color="Color.Secondary">موجودی کل در همه انبارها</MudText>
+                        <MudText Typo="Typo.h5" Class="fw-bold mt-1"
+                                 Color="@(_product.TotalStock > 0 ? Color.Success : Color.Error)">
+                            @_product.TotalStock عدد
+                        </MudText>
+                    </div>
+                    <MudIcon Icon="@Icons.Material.Filled.Inventory2" Size="Size.Large" Color="Color.Primary"/>
+                </MudPaper>
+            </MudItem>
+
+            <MudItem xs="12" sm="6" md="3">
+                <MudPaper Class="pa-4 rounded-lg d-flex justify-space-between align-center" Elevation="2">
+                    <div>
+                        <MudText Typo="Typo.caption" Color="Color.Secondary">قیمت خرید فعلی</MudText>
+                        <MudText Typo="Typo.h6" Class="fw-bold mt-1">
+                            @_product.PurchasePrice.ToString("N0") <span style="font-size: 0.8rem;">تومان</span>
+                        </MudText>
+                    </div>
+                    <MudIcon Icon="@Icons.Material.Filled.ShoppingBag" Size="Size.Large" Color="Color.Warning"/>
+                </MudPaper>
+            </MudItem>
+
+            <MudItem xs="12" sm="6" md="3">
+                <MudPaper Class="pa-4 rounded-lg d-flex justify-space-between align-center" Elevation="2">
+                    <div>
+                        <MudText Typo="Typo.caption" Color="Color.Secondary">قیمت فروش فعلی</MudText>
+                        <MudText Typo="Typo.h6" Class="fw-bold mt-1" Color="Color.Success">
+                            @_product.SalePrice.ToString("N0") <span style="font-size: 0.8rem;">تومان</span>
+                        </MudText>
+                    </div>
+                    <MudIcon Icon="@Icons.Material.Filled.MonetizationOn" Size="Size.Large" Color="Color.Success"/>
+                </MudPaper>
+            </MudItem>
+
+            <MudItem xs="12" sm="6" md="3">
+                <MudPaper Class="pa-4 rounded-lg d-flex justify-space-between align-center" Elevation="2">
+                    <div>
+                        <MudText Typo="Typo.caption" Color="Color.Secondary">حاشیه سود ناخالص</MudText>
+                        @{
+                            var profit = _product.SalePrice - _product.PurchasePrice;
+                            var profitPercent = _product.PurchasePrice > 0 ? Math.Round((profit / _product.PurchasePrice) * 100, 1) : 0;
+                        }
+                        <MudText Typo="Typo.h6" Class="fw-bold mt-1" Color="Color.Info">
+                            @profit.ToString("N0") تومان (@profitPercent٪)
+                        </MudText>
+                    </div>
+                    <MudIcon Icon="@Icons.Material.Filled.TrendingUp" Size="Size.Large" Color="Color.Info"/>
+                </MudPaper>
+            </MudItem>
+        </MudGrid>
+
+        <!-- بخش تب‌های تحلیلی -->
+        <MudCard Elevation="3" Class="rounded-lg">
+            <MudTabs Elevation="0" Rounded="true" ApplyEffectsToContainer="true" PanelClass="pa-4">
+
+                <!-- تب ۱: موجودی تفکیکی انبارها -->
+                <MudTabPanel Text="موجودی به تفکیک انبارها" Icon="@Icons.Material.Filled.Warehouse">
+                    <MudTable Items="@_product.WarehouseStocks" Dense="true" Hover="true" Elevation="0">
+                        <HeaderContent>
+                            <MudTh>نام انبار</MudTh>
+                            <MudTh Style="text-align: center;">موجودی کالا</MudTh>
+                            <MudTh Style="text-align: center;">وضعیت</MudTh>
+                        </HeaderContent>
+                        <RowTemplate>
+                            <MudTd DataLabel="نام انبار">
+                                <div class="d-flex align-center gap-2">
+                                    <MudIcon Icon="@Icons.Material.Filled.HomeRepairService" Size="Size.Small"
+                                             Color="Color.Primary"/>
+                                    <MudText Typo="Typo.body2" Class="fw-bold">@context.WarehouseName</MudText>
+                                </div>
+                            </MudTd>
+                            <MudTd DataLabel="موجودی کالا" Style="text-align: center;">
+                                <MudChip T="string" Color="@(context.Quantity > 0 ? Color.Success : Color.Error)"
+                                         Size="Size.Small" Variant="Variant.Outlined">
+                                    @context.Quantity عدد
+                                </MudChip>
+                            </MudTd>
+                            <MudTd DataLabel="وضعیت" Style="text-align: center;">
+                                @if (context.Quantity == 0)
+                                {
+                                    <MudChip T="string" Size="Size.Small" Color="Color.Error" Variant="Variant.Filled">
+                                        اتمام موجودی
+                                    </MudChip>
+                                }
+                                else if (context.Quantity <= 5)
+                                {
+                                    <MudChip T="string" Size="Size.Small" Color="Color.Warning"
+                                             Variant="Variant.Filled">نیاز به شارژ
+                                    </MudChip>
+                                }
+                                else
+                                {
+                                    <MudChip T="string" Size="Size.Small" Color="Color.Success"
+                                             Variant="Variant.Filled">موجود و کافی
+                                    </MudChip>
+                                }
+                            </MudTd>
+                        </RowTemplate>
+                        <NoRecordsContent>
+                            <MudText Typo="Typo.body2" Align="Align.Center" Class="py-4 text-muted">
+                                هیچ موجودی برای این کالا در انبارها ثبت نشده است.
+                            </MudText>
+                        </NoRecordsContent>
+                    </MudTable>
+                </MudTabPanel>
+
+                <!-- تب ۲: تاریخچه تغییرات قیمت کالا -->
+                <MudTabPanel Text="تاریخچه تغییرات قیمت" Icon="@Icons.Material.Filled.PriceChange">
+                    <MudTable Items="@_product.PriceHistories" Dense="true" Hover="true" Striped="true" Elevation="0">
+                        <HeaderContent>
+                            <MudTh>نوع تغییر</MudTh>
+                            <MudTh Style="text-align: center;">قیمت فروش قبلی</MudTh>
+                            <MudTh Style="text-align: center;">قیمت فروش جدید</MudTh>
+                            <MudTh Style="text-align: center;">میزان تغییر</MudTh>
+                            <MudTh Style="text-align: center;">درصد تغییر</MudTh>
+                            <MudTh>علت / توضیحات</MudTh>
+                            <MudTh Style="text-align: left;">تاریخ و زمان</MudTh>
+                        </HeaderContent>
+                        <RowTemplate>
+                            <MudTd DataLabel="نوع تغییر">
+                                @switch (context.ChangeType)
+                                {
+                                    case PriceChangeType.Manual:
+                                        <MudChip T="string" Size="Size.Small" Color="Color.Primary"
+                                                 Variant="Variant.Filled">دستی
+                                        </MudChip>
+                                        break;
+                                    case PriceChangeType.BatchPercentage:
+                                        <MudChip T="string" Size="Size.Small" Color="Color.Warning"
+                                                 Variant="Variant.Filled">گروهی درصدی
+                                        </MudChip>
+                                        break;
+                                    case PriceChangeType.BatchFixedAmount:
+                                        <MudChip T="string" Size="Size.Small" Color="Color.Info"
+                                                 Variant="Variant.Filled">مبلغ ثابت
+                                        </MudChip>
+                                        break;
+                                    case PriceChangeType.PurchaseUpdate:
+                                        <MudChip T="string" Size="Size.Small" Color="Color.Success"
+                                                 Variant="Variant.Outlined">از فاکتور خرید
+                                        </MudChip>
+                                        break;
+                                    case PriceChangeType.Import:
+                                        <MudChip T="string" Size="Size.Small" Color="Color.Dark"
+                                                 Variant="Variant.Outlined">اکسل / واردات
+                                        </MudChip>
+                                        break;
+                                    default:
+                                        <MudChip T="string" Size="Size.Small"
+                                                 Color="Color.Default">@context.ChangeType</MudChip>
+                                        break;
+                                }
+                            </MudTd>
+
+                            <MudTd DataLabel="قیمت فروش قبلی" Style="text-align: center;">
+                                @context.OldSalePrice.ToString("N0") تومان
+                            </MudTd>
+
+                            <MudTd DataLabel="قیمت فروش جدید" Style="text-align: center;">
+                                <span class="fw-bold">@context.NewSalePrice.ToString("N0") تومان</span>
+                            </MudTd>
+
+                            <MudTd DataLabel="میزان تغییر" Style="text-align: center;">
+                                <MudText Typo="Typo.body2" Class="fw-bold"
+                                         Color="@(context.SalePriceDifference >= 0 ? Color.Success : Color.Error)">
+                                    @(context.SalePriceDifference > 0 ? $"+{context.SalePriceDifference:N0}" : context.SalePriceDifference.ToString("N0")) تومان
+                                </MudText>
+                            </MudTd>
+
+                            <MudTd DataLabel="درصد تغییر" Style="text-align: center;">
+                                <MudChip T="string" Size="Size.Small"
+                                         Color="@(context.SalePricePercentageChange >= 0 ? Color.Success : Color.Error)"
+                                         Variant="Variant.Outlined">
+                                    @(context.SalePricePercentageChange > 0 ? $"+{context.SalePricePercentageChange}%" : $"{context.SalePricePercentageChange}%")
+                                </MudChip>
+                            </MudTd>
+
+                            <MudTd DataLabel="علت / توضیحات">
+                                @(string.IsNullOrWhiteSpace(context.Reason) ? "-" : context.Reason)
+                            </MudTd>
+
+                            <MudTd DataLabel="تاریخ" Style="text-align: left;">
+                                <MudText Typo="Typo.caption">
+                                    @context.ChangeDate.ToLocalTime().ToString("yyyy/MM/dd HH:mm")
+                                </MudText>
+                            </MudTd>
+                        </RowTemplate>
+                        <NoRecordsContent>
+                            <MudText Typo="Typo.body2" Align="Align.Center" Class="py-4 text-muted">
+                                تاکنون هیچ تغییری در قیمت این کالا ثبت نشده است.
+                            </MudText>
+                        </NoRecordsContent>
+                    </MudTable>
+                </MudTabPanel>
+
+                <!-- تب ۳: گردش موجودی کالا (کاردکس ورود و خروج) -->
+                <MudTabPanel Text="گردش موجودی (خرید و فروش)" Icon="@Icons.Material.Filled.History">
+                    <MudTable Items="@_product.Movements" Dense="true" Hover="true" Striped="true" Elevation="0">
+                        <HeaderContent>
+                            <MudTh>نوع عملیات</MudTh>
+                            <MudTh>انبار</MudTh>
+                            <MudTh Style="text-align: center;">تغییر تعداد</MudTh>
+                            <MudTh Style="text-align: center;">مانده در انبار</MudTh>
+                            <MudTh>شماره سند / فاکتور</MudTh>
+                            <MudTh>علت / توضیحات</MudTh>
+                            <MudTh Style="text-align: left;">تاریخ و زمان</MudTh>
+                        </HeaderContent>
+                        <RowTemplate>
+                            <MudTd DataLabel="نوع عملیات">
+                                @switch (context.Type)
+                                {
+                                    case StockMovementType.Initial:
+                                        <MudChip T="string" Size="Size.Small" Color="Color.Info"
+                                                 Variant="Variant.Filled">موجودی اولیه
+                                        </MudChip>
+                                        break;
+                                    case StockMovementType.Purchase:
+                                        <MudChip T="string" Size="Size.Small" Color="Color.Success"
+                                                 Variant="Variant.Filled">خرید (ورود)
+                                        </MudChip>
+                                        break;
+                                    case StockMovementType.Sale:
+                                        <MudChip T="string" Size="Size.Small" Color="Color.Error"
+                                                 Variant="Variant.Filled">فروش (خروج)
+                                        </MudChip>
+                                        break;
+                                    case StockMovementType.CustomerReturn:
+                                        <MudChip T="string" Size="Size.Small" Color="Color.Success"
+                                                 Variant="Variant.Outlined">مرجوعی مشتری
+                                        </MudChip>
+                                        break;
+                                    case StockMovementType.SupplierReturn:
+                                        <MudChip T="string" Size="Size.Small" Color="Color.Warning"
+                                                 Variant="Variant.Outlined">مرجوعی تامین‌کننده
+                                        </MudChip>
+                                        break;
+                                    case StockMovementType.Adjustment:
+                                        <MudChip T="string" Size="Size.Small" Color="Color.Secondary"
+                                                 Variant="Variant.Filled">تعدیل / انبارگردانی
+                                        </MudChip>
+                                        break;
+                                    default:
+                                        <MudChip T="string" Size="Size.Small"
+                                                 Color="Color.Default">@context.Type</MudChip>
+                                        break;
+                                }
+                            </MudTd>
+
+                            <MudTd DataLabel="انبار">@context.WarehouseName</MudTd>
+
+                            <MudTd DataLabel="تغییر تعداد" Style="text-align: center;">
+                                <MudText Typo="Typo.body2" Class="fw-bold"
+                                         Color="@(context.QuantityChange > 0 ? Color.Success : Color.Error)">
+                                    @(context.QuantityChange > 0 ? $"+{context.QuantityChange}" : context.QuantityChange.ToString())
+                                </MudText>
+                            </MudTd>
+
+                            <MudTd DataLabel="مانده در انبار" Style="text-align: center;">
+                                <MudChip T="string" Size="Size.Small" Variant="Variant.Outlined" Color="Color.Dark">
+                                    @context.BalanceAfter
+                                </MudChip>
+                            </MudTd>
+
+                            <MudTd DataLabel="شماره سند">
+                                @(string.IsNullOrWhiteSpace(context.Reference) ? "-" : context.Reference)
+                            </MudTd>
+
+                            <MudTd DataLabel="علت">
+                                @(string.IsNullOrWhiteSpace(context.Reason) ? "-" : context.Reason)
+                            </MudTd>
+
+                            <MudTd DataLabel="تاریخ" Style="text-align: left;">
+                                <MudText Typo="Typo.caption">
+                                    @context.OccurredAt.ToLocalTime().ToString("yyyy/MM/dd HH:mm")
+                                </MudText>
+                            </MudTd>
+                        </RowTemplate>
+                        <NoRecordsContent>
+                            <MudText Typo="Typo.body2" Align="Align.Center" Class="py-4 text-muted">
+                                هیچ گردش خریدی یا فروشی برای این کالا ثبت نشده است.
+                            </MudText>
+                        </NoRecordsContent>
+                    </MudTable>
+                </MudTabPanel>
+            </MudTabs>
+        </MudCard>
+    }
+</MudContainer>
+
+@code {
+    [Parameter] public Guid? ProductId { get; set; }
+
+    private Guid? _selectedProductId;
+    private ProductListItemDto? _selectedProductItem;
+    private ProductDetailsDto? _product;
+    private List<ProductListItemDto> _allProducts = new();
+    private bool _isLoading = false;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            _allProducts = await ProductService.GetProductsAsync(new ProductFilterDto());
+
+            if (ProductId.HasValue && ProductId.Value != Guid.Empty)
+            {
+                _selectedProductId = ProductId.Value;
+                _selectedProductItem = _allProducts.FirstOrDefault(p => p.Id == _selectedProductId);
+                await LoadProductDataAsync(_selectedProductId.Value);
+            }
+        }
+        catch (Exception ex)
+        {
+            Snackbar.Add($"خطا در دریافت لیست اولیه: {ex.Message}", Severity.Error);
+        }
+    }
+
+    private async Task<IEnumerable<ProductListItemDto>> SearchProductsAsync(string? value, CancellationToken token)
+    {
+        if (string.IsNullOrWhiteSpace(value))
+            return _allProducts;
+
+        var term = value.Trim();
+        return _allProducts.Where(p =>
+            p.Name.Contains(term, StringComparison.OrdinalIgnoreCase) ||
+            p.InternalCode.Contains(term, StringComparison.OrdinalIgnoreCase) ||
+            (!string.IsNullOrWhiteSpace(p.Model) && p.Model.Contains(term, StringComparison.OrdinalIgnoreCase)));
+    }
+
+    private async Task OnProductSelected(ProductListItemDto? selected)
+    {
+        _selectedProductItem = selected;
+        if (selected != null)
+        {
+            _selectedProductId = selected.Id;
+            await LoadProductDataAsync(selected.Id);
+        }
+        else
+        {
+            _selectedProductId = null;
+            _product = null;
+        }
+    }
+
+    private async Task LoadProductDataAsync(Guid id)
+    {
+        try
+        {
+            _isLoading = true;
+            _product = await ProductService.GetProductDetailsByIdAsync(id);
+        }
+        catch (Exception ex)
+        {
+            Snackbar.Add($"خطا در بارگذاری اطلاعات کالا: {ex.Message}", Severity.Error);
+        }
+        finally
+        {
+            _isLoading = false;
+        }
+    }
+
+}
+

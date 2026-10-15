@@ -248,6 +248,24 @@ public class ProductService : IProductService
             })
             .ToListAsync();
 
+        // دریافت تاریخچه کامل تغییرات قیمت کالا
+        var priceHistories = await _context.PriceChangeHistories
+            .AsNoTracking()
+            .Where(h => h.ProductId == id)
+            .OrderByDescending(h => h.ChangeDate)
+            .Select(h => new PriceChangeHistoryDto
+            {
+                Id = h.Id,
+                OldPurchasePrice = h.OldPurchasePrice,
+                NewPurchasePrice = h.NewPurchasePrice,
+                OldSalePrice = h.OldSalePrice,
+                NewSalePrice = h.NewSalePrice,
+                ChangeType = h.ChangeType,
+                ChangeDate = h.ChangeDate,
+                Reason = h.Reason
+            })
+            .ToListAsync();
+
         return new ProductDetailsDto
         {
             Id = product.Id,
@@ -264,6 +282,7 @@ public class ProductService : IProductService
             CreatedAt = product.CreatedAt,
             WarehouseStocks = warehouseStocks,
             Movements = movements,
+            PriceHistories = priceHistories,
             IsLowStockAlertEnabled = product.IsLowStockAlertEnabled,
             MinStockThreshold = product.MinStockThreshold,
         };
@@ -434,5 +453,65 @@ public class ProductService : IProductService
                 ImagePath = i.Product.ImagePath
             })
             .ToListAsync();
+    }
+
+    public async Task AdjustProductsPriceAsync(BatchPriceAdjustmentDto dto)
+    {
+        if (dto.Items == null || dto.Items.Count == 0)
+            throw new InvalidOperationException("هیچ کالایی برای تغییر قیمت انتخاب نشده است.");
+
+        var productIds = dto.Items.Select(i => i.ProductId).Distinct().ToList();
+
+        // دریافت کالاها برای اعمال تغییرات
+        var products = await _context.Products
+            .Where(p => productIds.Contains(p.Id))
+            .ToListAsync();
+
+        if (products.Count != productIds.Count)
+            throw new InvalidOperationException("برخی از کالاهای انتخابی در سیستم یافت نشدند.");
+
+        var historyRecords = new List<PriceChangeHistory>();
+        var changeDate = DateTime.UtcNow;
+
+        foreach (var item in dto.Items)
+        {
+            var product = products.First(p => p.Id == item.ProductId);
+
+            // اگر قیمتی تغییر نکرده باشد از آن صرف‌نظر می‌کنیم
+            if (product.SalePrice == item.NewSalePrice)
+                continue;
+
+            if (item.NewSalePrice < product.PurchasePrice)
+            {
+                throw new InvalidOperationException(
+                    $"قیمت فروش جدید کالا '{product.Name}' ({item.NewSalePrice:N0} تومان) نمی‌تواند کمتر از قیمت خرید آن ({product.PurchasePrice:N0} تومان) باشد.");
+            }
+
+            var oldSalePrice = product.SalePrice;
+            var oldPurchasePrice = product.PurchasePrice;
+
+            // بروزرسانی قیمت کالا از طریق متد دامین
+            product.UpdatePrices(oldPurchasePrice, item.NewSalePrice);
+
+            // ثبت رکورد تاریخچه
+            var history = new PriceChangeHistory(
+                productId: product.Id,
+                oldPurchasePrice: oldPurchasePrice,
+                newPurchasePrice: oldPurchasePrice, // قیمت خرید بدون تغییر مانده است
+                oldSalePrice: oldSalePrice,
+                newSalePrice: item.NewSalePrice,
+                changeType: dto.ChangeType,
+                reason: dto.Reason,
+                changeDate: changeDate
+            );
+
+            historyRecords.Add(history);
+        }
+
+        if (historyRecords.Count > 0)
+        {
+            await _context.PriceChangeHistories.AddRangeAsync(historyRecords);
+            await _context.SaveChangesAsync();
+        }
     }
 }

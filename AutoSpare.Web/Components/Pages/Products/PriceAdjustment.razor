@@ -1,0 +1,402 @@
+@page "/products/price-adjustment"
+
+@using AutoSpare.Application.Products
+@using AutoSpare.Application.Products.DTOs
+@using AutoSpare.Domain.Products.Enums
+@inject IProductService ProductService
+@inject ISnackbar Snackbar
+@inject NavigationManager NavigationManager
+
+<PageTitle>تغییر گروهی قیمت فروش | AutoSpare</PageTitle>
+
+<MudContainer MaxWidth="MaxWidth.ExtraLarge" Class="mt-4 mb-8">
+    <!-- هدر صفحه -->
+    <MudPaper Elevation="2" Class="pa-5 mb-5 rounded-lg d-flex justify-space-between align-center flex-wrap gap-4"
+              Color="Color.Primary">
+        <div>
+            <MudText Typo="Typo.h5" Class="fw-bold">مدیریت و تغییر قیمت فروش</MudText>
+            <MudText Typo="Typo.body2" Class="mud-text-secondary mt-1">
+                انتخاب دسته‌بندی یا چند کالا، تعیین درصد یا مبلغ تغییر، پیش‌نمایش آنی و ثبت تاریخچه
+            </MudText>
+        </div>
+        <MudButton Variant="Variant.Filled"
+                   Color="Color.Surface"
+                   StartIcon="@Icons.Material.Filled.ArrowForward"
+                   OnClick="@(() => NavigationManager.NavigateTo("/products"))">
+            بازگشت به لیست کالاها
+        </MudButton>
+    </MudPaper>
+
+    <!-- پنل انتخاب دسته و اعمال تغییرات فرمولی -->
+    <MudPaper Elevation="2" Class="pa-5 mb-5 rounded-lg">
+        <MudText Typo="Typo.h6" Class="mb-4">تنظیمات انتخاب و فرمول تغییر قیمت</MudText>
+        <MudGrid Spacing="3" Class="align-center">
+            <!-- فیلتر دسته‌بندی برای انتخاب گروهی بر اساس عنوان دسته -->
+            <MudItem xs="12" sm="6" md="3">
+                <MudSelect T="string"
+                           Label="انتخاب سریع بر اساس دسته"
+                           Value="_selectedCategoryName"
+                           ValueChanged="OnCategorySelectedAsync"
+                           Variant="Variant.Outlined"
+                           Clearable="true"
+                           Dense="true">
+                    @foreach (var cat in _categories)
+                    {
+                        <MudSelectItem Value="@cat.Title">@cat.Title</MudSelectItem>
+                    }
+                </MudSelect>
+            </MudItem>
+
+            <MudItem xs="12" sm="6" md="3">
+                <MudSelect T="PriceAdjustmentMode" Label="نوع فرمول تغییر" @bind-Value="_adjustmentMode"
+                           Variant="Variant.Outlined" Dense="true">
+                    <MudSelectItem Value="PriceAdjustmentMode.Percentage">درصدی (%)</MudSelectItem>
+                    <MudSelectItem Value="PriceAdjustmentMode.FixedAmount">مبلغ ثابت (تومان)</MudSelectItem>
+                </MudSelect>
+            </MudItem>
+
+            <MudItem xs="12" sm="6" md="3">
+                @if (_adjustmentMode == PriceAdjustmentMode.Percentage)
+                {
+                    <MudNumericField T="decimal"
+                                     Label="درصد تغییر (مثبت: افزایش، منفی: کاهش)"
+                                     @bind-Value="_adjustmentValue"
+                                     Variant="Variant.Outlined"
+                                     Adornment="Adornment.End"
+                                     AdornmentText="%"
+                                     Dense="true"/>
+                }
+                else
+                {
+                    <MudNumericField T="decimal"
+                                     Label="مبلغ تغییر (مثبت: افزایش، منفی: کاهش)"
+                                     @bind-Value="_adjustmentValue"
+                                     Variant="Variant.Outlined"
+                                     Adornment="Adornment.End"
+                                     AdornmentText="تومان"
+                                     Format="N0"
+                                     Dense="true"/>
+                }
+            </MudItem>
+
+            <MudItem xs="12" sm="6" md="3" Class="d-flex align-center">
+                <MudButton Variant="Variant.Filled"
+                           Color="Color.Secondary"
+                           FullWidth="true"
+                           StartIcon="@Icons.Material.Filled.Calculate"
+                           Disabled="@(!_selectedProducts.Any() || _adjustmentValue == 0)"
+                           OnClick="ApplyCalculationToSelected">
+                    محاسبه پیش‌نمایش (@_selectedProducts.Count کالا)
+                </MudButton>
+            </MudItem>
+
+            <MudItem xs="12" md="12">
+                <MudTextField T="string"
+                              Label="دلیل یا یادداشت تغییر قیمت (اختیاری)"
+                              @bind-Value="_reason"
+                              Variant="Variant.Outlined"
+                              MaxLength="300"
+                              Dense="true"/>
+            </MudItem>
+        </MudGrid>
+    </MudPaper>
+
+    <!-- جدول کالاها با قابلیت انتخاب چندتایی (Multi-Select) -->
+    <MudPaper Elevation="2" Class="pa-4 rounded-lg">
+        <div class="d-flex justify-space-between align-center flex-wrap gap-4 mb-4">
+            <MudTextField @bind-Value="_searchTerm"
+                          Placeholder="جستجوی نام، کد فنی، مدل یا برند..."
+                          Adornment="Adornment.Start"
+                          AdornmentIcon="@Icons.Material.Filled.Search"
+                          Variant="Variant.Outlined"
+                          Immediate="true"
+                          Clearable="true"
+                          Dense="true"
+                          Class="flex-grow-1"
+                          Style="max-width: 450px;"/>
+
+            <div class="d-flex align-center gap-3">
+                <MudChip T="string" Color="Color.Info" Variant="Variant.Outlined">
+                    انتخاب شده: @_selectedProducts.Count از @_tableItems.Count
+                </MudChip>
+
+                <MudButton Variant="Variant.Filled"
+                           Color="Color.Success"
+                           StartIcon="@Icons.Material.Filled.Save"
+                           Disabled="@(!CanSave || _isSaving)"
+                           OnClick="SavePriceChangesAsync">
+                    @if (_isSaving)
+                    {
+                        <MudProgressCircular Class="ms-n1" Size="Size.Small" Indeterminate="true"/>
+                        <MudText Class="ms-2">در حال ثبت...</MudText>
+                    }
+                    else
+                    {
+                        <MudText>ثبت نهایی تغییرات</MudText>
+                    }
+                </MudButton>
+            </div>
+        </div>
+
+        <MudTable Items="@FilteredItems"
+                  MultiSelection="true"
+                  @bind-SelectedItems="_selectedProducts"
+                  Hover="true"
+                  Dense="true"
+                  Loading="@_isLoading"
+                  LoadingProgressColor="Color.Primary"
+                  Elevation="0">
+            <HeaderContent>
+                <MudTh>کد فنی</MudTh>
+                <MudTh>نام کالا و مدل</MudTh>
+                <MudTh>برند / دسته</MudTh>
+                <MudTh>قیمت خرید</MudTh>
+                <MudTh>قیمت فروش فعلی</MudTh>
+                <MudTh Style="min-width: 170px;">قیمت فروش جدید</MudTh>
+                <MudTh>اختلاف</MudTh>
+            </HeaderContent>
+
+            <RowTemplate>
+                <MudTd DataLabel="کد فنی">
+                    <MudChip T="string" Size="Size.Small" Variant="Variant.Outlined" Color="Color.Default">
+                        @context.InternalCode
+                    </MudChip>
+                </MudTd>
+
+                <MudTd DataLabel="نام کالا">
+                    <MudText Typo="Typo.body2" Class="fw-bold">@context.Name</MudText>
+                    <MudText Typo="Typo.caption" Class="mud-text-secondary">@context.Model</MudText>
+                </MudTd>
+
+                <MudTd DataLabel="برند / دسته">
+                    <MudText Typo="Typo.body2">@context.BrandName</MudText>
+                    <MudText Typo="Typo.caption" Class="mud-text-secondary">@context.CategoryName</MudText>
+                </MudTd>
+
+                <MudTd DataLabel="قیمت خرید">
+                    @context.PurchasePrice.ToString("N0") تومان
+                </MudTd>
+
+                <MudTd DataLabel="قیمت فعلی">
+                    <MudText Typo="Typo.body2" Class="fw-bold">
+                        @context.CurrentSalePrice.ToString("N0") تومان
+                    </MudText>
+                </MudTd>
+
+                <MudTd DataLabel="قیمت جدید">
+                    <MudNumericField T="decimal"
+                                     @bind-Value="context.NewSalePrice"
+                                     Variant="Variant.Outlined"
+                                     Margin="Margin.Dense"
+                                     Format="N0"
+                                     Adornment="Adornment.End"
+                                     AdornmentText="تومان"
+                                     Validation="@((decimal val) => val < context.PurchasePrice ? "کمتر از قیمت خرید است!" : null)"/>
+                </MudTd>
+
+                <MudTd DataLabel="اختلاف">
+                    @if (context.Difference > 0)
+                    {
+                        <MudText Color="Color.Success" Typo="Typo.body2" Class="fw-bold">
+                            +@context.Difference.ToString("N0")
+                        </MudText>
+                    }
+                    else if (context.Difference < 0)
+                    {
+                        <MudText Color="Color.Error" Typo="Typo.body2" Class="fw-bold">
+                            @context.Difference.ToString("N0")
+                        </MudText>
+                    }
+                    else
+                    {
+                        <MudText Color="Color.Default" Typo="Typo.body2">-</MudText>
+                    }
+                </MudTd>
+            </RowTemplate>
+
+            <PagerContent>
+                <MudTablePager RowsPerPageString="تعداد ردیف:" InfoFormat="{first_item}-{last_item} از {all_items}"/>
+            </PagerContent>
+        </MudTable>
+    </MudPaper>
+</MudContainer>
+
+@code {
+
+    private enum PriceAdjustmentMode
+    {
+        Percentage,
+        FixedAmount
+    }
+
+    private List<PriceAdjustmentItemDto> _tableItems = new();
+    private List<DropdownItemDto> _categories = new();
+    private HashSet<PriceAdjustmentItemDto> _selectedProducts = new();
+
+    private string? _selectedCategoryName;
+    private PriceAdjustmentMode _adjustmentMode = PriceAdjustmentMode.Percentage;
+    private decimal _adjustmentValue;
+    private string? _reason;
+    private string _searchTerm = string.Empty;
+    private bool _isLoading = true;
+    private bool _isSaving = false;
+
+    private IEnumerable<PriceAdjustmentItemDto> FilteredItems =>
+        string.IsNullOrWhiteSpace(_searchTerm)
+            ? _tableItems
+            : _tableItems.Where(p =>
+                p.Name.Contains(_searchTerm, StringComparison.OrdinalIgnoreCase) ||
+                p.InternalCode.Contains(_searchTerm, StringComparison.OrdinalIgnoreCase) ||
+                p.Model.Contains(_searchTerm, StringComparison.OrdinalIgnoreCase) ||
+                p.BrandName.Contains(_searchTerm, StringComparison.OrdinalIgnoreCase));
+
+    private bool CanSave => _tableItems.Any(p => p.Difference != 0 && p.NewSalePrice >= p.PurchasePrice);
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadDataAsync();
+    }
+
+    private async Task LoadDataAsync()
+    {
+        const string err = "خطا در بارگذاری اطلاعات: ";
+        try
+        {
+            _isLoading = true;
+
+            // دریافت لیست کالاها و دسته‌بندی‌ها
+            var products = await ProductService.GetProductsAsync();
+            _categories = await ProductService.GetCategoriesLookupAsync();
+
+            _tableItems = products.Select(p => new PriceAdjustmentItemDto
+            {
+                ProductId = p.Id,
+                Name = p.Name,
+                InternalCode = p.InternalCode,
+                Model = p.Model,
+                CategoryName = p.CategoryName,
+                BrandName = p.BrandName,
+                PurchasePrice = p.PurchasePrice,
+                CurrentSalePrice = p.SalePrice,
+                NewSalePrice = p.SalePrice
+            }).ToList();
+        }
+        catch (Exception ex)
+        {
+            Snackbar.Add($"{err}{ex.Message}", Severity.Error);
+        }
+        finally
+        {
+            _isLoading = false;
+        }
+    }
+
+    private Task OnCategorySelectedAsync(string? categoryName)
+    {
+        _selectedCategoryName = categoryName;
+        _selectedProducts.Clear();
+
+        if (!string.IsNullOrWhiteSpace(categoryName))
+        {
+            // انتخاب خودکار کالاهایی که نام دسته آن‌ها برابر با دسته انتخاب‌شده است
+            foreach (var item in _tableItems.Where(p => string.Equals(p.CategoryName, categoryName, StringComparison.OrdinalIgnoreCase)))
+            {
+                _selectedProducts.Add(item);
+            }
+
+            Snackbar.Add($"{_selectedProducts.Count} کالا از دسته‌بندی «{categoryName}» انتخاب شد.", Severity.Info);
+        }
+
+        return Task.CompletedTask;
+    }
+
+    private void ApplyCalculationToSelected()
+    {
+        if (!_selectedProducts.Any() || _adjustmentValue == 0) return;
+
+        int modifiedCount = 0;
+
+        foreach (var product in _selectedProducts)
+        {
+            decimal calculatedPrice;
+
+            if (_adjustmentMode == PriceAdjustmentMode.Percentage)
+            {
+                calculatedPrice = product.CurrentSalePrice + (product.CurrentSalePrice * (_adjustmentValue / 100m));
+            }
+            else
+            {
+                calculatedPrice = product.CurrentSalePrice + _adjustmentValue;
+            }
+
+            calculatedPrice = Math.Round(calculatedPrice / 1000m, MidpointRounding.AwayFromZero) * 1000m;
+
+            if (calculatedPrice < 0)
+                calculatedPrice = 0;
+
+            product.NewSalePrice = calculatedPrice;
+            modifiedCount++;
+        }
+
+        Snackbar.Add($"پیش‌نمایش قیمت برای {modifiedCount} کالا محاسبه شد.", Severity.Info);
+    }
+
+    private async Task SavePriceChangesAsync()
+    {
+        var changedItems = _tableItems
+            .Where(p => p.Difference != 0)
+            .ToList();
+
+        if (!changedItems.Any())
+        {
+            Snackbar.Add("هیچ تغییری در قیمت‌ها ایجاد نشده است.", Severity.Warning);
+            return;
+        }
+
+        var invalidItem = changedItems.FirstOrDefault(i => i.NewSalePrice < i.PurchasePrice);
+        if (invalidItem != null)
+        {
+            Snackbar.Add($"قیمت جدید کالا '{invalidItem.Name}' نمی‌تواند کمتر از قیمت خرید آن باشد.", Severity.Error);
+            return;
+        }
+
+        try
+        {
+            _isSaving = true;
+
+            var changeType = _adjustmentMode == PriceAdjustmentMode.Percentage
+                ? PriceChangeType.BatchPercentage
+                : PriceChangeType.BatchFixedAmount;
+
+            var dto = new BatchPriceAdjustmentDto
+            {
+                ChangeType = changeType,
+                Reason = _reason,
+                Items = changedItems.Select(c => new PriceAdjustmentItemUpdateDto
+                {
+                    ProductId = c.ProductId,
+                    NewSalePrice = c.NewSalePrice
+                }).ToList()
+            };
+
+            await ProductService.AdjustProductsPriceAsync(dto);
+
+            Snackbar.Add($"قیمت {changedItems.Count} کالا با موفقیت بروزرسانی شد.", Severity.Success);
+
+            await LoadDataAsync();
+            _selectedProducts.Clear();
+            _selectedCategoryName = null;
+            _adjustmentValue = 0;
+            _reason = null;
+        }
+        catch (Exception ex)
+        {
+            Snackbar.Add($"خطا در ذخیره تغییرات قیمت: {ex.Message}", Severity.Error);
+        }
+        finally
+        {
+            _isSaving = false;
+        }
+    }
+
+}

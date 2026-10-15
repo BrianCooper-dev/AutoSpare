@@ -18,7 +18,7 @@ public class ProductDetailsDto
     public DateTime CreatedAt { get; set; }
     public bool IsLowStockAlertEnabled { get; set; }
     public int MinStockThreshold { get; set; }
-
+    public List<PriceChangeHistoryDto> PriceHistories { get; set; } = new();
     public List<ProductWarehouseStockDto> WarehouseStocks { get; set; } = new();
     public List<StockMovementDto> Movements { get; set; } = new();
 }
