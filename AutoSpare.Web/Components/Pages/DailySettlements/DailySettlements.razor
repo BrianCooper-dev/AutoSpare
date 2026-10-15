@@ -1,0 +1,213 @@
+@page "/daily-settlements"
+
+@using AutoSpare.Application.DailySettlements
+@using AutoSpare.Application.DailySettlements.DTOs
+@inject IDailySettlementService SettlementService
+@inject ISnackbar Snackbar
+
+<PageTitle>تسویه روزانه صندوق</PageTitle>
+
+<MudGrid>
+    <!-- فرم ثبت و ویرایش -->
+    <MudItem xs="12" md="5">
+        <MudCard Elevation="3">
+            <MudCardHeader>
+                <CardHeaderContent>
+                    <MudText Typo="Typo.h6">@(isEditing ? "ویرایش تسویه روزانه" : "ثبت تسویه جدید")</MudText>
+                </CardHeaderContent>
+            </MudCardHeader>
+            <MudCardContent>
+                <MudForm @ref="form" @bind-IsValid="@success">
+                    <MudDatePicker Label="تاریخ تسویه"
+                                   @bind-Date="model.SettlementDate"
+                                   Class="mb-3"
+                                   Variant="Variant.Outlined"
+                                   Required="true" />
+
+                    <MudNumericField Label="مبلغ کارت‌خوان ۱ (تومان)"
+                                     @bind-Value="model.Pos1Amount"
+                                     Min="0"
+                                     Variant="Variant.Outlined"
+                                     Class="mb-3"
+                                     Format="N0" />
+
+                    <MudNumericField Label="مبلغ کارت‌خوان ۲ (تومان)"
+                                     @bind-Value="model.Pos2Amount"
+                                     Min="0"
+                                     Variant="Variant.Outlined"
+                                     Class="mb-3"
+                                     Format="N0" />
+
+                    <MudNumericField Label="مبلغ نقد (تومان)"
+                                     @bind-Value="model.CashAmount"
+                                     Min="0"
+                                     Variant="Variant.Outlined"
+                                     Class="mb-3"
+                                     Format="N0" />
+
+                    <!-- محاسبه خودکار جمع کل -->
+                    <MudPaper Class="pa-3 mb-3 d-flex justify-space-between align-center" Elevation="1" Color="Color.Surface">
+                        <MudText Typo="Typo.subtitle1"><b>جمع کل تسویه:</b></MudText>
+                        <MudText Typo="Typo.h6" Color="Color.Primary">
+                            <b>@TotalCalculatedAmount.ToString("N0") تومان</b>
+                        </MudText>
+                    </MudPaper>
+
+                    <MudTextField Label="توضیحات و مغایرت‌ها"
+                                  @bind-Value="model.Notes"
+                                  Lines="3"
+                                  Variant="Variant.Outlined"
+                                  Class="mb-3" />
+                </MudForm>
+            </MudCardContent>
+            <MudCardActions>
+                <MudButton Variant="Variant.Filled"
+                           Color="Color.Primary"
+                           Disabled="@(!success)"
+                           OnClick="SaveAsync"
+                           Class="ml-2">
+                    ذخیره تسویه
+                </MudButton>
+                @if (isEditing)
+                {
+                    <MudButton Variant="Variant.Outlined" Color="Color.Error" OnClick="ResetForm">
+                        انصراف
+                    </MudButton>
+                }
+            </MudCardActions>
+        </MudCard>
+    </MudItem>
+
+    <!-- جدول لیست تسویه‌های ثبت شده -->
+    <MudItem xs="12" md="7">
+        <MudCard Elevation="3">
+            <MudCardHeader>
+                <CardHeaderContent>
+                    <MudText Typo="Typo.h6">تاریخچه تسویه‌های روزانه</MudText>
+                </CardHeaderContent>
+            </MudCardHeader>
+            <MudCardContent>
+                <MudTable Items="settlements" Dense="true" Hover="true" Bordered="true" Striped="true">
+                    <HeaderContent>
+                        <MudTh>تاریخ</MudTh>
+                        <MudTh>کارت‌خوان ۱</MudTh>
+                        <MudTh>کارت‌خوان ۲</MudTh>
+                        <MudTh>نقد</MudTh>
+                        <MudTh>جمع کل</MudTh>
+                        <MudTh>وضعیت</MudTh>
+                        <MudTh>عملیات</MudTh>
+                    </HeaderContent>
+                    <RowTemplate>
+                        <MudTd DataLabel="تاریخ">@context.SettlementDate.ToString("yyyy/MM/dd")</MudTd>
+                        <MudTd DataLabel="کارت‌خوان ۱">@context.Pos1Amount.ToString("N0")</MudTd>
+                        <MudTd DataLabel="کارت‌خوان ۲">@context.Pos2Amount.ToString("N0")</MudTd>
+                        <MudTd DataLabel="نقد">@context.CashAmount.ToString("N0")</MudTd>
+                        <MudTd DataLabel="جمع کل"><b>@context.TotalAmount.ToString("N0")</b></MudTd>
+                        <MudTd DataLabel="وضعیت">
+                            <MudChip T="string" Color="@(context.Status == 1 ? Color.Info : Color.Success)" Size="Size.Small">
+                                @context.StatusTitle
+                            </MudChip>
+                        </MudTd>
+                        <MudTd DataLabel="عملیات">
+                            <MudIconButton Icon="@Icons.Material.Filled.Edit"
+                                           Size="Size.Small"
+                                           Color="Color.Primary"
+                                           OnClick="() => Edit(context)"
+                                           Title="ویرایش" />
+                            @if (context.Status == 1)
+                            {
+                                <MudIconButton Icon="@Icons.Material.Filled.Lock"
+                                               Size="Size.Small"
+                                               Color="Color.Error"
+                                               OnClick="() => CloseSettlement(context.Id)"
+                                               Title="بستن و نهایی‌سازی" />
+                            }
+                        </MudTd>
+                    </RowTemplate>
+                </MudTable>
+            </MudCardContent>
+        </MudCard>
+    </MudItem>
+</MudGrid>
+
+@code {
+    private MudForm? form;
+    private bool success;
+    private bool isEditing = false;
+    private Guid? editingId;
+
+    private UpsertDailySettlementDto model = new()
+    {
+        SettlementDate = DateTime.Today
+    };
+
+    private List<DailySettlementDto> settlements = new();
+
+    private decimal TotalCalculatedAmount => model.Pos1Amount + model.Pos2Amount + model.CashAmount;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadDataAsync();
+    }
+
+    private async Task LoadDataAsync()
+    {
+        settlements = await SettlementService.GetAllAsync();
+    }
+
+    private async Task SaveAsync()
+    {
+        await form!.Validate();
+        if (!success) return;
+
+        try
+        {
+            await SettlementService.UpsertAsync(model);
+            Snackbar.Add("تسویه روزانه با موفقیت ذخیره شد.", Severity.Success);
+            ResetForm();
+            await LoadDataAsync();
+        }
+        catch (Exception ex)
+        {
+            Snackbar.Add($"خطا در ذخیره تسویه: {ex.Message}", Severity.Error);
+        }
+    }
+
+    private void Edit(DailySettlementDto dto)
+    {
+        isEditing = true;
+        editingId = dto.Id;
+        model = new UpsertDailySettlementDto
+        {
+            SettlementDate = dto.SettlementDate,
+            Pos1Amount = dto.Pos1Amount,
+            Pos2Amount = dto.Pos2Amount,
+            CashAmount = dto.CashAmount,
+            Notes = dto.Notes
+        };
+    }
+
+    private void ResetForm()
+    {
+        isEditing = false;
+        editingId = null;
+        model = new UpsertDailySettlementDto
+        {
+            SettlementDate = DateTime.Today
+        };
+    }
+
+    private async Task CloseSettlement(Guid id)
+    {
+        try
+        {
+            await SettlementService.CloseAsync(id);
+            Snackbar.Add("تسویه روزانه بسته و قفل شد.", Severity.Success);
+            await LoadDataAsync();
+        }
+        catch (Exception ex)
+        {
+            Snackbar.Add($"خطا: {ex.Message}", Severity.Error);
+        }
+    }
+}
