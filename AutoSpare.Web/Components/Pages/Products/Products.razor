@@ -32,6 +32,14 @@
                            OnClick="@(() => Navigation.NavigateTo("/products/create"))">
                     تعریف کالای جدید
                 </MudButton>
+
+                <MudButton Variant="Variant.Outlined"
+                           Color="Color.Primary"
+                           StartIcon="@Icons.Material.Filled.PriceChange"
+                           OnClick="@(() => Navigation.NavigateTo("/products/price-adjustment"))">
+                    ویرایش گروهی قیمت
+                </MudButton>
+
             </CardHeaderActions>
         </MudCardHeader>
 
