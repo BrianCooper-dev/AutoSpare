@@ -410,4 +410,29 @@ public class ProductService : IProductService
             })
             .ToListAsync();
     }
+
+    public async Task<List<LowStockAlertDto>> GetTopLowStockAlertsAsync(int count = 5)
+    {
+        return await _context.Inventories
+            .AsNoTracking()
+            .Where(i => i.Product != null && i.Product.IsLowStockAlertEnabled &&
+                        i.Quantity <= i.Product.MinStockThreshold)
+            .OrderBy(i => i.Quantity) // اولویت با کالاهایی که کمترین موجودی (یا موجودی صفر) دارند
+            .Take(count)
+            .Select(i => new LowStockAlertDto
+            {
+                ProductId = i.ProductId,
+                WarehouseId = i.WarehouseId,
+                ProductName = i.Product!.Name,
+                InternalCode = i.Product.InternalCode,
+                Model = i.Product.Model,
+                BrandName = i.Product.Brand != null ? i.Product.Brand.Name : "-",
+                CategoryName = i.Product.Category != null ? i.Product.Category.Name : "-",
+                WarehouseName = i.Warehouse != null ? i.Warehouse.Name : "-",
+                CurrentStock = i.Quantity,
+                MinStockThreshold = i.Product.MinStockThreshold,
+                ImagePath = i.Product.ImagePath
+            })
+            .ToListAsync();
+    }
 }

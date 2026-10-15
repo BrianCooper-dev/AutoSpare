@@ -16,4 +16,5 @@ public interface IProductService
     Task ToggleProductStatusAsync(Guid id);
     Task DeleteProductAsync(Guid id);
     Task<List<LowStockAlertDto>> GetLowStockAlertsAsync(Guid? warehouseId = null);
+    Task<List<LowStockAlertDto>> GetTopLowStockAlertsAsync(int count = 5);
 }
