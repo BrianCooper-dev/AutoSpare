@@ -12,6 +12,7 @@ using Serilog;
 using System.Globalization;
 using AutoSpare.Application.Brands;
 using AutoSpare.Application.Categories;
+using AutoSpare.Application.DailySettlements;
 using AutoSpare.Application.Products;
 using AutoSpare.Application.Purchases;
 using AutoSpare.Application.Sales;
@@ -75,6 +76,7 @@ try
 
     builder.Services.AddScoped<ISaleService, SaleService>();
 
+    builder.Services.AddScoped<IDailySettlementService, DailySettlementService>();
 
     // -------------------------------------------------------
     // Blazor UI Services
