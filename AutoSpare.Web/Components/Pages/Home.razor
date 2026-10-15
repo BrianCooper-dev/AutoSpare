@@ -1,25 +1,258 @@
 ﻿@page "/"
 
-@using Microsoft.Extensions.Logging
-@inject ILogger<Home> Logger
+@using AutoSpare.Application.Products
+@using AutoSpare.Application.Products.DTOs
+@inject IProductService ProductService
+@inject NavigationManager NavigationManager
+@inject ISnackbar Snackbar
 
+<PageTitle>داشبورد مدیریت | AutoSpare</PageTitle>
 
-<PageTitle>Home</PageTitle>
+<MudContainer MaxWidth="MaxWidth.ExtraLarge" Class="mt-4 mb-8">
+    <!-- بخش خوش‌آمدگویی هدر با استفاده از رنگ‌بندی پیش‌فرض و استاندارد MudBlazor -->
+    <MudPaper Elevation="2" Class="pa-5 mb-5 rounded-lg d-flex justify-space-between align-center flex-wrap gap-4" Color="Color.Primary">
+        <div>
+            <MudText Typo="Typo.h5" Class="font-weight-bold">پنل مدیریت یکپارچه AutoSpare</MudText>
+            <MudText Typo="Typo.body2" Class="mt-1" Style="opacity: 0.9;">
+                خلاصه وضعیت موجودی، انبارها و اعلان‌های حساس فروشگاه قطعات یدکی
+            </MudText>
+        </div>
+        <div class="d-flex align-center gap-2">
+            <MudButton Variant="Variant.Filled"
+                       Color="Color.Warning"
+                       StartIcon="@Icons.Material.Filled.NotificationsActive"
+                       OnClick="@(() => NavigationManager.NavigateTo("/inventory/alerts"))">
+                مشاهده همه هشدارها
+            </MudButton>
+            <MudIconButton Icon="@Icons.Material.Filled.Refresh"
+                           Color="Color.Inherit"
+                           OnClick="LoadDashboardDataAsync"
+                           Title="بروزرسانی داده‌ها" />
+        </div>
+    </MudPaper>
 
-<h1>Hello, world!</h1>
+    <!-- کارت‌های آماری کلیدی (Stat Cards) -->
+    <MudGrid Class="mb-5">
+        <!-- کارت هشدارهای کم‌موجودی -->
+        <MudItem xs="12" sm="6" md="4">
+            <MudCard Elevation="2" Class="dashboard-card rounded-lg cursor-pointer" @onclick="@(() => NavigationManager.NavigateTo("/inventory/alerts"))">
+                <MudCardContent Class="d-flex justify-space-between align-center">
+                    <div>
+                        <MudText Typo="Typo.caption" Color="Color.Secondary" Class="font-weight-bold">هشدارهای فعال انبار</MudText>
+                        <MudText Typo="Typo.h4" Class="font-weight-bold mt-1" Color="@(_totalAlertsCount > 0 ? Color.Warning : Color.Success)">
+                            @_totalAlertsCount
+                        </MudText>
+                        <MudText Typo="Typo.caption" Color="Color.Secondary">
+                            @(_totalAlertsCount > 0 ? "نیازمند بررسی و تأمین فوری" : "همه موجودی‌ها نرمال است")
+                        </MudText>
+                    </div>
+                    <MudAvatar Color="@(_totalAlertsCount > 0 ? Color.Warning : Color.Success)" Size="Size.Large" Elevation="2">
+                        <MudIcon Icon="@Icons.Material.Filled.WarningAmber" Size="Size.Medium" />
+                    </MudAvatar>
+                </MudCardContent>
+            </MudCard>
+        </MudItem>
 
-Welcome to your new app.
+        <!-- کارت کالاهای به اتمام رسیده (موجودی صفر) -->
+        <MudItem xs="12" sm="6" md="4">
+            <MudCard Elevation="2" Class="dashboard-card rounded-lg cursor-pointer" @onclick="@(() => NavigationManager.NavigateTo("/inventory/alerts"))">
+                <MudCardContent Class="d-flex justify-space-between align-center">
+                    <div>
+                        <MudText Typo="Typo.caption" Color="Color.Secondary" Class="font-weight-bold">اقلام بدون موجودی (صفر)</MudText>
+                        <MudText Typo="Typo.h4" Class="font-weight-bold mt-1" Color="@(_outOfStockCount > 0 ? Color.Error : Color.Success)">
+                            @_outOfStockCount
+                        </MudText>
+                        <MudText Typo="Typo.caption" Color="Color.Secondary">
+                            توقف فروش به دلیل کسری کامل
+                        </MudText>
+                    </div>
+                    <MudAvatar Color="@(_outOfStockCount > 0 ? Color.Error : Color.Success)" Size="Size.Large" Elevation="2">
+                        <MudIcon Icon="@Icons.Material.Filled.ProductionQuantityLimits" Size="Size.Medium" />
+                    </MudAvatar>
+                </MudCardContent>
+            </MudCard>
+        </MudItem>
+
+        <!-- دسترسی سریع به ثبت فاکتور خرید -->
+        <MudItem xs="12" sm="12" md="4">
+            <MudCard Elevation="2" Class="dashboard-card rounded-lg cursor-pointer" @onclick="@(() => NavigationManager.NavigateTo("/purchases/create"))">
+                <MudCardContent Class="d-flex justify-space-between align-center">
+                    <div>
+                        <MudText Typo="Typo.caption" Color="Color.Secondary" Class="font-weight-bold">عملیات سریع</MudText>
+                        <MudText Typo="Typo.h6" Class="font-weight-bold mt-2" Color="Color.Primary">
+                            ثبت فاکتور خرید جدید
+                        </MudText>
+                        <MudText Typo="Typo.caption" Color="Color.Secondary">
+                            تأمین کالاها و ورود به انبار
+                        </MudText>
+                    </div>
+                    <MudAvatar Color="Color.Primary" Size="Size.Large" Elevation="2">
+                        <MudIcon Icon="@Icons.Material.Filled.AddShoppingCart" Size="Size.Medium" />
+                    </MudAvatar>
+                </MudCardContent>
+            </MudCard>
+        </MudItem>
+    </MudGrid>
+
+    <!-- جدول مهم‌ترین و بحرانی‌ترین اقلام هشدار -->
+    <MudCard Elevation="2" Class="rounded-lg">
+        <MudCardHeader Class="pb-2">
+            <CardHeaderAvatar>
+                <MudAvatar Color="Color.Warning" Size="Size.Medium">
+                    <MudIcon Icon="@Icons.Material.Filled.PriorityHigh" />
+                </MudAvatar>
+            </CardHeaderAvatar>
+            <CardHeaderContent>
+                <MudText Typo="Typo.h6" Class="font-weight-bold">مهم‌ترین اقلام نیازمند تأمین (کمترین موجودی)</MudText>
+                <MudText Typo="Typo.caption" Color="Color.Secondary">۵ قلم با بحرانی‌ترین سطح موجودی بر اساس آستانه هشدار تعریف‌شده</MudText>
+            </CardHeaderContent>
+            <CardHeaderActions>
+                <MudButton Variant="Variant.Text"
+                           Color="Color.Primary"
+                           EndIcon="@Icons.Material.Filled.ArrowBack"
+                           OnClick="@(() => NavigationManager.NavigateTo("/inventory/alerts"))">
+                    مشاهده کل هشدارها (@_totalAlertsCount)
+                </MudButton>
+            </CardHeaderActions>
+        </MudCardHeader>
+
+        <MudCardContent Class="pa-0">
+            <MudTable Items="_topAlerts"
+                      Hover="true"
+                      Elevation="0"
+                      Loading="_isLoading"
+                      LoadingProgressColor="Color.Warning">
+                <HeaderContent>
+                    <MudTh>کد فنی</MudTh>
+                    <MudTh>نام قطعه و خودرو</MudTh>
+                    <MudTh>برند</MudTh>
+                    <MudTh>انبار</MudTh>
+                    <MudTh Style="text-align: center;">موجودی فعلی</MudTh>
+                    <MudTh Style="text-align: center;">آستانه هشدار</MudTh>
+                    <MudTh Style="text-align: center;">کسری تا حد نصاب</MudTh>
+                    <MudTh Style="text-align: center;">اقدام سریع</MudTh>
+                </HeaderContent>
+                <RowTemplate>
+                    <MudTd DataLabel="کد فنی">
+                        <MudChip T="string" Size="Size.Small" Variant="Variant.Outlined">
+                            @context.InternalCode
+                        </MudChip>
+                    </MudTd>
+
+                    <MudTd DataLabel="نام قطعه و خودرو">
+                        <div class="d-flex align-center gap-2">
+                            @if (!string.IsNullOrWhiteSpace(context.ImagePath))
+                            {
+                                <MudAvatar Rounded="true" Size="Size.Small">
+                                    <MudImage Src="@context.ImagePath" Alt="@context.ProductName" />
+                                </MudAvatar>
+                            }
+                            else
+                            {
+                                <MudAvatar Color="Color.Surface" Rounded="true" Size="Size.Small">
+                                    <MudIcon Icon="@Icons.Material.Filled.Build" Color="Color.Secondary" Size="Size.Small" />
+                                </MudAvatar>
+                            }
+                            <div>
+                                <MudText Typo="Typo.body2" Class="font-weight-bold">@context.ProductName</MudText>
+                                <MudText Typo="Typo.caption" Color="Color.Secondary">@context.Model</MudText>
+                            </div>
+                        </div>
+                    </MudTd>
+
+                    <MudTd DataLabel="برند">
+                        <MudText Typo="Typo.body2">@context.BrandName</MudText>
+                    </MudTd>
+
+                    <MudTd DataLabel="انبار">
+                        <MudText Typo="Typo.body2" Class="font-weight-medium">@context.WarehouseName</MudText>
+                    </MudTd>
+
+                    <MudTd DataLabel="موجودی فعلی" Style="text-align: center;">
+                        @if (context.CurrentStock == 0)
+                        {
+                            <MudChip T="string" Color="Color.Error" Size="Size.Small" Variant="Variant.Filled">اتمام (۰)</MudChip>
+                        }
+                        else
+                        {
+                            <MudChip T="string" Color="Color.Warning" Size="Size.Small" Variant="Variant.Filled">@context.CurrentStock عدد</MudChip>
+                        }
+                    </MudTd>
+
+                    <MudTd DataLabel="آستانه هشدار" Style="text-align: center;">
+                        <MudText Typo="Typo.body2">@context.MinStockThreshold</MudText>
+                    </MudTd>
+
+                    <MudTd DataLabel="کسری تا حد نصاب" Style="text-align: center;">
+                        <MudText Typo="Typo.body2" Color="Color.Error" Class="font-weight-bold">
+                            +@context.Deficit عدد
+                        </MudText>
+                    </MudTd>
+
+                    <MudTd DataLabel="اقدام سریع" Style="text-align: center;">
+                        <MudTooltip Text="ثبت فاکتور خرید">
+                            <MudIconButton Icon="@Icons.Material.Filled.AddShoppingCart"
+                                           Color="Color.Primary"
+                                           Size="Size.Small"
+                                           OnClick="@(() => NavigationManager.NavigateTo($"/purchases/create?productId={context.ProductId}"))" />
+                        </MudTooltip>
+                    </MudTd>
+                </RowTemplate>
+                <NoRecordsContent>
+                    <div class="pa-6 d-flex flex-column align-center justify-center">
+                        <MudIcon Icon="@Icons.Material.Filled.CheckCircleOutline" Color="Color.Success" Size="Size.Large" Class="mb-1" />
+                        <MudText Typo="Typo.subtitle1" Color="Color.Success">تمامی انبارها در وضعیت نرمال هستند</MudText>
+                        <MudText Typo="Typo.caption" Color="Color.Secondary">در حال حاضر هیچ قلم کالایی با کسری موجودی مواجه نیست.</MudText>
+                    </div>
+                </NoRecordsContent>
+            </MudTable>
+        </MudCardContent>
+    </MudCard>
+</MudContainer>
+
+<style>
+    /* کارت‌های آماری با انیمیشن ملایم */
+    .dashboard-card {
+        height: 100%;
+        transition: transform 0.18s ease-in-out, box-shadow 0.18s ease-in-out;
+    }
+
+    .dashboard-card:hover {
+        transform: translateY(-3px);
+    }
+</style>
 
 @code {
-    protected override void OnInitialized()
+    private List<LowStockAlertDto> _topAlerts = new();
+    private int _totalAlertsCount = 0;
+    private int _outOfStockCount = 0;
+    private bool _isLoading = true;
+
+    protected override async Task OnInitializedAsync()
     {
-        Logger.LogInformation(
-            "Home page loaded at {LoadedAt}",
-            DateTimeOffset.Now);
+        await LoadDashboardDataAsync();
+    }
 
-        Logger.LogWarning(
-            "This is a test warning from Home page.");
+    private async Task LoadDashboardDataAsync()
+    {
+        _isLoading = true;
+        try
+        {
+            // دریافت اقلام با بیشترین اولویت کسری (حداکثر ۵ قلم)
+            _topAlerts = await ProductService.GetTopLowStockAlertsAsync(5);
 
-        base.OnInitialized();
+            // دریافت تمام هشدارها برای آمار کلی کارت‌ها
+            var allAlerts = await ProductService.GetLowStockAlertsAsync();
+            _totalAlertsCount = allAlerts.Count;
+            _outOfStockCount = allAlerts.Count(a => a.CurrentStock == 0);
+        }
+        catch (Exception ex)
+        {
+            Snackbar.Add($"خطا در بارگذاری اطلاعات داشبورد: {ex.Message}", Severity.Error);
+        }
+        finally
+        {
+            _isLoading = false;
+        }
     }
 }
