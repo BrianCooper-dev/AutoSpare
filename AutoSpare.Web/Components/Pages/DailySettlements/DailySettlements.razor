@@ -18,35 +18,46 @@
             </MudCardHeader>
             <MudCardContent>
                 <MudForm @ref="form" @bind-IsValid="@success">
+
                     <MudDatePicker Label="تاریخ تسویه"
                                    @bind-Date="model.SettlementDate"
-                                   Class="mb-3"
+                                   Disabled="@isEditing"
+                                   Class="mb-1"
                                    Variant="Variant.Outlined"
-                                   Required="true" />
+                                   Required="true"/>
+
+                    <!-- نمایش روز هفته متناظر با تاریخ انتخاب شده -->
+                    <div class="d-flex align-center gap-2 mb-3">
+                        <MudText Typo="Typo.caption" Color="Color.Secondary">روز هفته:</MudText>
+                        <MudChip T="string" Size="Size.Small" Color="Color.Primary" Variant="Variant.Text">
+                            @SelectedDayOfWeekTitle
+                        </MudChip>
+                    </div>
 
                     <MudNumericField Label="مبلغ کارت‌خوان ۱ (تومان)"
                                      @bind-Value="model.Pos1Amount"
                                      Min="0"
                                      Variant="Variant.Outlined"
                                      Class="mb-3"
-                                     Format="N0" />
+                                     Format="N0"/>
 
                     <MudNumericField Label="مبلغ کارت‌خوان ۲ (تومان)"
                                      @bind-Value="model.Pos2Amount"
                                      Min="0"
                                      Variant="Variant.Outlined"
                                      Class="mb-3"
-                                     Format="N0" />
+                                     Format="N0"/>
 
                     <MudNumericField Label="مبلغ نقد (تومان)"
                                      @bind-Value="model.CashAmount"
                                      Min="0"
                                      Variant="Variant.Outlined"
                                      Class="mb-3"
-                                     Format="N0" />
+                                     Format="N0"/>
 
                     <!-- محاسبه خودکار جمع کل -->
-                    <MudPaper Class="pa-3 mb-3 d-flex justify-space-between align-center" Elevation="1" Color="Color.Surface">
+                    <MudPaper Class="pa-3 mb-3 d-flex justify-space-between align-center" Elevation="1"
+                              Color="Color.Surface">
                         <MudText Typo="Typo.subtitle1"><b>جمع کل تسویه:</b></MudText>
                         <MudText Typo="Typo.h6" Color="Color.Primary">
                             <b>@TotalCalculatedAmount.ToString("N0") تومان</b>
@@ -57,7 +68,7 @@
                                   @bind-Value="model.Notes"
                                   Lines="3"
                                   Variant="Variant.Outlined"
-                                  Class="mb-3" />
+                                  Class="mb-3"/>
                 </MudForm>
             </MudCardContent>
             <MudCardActions>
@@ -90,6 +101,7 @@
                 <MudTable Items="settlements" Dense="true" Hover="true" Bordered="true" Striped="true">
                     <HeaderContent>
                         <MudTh>تاریخ</MudTh>
+                        <MudTh>روز هفته</MudTh>
                         <MudTh>کارت‌خوان ۱</MudTh>
                         <MudTh>کارت‌خوان ۲</MudTh>
                         <MudTh>نقد</MudTh>
@@ -98,13 +110,19 @@
                         <MudTh>عملیات</MudTh>
                     </HeaderContent>
                     <RowTemplate>
-                        <MudTd DataLabel="تاریخ">@context.SettlementDate.ToString("yyyy/MM/dd")</MudTd>
+                        <MudTd DataLabel="تاریخ">@context.PersianDateString</MudTd>
+                        <MudTd DataLabel="روز هفته">
+                            <MudChip T="string" Size="Size.Small" Variant="Variant.Outlined" Color="Color.Default">
+                                @context.DayOfWeekTitle
+                            </MudChip>
+                        </MudTd>
                         <MudTd DataLabel="کارت‌خوان ۱">@context.Pos1Amount.ToString("N0")</MudTd>
                         <MudTd DataLabel="کارت‌خوان ۲">@context.Pos2Amount.ToString("N0")</MudTd>
                         <MudTd DataLabel="نقد">@context.CashAmount.ToString("N0")</MudTd>
                         <MudTd DataLabel="جمع کل"><b>@context.TotalAmount.ToString("N0")</b></MudTd>
                         <MudTd DataLabel="وضعیت">
-                            <MudChip T="string" Color="@(context.Status == 1 ? Color.Info : Color.Success)" Size="Size.Small">
+                            <MudChip T="string" Color="@(context.Status == 1 ? Color.Info : Color.Success)"
+                                     Size="Size.Small">
                                 @context.StatusTitle
                             </MudChip>
                         </MudTd>
@@ -113,14 +131,14 @@
                                            Size="Size.Small"
                                            Color="Color.Primary"
                                            OnClick="() => Edit(context)"
-                                           Title="ویرایش" />
+                                           Title="ویرایش"/>
                             @if (context.Status == 1)
                             {
                                 <MudIconButton Icon="@Icons.Material.Filled.Lock"
                                                Size="Size.Small"
                                                Color="Color.Error"
                                                OnClick="() => CloseSettlement(context.Id)"
-                                               Title="بستن و نهایی‌سازی" />
+                                               Title="بستن و نهایی‌سازی"/>
                             }
                         </MudTd>
                     </RowTemplate>
@@ -134,7 +152,6 @@
     private MudForm? form;
     private bool success;
     private bool isEditing = false;
-    private Guid? editingId;
 
     private UpsertDailySettlementDto model = new()
     {
@@ -176,9 +193,9 @@
     private void Edit(DailySettlementDto dto)
     {
         isEditing = true;
-        editingId = dto.Id;
         model = new UpsertDailySettlementDto
         {
+            Id = dto.Id,
             SettlementDate = dto.SettlementDate,
             Pos1Amount = dto.Pos1Amount,
             Pos2Amount = dto.Pos2Amount,
@@ -190,7 +207,6 @@
     private void ResetForm()
     {
         isEditing = false;
-        editingId = null;
         model = new UpsertDailySettlementDto
         {
             SettlementDate = DateTime.Today
@@ -210,4 +226,17 @@
             Snackbar.Add($"خطا: {ex.Message}", Severity.Error);
         }
     }
+
+    private string SelectedDayOfWeekTitle => (model.SettlementDate ?? DateTime.Today).DayOfWeek switch
+    {
+        DayOfWeek.Saturday => "شنبه",
+        DayOfWeek.Sunday => "یک‌شنبه",
+        DayOfWeek.Monday => "دوشنبه",
+        DayOfWeek.Tuesday => "سه‌شنبه",
+        DayOfWeek.Wednesday => "چهارشنبه",
+        DayOfWeek.Thursday => "پنج‌شنبه",
+        DayOfWeek.Friday => "جمعه",
+        _ => string.Empty
+    };
+
 }

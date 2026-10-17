@@ -4,6 +4,8 @@ namespace AutoSpare.Application.DailySettlements.DTOs;
 
 public class UpsertDailySettlementDto
 {
+    public Guid? Id { get; set; }
+
     [Required(ErrorMessage = "تاریخ تسویه الزامی است.")]
     public DateTime? SettlementDate { get; set; } = DateTime.Today;
 
