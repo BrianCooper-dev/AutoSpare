@@ -12,6 +12,17 @@ public class DailySettlementDto
     public decimal Pos2Amount { get; set; }
     public decimal CashAmount { get; set; }
     public decimal TotalAmount => Pos1Amount + Pos2Amount + CashAmount;
+
+    /// <summary>
+    /// جمع کل فروش ثبت‌شده در سیستم (فاکتورهای تکمیل‌شده)
+    /// </summary>
+    public decimal SystemSalesAmount { get; set; }
+
+    /// <summary>
+    /// اختلاف بین دریافتی واقعی و فروش ثبت‌شده در سیستم (کسری، اضافه یا تراز)
+    /// </summary>
+    public decimal DiscrepancyAmount => TotalAmount - SystemSalesAmount;
+
     public int Status { get; set; }
     public string StatusTitle => Status == 1 ? "باز" : "بسته شده";
     public string? Notes { get; set; }
