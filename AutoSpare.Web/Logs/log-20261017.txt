@@ -40,3 +40,130 @@
 2026-10-17 13:02:23.790 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 10.1623 ms 
 2026-10-17 13:02:29.746 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 1.9522 ms 
 2026-10-17 13:04:16.189 +03:30 [INF] HTTP GET /_blazor responded 101 in 112393.2015 ms 
+2026-10-17 13:09:52.225 +03:30 [WRN] No store type was specified for the decimal property 'UnitPurchasePrice' on entity type 'SaleItem'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'. 
+2026-10-17 13:09:52.870 +03:30 [INF] Storage directories are ready. ImagesPath: D:\porograming\Rider\AutoSpare\AutoSpare.Web\wwwroot\Uploads\Images, BackupPath: D:\AutoSpareBackups 
+2026-10-17 13:09:53.149 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 41.0068 ms 
+2026-10-17 13:09:53.646 +03:30 [INF] HTTP GET / responded 200 in 540.2205 ms 
+2026-10-17 13:09:53.656 +03:30 [INF] HTTP GET /daily-settlements responded 200 in 432.0216 ms 
+2026-10-17 13:09:53.669 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 5.2475 ms 
+2026-10-17 13:09:53.684 +03:30 [INF] HTTP GET /app.css responded 200 in 20.1104 ms 
+2026-10-17 13:09:53.685 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 11.6844 ms 
+2026-10-17 13:09:53.691 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 26.8373 ms 
+2026-10-17 13:09:53.698 +03:30 [INF] HTTP GET /app.css responded 200 in 3.3155 ms 
+2026-10-17 13:09:53.700 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 0.9407 ms 
+2026-10-17 13:09:53.701 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 5.0551 ms 
+2026-10-17 13:09:53.703 +03:30 [INF] HTTP GET /_blazor responded 101 in 537.2629 ms 
+2026-10-17 13:09:53.704 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 3.6166 ms 
+2026-10-17 13:09:53.740 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 54.3794 ms 
+2026-10-17 13:09:53.742 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 0.4073 ms 
+2026-10-17 13:09:53.742 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.4774 ms 
+2026-10-17 13:09:53.782 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 7.0496 ms 
+2026-10-17 13:09:53.788 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.5781 ms 
+2026-10-17 13:09:53.810 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.8599 ms 
+2026-10-17 13:09:53.819 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 0.7144 ms 
+2026-10-17 13:09:53.842 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.8293 ms 
+2026-10-17 13:10:32.675 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 0.7571 ms 
+2026-10-17 13:21:15.985 +03:30 [INF] HTTP GET /_blazor responded 101 in 682190.7143 ms 
+2026-10-17 13:35:32.978 +03:30 [INF] HTTP GET /_blazor responded 101 in 1539129.0536 ms 
+2026-10-17 13:38:47.268 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 3.1308 ms 
+2026-10-17 13:42:38.103 +03:30 [INF] HTTP GET /_blazor responded 101 in 230825.5055 ms 
+2026-10-17 13:43:00.509 +03:30 [WRN] No store type was specified for the decimal property 'UnitPurchasePrice' on entity type 'SaleItem'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'. 
+2026-10-17 13:43:01.308 +03:30 [INF] Storage directories are ready. ImagesPath: D:\porograming\Rider\AutoSpare\AutoSpare.Web\wwwroot\Uploads\Images, BackupPath: D:\AutoSpareBackups 
+2026-10-17 13:43:01.615 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 30.4362 ms 
+2026-10-17 13:43:01.619 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 35.4819 ms 
+2026-10-17 13:43:02.234 +03:30 [INF] HTTP GET / responded 200 in 650.5736 ms 
+2026-10-17 13:43:02.275 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 8.4322 ms 
+2026-10-17 13:43:02.285 +03:30 [INF] HTTP GET /app.css responded 200 in 18.6099 ms 
+2026-10-17 13:43:02.288 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 21.6374 ms 
+2026-10-17 13:43:02.299 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 32.2215 ms 
+2026-10-17 13:43:02.375 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.8427 ms 
+2026-10-17 13:43:02.413 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 10.1945 ms 
+2026-10-17 13:43:02.422 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 1.1849 ms 
+2026-10-17 13:43:07.131 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 3.1165 ms 
+2026-10-17 13:44:24.719 +03:30 [INF] HTTP GET /_blazor responded 101 in 82286.0209 ms 
+2026-10-17 14:18:51.851 +03:30 [WRN] No store type was specified for the decimal property 'UnitPurchasePrice' on entity type 'SaleItem'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'. 
+2026-10-17 14:18:52.586 +03:30 [INF] Storage directories are ready. ImagesPath: D:\porograming\Rider\AutoSpare\AutoSpare.Web\wwwroot\Uploads\Images, BackupPath: D:\AutoSpareBackups 
+2026-10-17 14:18:53.063 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 25.1280 ms 
+2026-10-17 14:18:53.499 +03:30 [INF] HTTP GET / responded 200 in 657.4130 ms 
+2026-10-17 14:18:53.531 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 8.3899 ms 
+2026-10-17 14:18:53.541 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 18.1213 ms 
+2026-10-17 14:18:53.541 +03:30 [INF] HTTP GET /app.css responded 200 in 18.0829 ms 
+2026-10-17 14:18:53.545 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 22.4263 ms 
+2026-10-17 14:18:53.619 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.8112 ms 
+2026-10-17 14:18:53.646 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 10.9394 ms 
+2026-10-17 14:18:53.675 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 12.1545 ms 
+2026-10-17 14:18:57.356 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 0.9847 ms 
+2026-10-17 14:20:10.342 +03:30 [WRN] Savepoints are disabled because Multiple Active Result Sets (MARS) is enabled. If 'SaveChanges' fails, then the transaction cannot be automatically rolled back to a known clean state. Instead, the transaction should be rolled back by the application before retrying 'SaveChanges'. See https://go.microsoft.com/fwlink/?linkid=2149338 for more information and examples. To identify the code which triggers this warning, call 'ConfigureWarnings(w => w.Throw(SqlServerEventId.SavepointsDisabledBecauseOfMARS))'. 
+2026-10-17 14:22:59.023 +03:30 [ERR] An exception occurred while iterating over the results of a query for context type 'AutoSpare.Infrastructure.Persistence.ApplicationDbContext'.
+System.InvalidOperationException: A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync() 
+System.InvalidOperationException: A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+2026-10-17 14:24:19.766 +03:30 [INF] HTTP GET /daily-settlements responded 200 in 39.3727 ms 
+2026-10-17 14:24:19.783 +03:30 [INF] HTTP GET /_blazor responded 101 in 326099.5884 ms 
+2026-10-17 14:24:19.790 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 1.0219 ms 
+2026-10-17 14:24:19.794 +03:30 [INF] HTTP GET /app.css responded 200 in 1.5536 ms 
+2026-10-17 14:24:19.796 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 5.6921 ms 
+2026-10-17 14:24:19.801 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 10.1336 ms 
+2026-10-17 14:24:19.804 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 29.5207 ms 
+2026-10-17 14:24:19.835 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.4526 ms 
+2026-10-17 14:24:19.835 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 0.4526 ms 
+2026-10-17 14:24:19.865 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 1.7637 ms 
+2026-10-17 14:24:19.883 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.6896 ms 
+2026-10-17 14:24:39.102 +03:30 [ERR] An exception occurred while iterating over the results of a query for context type 'AutoSpare.Infrastructure.Persistence.ApplicationDbContext'.
+System.InvalidOperationException: A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync() 
+System.InvalidOperationException: A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+2026-10-17 14:27:27.235 +03:30 [INF] HTTP GET /_blazor responded 101 in 187344.4449 ms 
+2026-10-17 14:27:40.207 +03:30 [WRN] No store type was specified for the decimal property 'UnitPurchasePrice' on entity type 'SaleItem'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'. 
+2026-10-17 14:27:40.981 +03:30 [INF] Storage directories are ready. ImagesPath: D:\porograming\Rider\AutoSpare\AutoSpare.Web\wwwroot\Uploads\Images, BackupPath: D:\AutoSpareBackups 
+2026-10-17 14:27:41.220 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 31.7794 ms 
+2026-10-17 14:27:41.759 +03:30 [INF] HTTP GET / responded 200 in 571.7201 ms 
+2026-10-17 14:27:41.781 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 5.0394 ms 
+2026-10-17 14:27:41.825 +03:30 [INF] HTTP GET /app.css responded 200 in 48.9667 ms 
+2026-10-17 14:27:41.826 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 47.7733 ms 
+2026-10-17 14:27:41.828 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 51.5914 ms 
+2026-10-17 14:27:41.894 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.8345 ms 
+2026-10-17 14:27:41.921 +03:30 [INF] HTTP GET /daily-settlements responded 200 in 614.9288 ms 
+2026-10-17 14:27:41.924 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 8.7989 ms 
+2026-10-17 14:27:41.944 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 1.0688 ms 
+2026-10-17 14:27:41.951 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 17.4566 ms 
+2026-10-17 14:27:41.952 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 0.4315 ms 
+2026-10-17 14:27:41.953 +03:30 [INF] HTTP GET /_blazor responded 101 in 710.3618 ms 
+2026-10-17 14:27:41.953 +03:30 [INF] HTTP GET /app.css responded 200 in 1.5621 ms 
+2026-10-17 14:27:41.960 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 5.0720 ms 
+2026-10-17 14:27:41.960 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 2.3807 ms 
+2026-10-17 14:27:42.006 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.4982 ms 
+2026-10-17 14:27:42.006 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 0.4984 ms 
+2026-10-17 14:27:42.037 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 0.8808 ms 
+2026-10-17 14:27:42.060 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 2.8857 ms 
+2026-10-17 14:27:55.890 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 1.3618 ms 
+2026-10-17 14:38:21.246 +03:30 [INF] HTTP GET /_blazor responded 101 in 639276.3237 ms 
+2026-10-17 14:38:21.246 +03:30 [INF] HTTP GET /_blazor responded 101 in 639175.2781 ms 
+2026-10-17 14:38:43.834 +03:30 [WRN] No store type was specified for the decimal property 'UnitPurchasePrice' on entity type 'SaleItem'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'. 
+2026-10-17 14:38:44.603 +03:30 [INF] Storage directories are ready. ImagesPath: D:\porograming\Rider\AutoSpare\AutoSpare.Web\wwwroot\Uploads\Images, BackupPath: D:\AutoSpareBackups 
+2026-10-17 14:38:44.910 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 35.8699 ms 
+2026-10-17 14:38:45.475 +03:30 [INF] HTTP GET / responded 200 in 603.0117 ms 
+2026-10-17 14:38:45.505 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 7.6129 ms 
+2026-10-17 14:38:45.514 +03:30 [INF] HTTP GET /app.css responded 200 in 16.0312 ms 
+2026-10-17 14:38:45.514 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 16.1940 ms 
+2026-10-17 14:38:45.517 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 19.2994 ms 
+2026-10-17 14:38:45.580 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.9940 ms 
+2026-10-17 14:38:45.602 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 4.5166 ms 
+2026-10-17 14:38:45.629 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 9.0868 ms 
+2026-10-17 14:38:51.742 +03:30 [INF] HTTP GET /settings responded 404 in 0.8304 ms 
+2026-10-17 14:38:51.795 +03:30 [INF] HTTP GET /not-found responded 404 in 22.7347 ms 
+2026-10-17 14:38:51.849 +03:30 [INF] HTTP GET /app.css responded 200 in 1.5838 ms 
+2026-10-17 14:38:51.851 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 0.8200 ms 
+2026-10-17 14:38:51.853 +03:30 [INF] HTTP GET /_blazor responded 101 in 6216.4438 ms 
+2026-10-17 14:38:51.853 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 2.1392 ms 
+2026-10-17 14:38:51.855 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 3.3731 ms 
+2026-10-17 14:38:51.869 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 65.9494 ms 
+2026-10-17 14:38:51.889 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 1.1232 ms 
+2026-10-17 14:38:51.889 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 1.1216 ms 
+2026-10-17 14:38:51.894 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 1.1506 ms 
+2026-10-17 14:38:51.899 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.5653 ms 
+2026-10-17 14:54:08.028 +03:30 [INF] HTTP GET /_blazor responded 101 in 916118.6318 ms 
