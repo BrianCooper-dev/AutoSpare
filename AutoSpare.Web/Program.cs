@@ -15,6 +15,7 @@ using AutoSpare.Application.Categories;
 using AutoSpare.Application.DailySettlements;
 using AutoSpare.Application.Products;
 using AutoSpare.Application.Purchases;
+using AutoSpare.Application.Reports;
 using AutoSpare.Application.Sales;
 using AutoSpare.Application.Suppliers;
 using AutoSpare.Infrastructure.Services;
@@ -77,6 +78,8 @@ try
     builder.Services.AddScoped<ISaleService, SaleService>();
 
     builder.Services.AddScoped<IDailySettlementService, DailySettlementService>();
+
+    builder.Services.AddScoped<IReportService, ReportService>();
 
     // -------------------------------------------------------
     // Blazor UI Services
