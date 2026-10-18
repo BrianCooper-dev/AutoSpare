@@ -1,0 +1,200 @@
+@page "/reports/daily-sales"
+
+@using AutoSpare.Application.Reports
+@using AutoSpare.Application.Reports.DTOs
+@inject IReportService ReportService
+@inject ISnackbar Snackbar
+
+<PageTitle>گزارشات ادواری فروش | AutoSpare</PageTitle>
+
+<MudContainer MaxWidth="MaxWidth.ExtraLarge" Class="mt-4 mb-8">
+    <MudPaper Elevation="1" Class="pa-4 mb-4 rounded-lg d-flex justify-space-between align-center flex-wrap gap-4">
+        <div>
+            <MudText Typo="Typo.h5" Class="font-weight-bold">گزارش جامع فروش</MudText>
+            <MudText Typo="Typo.body2" Color="Color.Secondary">
+                تحلیل ادواری مبلغ فروش، تعداد فاکتورها، تعداد اقلام فروخته‌شده و سود ناخالص
+            </MudText>
+        </div>
+        <div class="d-flex align-center gap-3">
+            <MudButtonGroup Color="Color.Primary" Variant="Variant.Outlined">
+                <MudButton Variant="@(_activeTab == 0 ? Variant.Filled : Variant.Outlined)"
+                           OnClick="@(() => ChangeTabAsync(0))">روزانه
+                </MudButton>
+                <MudButton Variant="@(_activeTab == 1 ? Variant.Filled : Variant.Outlined)"
+                           OnClick="@(() => ChangeTabAsync(1))">هفتگی
+                </MudButton>
+                <MudButton Variant="@(_activeTab == 2 ? Variant.Filled : Variant.Outlined)"
+                           OnClick="@(() => ChangeTabAsync(2))">ماهانه
+                </MudButton>
+            </MudButtonGroup>
+
+            <MudButton Variant="Variant.Outlined"
+                       Color="Color.Primary"
+                       StartIcon="@Icons.Material.Filled.Refresh"
+                       OnClick="LoadCurrentReportAsync">
+                بروزرسانی
+            </MudButton>
+        </div>
+    </MudPaper>
+
+    <!-- کارت‌های سرجمع کل دوره -->
+    <MudGrid Class="mb-4">
+        <MudItem xs="12" sm="4">
+            <MudCard Elevation="1">
+                <MudCardContent Class="d-flex justify-space-between align-center">
+                    <div>
+                        <MudText Typo="Typo.caption" Color="Color.Secondary">مجموع مبلغ فروش</MudText>
+                        <MudText Typo="Typo.h6" Class="font-weight-bold text-primary mt-1">
+                            @_reportList.Sum(x => x.TotalSales).ToString("N0") <span
+                                style="font-size: 0.75rem;">تومان</span>
+                        </MudText>
+                    </div>
+                    <MudAvatar Color="Color.Primary" Size="Size.Medium">
+                        <MudIcon Icon="@Icons.Material.Filled.MonetizationOn"/>
+                    </MudAvatar>
+                </MudCardContent>
+            </MudCard>
+        </MudItem>
+
+        <MudItem xs="12" sm="4">
+            <MudCard Elevation="1">
+                <MudCardContent Class="d-flex justify-space-between align-center">
+                    <div>
+                        <MudText Typo="Typo.caption" Color="Color.Secondary">مجموع فاکتورهای فروش</MudText>
+                        <MudText Typo="Typo.h6" Class="font-weight-bold text-info mt-1">
+                            @_reportList.Sum(x => x.InvoiceCount).ToString("N0") <span style="font-size: 0.75rem;">فاکتور</span>
+                        </MudText>
+                    </div>
+                    <MudAvatar Color="Color.Info" Size="Size.Medium">
+                        <MudIcon Icon="@Icons.Material.Filled.ReceiptLong"/>
+                    </MudAvatar>
+                </MudCardContent>
+            </MudCard>
+        </MudItem>
+
+        <MudItem xs="12" sm="4">
+            <MudCard Elevation="1">
+                <MudCardContent Class="d-flex justify-space-between align-center">
+                    <div>
+                        <MudText Typo="Typo.caption" Color="Color.Secondary">مجموع تعداد اقلام فروخته‌شده</MudText>
+                        <MudText Typo="Typo.h6" Class="font-weight-bold text-success mt-1">
+                            @_reportList.Sum(x => x.TotalQuantitySold).ToString("N0") <span style="font-size: 0.75rem;">عدد</span>
+                        </MudText>
+                    </div>
+                    <MudAvatar Color="Color.Success" Size="Size.Medium">
+                        <MudIcon Icon="@Icons.Material.Filled.Category"/>
+                    </MudAvatar>
+                </MudCardContent>
+            </MudCard>
+        </MudItem>
+    </MudGrid>
+
+    <!-- جدول گزارش -->
+    <MudCard Elevation="2" Class="rounded-lg">
+        <MudCardContent Class="pa-0">
+            <MudTable Items="_reportList"
+                      Hover="true"
+                      Striped="true"
+                      Elevation="0"
+                      Loading="_isLoading"
+                      LoadingProgressColor="Color.Primary">
+                <HeaderContent>
+                    <MudTh>
+                        @(_activeTab == 0 ? "تاریخ" : (_activeTab == 1 ? "بازه زمانی هفته" : "ماه سال"))
+                    </MudTh>
+                    <MudTh Style="text-align: center;">تعداد فاکتور</MudTh>
+                    <MudTh Style="text-align: center;">تعداد اقلام فروخته‌شده</MudTh>
+                    <MudTh Style="text-align: left;">مبلغ کل فروش (تومان)</MudTh>
+                    <MudTh Style="text-align: left;">بهای تمام‌شده (تومان)</MudTh>
+                    <MudTh Style="text-align: left;">سود ناخالص (تومان)</MudTh>
+                </HeaderContent>
+                <RowTemplate>
+                    <MudTd DataLabel="دوره زمانی">
+                        <MudChip T="string"
+                                 Size="Size.Small"
+                                 Variant="Variant.Outlined"
+                                 Color="Color.Primary">
+                            @context.PeriodTitle
+                        </MudChip>
+                    </MudTd>
+
+                    <MudTd DataLabel="تعداد فاکتور" Style="text-align: center;">
+                        <MudChip T="string" Size="Size.Small" Color="Color.Primary" Variant="Variant.Text">
+                            @context.InvoiceCount فاکتور
+                        </MudChip>
+                    </MudTd>
+                    <MudTd DataLabel="تعداد اقلام" Style="text-align: center;">
+                        <MudChip T="string" Size="Size.Small" Color="Color.Info" Variant="Variant.Filled">
+                            @context.TotalQuantitySold عدد
+                        </MudChip>
+                    </MudTd>
+                    <MudTd DataLabel="مبلغ فروش" Style="text-align: left;">
+                        <MudText Typo="Typo.body2" Class="font-weight-bold">
+                            @context.TotalSales.ToString("N0")
+                        </MudText>
+                    </MudTd>
+                    <MudTd DataLabel="بهای تمام‌شده" Style="text-align: left;">
+                        <MudText Typo="Typo.body2" Color="Color.Secondary">
+                            @context.TotalCost.ToString("N0")
+                        </MudText>
+                    </MudTd>
+                    <MudTd DataLabel="سود ناخالص" Style="text-align: left;">
+                        <MudText Typo="Typo.body2" Class="font-weight-bold text-success">
+                            @context.TotalProfit.ToString("N0")
+                        </MudText>
+                    </MudTd>
+                </RowTemplate>
+                <NoRecordsContent>
+                    <div class="pa-6 text-center">
+                        <MudIcon Icon="@Icons.Material.Filled.Info" Color="Color.Secondary" Size="Size.Large"
+                                 Class="mb-2"/>
+                        <MudText Typo="Typo.body1" Color="Color.Secondary">هیچ سابقه فروشی در این بازه یافت نشد.
+                        </MudText>
+                    </div>
+                </NoRecordsContent>
+            </MudTable>
+        </MudCardContent>
+    </MudCard>
+</MudContainer>
+
+@code {
+    private List<SalesSummaryReportDto> _reportList = new();
+    private bool _isLoading = true;
+    private int _activeTab = 0; // 0: روزانه, 1: هفتگی, 2: ماهانه
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadCurrentReportAsync();
+    }
+
+    private async Task ChangeTabAsync(int tabIndex)
+    {
+        if (_activeTab == tabIndex) return;
+        _activeTab = tabIndex;
+        await LoadCurrentReportAsync();
+    }
+
+    private async Task LoadCurrentReportAsync()
+    {
+        _isLoading = true;
+        try
+        {
+            var filter = new ReportFilterDto();
+            _reportList = _activeTab switch
+            {
+                1 => await ReportService.GetWeeklySalesSummaryAsync(filter),
+                2 => await ReportService.GetMonthlySalesSummaryAsync(filter),
+                _ => await ReportService.GetDailySalesSummaryAsync(filter)
+            };
+        }
+        catch (Exception ex)
+        {
+            Snackbar.Add($"خطا در دریافت گزارش: {ex.Message}", Severity.Error);
+        }
+        finally
+        {
+            _isLoading = false;
+        }
+    }
+
+}
