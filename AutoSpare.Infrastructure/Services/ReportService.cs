@@ -1,3 +1,4 @@
+using System.Globalization;
 using AutoSpare.Application.Reports;
 using AutoSpare.Application.Reports.DTOs;
 using AutoSpare.Domain.Purchases.Enums;
@@ -25,12 +26,10 @@ public class ReportService : IReportService
         var monthStart = new DateTime(now.Year, now.Month, 1, 0, 0, 0, DateTimeKind.Utc);
         var monthEnd = monthStart.AddMonths(1);
 
-        // ۱. کوئری Read-only فاکتورهای فروش نهایی شده
         var baseSalesQuery = _context.Sales
             .AsNoTracking()
             .Where(s => s.Status == SaleStatus.Completed);
 
-        // آمار فروش و سود امروز
         var todaySalesData = await baseSalesQuery
             .Where(s => s.SaleDate >= todayStart && s.SaleDate < todayEnd)
             .Select(s => new
@@ -40,7 +39,6 @@ public class ReportService : IReportService
             })
             .ToListAsync(cancellationToken);
 
-        // آمار فروش و سود این ماه
         var monthSalesData = await baseSalesQuery
             .Where(s => s.SaleDate >= monthStart && s.SaleDate < monthEnd)
             .Select(s => new
@@ -50,7 +48,6 @@ public class ReportService : IReportService
             })
             .ToListAsync(cancellationToken);
 
-        // ۲. کوئری خریدهای نهایی شده
         var basePurchasesQuery = _context.Purchases
             .AsNoTracking()
             .Where(p => p.Status == PurchaseStatus.Completed);
@@ -65,7 +62,6 @@ public class ReportService : IReportService
             .Select(p => p.Items.Sum(i => i.Quantity * i.UnitPrice))
             .ToListAsync(cancellationToken);
 
-        // ۳. کوئری موجودی و ارزش ریالی انبار
         var inventoryData = await _context.Inventories
             .AsNoTracking()
             .Where(inv => inv.Quantity > 0 && inv.Product != null)
@@ -99,6 +95,113 @@ public class ReportService : IReportService
     public async Task<List<SalesSummaryReportDto>> GetDailySalesSummaryAsync(ReportFilterDto filter,
         CancellationToken cancellationToken = default)
     {
+        var rawSales = await GetFilteredBaseSalesAsync(filter, cancellationToken);
+
+        var dailyData = rawSales
+            .GroupBy(x => x.SaleDate.Date)
+            .Select(g => new SalesSummaryReportDto
+            {
+                Date = g.Key,
+                PeriodTitle = g.Key.ToString("yyyy/MM/dd"),
+                InvoiceCount = g.Count(),
+                TotalQuantitySold = g.Sum(x => x.TotalItems),
+                TotalSales = g.Sum(x => x.InvoiceTotal),
+                TotalCost = g.Sum(x => x.InvoiceCost),
+                TotalProfit = g.Sum(x => x.InvoiceTotal - x.InvoiceCost)
+            })
+            .OrderByDescending(r => r.Date)
+            .ToList();
+
+        return dailyData;
+    }
+
+    public async Task<List<SalesSummaryReportDto>> GetWeeklySalesSummaryAsync(ReportFilterDto filter,
+        CancellationToken cancellationToken = default)
+    {
+        var rawSales = await GetFilteredBaseSalesAsync(filter, cancellationToken);
+        var persianCalendar = new PersianCalendar();
+
+        var weeklyData = rawSales
+            .GroupBy(x =>
+            {
+                // گروه‌بندی بر اساس ابتدای هفته (شنبه)
+                var date = x.SaleDate.Date;
+                int diff = (7 + (int)date.DayOfWeek - (int)DayOfWeek.Saturday) % 7;
+                var weekStart = date.AddDays(-1 * diff);
+                return weekStart;
+            })
+            .Select(g =>
+            {
+                var weekStart = g.Key;
+                var weekEnd = weekStart.AddDays(6);
+                var py = persianCalendar.GetYear(weekStart);
+                var pm = persianCalendar.GetMonth(weekStart);
+                var pd = persianCalendar.GetDayOfMonth(weekStart);
+                var pey = persianCalendar.GetYear(weekEnd);
+                var pem = persianCalendar.GetMonth(weekEnd);
+                var ped = persianCalendar.GetDayOfMonth(weekEnd);
+
+                return new SalesSummaryReportDto
+                {
+                    Date = weekStart,
+                    PeriodTitle = $"هفته ({py:0000}/{pm:00}/{pd:00} الی {pey:0000}/{pem:00}/{ped:00})",
+                    InvoiceCount = g.Count(),
+                    TotalQuantitySold = g.Sum(x => x.TotalItems),
+                    TotalSales = g.Sum(x => x.InvoiceTotal),
+                    TotalCost = g.Sum(x => x.InvoiceCost),
+                    TotalProfit = g.Sum(x => x.InvoiceTotal - x.InvoiceCost)
+                };
+            })
+            .OrderByDescending(r => r.Date)
+            .ToList();
+
+        return weeklyData;
+    }
+
+    public async Task<List<SalesSummaryReportDto>> GetMonthlySalesSummaryAsync(ReportFilterDto filter,
+        CancellationToken cancellationToken = default)
+    {
+        var rawSales = await GetFilteredBaseSalesAsync(filter, cancellationToken);
+        var persianCalendar = new PersianCalendar();
+
+        var monthNames = new[]
+        {
+            "", "فروردین", "اردیبهشت", "خرداد", "تیر", "مرداد", "شهریور",
+            "مهر", "آبان", "آذر", "دی", "بهمن", "اسفند"
+        };
+
+        var monthlyData = rawSales
+            .GroupBy(x =>
+            {
+                var py = persianCalendar.GetYear(x.SaleDate);
+                var pm = persianCalendar.GetMonth(x.SaleDate);
+                return new { Year = py, Month = pm };
+            })
+            .Select(g =>
+            {
+                var monthName = (g.Key.Month >= 1 && g.Key.Month <= 12)
+                    ? monthNames[g.Key.Month]
+                    : $"ماه {g.Key.Month}";
+                return new SalesSummaryReportDto
+                {
+                    Date = new DateTime(g.Key.Year, g.Key.Month, 1),
+                    PeriodTitle = $"{monthName} {g.Key.Year}",
+                    InvoiceCount = g.Count(),
+                    TotalQuantitySold = g.Sum(x => x.TotalItems),
+                    TotalSales = g.Sum(x => x.InvoiceTotal),
+                    TotalCost = g.Sum(x => x.InvoiceCost),
+                    TotalProfit = g.Sum(x => x.InvoiceTotal - x.InvoiceCost)
+                };
+            })
+            .OrderByDescending(r => r.Date)
+            .ToList();
+
+        return monthlyData;
+    }
+
+    private async Task<List<RawSaleRecord>> GetFilteredBaseSalesAsync(ReportFilterDto filter,
+        CancellationToken cancellationToken)
+    {
         var query = _context.Sales
             .AsNoTracking()
             .Where(s => s.Status == SaleStatus.Completed);
@@ -114,26 +217,23 @@ public class ReportService : IReportService
                 s.WarehouseId == filter.WarehouseId.Value ||
                 s.Items.Any(i => i.WarehouseId == filter.WarehouseId.Value));
 
-        var dailyData = await query
-            .Select(s => new
+        return await query
+            .Select(s => new RawSaleRecord
             {
-                Date = s.SaleDate.Date,
+                SaleDate = s.SaleDate,
+                TotalItems = s.Items.Sum(i => i.Quantity),
                 InvoiceTotal = s.Items.Sum(i => i.Quantity * i.UnitPrice),
                 InvoiceCost = s.Items.Sum(i => i.Quantity * i.UnitPurchasePrice)
             })
-            .GroupBy(x => x.Date)
-            .Select(g => new SalesSummaryReportDto
-            {
-                Date = g.Key,
-                InvoiceCount = g.Count(),
-                TotalSales = g.Sum(x => x.InvoiceTotal),
-                TotalCost = g.Sum(x => x.InvoiceCost),
-                TotalProfit = g.Sum(x => x.InvoiceTotal - x.InvoiceCost)
-            })
-            .OrderByDescending(r => r.Date)
             .ToListAsync(cancellationToken);
+    }
 
-        return dailyData;
+    private sealed class RawSaleRecord
+    {
+        public DateTime SaleDate { get; set; }
+        public int TotalItems { get; set; }
+        public decimal InvoiceTotal { get; set; }
+        public decimal InvoiceCost { get; set; }
     }
 
     public async Task<List<TopSellingProductDto>> GetTopSellingProductsAsync(int count, ReportFilterDto? filter = null,
