@@ -73,3 +73,5 @@
 2026-10-18 14:01:46.825 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 0.7240 ms 
 2026-10-18 14:01:46.827 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.3613 ms 
 2026-10-18 14:01:46.830 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.4559 ms 
+2026-10-18 14:03:14.872 +03:30 [INF] HTTP GET /_blazor responded 101 in 88027.4565 ms 
+2026-10-18 14:03:14.872 +03:30 [INF] HTTP GET /_blazor responded 101 in 88116.6747 ms 
