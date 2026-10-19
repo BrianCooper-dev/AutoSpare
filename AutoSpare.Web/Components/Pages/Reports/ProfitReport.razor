@@ -1,0 +1,167 @@
+@page "/reports/profit"
+
+@using System.Globalization
+@using AutoSpare.Application.Reports
+@using AutoSpare.Application.Reports.DTOs
+
+@inject IReportService ReportService
+@inject ISnackbar Snackbar
+
+<PageTitle>گزارش سود و زیان | AutoSpare</PageTitle>
+
+<MudContainer MaxWidth="MaxWidth.ExtraLarge" Class="mt-4 mb-8">
+    <MudPaper Elevation="1" Class="pa-4 mb-4">
+        <MudText Typo="Typo.h5" Class="fw-bold mb-2">گزارش سود و حاشیه سود اقلام فروش</MudText>
+        <MudText Typo="Typo.body2" Color="Color.Secondary">
+            محاسبه دقیق سود هر ردیف فاکتور بر پایه اسنپ‌شات قیمت خرید و فروش در لحظه معامله
+        </MudText>
+    </MudPaper>
+
+    <!-- کارت‌های خلاصه تجمیعی -->
+    <MudGrid Class="mb-4">
+        <MudItem xs="12" sm="6" md="3">
+            <MudPaper Elevation="2" Class="pa-4 text-center">
+                <MudText Typo="Typo.subtitle2" Color="Color.Secondary">مجموع فروش</MudText>
+                <MudText Typo="Typo.h6" Class="fw-bold mt-1">@_totalSales.ToString("N0") <small>تومان</small></MudText>
+            </MudPaper>
+        </MudItem>
+        <MudItem xs="12" sm="6" md="3">
+            <MudPaper Elevation="2" Class="pa-4 text-center">
+                <MudText Typo="Typo.subtitle2" Color="Color.Secondary">بهای تمام‌شده کل (اسنپ‌شات)</MudText>
+                <MudText Typo="Typo.h6" Class="fw-bold mt-1">@_totalCost.ToString("N0") <small>تومان</small></MudText>
+            </MudPaper>
+        </MudItem>
+        <MudItem xs="12" sm="6" md="3">
+            <MudPaper Elevation="2" Class="pa-4 text-center">
+                <MudText Typo="Typo.subtitle2" Color="Color.Secondary">سود ناخالص کل</MudText>
+                <MudText Typo="Typo.h6"
+                         Class="fw-bold mt-1 text-success">@_totalProfit.ToString("N0") <small>تومان</small></MudText>
+            </MudPaper>
+        </MudItem>
+        <MudItem xs="12" sm="6" md="3">
+            <MudPaper Elevation="2" Class="pa-4 text-center">
+                <MudText Typo="Typo.subtitle2" Color="Color.Secondary">میانگین حاشیه سود</MudText>
+                <MudText Typo="Typo.h6" Class="fw-bold mt-1 text-primary">@_averageMargin.ToString("F1")%</MudText>
+            </MudPaper>
+        </MudItem>
+    </MudGrid>
+
+    <!-- جدول ردیف‌های سود -->
+    <MudTable Items="FilteredItems" Dense="true" Hover="true" Striped="true" Loading="_isLoading" Elevation="2">
+        <ToolBarContent>
+            <MudText Typo="Typo.h6">ریز سود اقلام فاکتورهای تکمیل‌شده</MudText>
+            <MudSpacer/>
+            <MudTextField @bind-Value="_searchString"
+                          @bind-Value:after="OnSearchChanged"
+                          Placeholder="جستجو در فاکتور، کالا..."
+                          Adornment="Adornment.Start"
+                          AdornmentIcon="@Icons.Material.Filled.Search"
+                          IconSize="Size.Medium"
+                          Class="mt-0"
+                          Immediate="true"/>
+        </ToolBarContent>
+        <HeaderContent>
+            <MudTh>شماره فاکتور</MudTh>
+            <MudTh>تاریخ</MudTh>
+            <MudTh>نام کالا</MudTh>
+            <MudTh>کد فنی</MudTh>
+            <MudTh>انبار</MudTh>
+            <MudTh Style="text-align:center;">تعداد</MudTh>
+            <MudTh Style="text-align:right;">ق. خرید اسنپ‌شات</MudTh>
+            <MudTh Style="text-align:right;">ق. فروش اسنپ‌شات</MudTh>
+            <MudTh Style="text-align:right;">مبلغ کل فروش</MudTh>
+            <MudTh Style="text-align:right;">بهای تمام‌شده</MudTh>
+            <MudTh Style="text-align:right;">سود ردیف</MudTh>
+            <MudTh Style="text-align:center;">حاشیه سود</MudTh>
+        </HeaderContent>
+        <RowTemplate>
+            <MudTd DataLabel="شماره فاکتور">
+                <MudChip T="string" Size="Size.Small" Color="Color.Primary"
+                         Variant="Variant.Outlined">@context.InvoiceNumber</MudChip>
+            </MudTd>
+            <MudTd DataLabel="تاریخ">@FormatPersianDate(context.SaleDate)</MudTd>
+            <MudTd DataLabel="نام کالا" Class="fw-bold">@context.ProductName</MudTd>
+            <MudTd DataLabel="کد فنی">@context.ProductCode</MudTd>
+            <MudTd DataLabel="انبار">@context.WarehouseName</MudTd>
+            <MudTd DataLabel="تعداد" Style="text-align:center;">@context.Quantity</MudTd>
+            <MudTd DataLabel="ق. خرید اسنپ‌شات" Style="text-align:right;">@context.UnitCost.ToString("N0")</MudTd>
+            <MudTd DataLabel="ق. فروش اسنپ‌شات" Style="text-align:right;">@context.UnitPrice.ToString("N0")</MudTd>
+            <MudTd DataLabel="مبلغ کل فروش" Style="text-align:right;">@context.TotalSales.ToString("N0")</MudTd>
+            <MudTd DataLabel="بهای تمام‌شده" Style="text-align:right;">@context.TotalCost.ToString("N0")</MudTd>
+            <MudTd DataLabel="سود ردیف" Style="text-align:right;">
+                <span class="@(context.Profit >= 0 ? "text-success fw-bold" : "text-danger fw-bold")">
+                    @context.Profit.ToString("N0")
+                </span>
+            </MudTd>
+            <MudTd DataLabel="حاشیه سود" Style="text-align:center;">
+                <MudChip T="string" Size="Size.Small"
+                         Color="@(context.ProfitMarginPercentage >= 15 ? Color.Success : (context.ProfitMarginPercentage > 0 ? Color.Warning : Color.Error))"
+                         Variant="Variant.Filled">
+                    @context.ProfitMarginPercentage.ToString("F1")%
+                </MudChip>
+            </MudTd>
+        </RowTemplate>
+        <NoRecordsContent>
+            <MudText Class="pa-4 text-center" Color="Color.Secondary">هیچ داده‌ای در این بازه یافت نشد.</MudText>
+        </NoRecordsContent>
+        <PagerContent>
+            <MudTablePager PageSizeOptions="new int[] { 10, 25, 50, 100 }" RowsPerPageString="تعداد در هر صفحه:"/>
+        </PagerContent>
+    </MudTable>
+</MudContainer>
+
+@code {
+    private List<ProfitItemReportDto> _reportItems = new();
+    private bool _isLoading = true;
+    private string _searchString = string.Empty;
+
+    private List<ProfitItemReportDto> FilteredItems =>
+        string.IsNullOrWhiteSpace(_searchString)
+            ? _reportItems
+            : _reportItems.Where(x =>
+                    (!string.IsNullOrEmpty(x.InvoiceNumber) && x.InvoiceNumber.Contains(_searchString, StringComparison.OrdinalIgnoreCase)) ||
+                    (!string.IsNullOrEmpty(x.ProductName) && x.ProductName.Contains(_searchString, StringComparison.OrdinalIgnoreCase)) ||
+                    (!string.IsNullOrEmpty(x.ProductCode) && x.ProductCode.Contains(_searchString, StringComparison.OrdinalIgnoreCase)))
+                .ToList();
+
+    private decimal _totalSales => FilteredItems.Sum(x => x.TotalSales);
+    private decimal _totalCost => FilteredItems.Sum(x => x.TotalCost);
+    private decimal _totalProfit => FilteredItems.Sum(x => x.Profit);
+    private double _averageMargin => _totalSales > 0 ? (double)(_totalProfit / _totalSales) * 100 : 0;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadReportAsync();
+    }
+
+    private async Task LoadReportAsync()
+    {
+        _isLoading = true;
+        try
+        {
+            var filter = new ReportFilterDto();
+            _reportItems = await ReportService.GetProfitReportAsync(filter);
+        }
+        catch (Exception ex)
+        {
+            Snackbar.Add($"خطا در دریافت گزارش سود: {ex.Message}", Severity.Error);
+        }
+        finally
+        {
+            _isLoading = false;
+        }
+    }
+
+    private Task OnSearchChanged()
+    {
+        StateHasChanged();
+        return Task.CompletedTask;
+    }
+
+    private string FormatPersianDate(DateTime dt)
+    {
+        var pc = new PersianCalendar();
+        return $"{pc.GetYear(dt)}/{pc.GetMonth(dt):00}/{pc.GetDayOfMonth(dt):00}";
+    }
+
+}
