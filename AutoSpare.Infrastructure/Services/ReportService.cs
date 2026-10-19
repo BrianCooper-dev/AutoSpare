@@ -310,4 +310,65 @@ public class ReportService : IReportService
             .OrderByDescending(x => x.CurrentStock * x.PurchasePrice)
             .ToListAsync(cancellationToken);
     }
+
+    public async Task<List<ProfitItemReportDto>> GetProfitReportAsync(ReportFilterDto filter,
+        CancellationToken cancellationToken = default)
+    {
+        var salesQuery = _context.Sales
+            .AsNoTracking()
+            .Where(s => s.Status == SaleStatus.Completed);
+
+        if (filter.FromDate.HasValue)
+            salesQuery = salesQuery.Where(s => s.SaleDate >= filter.FromDate.Value);
+
+        if (filter.ToDate.HasValue)
+            salesQuery = salesQuery.Where(s => s.SaleDate <= filter.ToDate.Value);
+
+        if (filter.WarehouseId.HasValue)
+        {
+            salesQuery = salesQuery.Where(s =>
+                s.WarehouseId == filter.WarehouseId.Value ||
+                s.Items.Any(i => i.WarehouseId == filter.WarehouseId.Value));
+        }
+
+        var itemsQuery = salesQuery.SelectMany(s => s.Items.Select(item => new
+        {
+            SaleId = s.Id,
+            InvoiceNumber = s.InvoiceNumber,
+            SaleDate = s.SaleDate,
+            ProductName = item.Product != null ? item.Product.Name : string.Empty,
+            ProductCode = item.Product != null ? item.Product.InternalCode : string.Empty,
+            WarehouseName = item.Warehouse != null ? item.Warehouse.Name : "-",
+            Quantity = item.Quantity,
+            UnitCost = item.UnitPurchasePrice, // اسنپ‌شات قیمت خرید در زمان فروش
+            UnitPrice = item.UnitPrice, // اسنپ‌شات قیمت فروش
+            ItemWarehouseId = item.WarehouseId,
+            SaleWarehouseId = s.WarehouseId
+        }));
+
+        if (filter.WarehouseId.HasValue)
+        {
+            itemsQuery = itemsQuery.Where(x =>
+                x.ItemWarehouseId == filter.WarehouseId.Value ||
+                x.SaleWarehouseId == filter.WarehouseId.Value);
+        }
+
+        var result = await itemsQuery
+            .OrderByDescending(x => x.SaleDate)
+            .Select(x => new ProfitItemReportDto
+            {
+                SaleId = x.SaleId,
+                InvoiceNumber = x.InvoiceNumber,
+                SaleDate = x.SaleDate,
+                ProductName = x.ProductName,
+                ProductCode = x.ProductCode,
+                WarehouseName = x.WarehouseName,
+                Quantity = x.Quantity,
+                UnitCost = x.UnitCost,
+                UnitPrice = x.UnitPrice
+            })
+            .ToListAsync(cancellationToken);
+
+        return result;
+    }
 }
