@@ -1,6 +1,7 @@
 using System.Globalization;
 using AutoSpare.Application.Reports;
 using AutoSpare.Application.Reports.DTOs;
+using AutoSpare.Application.Reports.Enums;
 using AutoSpare.Domain.Purchases.Enums;
 using AutoSpare.Domain.Sales.Enums;
 using AutoSpare.Infrastructure.Persistence;
@@ -236,7 +237,9 @@ public class ReportService : IReportService
         public decimal InvoiceCost { get; set; }
     }
 
-    public async Task<List<TopSellingProductDto>> GetTopSellingProductsAsync(int count, ReportFilterDto? filter = null,
+    public async Task<List<TopSellingProductDto>> GetTopSellingProductsAsync(int count,
+        TopSellingSortMode sortMode = TopSellingSortMode.ByQuantity,
+        ReportFilterDto? filter = null,
         CancellationToken cancellationToken = default)
     {
         var itemsQuery = _context.Sales
@@ -267,7 +270,7 @@ public class ReportService : IReportService
                 itemsQuery = itemsQuery.Where(x => x.WarehouseId == filter.WarehouseId.Value);
         }
 
-        var grouped = await itemsQuery
+        var groupedQuery = itemsQuery
             .GroupBy(x => new { x.ProductId, x.ProductName, x.InternalCode, x.BrandName })
             .Select(g => new TopSellingProductDto
             {
@@ -278,12 +281,16 @@ public class ReportService : IReportService
                 TotalQuantitySold = g.Sum(i => i.Quantity),
                 TotalSalesAmount = g.Sum(i => i.Quantity * i.UnitPrice),
                 TotalProfitAmount = g.Sum(i => (i.Quantity * i.UnitPrice) - (i.Quantity * i.UnitPurchasePrice))
-            })
-            .OrderByDescending(x => x.TotalQuantitySold)
+            });
+
+        // رتبه‌بندی پویا بر اساس انتخاب کاربر
+        groupedQuery = sortMode == TopSellingSortMode.BySalesAmount
+            ? groupedQuery.OrderByDescending(x => x.TotalSalesAmount)
+            : groupedQuery.OrderByDescending(x => x.TotalQuantitySold);
+
+        return await groupedQuery
             .Take(count)
             .ToListAsync(cancellationToken);
-
-        return grouped;
     }
 
     public async Task<List<InventoryValuationDto>> GetInventoryValuationAsync(Guid? warehouseId = null,

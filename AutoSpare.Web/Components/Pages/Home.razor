@@ -4,6 +4,7 @@
 @using AutoSpare.Application.Products.DTOs
 @using AutoSpare.Application.Reports
 @using AutoSpare.Application.Reports.DTOs
+@using AutoSpare.Application.Reports.Enums
 @inject IReportService ReportService
 @inject IProductService ProductService
 @inject NavigationManager NavigationManager
@@ -13,7 +14,8 @@
 
 <MudContainer MaxWidth="MaxWidth.ExtraLarge" Class="mt-4 mb-8">
     <!-- هدر خوش‌آمدگویی -->
-    <MudPaper Elevation="2" Class="pa-5 mb-5 rounded-lg d-flex justify-space-between align-center flex-wrap gap-4" Color="Color.Primary">
+    <MudPaper Elevation="2" Class="pa-5 mb-5 rounded-lg d-flex justify-space-between align-center flex-wrap gap-4"
+              Color="Color.Primary">
         <div>
             <MudText Typo="Typo.h5" Class="font-weight-bold">پنل مدیریت یکپارچه AutoSpare</MudText>
             <MudText Typo="Typo.body2" Class="mt-1" Style="opacity: 0.9;">
@@ -30,7 +32,7 @@
             <MudIconButton Icon="@Icons.Material.Filled.Refresh"
                            Color="Color.Inherit"
                            OnClick="LoadDashboardDataAsync"
-                           Title="بروزرسانی داده‌ها" />
+                           Title="بروزرسانی داده‌ها"/>
         </div>
     </MudPaper>
 
@@ -41,7 +43,8 @@
             <MudCard Elevation="2" Class="dashboard-card rounded-lg">
                 <MudCardContent Class="d-flex justify-space-between align-center">
                     <div>
-                        <MudText Typo="Typo.caption" Color="Color.Secondary" Class="font-weight-bold">فروش امروز</MudText>
+                        <MudText Typo="Typo.caption" Color="Color.Secondary" Class="font-weight-bold">فروش امروز
+                        </MudText>
                         <MudText Typo="Typo.h6" Class="font-weight-bold mt-1 text-primary">
                             @_summary.TodaySalesAmount.ToString("N0") <span style="font-size: 0.75rem;">تومان</span>
                         </MudText>
@@ -50,7 +53,7 @@
                         </MudText>
                     </div>
                     <MudAvatar Color="Color.Primary" Size="Size.Large" Elevation="2">
-                        <MudIcon Icon="@Icons.Material.Filled.PointOfSale" Size="Size.Medium" />
+                        <MudIcon Icon="@Icons.Material.Filled.PointOfSale" Size="Size.Medium"/>
                     </MudAvatar>
                 </MudCardContent>
             </MudCard>
@@ -61,7 +64,9 @@
             <MudCard Elevation="2" Class="dashboard-card rounded-lg">
                 <MudCardContent Class="d-flex justify-space-between align-center">
                     <div>
-                        <MudText Typo="Typo.caption" Color="Color.Secondary" Class="font-weight-bold">سود محقق‌شده امروز</MudText>
+                        <MudText Typo="Typo.caption" Color="Color.Secondary" Class="font-weight-bold">سود محقق‌شده
+                            امروز
+                        </MudText>
                         <MudText Typo="Typo.h6" Class="font-weight-bold mt-1 text-success">
                             @_summary.TodayProfitAmount.ToString("N0") <span style="font-size: 0.75rem;">تومان</span>
                         </MudText>
@@ -70,7 +75,7 @@
                         </MudText>
                     </div>
                     <MudAvatar Color="Color.Success" Size="Size.Large" Elevation="2">
-                        <MudIcon Icon="@Icons.Material.Filled.TrendingUp" Size="Size.Medium" />
+                        <MudIcon Icon="@Icons.Material.Filled.TrendingUp" Size="Size.Medium"/>
                     </MudAvatar>
                 </MudCardContent>
             </MudCard>
@@ -81,7 +86,8 @@
             <MudCard Elevation="2" Class="dashboard-card rounded-lg">
                 <MudCardContent Class="d-flex justify-space-between align-center">
                     <div>
-                        <MudText Typo="Typo.caption" Color="Color.Secondary" Class="font-weight-bold">فروش کل ماه</MudText>
+                        <MudText Typo="Typo.caption" Color="Color.Secondary" Class="font-weight-bold">فروش کل ماه
+                        </MudText>
                         <MudText Typo="Typo.h6" Class="font-weight-bold mt-1 text-info">
                             @_summary.MonthSalesAmount.ToString("N0") <span style="font-size: 0.75rem;">تومان</span>
                         </MudText>
@@ -90,7 +96,7 @@
                         </MudText>
                     </div>
                     <MudAvatar Color="Color.Info" Size="Size.Large" Elevation="2">
-                        <MudIcon Icon="@Icons.Material.Filled.QueryStats" Size="Size.Medium" />
+                        <MudIcon Icon="@Icons.Material.Filled.QueryStats" Size="Size.Medium"/>
                     </MudAvatar>
                 </MudCardContent>
             </MudCard>
@@ -101,16 +107,18 @@
             <MudCard Elevation="2" Class="dashboard-card rounded-lg">
                 <MudCardContent Class="d-flex justify-space-between align-center">
                     <div>
-                        <MudText Typo="Typo.caption" Color="Color.Secondary" Class="font-weight-bold">ارزش خرید انبار</MudText>
+                        <MudText Typo="Typo.caption" Color="Color.Secondary" Class="font-weight-bold">ارزش خرید انبار
+                        </MudText>
                         <MudText Typo="Typo.h6" Class="font-weight-bold mt-1 text-secondary">
-                            @_summary.TotalInventoryPurchaseValue.ToString("N0") <span style="font-size: 0.75rem;">تومان</span>
+                            @_summary.TotalInventoryPurchaseValue.ToString("N0") <span
+                                style="font-size: 0.75rem;">تومان</span>
                         </MudText>
                         <MudText Typo="Typo.caption" Color="Color.Secondary">
                             موجودی کل: @_summary.TotalStockItemsCount قلم
                         </MudText>
                     </div>
                     <MudAvatar Color="Color.Dark" Size="Size.Large" Elevation="2">
-                        <MudIcon Icon="@Icons.Material.Filled.Warehouse" Size="Size.Medium" />
+                        <MudIcon Icon="@Icons.Material.Filled.Warehouse" Size="Size.Medium"/>
                     </MudAvatar>
                 </MudCardContent>
             </MudCard>
@@ -121,19 +129,24 @@
     <MudGrid Class="mb-5">
         <!-- هشدارهای کم‌موجودی -->
         <MudItem xs="12" sm="6" md="4">
-            <MudCard Elevation="2" Class="dashboard-card rounded-lg cursor-pointer" @onclick="@(() => NavigationManager.NavigateTo("/inventory/alerts"))">
+            <MudCard Elevation="2" Class="dashboard-card rounded-lg cursor-pointer"
+                     @onclick="@(() => NavigationManager.NavigateTo("/inventory/alerts"))">
                 <MudCardContent Class="d-flex justify-space-between align-center">
                     <div>
-                        <MudText Typo="Typo.caption" Color="Color.Secondary" Class="font-weight-bold">هشدارهای فعال انبار</MudText>
-                        <MudText Typo="Typo.h5" Class="font-weight-bold mt-1" Color="@(_totalAlertsCount > 0 ? Color.Warning : Color.Success)">
+                        <MudText Typo="Typo.caption" Color="Color.Secondary" Class="font-weight-bold">هشدارهای فعال
+                            انبار
+                        </MudText>
+                        <MudText Typo="Typo.h5" Class="font-weight-bold mt-1"
+                                 Color="@(_totalAlertsCount > 0 ? Color.Warning : Color.Success)">
                             @_totalAlertsCount
                         </MudText>
                         <MudText Typo="Typo.caption" Color="Color.Secondary">
                             @(_totalAlertsCount > 0 ? "نیازمند بررسی و تأمین فوری" : "همه موجودی‌ها نرمال است")
                         </MudText>
                     </div>
-                    <MudAvatar Color="@(_totalAlertsCount > 0 ? Color.Warning : Color.Success)" Size="Size.Medium" Elevation="2">
-                        <MudIcon Icon="@Icons.Material.Filled.WarningAmber" Size="Size.Small" />
+                    <MudAvatar Color="@(_totalAlertsCount > 0 ? Color.Warning : Color.Success)" Size="Size.Medium"
+                               Elevation="2">
+                        <MudIcon Icon="@Icons.Material.Filled.WarningAmber" Size="Size.Small"/>
                     </MudAvatar>
                 </MudCardContent>
             </MudCard>
@@ -141,19 +154,24 @@
 
         <!-- موجودی صفر -->
         <MudItem xs="12" sm="6" md="4">
-            <MudCard Elevation="2" Class="dashboard-card rounded-lg cursor-pointer" @onclick="@(() => NavigationManager.NavigateTo("/inventory/alerts"))">
+            <MudCard Elevation="2" Class="dashboard-card rounded-lg cursor-pointer"
+                     @onclick="@(() => NavigationManager.NavigateTo("/inventory/alerts"))">
                 <MudCardContent Class="d-flex justify-space-between align-center">
                     <div>
-                        <MudText Typo="Typo.caption" Color="Color.Secondary" Class="font-weight-bold">اقلام بدون موجودی (صفر)</MudText>
-                        <MudText Typo="Typo.h5" Class="font-weight-bold mt-1" Color="@(_outOfStockCount > 0 ? Color.Error : Color.Success)">
+                        <MudText Typo="Typo.caption" Color="Color.Secondary" Class="font-weight-bold">اقلام بدون موجودی
+                            (صفر)
+                        </MudText>
+                        <MudText Typo="Typo.h5" Class="font-weight-bold mt-1"
+                                 Color="@(_outOfStockCount > 0 ? Color.Error : Color.Success)">
                             @_outOfStockCount
                         </MudText>
                         <MudText Typo="Typo.caption" Color="Color.Secondary">
                             توقف فروش به دلیل کسری کامل
                         </MudText>
                     </div>
-                    <MudAvatar Color="@(_outOfStockCount > 0 ? Color.Error : Color.Success)" Size="Size.Medium" Elevation="2">
-                        <MudIcon Icon="@Icons.Material.Filled.ProductionQuantityLimits" Size="Size.Small" />
+                    <MudAvatar Color="@(_outOfStockCount > 0 ? Color.Error : Color.Success)" Size="Size.Medium"
+                               Elevation="2">
+                        <MudIcon Icon="@Icons.Material.Filled.ProductionQuantityLimits" Size="Size.Small"/>
                     </MudAvatar>
                 </MudCardContent>
             </MudCard>
@@ -163,10 +181,14 @@
         <MudItem xs="12" sm="12" md="4">
             <MudCard Elevation="2" Class="dashboard-card rounded-lg d-flex align-center px-4 py-2">
                 <div class="d-flex gap-2 w-100 pt-4">
-                    <MudButton Variant="Variant.Outlined" Color="Color.Primary" FullWidth="true" StartIcon="@Icons.Material.Filled.AddShoppingCart" OnClick="@(() => NavigationManager.NavigateTo("/purchases/create"))">
+                    <MudButton Variant="Variant.Outlined" Color="Color.Primary" FullWidth="true"
+                               StartIcon="@Icons.Material.Filled.AddShoppingCart"
+                               OnClick="@(() => NavigationManager.NavigateTo("/purchases/create"))">
                         فاکتور خرید
                     </MudButton>
-                    <MudButton Variant="Variant.Filled" Color="Color.Success" FullWidth="true" StartIcon="@Icons.Material.Filled.ReceiptLong" OnClick="@(() => NavigationManager.NavigateTo("/sales/create"))">
+                    <MudButton Variant="Variant.Filled" Color="Color.Success" FullWidth="true"
+                               StartIcon="@Icons.Material.Filled.ReceiptLong"
+                               OnClick="@(() => NavigationManager.NavigateTo("/sales/create"))">
                         فاکتور فروش
                     </MudButton>
                 </div>
@@ -175,19 +197,35 @@
     </MudGrid>
 
     <MudGrid>
-        <!-- جدول ۵ کالای پرفروش -->
+        <!-- جدول ۵ کالای پرفروش با قابلیت تغییر معیار رتبه‌بندی -->
         <MudItem xs="12" lg="6">
             <MudCard Elevation="2" Class="rounded-lg h-100">
                 <MudCardHeader Class="pb-2">
                     <CardHeaderAvatar>
                         <MudAvatar Color="Color.Primary" Size="Size.Medium">
-                            <MudIcon Icon="@Icons.Material.Filled.Star" />
+                            <MudIcon Icon="@Icons.Material.Filled.Star"/>
                         </MudAvatar>
                     </CardHeaderAvatar>
                     <CardHeaderContent>
                         <MudText Typo="Typo.h6" Class="font-weight-bold">پرفروش‌ترین کالاها</MudText>
-                        <MudText Typo="Typo.caption" Color="Color.Secondary">بیشترین تعداد فروش موفق ثبت‌شده</MudText>
+                        <MudText Typo="Typo.caption" Color="Color.Secondary">
+                            @(_sortMode == TopSellingSortMode.ByQuantity ? "بیشترین تعداد فروش موفق ثبت‌شده" : "بیشترین مبلغ کل فروش ثبت‌شده")
+                        </MudText>
                     </CardHeaderContent>
+                    <CardHeaderActions>
+                        <MudButtonGroup Color="Color.Primary" Variant="Variant.Outlined" Size="Size.Small">
+                            <MudButton
+                                Variant="@(_sortMode == TopSellingSortMode.ByQuantity ? Variant.Filled : Variant.Outlined)"
+                                OnClick="@(() => ChangeSortModeAsync(TopSellingSortMode.ByQuantity))">
+                                تعداد
+                            </MudButton>
+                            <MudButton
+                                Variant="@(_sortMode == TopSellingSortMode.BySalesAmount ? Variant.Filled : Variant.Outlined)"
+                                OnClick="@(() => ChangeSortModeAsync(TopSellingSortMode.BySalesAmount))">
+                                مبلغ
+                            </MudButton>
+                        </MudButtonGroup>
+                    </CardHeaderActions>
                 </MudCardHeader>
                 <MudCardContent Class="pa-0">
                     <MudTable Items="_topSellingProducts" Hover="true" Elevation="0" Loading="_isLoading">
@@ -216,7 +254,9 @@
                         </RowTemplate>
                         <NoRecordsContent>
                             <div class="pa-4 text-center">
-                                <MudText Typo="Typo.body2" Color="Color.Secondary">هنوز فاکتور فروش نهایی‌شده‌ای ثبت نشده است.</MudText>
+                                <MudText Typo="Typo.body2" Color="Color.Secondary">هنوز فاکتور فروش نهایی‌شده‌ای ثبت
+                                    نشده است.
+                                </MudText>
                             </div>
                         </NoRecordsContent>
                     </MudTable>
@@ -230,12 +270,13 @@
                 <MudCardHeader Class="pb-2">
                     <CardHeaderAvatar>
                         <MudAvatar Color="Color.Warning" Size="Size.Medium">
-                            <MudIcon Icon="@Icons.Material.Filled.PriorityHigh" />
+                            <MudIcon Icon="@Icons.Material.Filled.PriorityHigh"/>
                         </MudAvatar>
                     </CardHeaderAvatar>
                     <CardHeaderContent>
                         <MudText Typo="Typo.h6" Class="font-weight-bold">اقلام نیازمند تأمین فوری</MudText>
-                        <MudText Typo="Typo.caption" Color="Color.Secondary">۵ قلم با کمترین سطح نسبت به آستانه هشدار</MudText>
+                        <MudText Typo="Typo.caption" Color="Color.Secondary">۵ قلم با کمترین سطح نسبت به آستانه هشدار
+                        </MudText>
                     </CardHeaderContent>
                     <CardHeaderActions>
                         <MudButton Variant="Variant.Text"
@@ -264,11 +305,14 @@
                             <MudTd DataLabel="موجودی" Style="text-align: center;">
                                 @if (context.CurrentStock == 0)
                                 {
-                                    <MudChip T="string" Color="Color.Error" Size="Size.Small" Variant="Variant.Filled">۰</MudChip>
+                                    <MudChip T="string" Color="Color.Error" Size="Size.Small" Variant="Variant.Filled">
+                                        ۰
+                                    </MudChip>
                                 }
                                 else
                                 {
-                                    <MudChip T="string" Color="Color.Warning" Size="Size.Small" Variant="Variant.Filled">@context.CurrentStock</MudChip>
+                                    <MudChip T="string" Color="Color.Warning" Size="Size.Small"
+                                             Variant="Variant.Filled">@context.CurrentStock</MudChip>
                                 }
                             </MudTd>
                             <MudTd DataLabel="کسری" Style="text-align: center;">
@@ -280,12 +324,13 @@
                                 <MudIconButton Icon="@Icons.Material.Filled.AddShoppingCart"
                                                Color="Color.Primary"
                                                Size="Size.Small"
-                                               OnClick="@(() => NavigationManager.NavigateTo($"/purchases/create?productId={context.ProductId}"))" />
+                                               OnClick="@(() => NavigationManager.NavigateTo($"/purchases/create?productId={context.ProductId}"))"/>
                             </MudTd>
                         </RowTemplate>
                         <NoRecordsContent>
                             <div class="pa-4 text-center">
-                                <MudText Typo="Typo.body2" Color="Color.Success">تمامی موجودی‌ها در سطح مطلوب هستند.</MudText>
+                                <MudText Typo="Typo.body2" Color="Color.Success">تمامی موجودی‌ها در سطح مطلوب هستند.
+                                </MudText>
                             </div>
                         </NoRecordsContent>
                     </MudTable>
@@ -300,6 +345,7 @@
         height: 100%;
         transition: transform 0.18s ease-in-out, box-shadow 0.18s ease-in-out;
     }
+
     .dashboard-card:hover {
         transform: translateY(-3px);
     }
@@ -312,6 +358,7 @@
     private int _totalAlertsCount = 0;
     private int _outOfStockCount = 0;
     private bool _isLoading = true;
+    private TopSellingSortMode _sortMode = TopSellingSortMode.ByQuantity;
 
     protected override async Task OnInitializedAsync()
     {
@@ -323,11 +370,9 @@
         _isLoading = true;
         try
         {
-            // بارگذاری هم‌زمان یا مرحله‌ای کوئری‌های گزارش Read-only
             _summary = await ReportService.GetDashboardSummaryAsync();
-            _topSellingProducts = await ReportService.GetTopSellingProductsAsync(5);
+            _topSellingProducts = await ReportService.GetTopSellingProductsAsync(5, _sortMode);
 
-            // اطلاعات هشدارهای موجودی
             _topAlerts = await ProductService.GetTopLowStockAlertsAsync(5);
             var allAlerts = await ProductService.GetLowStockAlertsAsync();
             _totalAlertsCount = allAlerts.Count;
@@ -342,4 +387,25 @@
             _isLoading = false;
         }
     }
+
+    private async Task ChangeSortModeAsync(TopSellingSortMode mode)
+    {
+        if (_sortMode == mode) return;
+        _sortMode = mode;
+
+        _isLoading = true;
+        try
+        {
+            _topSellingProducts = await ReportService.GetTopSellingProductsAsync(5, _sortMode);
+        }
+        catch (Exception ex)
+        {
+            Snackbar.Add($"خطا در مرتب‌سازی پرفروش‌ها: {ex.Message}", Severity.Error);
+        }
+        finally
+        {
+            _isLoading = false;
+        }
+    }
+
 }

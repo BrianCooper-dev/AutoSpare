@@ -1,4 +1,5 @@
 using AutoSpare.Application.Reports.DTOs;
+using AutoSpare.Application.Reports.Enums;
 
 namespace AutoSpare.Application.Reports;
 
@@ -15,7 +16,9 @@ public interface IReportService
     Task<List<SalesSummaryReportDto>> GetMonthlySalesSummaryAsync(ReportFilterDto filter,
         CancellationToken cancellationToken = default);
 
-    Task<List<TopSellingProductDto>> GetTopSellingProductsAsync(int count, ReportFilterDto? filter = null,
+    Task<List<TopSellingProductDto>> GetTopSellingProductsAsync(int count,
+        TopSellingSortMode sortMode = TopSellingSortMode.ByQuantity,
+        ReportFilterDto? filter = null,
         CancellationToken cancellationToken = default);
 
     Task<List<InventoryValuationDto>> GetInventoryValuationAsync(Guid? warehouseId = null,
