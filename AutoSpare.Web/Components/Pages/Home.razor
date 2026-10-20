@@ -219,7 +219,7 @@
     }
     else
     {
-        <!-- بخش نمودار روند فروش و سود (فقط در حالت تحلیل و نمودار پیشرفته نمایش داده می‌شود) -->
+        <!-- بخش نمودار روند فروش و سود (فقط در حالت تحلیل و نمودار پیشرفته) -->
         <MudGrid Class="mb-5">
             <MudItem xs="12">
                 <MudCard Elevation="3" Class="rounded-lg pa-2">
@@ -232,7 +232,9 @@
                         <CardHeaderContent>
                             <MudText Typo="Typo.h5" Class="font-weight-bold">تحلیل مقایسه‌ای روند فروش و سود</MudText>
                             <MudText Typo="Typo.body2" Color="Color.Secondary">
-                                @(_chartPeriod == ChartPeriodMode.Daily ? "روند روزانه (۳۰ روز گذشته بر حسب میلیون تومان)" : "روند تجمیعی ماهانه (سال جاری بر حسب میلیون تومان)")
+                                @(_chartFromDate.HasValue || _chartToDate.HasValue
+                                    ? "فیلتر سفارشی بازه تاریخ اعمال شده است (ارقام بر حسب میلیون تومان)"
+                                    : (_chartPeriod == ChartPeriodMode.Daily ? "روند روزانه ۳۰ روز گذشته (میلیون تومان)" : "روند تجمیعی ماهانه سال جاری (میلیون تومان)"))
                             </MudText>
                         </CardHeaderContent>
                         <CardHeaderActions>
@@ -256,15 +258,15 @@
                                     </MudButton>
                                 </MudButtonGroup>
 
-                                <!-- بازه زمانی: روزانه / ماهانه -->
+                                <!-- بازه پیش‌فرض: روزانه / ماهانه -->
                                 <MudButtonGroup Color="Color.Primary" Variant="Variant.Outlined" Size="Size.Small">
                                     <MudButton
-                                        Variant="@(_chartPeriod == ChartPeriodMode.Daily ? Variant.Filled : Variant.Outlined)"
+                                        Variant="@(_chartPeriod == ChartPeriodMode.Daily && !_isCustomDateFilter ? Variant.Filled : Variant.Outlined)"
                                         OnClick="@(() => ChangePeriodModeAsync(ChartPeriodMode.Daily))">
                                         روزانه (۳۰ روز)
                                     </MudButton>
                                     <MudButton
-                                        Variant="@(_chartPeriod == ChartPeriodMode.Monthly ? Variant.Filled : Variant.Outlined)"
+                                        Variant="@(_chartPeriod == ChartPeriodMode.Monthly && !_isCustomDateFilter ? Variant.Filled : Variant.Outlined)"
                                         OnClick="@(() => ChangePeriodModeAsync(ChartPeriodMode.Monthly))">
                                         ماهانه (امسال)
                                     </MudButton>
@@ -272,6 +274,48 @@
                             </div>
                         </CardHeaderActions>
                     </MudCardHeader>
+
+                    <!-- نوار فیلتر بازه تاریخ سفارشی برای نمودار -->
+                    <MudPaper Elevation="0"
+                              Class="pa-3 mx-4 mb-2 rounded bg-light border d-flex align-center gap-3 flex-wrap">
+                        <MudIcon Icon="@Icons.Material.Filled.DateRange" Color="Color.Primary" Size="Size.Small"/>
+                        <MudText Typo="Typo.body2" Class="font-weight-bold">فیلتر بازه تاریخ:</MudText>
+
+                        <div style="width: 170px;">
+                            <MudDatePicker Label="از تاریخ"
+                                           @bind-Date="_chartFromDate"
+                                           Margin="Margin.Dense"
+                                           Clearable="true"
+                                           DateFormat="yyyy/MM/dd"/>
+                        </div>
+                        <div style="width: 170px;">
+                            <MudDatePicker Label="تا تاریخ"
+                                           @bind-Date="_chartToDate"
+                                           Margin="Margin.Dense"
+                                           Clearable="true"
+                                           DateFormat="yyyy/MM/dd"/>
+                        </div>
+
+                        <MudButton Variant="Variant.Filled"
+                                   Color="Color.Primary"
+                                   Size="Size.Small"
+                                   StartIcon="@Icons.Material.Filled.FilterAlt"
+                                   OnClick="ApplyChartDateFilterAsync">
+                            اعمال فیلتر
+                        </MudButton>
+
+                        @if (_isCustomDateFilter)
+                        {
+                            <MudButton Variant="Variant.Outlined"
+                                       Color="Color.Error"
+                                       Size="Size.Small"
+                                       StartIcon="@Icons.Material.Filled.Clear"
+                                       OnClick="ResetChartDateFilterAsync">
+                                حذف فیلتر بازه
+                            </MudButton>
+                        }
+                    </MudPaper>
+
                     <MudCardContent>
                         @if (_isLoadingChart)
                         {
@@ -284,8 +328,8 @@
                             <div class="text-center py-12">
                                 <MudIcon Icon="@Icons.Material.Filled.Inbox" Size="Size.Large" Color="Color.Secondary"
                                          Class="mb-2"/>
-                                <MudText Typo="Typo.body1" Color="Color.Secondary">داده‌ای برای نمایش در این بازه زمانی
-                                    ثبت نشده است.
+                                <MudText Typo="Typo.body1" Color="Color.Secondary">داده‌ای در این بازه تاریخی یافت
+                                    نشد.
                                 </MudText>
                             </div>
                         }
@@ -309,7 +353,7 @@
     @if (_viewMode == DashboardViewMode.CardsOnly)
     {
         <MudGrid>
-            <!-- جدول ۵ کالای پرفروش با قابلیت تغییر معیار رتبه‌بندی -->
+            <!-- جدول ۵ کالای پرفروش -->
             <MudItem xs="12" lg="6">
                 <MudCard Elevation="2" Class="rounded-lg h-100">
                     <MudCardHeader Class="pb-2">
@@ -500,6 +544,11 @@
     private ChartPeriodMode _chartPeriod = ChartPeriodMode.Daily;
     private ChartMetricMode _metricMode = ChartMetricMode.Both;
 
+    // متغیرهای فیلتر بازه تاریخ نمودار
+    private DateTime? _chartFromDate;
+    private DateTime? _chartToDate;
+    private bool _isCustomDateFilter = false;
+
     private List<SalesSummaryReportDto> _currentRawReportData = new();
     private List<ChartSeries<double>> _chartSeries = new();
     private string[] _chartXAxisLabels = Array.Empty<string>();
@@ -528,7 +577,6 @@
             _totalAlertsCount = allAlerts.Count;
             _outOfStockCount = allAlerts.Count(a => a.CurrentStock == 0);
 
-            // اگر کاربر در نمای نمودار است یا قبلاً باز کرده بود، آن را به‌روزرسانی کن
             if (_viewMode == DashboardViewMode.ChartOnly)
             {
                 await FetchAndBuildChartAsync();
@@ -560,13 +608,25 @@
         {
             var filter = new ReportFilterDto();
 
-            if (_chartPeriod == ChartPeriodMode.Daily)
+            if (_isCustomDateFilter)
             {
-                filter.FromDate = DateTime.UtcNow.AddDays(-30);
+                filter.FromDate = _chartFromDate;
+                filter.ToDate = _chartToDate?.Date.AddDays(1).AddTicks(-1); // تا پایان روز انتخاب‌شده
+            }
+            else
+            {
+                if (_chartPeriod == ChartPeriodMode.Daily)
+                {
+                    filter.FromDate = DateTime.UtcNow.AddDays(-30);
+                }
+            }
+
+            if (_chartPeriod == ChartPeriodMode.Daily || _isCustomDateFilter)
+            {
                 var dailyData = await ReportService.GetDailySalesSummaryAsync(filter);
                 _currentRawReportData = dailyData.OrderBy(x => x.Date).ToList();
 
-                // برچسب‌های روزانه شمسی (مثلاً 08/15)
+                // برچسب روزهای شمسی
                 _chartXAxisLabels = _currentRawReportData
                     .Select(x => x.PeriodTitle.Length >= 5 ? x.PeriodTitle.Substring(5) : x.PeriodTitle)
                     .ToArray();
@@ -576,7 +636,7 @@
                 var monthlyData = await ReportService.GetMonthlySalesSummaryAsync(filter);
                 _currentRawReportData = monthlyData.OrderBy(x => x.Date).ToList();
 
-                // برچسب‌های ماهانه شمسی (مثلاً آبان 1403)
+                // برچسب ماه‌های شمسی
                 _chartXAxisLabels = _currentRawReportData
                     .Select(x => x.PeriodTitle)
                     .ToArray();
@@ -595,12 +655,31 @@
         }
     }
 
+    private async Task ApplyChartDateFilterAsync()
+    {
+        if (_chartFromDate.HasValue && _chartToDate.HasValue && _chartFromDate > _chartToDate)
+        {
+            Snackbar.Add("تاریخ شروع نمی‌تواند بعد از تاریخ پایان باشد.", Severity.Warning);
+            return;
+        }
+
+        _isCustomDateFilter = _chartFromDate.HasValue || _chartToDate.HasValue;
+        await FetchAndBuildChartAsync();
+    }
+
+    private async Task ResetChartDateFilterAsync()
+    {
+        _chartFromDate = null;
+        _chartToDate = null;
+        _isCustomDateFilter = false;
+        await FetchAndBuildChartAsync();
+    }
+
     private void BuildChartSeries()
     {
         var seriesList = new List<ChartSeries<double>>();
         var palette = new List<string>();
 
-        // مقادیر بر حسب میلیون تومان و رند شده تا ۱ رقم اعشار
         var salesData = _currentRawReportData
             .Select(x => Math.Round((double)x.TotalSales / 1_000_000.0, 1))
             .ToArray();
@@ -613,8 +692,8 @@
         {
             seriesList.Add(new ChartSeries<double> { Name = "فروش (میلیون تومان)", Data = salesData });
             seriesList.Add(new ChartSeries<double> { Name = "سود محقق‌شده (میلیون تومان)", Data = profitData });
-            palette.Add("#1e88e5"); // آبی
-            palette.Add("#43a047"); // سبز
+            palette.Add("#1e88e5");
+            palette.Add("#43a047");
         }
         else if (_metricMode == ChartMetricMode.SalesOnly)
         {
@@ -633,8 +712,10 @@
 
     private async Task ChangePeriodModeAsync(ChartPeriodMode mode)
     {
-        if (_chartPeriod == mode) return;
         _chartPeriod = mode;
+        _isCustomDateFilter = false;
+        _chartFromDate = null;
+        _chartToDate = null;
         await FetchAndBuildChartAsync();
     }
 

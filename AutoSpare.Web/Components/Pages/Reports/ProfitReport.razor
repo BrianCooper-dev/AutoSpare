@@ -17,7 +17,48 @@
         </MudText>
     </MudPaper>
 
-    <!-- کارت‌های خلاصه تجمیعی -->
+    <!-- نوار فیلتر بازه تاریخ -->
+    <MudPaper Elevation="2" Class="pa-4 mb-4 rounded-lg d-flex align-center gap-4 flex-wrap">
+        <div class="d-flex align-center gap-2">
+            <MudIcon Icon="@Icons.Material.Filled.DateRange" Color="Color.Primary"/>
+            <MudText Typo="Typo.subtitle1" Class="fw-bold">بازه زمانی گزارش:</MudText>
+        </div>
+
+        <div style="width: 180px;">
+            <MudDatePicker Label="از تاریخ"
+                           @bind-Date="_fromDate"
+                           Margin="Margin.Dense"
+                           Clearable="true"
+                           DateFormat="yyyy/MM/dd"/>
+        </div>
+
+        <div style="width: 180px;">
+            <MudDatePicker Label="تا تاریخ"
+                           @bind-Date="_toDate"
+                           Margin="Margin.Dense"
+                           Clearable="true"
+                           DateFormat="yyyy/MM/dd"/>
+        </div>
+
+        <MudButton Variant="Variant.Filled"
+                   Color="Color.Primary"
+                   StartIcon="@Icons.Material.Filled.FilterAlt"
+                   OnClick="ApplyDateFilterAsync">
+            اعمال فیلتر
+        </MudButton>
+
+        @if (_fromDate.HasValue || _toDate.HasValue)
+        {
+            <MudButton Variant="Variant.Outlined"
+                       Color="Color.Error"
+                       StartIcon="@Icons.Material.Filled.Clear"
+                       OnClick="ResetDateFilterAsync">
+                پاک‌سازی فیلتر
+            </MudButton>
+        }
+    </MudPaper>
+
+    <!-- کارت‌های خلاصه تجمیعی بر پایه بازه فیلترشده -->
     <MudGrid Class="mb-4">
         <MudItem xs="12" sm="6" md="3">
             <MudPaper Elevation="2" Class="pa-4 text-center">
@@ -115,6 +156,10 @@
     private bool _isLoading = true;
     private string _searchString = string.Empty;
 
+    // فیلترهای بازه تاریخ
+    private DateTime? _fromDate;
+    private DateTime? _toDate;
+
     private List<ProfitItemReportDto> FilteredItems =>
         string.IsNullOrWhiteSpace(_searchString)
             ? _reportItems
@@ -139,7 +184,11 @@
         _isLoading = true;
         try
         {
-            var filter = new ReportFilterDto();
+            var filter = new ReportFilterDto
+            {
+                FromDate = _fromDate,
+                ToDate = _toDate?.Date.AddDays(1).AddTicks(-1) // انتهای روز پایانی
+            };
             _reportItems = await ReportService.GetProfitReportAsync(filter);
         }
         catch (Exception ex)
@@ -150,6 +199,24 @@
         {
             _isLoading = false;
         }
+    }
+
+    private async Task ApplyDateFilterAsync()
+    {
+        if (_fromDate.HasValue && _toDate.HasValue && _fromDate > _toDate)
+        {
+            Snackbar.Add("تاریخ شروع نمی‌تواند بعد از تاریخ پایان باشد.", Severity.Warning);
+            return;
+        }
+
+        await LoadReportAsync();
+    }
+
+    private async Task ResetDateFilterAsync()
+    {
+        _fromDate = null;
+        _toDate = null;
+        await LoadReportAsync();
     }
 
     private Task OnSearchChanged()
