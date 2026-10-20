@@ -1,0 +1,248 @@
+@page "/reports/inventory-valuation"
+
+@using AutoSpare.Application.Products
+@using AutoSpare.Application.Products.DTOs
+@using AutoSpare.Application.Reports
+@using AutoSpare.Application.Reports.DTOs
+@inject IReportService ReportService
+@inject IProductService ProductService
+@inject ISnackbar Snackbar
+
+<PageTitle>گزارش موجودی فعلی | AutoSpare</PageTitle>
+
+<MudContainer MaxWidth="MaxWidth.ExtraLarge" Class="mt-4 mb-8">
+    <MudPaper Elevation="2" Class="pa-5 mb-4 rounded-lg d-flex justify-space-between align-center flex-wrap gap-4">
+        <div>
+            <MudText Typo="Typo.h6" Class="font-weight-bold">گزارش موجودی فعلی</MudText>
+            <MudText Typo="Typo.caption" Color="Color.Secondary">
+                نمایش کالاها به تفکیک انبار + ارزش موجودی (خرید/فروش) و سود بالقوه
+            </MudText>
+        </div>
+
+        <div class="d-flex align-center gap-2">
+            <MudButton Variant="Variant.Outlined"
+                       Color="Color.Primary"
+                       StartIcon="@Icons.Material.Filled.Refresh"
+                       OnClick="LoadAsync">
+                بروزرسانی
+            </MudButton>
+        </div>
+    </MudPaper>
+
+    <!-- فیلترها -->
+    <MudPaper Elevation="1" Class="pa-4 mb-4 rounded-lg">
+        <MudGrid Spacing="2" AlignItems="AlignItems.Center">
+            <MudItem xs="12" sm="6" md="4">
+                <MudSelect T="Guid?" Label="انبار" Dense="true" Variant="Variant.Outlined"
+                           Value="_selectedWarehouseId" ValueChanged="OnWarehouseChanged" Clearable="true">
+                    <MudSelectItem Value="@(null as Guid?)">همه انبارها</MudSelectItem>
+                    @foreach (var w in _warehouses)
+                    {
+                        <MudSelectItem Value="@((Guid?)w.Id)">@w.Title</MudSelectItem>
+                    }
+                </MudSelect>
+            </MudItem>
+
+            <MudItem xs="12" sm="6" md="4">
+                <MudTextField T="string" Label="جستجو (نام / کد فنی)" Dense="true" Variant="Variant.Outlined"
+                              @bind-Value="_search" @bind-Value:after="ApplyFilters" Immediate="true"
+                              DebounceInterval="250"
+                              Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search"/>
+            </MudItem>
+
+            <MudItem xs="12" md="4" Class="d-flex justify-end gap-2">
+                <MudChip T="int" Color="Color.Info" Variant="Variant.Filled" Size="Size.Small">
+                    تعداد ردیف: @_filtered.Count
+                </MudChip>
+            </MudItem>
+        </MudGrid>
+    </MudPaper>
+
+    <!-- KPI ها -->
+    <MudGrid Class="mb-4">
+        <MudItem xs="12" sm="6" md="3">
+            <MudCard Elevation="1" Class="rounded-lg">
+                <MudCardContent>
+                    <MudText Typo="Typo.caption" Color="Color.Secondary">ارزش خرید موجودی</MudText>
+                    <MudText Typo="Typo.h6" Class="font-weight-bold">
+                        @_totalPurchaseValue.ToString("N0") <span style="font-size: .75rem;">تومان</span>
+                    </MudText>
+                </MudCardContent>
+            </MudCard>
+        </MudItem>
+
+        <MudItem xs="12" sm="6" md="3">
+            <MudCard Elevation="1" Class="rounded-lg">
+                <MudCardContent>
+                    <MudText Typo="Typo.caption" Color="Color.Secondary">ارزش فروش موجودی</MudText>
+                    <MudText Typo="Typo.h6" Class="font-weight-bold" Color="Color.Info">
+                        @_totalSaleValue.ToString("N0") <span style="font-size: .75rem;">تومان</span>
+                    </MudText>
+                </MudCardContent>
+            </MudCard>
+        </MudItem>
+
+        <MudItem xs="12" sm="6" md="3">
+            <MudCard Elevation="1" Class="rounded-lg">
+                <MudCardContent>
+                    <MudText Typo="Typo.caption" Color="Color.Secondary">سود بالقوه</MudText>
+                    <MudText Typo="Typo.h6" Class="font-weight-bold" Color="Color.Success">
+                        @_totalPotentialProfit.ToString("N0") <span style="font-size: .75rem;">تومان</span>
+                    </MudText>
+                </MudCardContent>
+            </MudCard>
+        </MudItem>
+
+        <MudItem xs="12" sm="6" md="3">
+            <MudCard Elevation="1" Class="rounded-lg">
+                <MudCardContent>
+                    <MudText Typo="Typo.caption" Color="Color.Secondary">جمع موجودی (تعداد)</MudText>
+                    <MudText Typo="Typo.h6" Class="font-weight-bold" Color="Color.Primary">
+                        @_totalStock.ToString("N0") <span style="font-size: .75rem;">عدد</span>
+                    </MudText>
+                </MudCardContent>
+            </MudCard>
+        </MudItem>
+    </MudGrid>
+
+    <!-- جدول -->
+    <MudCard Elevation="2" Class="rounded-lg">
+        <MudTable Items="_filtered" Hover="true" Dense="true" Elevation="0" Loading="_isLoading">
+            <HeaderContent>
+                <MudTh>کالا</MudTh>
+                <MudTh>انبار</MudTh>
+                <MudTh Style="text-align:center;">موجودی</MudTh>
+                <MudTh Style="text-align:left;">قیمت خرید</MudTh>
+                <MudTh Style="text-align:left;">ارزش خرید</MudTh>
+                <MudTh Style="text-align:left;">قیمت فروش</MudTh>
+                <MudTh Style="text-align:left;">ارزش فروش</MudTh>
+                <MudTh Style="text-align:left;">سود بالقوه</MudTh>
+            </HeaderContent>
+
+            <RowTemplate>
+                <MudTd DataLabel="کالا">
+                    <MudText Typo="Typo.body2" Class="font-weight-bold">@context.ProductName</MudText>
+                    <MudText Typo="Typo.caption" Color="Color.Secondary">@context.InternalCode</MudText>
+                </MudTd>
+
+                <MudTd DataLabel="انبار">@context.WarehouseName</MudTd>
+
+                <MudTd DataLabel="موجودی" Style="text-align:center;">
+                    <MudChip T="int" Color="Color.Info" Variant="Variant.Filled" Size="Size.Small">
+                        @context.CurrentStock
+                    </MudChip>
+                </MudTd>
+
+                <MudTd DataLabel="قیمت خرید" Style="text-align:left;">
+                    @context.PurchasePrice.ToString("N0")
+                </MudTd>
+
+                <MudTd DataLabel="ارزش خرید" Style="text-align:left;">
+                    <MudText Typo="Typo.body2" Class="font-weight-bold">
+                        @context.TotalPurchaseValue.ToString("N0")
+                    </MudText>
+                </MudTd>
+
+                <MudTd DataLabel="قیمت فروش" Style="text-align:left;">
+                    @context.SalePrice.ToString("N0")
+                </MudTd>
+
+                <MudTd DataLabel="ارزش فروش" Style="text-align:left;">
+                    @context.TotalSaleValue.ToString("N0")
+                </MudTd>
+
+                <MudTd DataLabel="سود بالقوه" Style="text-align:left;">
+                    <MudText Typo="Typo.body2" Class="font-weight-bold" Color="Color.Success">
+                        @context.PotentialProfit.ToString("N0")
+                    </MudText>
+                </MudTd>
+            </RowTemplate>
+
+            <NoRecordsContent>
+                <div class="pa-4 text-center">
+                    <MudText Typo="Typo.body2" Color="Color.Secondary">موجودی‌ای برای نمایش وجود ندارد.</MudText>
+                </div>
+            </NoRecordsContent>
+        </MudTable>
+    </MudCard>
+</MudContainer>
+
+@code {
+    private bool _isLoading = true;
+
+    private Guid? _selectedWarehouseId = null;
+    private string _search = string.Empty;
+
+    private List<DropdownItemDto> _warehouses = new();
+    private List<InventoryValuationDto> _items = new();
+    private List<InventoryValuationDto> _filtered = new();
+
+    private decimal _totalPurchaseValue;
+    private decimal _totalSaleValue;
+    private decimal _totalPotentialProfit;
+    private int _totalStock;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadWarehousesAsync();
+        await LoadAsync();
+    }
+
+    private async Task LoadWarehousesAsync()
+    {
+        try
+        {
+            _warehouses = await ProductService.GetWarehousesLookupAsync();
+        }
+        catch
+        {
+            _warehouses = new();
+        }
+    }
+
+    private async Task LoadAsync()
+    {
+        _isLoading = true;
+        try
+        {
+            _items = await ReportService.GetInventoryValuationAsync(_selectedWarehouseId);
+            ApplyFilters();
+        }
+        catch (Exception ex)
+        {
+            Snackbar.Add($"خطا در بارگذاری گزارش موجودی: {ex.Message}", Severity.Error);
+        }
+        finally
+        {
+            _isLoading = false;
+        }
+    }
+
+    private async Task OnWarehouseChanged(Guid? warehouseId)
+    {
+        _selectedWarehouseId = warehouseId;
+        await LoadAsync();
+    }
+
+    private void ApplyFilters()
+    {
+        var q = _items.AsEnumerable();
+
+        if (!string.IsNullOrWhiteSpace(_search))
+        {
+            var s = _search.Trim();
+            q = q.Where(x =>
+                (!string.IsNullOrWhiteSpace(x.ProductName) && x.ProductName.Contains(s, StringComparison.OrdinalIgnoreCase)) ||
+                (!string.IsNullOrWhiteSpace(x.InternalCode) && x.InternalCode.Contains(s, StringComparison.OrdinalIgnoreCase)));
+        }
+
+        _filtered = q.ToList();
+
+        _totalPurchaseValue = _filtered.Sum(x => x.TotalPurchaseValue);
+        _totalSaleValue = _filtered.Sum(x => x.TotalSaleValue);
+        _totalPotentialProfit = _filtered.Sum(x => x.PotentialProfit);
+        _totalStock = _filtered.Sum(x => x.CurrentStock);
+
+        StateHasChanged();
+    }
+}
