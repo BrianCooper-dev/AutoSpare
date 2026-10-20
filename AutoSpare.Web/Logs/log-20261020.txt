@@ -1,0 +1,244 @@
+2026-10-20 12:46:17.048 +03:30 [WRN] No store type was specified for the decimal property 'UnitPurchasePrice' on entity type 'SaleItem'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'. 
+2026-10-20 12:46:17.904 +03:30 [INF] Storage directories are ready. ImagesPath: D:\porograming\Rider\AutoSpare\AutoSpare.Web\wwwroot\Uploads\Images, BackupPath: D:\AutoSpareBackups 
+2026-10-20 12:46:18.173 +03:30 [INF] HTTP GET / responded 302 in 16.3210 ms 
+2026-10-20 12:46:18.504 +03:30 [INF] HTTP GET /login responded 200 in 312.6591 ms 
+2026-10-20 12:46:18.531 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 7.3473 ms 
+2026-10-20 12:46:18.545 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 21.1899 ms 
+2026-10-20 12:46:18.545 +03:30 [INF] HTTP GET /app.css responded 200 in 21.1897 ms 
+2026-10-20 12:46:18.550 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 26.2908 ms 
+2026-10-20 12:46:18.639 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 0.6266 ms 
+2026-10-20 12:46:18.639 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 1.5945 ms 
+2026-10-20 12:46:18.668 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 14.7364 ms 
+2026-10-20 12:46:18.681 +03:30 [INF] HTTP GET /favicon.ico responded 404 in 0.4731 ms 
+2026-10-20 12:46:18.696 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 7.7813 ms 
+2026-10-20 12:46:18.734 +03:30 [INF] HTTP GET /not-found responded 302 in 1.7468 ms 
+2026-10-20 12:46:18.756 +03:30 [INF] HTTP GET /login responded 200 in 19.5655 ms 
+2026-10-20 12:46:23.796 +03:30 [INF] HTTP POST /api/auth/login responded 302 in 528.2511 ms 
+2026-10-20 12:46:24.214 +03:30 [INF] HTTP GET / responded 200 in 412.7972 ms 
+2026-10-20 12:46:24.232 +03:30 [INF] HTTP GET /app.css responded 200 in 2.4562 ms 
+2026-10-20 12:46:24.233 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 1.0499 ms 
+2026-10-20 12:46:24.235 +03:30 [INF] HTTP GET /_blazor responded 101 in 5532.5054 ms 
+2026-10-20 12:46:24.238 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 2.8991 ms 
+2026-10-20 12:46:24.240 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 5.0464 ms 
+2026-10-20 12:46:24.249 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 25.6736 ms 
+2026-10-20 12:46:24.289 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.4165 ms 
+2026-10-20 12:46:24.317 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 1.5574 ms 
+2026-10-20 12:46:24.322 +03:30 [INF] HTTP GET /favicon.ico responded 404 in 0.5169 ms 
+2026-10-20 12:46:24.324 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 1.3186 ms 
+2026-10-20 12:46:24.349 +03:30 [INF] HTTP GET /not-found responded 404 in 16.9810 ms 
+2026-10-20 12:46:45.493 +03:30 [WRN] Unhandled exception rendering component: Unable to cast object of type 'MudBlazor.MudSelect`1[System.Nullable`1[System.Guid]]' to type 'MudBlazor.MudSelect`1[System.Guid]'. 
+System.InvalidCastException: Unable to cast object of type 'MudBlazor.MudSelect`1[System.Nullable`1[System.Guid]]' to type 'MudBlazor.MudSelect`1[System.Guid]'.
+   at MudBlazor.MudSelectItem`1.get_MudSelect()
+   at MudBlazor.MudSelectItem`1.OnClickHandleAsync()
+   at MudBlazor.EventUtil.ReceiverBase.HandleEventAsync(EventCallbackWorkItem item, Object arg)
+2026-10-20 12:46:45.507 +03:30 [ERR] Unhandled exception in circuit '67DJNBbGCXhZH05PeL88rwSnxTt2SvhgrdmawfRu0Bo'. 
+System.InvalidCastException: Unable to cast object of type 'MudBlazor.MudSelect`1[System.Nullable`1[System.Guid]]' to type 'MudBlazor.MudSelect`1[System.Guid]'.
+   at MudBlazor.MudSelectItem`1.get_MudSelect()
+   at MudBlazor.MudSelectItem`1.OnClickHandleAsync()
+   at MudBlazor.EventUtil.ReceiverBase.HandleEventAsync(EventCallbackWorkItem item, Object arg)
+2026-10-20 12:46:45.525 +03:30 [INF] HTTP GET /_blazor responded 101 in 21192.6073 ms 
+2026-10-20 12:47:02.499 +03:30 [INF] HTTP GET /reports/inventory-valuation responded 200 in 18.2553 ms 
+2026-10-20 12:47:02.510 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 2.0744 ms 
+2026-10-20 12:47:02.514 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 0.4573 ms 
+2026-10-20 12:47:02.515 +03:30 [INF] HTTP GET /app.css responded 200 in 1.2554 ms 
+2026-10-20 12:47:02.515 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 1.3241 ms 
+2026-10-20 12:47:02.519 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 4.7258 ms 
+2026-10-20 12:47:02.549 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.4808 ms 
+2026-10-20 12:47:02.560 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 0.6319 ms 
+2026-10-20 12:47:02.573 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.6319 ms 
+2026-10-20 12:47:04.397 +03:30 [WRN] Unhandled exception rendering component: Unable to cast object of type 'MudBlazor.MudSelect`1[System.Nullable`1[System.Guid]]' to type 'MudBlazor.MudSelect`1[System.Guid]'. 
+System.InvalidCastException: Unable to cast object of type 'MudBlazor.MudSelect`1[System.Nullable`1[System.Guid]]' to type 'MudBlazor.MudSelect`1[System.Guid]'.
+   at MudBlazor.MudSelectItem`1.get_MudSelect()
+   at MudBlazor.MudSelectItem`1.OnClickHandleAsync()
+   at MudBlazor.EventUtil.ReceiverBase.HandleEventAsync(EventCallbackWorkItem item, Object arg)
+2026-10-20 12:47:04.397 +03:30 [ERR] Unhandled exception in circuit 'pZguxaIptRZqLM5Liz1I62PdWmLHHOO1uaUJ05s34BE'. 
+System.InvalidCastException: Unable to cast object of type 'MudBlazor.MudSelect`1[System.Nullable`1[System.Guid]]' to type 'MudBlazor.MudSelect`1[System.Guid]'.
+   at MudBlazor.MudSelectItem`1.get_MudSelect()
+   at MudBlazor.MudSelectItem`1.OnClickHandleAsync()
+   at MudBlazor.EventUtil.ReceiverBase.HandleEventAsync(EventCallbackWorkItem item, Object arg)
+2026-10-20 12:47:04.404 +03:30 [INF] HTTP GET /_blazor responded 101 in 1817.5932 ms 
+2026-10-20 12:47:08.249 +03:30 [INF] HTTP GET /reports/inventory-valuation responded 200 in 36.3203 ms 
+2026-10-20 12:47:08.257 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 0.7702 ms 
+2026-10-20 12:47:08.263 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 0.3679 ms 
+2026-10-20 12:47:08.265 +03:30 [INF] HTTP GET /app.css responded 200 in 2.5389 ms 
+2026-10-20 12:47:08.265 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 3.0995 ms 
+2026-10-20 12:47:08.267 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 4.8612 ms 
+2026-10-20 12:47:08.286 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.2992 ms 
+2026-10-20 12:47:08.302 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 1.3947 ms 
+2026-10-20 12:47:08.313 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 2.0395 ms 
+2026-10-20 12:47:27.890 +03:30 [WRN] Unhandled exception rendering component: Unable to cast object of type 'MudBlazor.MudSelect`1[System.Nullable`1[System.Guid]]' to type 'MudBlazor.MudSelect`1[System.Guid]'. 
+System.InvalidCastException: Unable to cast object of type 'MudBlazor.MudSelect`1[System.Nullable`1[System.Guid]]' to type 'MudBlazor.MudSelect`1[System.Guid]'.
+   at MudBlazor.MudSelectItem`1.get_MudSelect()
+   at MudBlazor.MudSelectItem`1.OnClickHandleAsync()
+   at MudBlazor.EventUtil.ReceiverBase.HandleEventAsync(EventCallbackWorkItem item, Object arg)
+2026-10-20 12:47:27.890 +03:30 [ERR] Unhandled exception in circuit 'mPr0YDDLfppAT2ddFpviQlEx71VyFkc8F3T69S5cT6g'. 
+System.InvalidCastException: Unable to cast object of type 'MudBlazor.MudSelect`1[System.Nullable`1[System.Guid]]' to type 'MudBlazor.MudSelect`1[System.Guid]'.
+   at MudBlazor.MudSelectItem`1.get_MudSelect()
+   at MudBlazor.MudSelectItem`1.OnClickHandleAsync()
+   at MudBlazor.EventUtil.ReceiverBase.HandleEventAsync(EventCallbackWorkItem item, Object arg)
+2026-10-20 12:47:27.896 +03:30 [INF] HTTP GET /_blazor responded 101 in 19577.2004 ms 
+2026-10-20 12:47:35.076 +03:30 [INF] HTTP GET /reports/inventory-valuation responded 200 in 10.5573 ms 
+2026-10-20 12:47:35.084 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 0.7086 ms 
+2026-10-20 12:47:35.090 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 0.3084 ms 
+2026-10-20 12:47:35.091 +03:30 [INF] HTTP GET /app.css responded 200 in 1.1074 ms 
+2026-10-20 12:47:35.091 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 1.4684 ms 
+2026-10-20 12:47:35.094 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 3.9001 ms 
+2026-10-20 12:47:35.113 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.2533 ms 
+2026-10-20 12:47:35.130 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 0.5082 ms 
+2026-10-20 12:47:35.138 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.4509 ms 
+2026-10-20 12:50:48.065 +03:30 [INF] HTTP GET /_blazor responded 101 in 192918.6511 ms 
+2026-10-20 12:51:09.243 +03:30 [WRN] No store type was specified for the decimal property 'UnitPurchasePrice' on entity type 'SaleItem'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'. 
+2026-10-20 12:51:09.824 +03:30 [INF] Storage directories are ready. ImagesPath: D:\porograming\Rider\AutoSpare\AutoSpare.Web\wwwroot\Uploads\Images, BackupPath: D:\AutoSpareBackups 
+2026-10-20 12:51:10.057 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 27.8416 ms 
+2026-10-20 12:51:10.064 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 36.1527 ms 
+2026-10-20 12:51:10.686 +03:30 [INF] HTTP GET / responded 200 in 658.1234 ms 
+2026-10-20 12:51:10.718 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 8.5645 ms 
+2026-10-20 12:51:10.753 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 44.2582 ms 
+2026-10-20 12:51:10.753 +03:30 [INF] HTTP GET /app.css responded 200 in 44.2583 ms 
+2026-10-20 12:51:10.760 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 50.7116 ms 
+2026-10-20 12:51:10.825 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 1.8331 ms 
+2026-10-20 12:51:10.850 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 6.8782 ms 
+2026-10-20 12:51:10.870 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 1.0351 ms 
+2026-10-20 12:51:18.283 +03:30 [WRN] Unhandled exception rendering component: Unable to cast object of type 'MudBlazor.MudSelect`1[System.Nullable`1[System.Guid]]' to type 'MudBlazor.MudSelect`1[System.Guid]'. 
+System.InvalidCastException: Unable to cast object of type 'MudBlazor.MudSelect`1[System.Nullable`1[System.Guid]]' to type 'MudBlazor.MudSelect`1[System.Guid]'.
+   at MudBlazor.MudSelectItem`1.get_MudSelect()
+   at MudBlazor.MudSelectItem`1.OnClickHandleAsync()
+   at MudBlazor.EventUtil.ReceiverBase.HandleEventAsync(EventCallbackWorkItem item, Object arg)
+2026-10-20 12:51:18.292 +03:30 [ERR] Unhandled exception in circuit 'Sj3As3ekKsNc9HwR5Pu_UR9gEetzGruxNv_Rm-kNjVg'. 
+System.InvalidCastException: Unable to cast object of type 'MudBlazor.MudSelect`1[System.Nullable`1[System.Guid]]' to type 'MudBlazor.MudSelect`1[System.Guid]'.
+   at MudBlazor.MudSelectItem`1.get_MudSelect()
+   at MudBlazor.MudSelectItem`1.OnClickHandleAsync()
+   at MudBlazor.EventUtil.ReceiverBase.HandleEventAsync(EventCallbackWorkItem item, Object arg)
+2026-10-20 12:51:18.320 +03:30 [INF] HTTP GET /_blazor responded 101 in 7441.5715 ms 
+2026-10-20 12:51:25.324 +03:30 [INF] HTTP GET /reports/inventory-valuation responded 200 in 28.0743 ms 
+2026-10-20 12:51:25.334 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 1.4977 ms 
+2026-10-20 12:51:25.339 +03:30 [INF] HTTP GET /app.css responded 200 in 1.8811 ms 
+2026-10-20 12:51:25.341 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 0.6845 ms 
+2026-10-20 12:51:25.344 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 2.1135 ms 
+2026-10-20 12:51:25.373 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 30.8596 ms 
+2026-10-20 12:51:25.380 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.5521 ms 
+2026-10-20 12:51:25.381 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 0.5212 ms 
+2026-10-20 12:51:25.412 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 1.0801 ms 
+2026-10-20 12:51:25.421 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 1.5916 ms 
+2026-10-20 12:51:51.317 +03:30 [WRN] Unhandled exception rendering component: Unable to cast object of type 'MudBlazor.MudSelect`1[System.Nullable`1[System.Guid]]' to type 'MudBlazor.MudSelect`1[System.Guid]'. 
+System.InvalidCastException: Unable to cast object of type 'MudBlazor.MudSelect`1[System.Nullable`1[System.Guid]]' to type 'MudBlazor.MudSelect`1[System.Guid]'.
+   at MudBlazor.MudSelectItem`1.get_MudSelect()
+   at MudBlazor.MudSelectItem`1.OnClickHandleAsync()
+   at MudBlazor.EventUtil.ReceiverBase.HandleEventAsync(EventCallbackWorkItem item, Object arg)
+2026-10-20 12:51:51.318 +03:30 [ERR] Unhandled exception in circuit 'MeURDXlIw82k6lpP_9bt0xZtxncvYb4yQx-4O5icgWA'. 
+System.InvalidCastException: Unable to cast object of type 'MudBlazor.MudSelect`1[System.Nullable`1[System.Guid]]' to type 'MudBlazor.MudSelect`1[System.Guid]'.
+   at MudBlazor.MudSelectItem`1.get_MudSelect()
+   at MudBlazor.MudSelectItem`1.OnClickHandleAsync()
+   at MudBlazor.EventUtil.ReceiverBase.HandleEventAsync(EventCallbackWorkItem item, Object arg)
+2026-10-20 12:51:51.323 +03:30 [INF] HTTP GET /_blazor responded 101 in 25895.2195 ms 
+2026-10-20 12:52:20.182 +03:30 [INF] HTTP GET /reports/inventory-valuation responded 200 in 28.6841 ms 
+2026-10-20 12:52:20.193 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 1.5183 ms 
+2026-10-20 12:52:20.198 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 1.0532 ms 
+2026-10-20 12:52:20.200 +03:30 [INF] HTTP GET /app.css responded 200 in 2.4493 ms 
+2026-10-20 12:52:20.202 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 2.9690 ms 
+2026-10-20 12:52:20.203 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 5.2526 ms 
+2026-10-20 12:52:20.231 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.6282 ms 
+2026-10-20 12:52:20.255 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 0.8759 ms 
+2026-10-20 12:52:20.266 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 1.0350 ms 
+2026-10-20 12:52:25.896 +03:30 [WRN] Unhandled exception rendering component: Unable to cast object of type 'MudBlazor.MudSelect`1[System.Nullable`1[System.Guid]]' to type 'MudBlazor.MudSelect`1[System.Guid]'. 
+System.InvalidCastException: Unable to cast object of type 'MudBlazor.MudSelect`1[System.Nullable`1[System.Guid]]' to type 'MudBlazor.MudSelect`1[System.Guid]'.
+   at MudBlazor.MudSelectItem`1.get_MudSelect()
+   at MudBlazor.MudSelectItem`1.OnClickHandleAsync()
+   at MudBlazor.EventUtil.ReceiverBase.HandleEventAsync(EventCallbackWorkItem item, Object arg)
+2026-10-20 12:52:25.897 +03:30 [ERR] Unhandled exception in circuit 'hmEDIqu34kWFqsU0bsWpgQYSVctXov5mGB79kLpfavM'. 
+System.InvalidCastException: Unable to cast object of type 'MudBlazor.MudSelect`1[System.Nullable`1[System.Guid]]' to type 'MudBlazor.MudSelect`1[System.Guid]'.
+   at MudBlazor.MudSelectItem`1.get_MudSelect()
+   at MudBlazor.MudSelectItem`1.OnClickHandleAsync()
+   at MudBlazor.EventUtil.ReceiverBase.HandleEventAsync(EventCallbackWorkItem item, Object arg)
+2026-10-20 12:52:25.899 +03:30 [INF] HTTP GET /_blazor responded 101 in 5622.7073 ms 
+2026-10-20 12:53:31.590 +03:30 [INF] HTTP GET /reports/inventory-valuation responded 200 in 26.2112 ms 
+2026-10-20 12:53:31.598 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 0.6130 ms 
+2026-10-20 12:53:31.604 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 0.3157 ms 
+2026-10-20 12:53:31.604 +03:30 [INF] HTTP GET /app.css responded 200 in 1.1901 ms 
+2026-10-20 12:53:31.605 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 1.5272 ms 
+2026-10-20 12:53:31.606 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 3.4513 ms 
+2026-10-20 12:53:31.629 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.3676 ms 
+2026-10-20 12:53:31.647 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 0.5180 ms 
+2026-10-20 12:53:31.657 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.6288 ms 
+2026-10-20 12:53:57.681 +03:30 [WRN] Unhandled exception rendering component: Unable to cast object of type 'MudBlazor.MudSelect`1[System.Nullable`1[System.Guid]]' to type 'MudBlazor.MudSelect`1[System.Guid]'. 
+System.InvalidCastException: Unable to cast object of type 'MudBlazor.MudSelect`1[System.Nullable`1[System.Guid]]' to type 'MudBlazor.MudSelect`1[System.Guid]'.
+   at MudBlazor.MudSelectItem`1.get_MudSelect()
+   at MudBlazor.MudSelectItem`1.OnClickHandleAsync()
+   at MudBlazor.EventUtil.ReceiverBase.HandleEventAsync(EventCallbackWorkItem item, Object arg)
+2026-10-20 12:53:57.681 +03:30 [ERR] Unhandled exception in circuit 'T80q443nelgOCBZllyDs3s88_VkcnuFomnG0DQQn6WI'. 
+System.InvalidCastException: Unable to cast object of type 'MudBlazor.MudSelect`1[System.Nullable`1[System.Guid]]' to type 'MudBlazor.MudSelect`1[System.Guid]'.
+   at MudBlazor.MudSelectItem`1.get_MudSelect()
+   at MudBlazor.MudSelectItem`1.OnClickHandleAsync()
+   at MudBlazor.EventUtil.ReceiverBase.HandleEventAsync(EventCallbackWorkItem item, Object arg)
+2026-10-20 12:53:57.689 +03:30 [INF] HTTP GET /_blazor responded 101 in 26022.3836 ms 
+2026-10-20 12:56:26.956 +03:30 [WRN] No store type was specified for the decimal property 'UnitPurchasePrice' on entity type 'SaleItem'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'. 
+2026-10-20 12:56:27.533 +03:30 [INF] Storage directories are ready. ImagesPath: D:\porograming\Rider\AutoSpare\AutoSpare.Web\wwwroot\Uploads\Images, BackupPath: D:\AutoSpareBackups 
+2026-10-20 12:56:28.267 +03:30 [INF] HTTP GET / responded 200 in 550.0385 ms 
+2026-10-20 12:56:28.289 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 6.7217 ms 
+2026-10-20 12:56:28.297 +03:30 [INF] HTTP GET /app.css responded 200 in 14.5214 ms 
+2026-10-20 12:56:28.297 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 14.6001 ms 
+2026-10-20 12:56:28.300 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 17.5533 ms 
+2026-10-20 12:56:28.386 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 4.5299 ms 
+2026-10-20 12:56:28.404 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 7.2377 ms 
+2026-10-20 12:56:28.431 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 6.6972 ms 
+2026-10-20 13:15:53.143 +03:30 [INF] HTTP GET /_blazor responded 101 in 1164706.0181 ms 
+2026-10-20 13:16:13.289 +03:30 [WRN] No store type was specified for the decimal property 'UnitPurchasePrice' on entity type 'SaleItem'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'. 
+2026-10-20 13:16:14.070 +03:30 [INF] Storage directories are ready. ImagesPath: D:\porograming\Rider\AutoSpare\AutoSpare.Web\wwwroot\Uploads\Images, BackupPath: D:\AutoSpareBackups 
+2026-10-20 13:16:14.387 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 36.3504 ms 
+2026-10-20 13:16:15.035 +03:30 [INF] HTTP GET / responded 200 in 686.6555 ms 
+2026-10-20 13:16:15.057 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 7.1360 ms 
+2026-10-20 13:16:15.062 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 13.4867 ms 
+2026-10-20 13:16:15.068 +03:30 [INF] HTTP GET /app.css responded 200 in 17.7428 ms 
+2026-10-20 13:16:15.068 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 17.7428 ms 
+2026-10-20 13:16:15.074 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 23.8468 ms 
+2026-10-20 13:16:15.156 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.6347 ms 
+2026-10-20 13:16:15.191 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 9.2120 ms 
+2026-10-20 13:16:15.206 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 1.2595 ms 
+2026-10-20 13:16:15.551 +03:30 [INF] HTTP GET /reports/inventory-valuation responded 200 in 402.6450 ms 
+2026-10-20 13:16:15.576 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 9.1628 ms 
+2026-10-20 13:16:15.582 +03:30 [INF] HTTP GET /app.css responded 200 in 3.4781 ms 
+2026-10-20 13:16:15.583 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 0.6224 ms 
+2026-10-20 13:16:15.594 +03:30 [INF] HTTP GET /_blazor responded 101 in 507.2275 ms 
+2026-10-20 13:16:15.599 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 7.5860 ms 
+2026-10-20 13:16:15.605 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 13.1298 ms 
+2026-10-20 13:16:15.657 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.4253 ms 
+2026-10-20 13:16:15.674 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 1.0037 ms 
+2026-10-20 13:16:15.691 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.8235 ms 
+2026-10-20 13:26:40.517 +03:30 [INF] HTTP GET /_blazor responded 101 in 624812.2694 ms 
+2026-10-20 13:26:40.517 +03:30 [INF] HTTP GET /_blazor responded 101 in 625302.5152 ms 
+2026-10-20 13:26:46.295 +03:30 [WRN] No store type was specified for the decimal property 'UnitPurchasePrice' on entity type 'SaleItem'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'. 
+2026-10-20 13:26:46.841 +03:30 [INF] Storage directories are ready. ImagesPath: D:\porograming\Rider\AutoSpare\AutoSpare.Web\wwwroot\Uploads\Images, BackupPath: D:\AutoSpareBackups 
+2026-10-20 13:26:47.084 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 34.4500 ms 
+2026-10-20 13:26:47.789 +03:30 [INF] HTTP GET / responded 200 in 741.5028 ms 
+2026-10-20 13:26:47.811 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 5.2045 ms 
+2026-10-20 13:26:47.816 +03:30 [INF] HTTP GET /app.css responded 200 in 10.7436 ms 
+2026-10-20 13:26:47.817 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 11.2191 ms 
+2026-10-20 13:26:47.821 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 13.1314 ms 
+2026-10-20 13:26:47.889 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.6387 ms 
+2026-10-20 13:26:47.917 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 8.7402 ms 
+2026-10-20 13:26:47.932 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.8783 ms 
+2026-10-20 13:26:47.941 +03:30 [INF] HTTP GET / responded 200 in 151.2930 ms 
+2026-10-20 13:26:47.960 +03:30 [INF] HTTP GET /app.css responded 200 in 1.6181 ms 
+2026-10-20 13:26:47.966 +03:30 [INF] HTTP GET /_blazor responded 101 in 849.7176 ms 
+2026-10-20 13:26:47.969 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 2.7766 ms 
+2026-10-20 13:26:47.973 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 7.8270 ms 
+2026-10-20 13:26:47.975 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 23.2378 ms 
+2026-10-20 13:26:47.975 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 4.8892 ms 
+2026-10-20 13:26:48.005 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.5988 ms 
+2026-10-20 13:26:48.012 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 0.7461 ms 
+2026-10-20 13:26:48.019 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.8048 ms 
+2026-10-20 13:26:48.037 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.8378 ms 
+2026-10-20 13:26:48.404 +03:30 [INF] HTTP GET /reports/inventory-valuation responded 200 in 347.3409 ms 
+2026-10-20 13:26:48.421 +03:30 [INF] HTTP GET /_blazor responded 101 in 392.6387 ms 
+2026-10-20 13:26:48.431 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 1.7651 ms 
+2026-10-20 13:26:48.434 +03:30 [INF] HTTP GET /app.css responded 200 in 2.6714 ms 
+2026-10-20 13:26:48.437 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 0.7559 ms 
+2026-10-20 13:26:48.439 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 8.3430 ms 
+2026-10-20 13:26:48.446 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 6.8571 ms 
+2026-10-20 13:26:48.477 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.6992 ms 
+2026-10-20 13:26:48.510 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 0.8631 ms 
+2026-10-20 13:26:48.537 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.6872 ms 
+2026-10-20 13:27:39.717 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 1.1060 ms 
+2026-10-20 13:29:20.695 +03:30 [INF] HTTP GET /_blazor responded 101 in 152086.4692 ms 
+2026-10-20 13:29:20.695 +03:30 [INF] HTTP GET /_blazor responded 101 in 152753.4480 ms 
+2026-10-20 13:29:20.695 +03:30 [INF] HTTP GET /_blazor responded 101 in 152635.3506 ms 

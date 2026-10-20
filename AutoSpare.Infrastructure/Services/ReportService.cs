@@ -12,6 +12,7 @@ namespace AutoSpare.Infrastructure.Services;
 public class ReportService : IReportService
 {
     private readonly ApplicationDbContext _context;
+    private static readonly TimeSpan IranOffset = TimeSpan.FromHours(3.5);
 
     public ReportService(ApplicationDbContext context)
     {
@@ -20,19 +21,35 @@ public class ReportService : IReportService
 
     public async Task<DashboardSummaryDto> GetDashboardSummaryAsync(CancellationToken cancellationToken = default)
     {
-        var now = DateTime.UtcNow;
-        var todayStart = now.Date;
-        var todayEnd = todayStart.AddDays(1);
+        var persianCalendar = new PersianCalendar();
+        var nowUtc = DateTime.UtcNow;
+        var nowIran = nowUtc.Add(IranOffset);
 
-        var monthStart = new DateTime(now.Year, now.Month, 1, 0, 0, 0, DateTimeKind.Utc);
-        var monthEnd = monthStart.AddMonths(1);
+        // ۱. محاسبه بازه امروز بر اساس افست ایران
+        var todayStartIran = nowIran.Date;
+        var todayEndIran = todayStartIran.AddDays(1);
 
+        var todayStartUtc = DateTime.SpecifyKind(todayStartIran - IranOffset, DateTimeKind.Utc);
+        var todayEndUtc = DateTime.SpecifyKind(todayEndIran - IranOffset, DateTimeKind.Utc);
+
+        // ۲. محاسبه بازه ماه جاری شمسی
+        int pYear = persianCalendar.GetYear(nowIran);
+        int pMonth = persianCalendar.GetMonth(nowIran);
+
+        var monthStartIran = persianCalendar.ToDateTime(pYear, pMonth, 1, 0, 0, 0, 0);
+        int daysInMonth = persianCalendar.GetDaysInMonth(pYear, pMonth);
+        var monthEndIran = monthStartIran.AddDays(daysInMonth);
+
+        var monthStartUtc = DateTime.SpecifyKind(monthStartIran - IranOffset, DateTimeKind.Utc);
+        var monthEndUtc = DateTime.SpecifyKind(monthEndIran - IranOffset, DateTimeKind.Utc);
+
+        // کوئری فروش‌های نهایی‌شده
         var baseSalesQuery = _context.Sales
             .AsNoTracking()
             .Where(s => s.Status == SaleStatus.Completed);
 
         var todaySalesData = await baseSalesQuery
-            .Where(s => s.SaleDate >= todayStart && s.SaleDate < todayEnd)
+            .Where(s => s.SaleDate >= todayStartUtc && s.SaleDate < todayEndUtc)
             .Select(s => new
             {
                 TotalAmount = s.Items.Sum(i => i.Quantity * i.UnitPrice),
@@ -41,7 +58,7 @@ public class ReportService : IReportService
             .ToListAsync(cancellationToken);
 
         var monthSalesData = await baseSalesQuery
-            .Where(s => s.SaleDate >= monthStart && s.SaleDate < monthEnd)
+            .Where(s => s.SaleDate >= monthStartUtc && s.SaleDate < monthEndUtc)
             .Select(s => new
             {
                 TotalAmount = s.Items.Sum(i => i.Quantity * i.UnitPrice),
@@ -49,28 +66,30 @@ public class ReportService : IReportService
             })
             .ToListAsync(cancellationToken);
 
+        // کوئری خریدهای نهایی‌شده
         var basePurchasesQuery = _context.Purchases
             .AsNoTracking()
             .Where(p => p.Status == PurchaseStatus.Completed);
 
         var todayPurchases = await basePurchasesQuery
-            .Where(p => p.PurchaseDate >= todayStart && p.PurchaseDate < todayEnd)
+            .Where(p => p.PurchaseDate >= todayStartUtc && p.PurchaseDate < todayEndUtc)
             .Select(p => p.Items.Sum(i => i.Quantity * i.UnitPrice))
             .ToListAsync(cancellationToken);
 
         var monthPurchases = await basePurchasesQuery
-            .Where(p => p.PurchaseDate >= monthStart && p.PurchaseDate < monthEnd)
+            .Where(p => p.PurchaseDate >= monthStartUtc && p.PurchaseDate < monthEndUtc)
             .Select(p => p.Items.Sum(i => i.Quantity * i.UnitPrice))
             .ToListAsync(cancellationToken);
 
+        // آمار موجودی و ارزش انبار
         var inventoryData = await _context.Inventories
             .AsNoTracking()
             .Where(inv => inv.Quantity > 0 && inv.Product != null)
             .Select(inv => new
             {
                 inv.Quantity,
-                PurchasePrice = inv.Product!.PurchasePrice,
-                SalePrice = inv.Product!.SalePrice
+                PurchaseValue = inv.Quantity * inv.Product!.PurchasePrice,
+                SaleValue = inv.Quantity * inv.Product!.SalePrice
             })
             .ToListAsync(cancellationToken);
 
@@ -88,8 +107,8 @@ public class ReportService : IReportService
             MonthPurchasesAmount = monthPurchases.Sum(),
 
             TotalStockItemsCount = inventoryData.Sum(x => x.Quantity),
-            TotalInventoryPurchaseValue = inventoryData.Sum(x => x.Quantity * x.PurchasePrice),
-            TotalInventorySaleValue = inventoryData.Sum(x => x.Quantity * x.SalePrice)
+            TotalInventoryPurchaseValue = inventoryData.Sum(x => x.PurchaseValue),
+            TotalInventorySaleValue = inventoryData.Sum(x => x.SaleValue)
         };
     }
 
@@ -97,18 +116,31 @@ public class ReportService : IReportService
         CancellationToken cancellationToken = default)
     {
         var rawSales = await GetFilteredBaseSalesAsync(filter, cancellationToken);
+        var persianCalendar = new PersianCalendar();
 
         var dailyData = rawSales
-            .GroupBy(x => x.SaleDate.Date)
-            .Select(g => new SalesSummaryReportDto
+            .GroupBy(x =>
             {
-                Date = g.Key,
-                PeriodTitle = g.Key.ToString("yyyy/MM/dd"),
-                InvoiceCount = g.Count(),
-                TotalQuantitySold = g.Sum(x => x.TotalItems),
-                TotalSales = g.Sum(x => x.InvoiceTotal),
-                TotalCost = g.Sum(x => x.InvoiceCost),
-                TotalProfit = g.Sum(x => x.InvoiceTotal - x.InvoiceCost)
+                var iranDate = x.SaleDate.Add(IranOffset).Date;
+                return iranDate;
+            })
+            .Select(g =>
+            {
+                var d = g.Key;
+                var py = persianCalendar.GetYear(d);
+                var pm = persianCalendar.GetMonth(d);
+                var pd = persianCalendar.GetDayOfMonth(d);
+
+                return new SalesSummaryReportDto
+                {
+                    Date = d,
+                    PeriodTitle = $"{py:0000}/{pm:00}/{pd:00}",
+                    InvoiceCount = g.Count(),
+                    TotalQuantitySold = g.Sum(x => x.TotalItems),
+                    TotalSales = g.Sum(x => x.InvoiceTotal),
+                    TotalCost = g.Sum(x => x.InvoiceCost),
+                    TotalProfit = g.Sum(x => x.InvoiceTotal - x.InvoiceCost)
+                };
             })
             .OrderByDescending(r => r.Date)
             .ToList();
@@ -125,8 +157,7 @@ public class ReportService : IReportService
         var weeklyData = rawSales
             .GroupBy(x =>
             {
-                // گروه‌بندی بر اساس ابتدای هفته (شنبه)
-                var date = x.SaleDate.Date;
+                var date = x.SaleDate.Add(IranOffset).Date;
                 int diff = (7 + (int)date.DayOfWeek - (int)DayOfWeek.Saturday) % 7;
                 var weekStart = date.AddDays(-1 * diff);
                 return weekStart;
@@ -174,8 +205,9 @@ public class ReportService : IReportService
         var monthlyData = rawSales
             .GroupBy(x =>
             {
-                var py = persianCalendar.GetYear(x.SaleDate);
-                var pm = persianCalendar.GetMonth(x.SaleDate);
+                var iranDate = x.SaleDate.Add(IranOffset);
+                var py = persianCalendar.GetYear(iranDate);
+                var pm = persianCalendar.GetMonth(iranDate);
                 return new { Year = py, Month = pm };
             })
             .Select(g =>
@@ -183,9 +215,12 @@ public class ReportService : IReportService
                 var monthName = (g.Key.Month >= 1 && g.Key.Month <= 12)
                     ? monthNames[g.Key.Month]
                     : $"ماه {g.Key.Month}";
+
+                var repDate = persianCalendar.ToDateTime(g.Key.Year, g.Key.Month, 1, 0, 0, 0, 0);
+
                 return new SalesSummaryReportDto
                 {
-                    Date = new DateTime(g.Key.Year, g.Key.Month, 1),
+                    Date = repDate,
                     PeriodTitle = $"{monthName} {g.Key.Year}",
                     InvoiceCount = g.Count(),
                     TotalQuantitySold = g.Sum(x => x.TotalItems),
@@ -283,7 +318,6 @@ public class ReportService : IReportService
                 TotalProfitAmount = g.Sum(i => (i.Quantity * i.UnitPrice) - (i.Quantity * i.UnitPurchasePrice))
             });
 
-        // رتبه‌بندی پویا بر اساس انتخاب کاربر
         groupedQuery = sortMode == TopSellingSortMode.BySalesAmount
             ? groupedQuery.OrderByDescending(x => x.TotalSalesAmount)
             : groupedQuery.OrderByDescending(x => x.TotalQuantitySold);
@@ -347,8 +381,8 @@ public class ReportService : IReportService
             ProductCode = item.Product != null ? item.Product.InternalCode : string.Empty,
             WarehouseName = item.Warehouse != null ? item.Warehouse.Name : "-",
             Quantity = item.Quantity,
-            UnitCost = item.UnitPurchasePrice, // اسنپ‌شات قیمت خرید در زمان فروش
-            UnitPrice = item.UnitPrice, // اسنپ‌شات قیمت فروش
+            UnitCost = item.UnitPurchasePrice,
+            UnitPrice = item.UnitPrice,
             ItemWarehouseId = item.WarehouseId,
             SaleWarehouseId = s.WarehouseId
         }));
