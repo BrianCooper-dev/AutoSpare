@@ -22,28 +22,24 @@ public class ReportService : IReportService
     public async Task<DashboardSummaryDto> GetDashboardSummaryAsync(CancellationToken cancellationToken = default)
     {
         var persianCalendar = new PersianCalendar();
-        var nowUtc = DateTime.UtcNow;
-        var nowIran = nowUtc.Add(IranOffset);
+        var nowIran = DateTime.UtcNow.Add(IranOffset);
 
-        // ۱. محاسبه بازه امروز بر اساس افست ایران
+        // ۱. بازه امروز
         var todayStartIran = nowIran.Date;
         var todayEndIran = todayStartIran.AddDays(1);
-
         var todayStartUtc = DateTime.SpecifyKind(todayStartIran - IranOffset, DateTimeKind.Utc);
         var todayEndUtc = DateTime.SpecifyKind(todayEndIran - IranOffset, DateTimeKind.Utc);
 
-        // ۲. محاسبه بازه ماه جاری شمسی
+        // ۲. بازه ماه جاری شمسی
         int pYear = persianCalendar.GetYear(nowIran);
         int pMonth = persianCalendar.GetMonth(nowIran);
 
         var monthStartIran = persianCalendar.ToDateTime(pYear, pMonth, 1, 0, 0, 0, 0);
         int daysInMonth = persianCalendar.GetDaysInMonth(pYear, pMonth);
         var monthEndIran = monthStartIran.AddDays(daysInMonth);
-
         var monthStartUtc = DateTime.SpecifyKind(monthStartIran - IranOffset, DateTimeKind.Utc);
         var monthEndUtc = DateTime.SpecifyKind(monthEndIran - IranOffset, DateTimeKind.Utc);
 
-        // کوئری فروش‌های نهایی‌شده
         var baseSalesQuery = _context.Sales
             .AsNoTracking()
             .Where(s => s.Status == SaleStatus.Completed);
@@ -66,7 +62,6 @@ public class ReportService : IReportService
             })
             .ToListAsync(cancellationToken);
 
-        // کوئری خریدهای نهایی‌شده
         var basePurchasesQuery = _context.Purchases
             .AsNoTracking()
             .Where(p => p.Status == PurchaseStatus.Completed);
@@ -81,7 +76,6 @@ public class ReportService : IReportService
             .Select(p => p.Items.Sum(i => i.Quantity * i.UnitPrice))
             .ToListAsync(cancellationToken);
 
-        // آمار موجودی و ارزش انبار
         var inventoryData = await _context.Inventories
             .AsNoTracking()
             .Where(inv => inv.Quantity > 0 && inv.Product != null)
@@ -112,29 +106,20 @@ public class ReportService : IReportService
         };
     }
 
-    public async Task<List<SalesSummaryReportDto>> GetDailySalesSummaryAsync(ReportFilterDto filter,
-        CancellationToken cancellationToken = default)
+    public async Task<List<SalesSummaryReportDto>> GetDailySalesSummaryAsync(ReportFilterDto filter, CancellationToken cancellationToken = default)
     {
         var rawSales = await GetFilteredBaseSalesAsync(filter, cancellationToken);
         var persianCalendar = new PersianCalendar();
 
-        var dailyData = rawSales
-            .GroupBy(x =>
-            {
-                var iranDate = x.SaleDate.Add(IranOffset).Date;
-                return iranDate;
-            })
+        return rawSales
+            .GroupBy(x => x.SaleDate.Add(IranOffset).Date)
             .Select(g =>
             {
                 var d = g.Key;
-                var py = persianCalendar.GetYear(d);
-                var pm = persianCalendar.GetMonth(d);
-                var pd = persianCalendar.GetDayOfMonth(d);
-
                 return new SalesSummaryReportDto
                 {
                     Date = d,
-                    PeriodTitle = $"{py:0000}/{pm:00}/{pd:00}",
+                    PeriodTitle = $"{persianCalendar.GetYear(d):0000}/{persianCalendar.GetMonth(d):00}/{persianCalendar.GetDayOfMonth(d):00}",
                     InvoiceCount = g.Count(),
                     TotalQuantitySold = g.Sum(x => x.TotalItems),
                     TotalSales = g.Sum(x => x.InvoiceTotal),
@@ -144,39 +129,28 @@ public class ReportService : IReportService
             })
             .OrderByDescending(r => r.Date)
             .ToList();
-
-        return dailyData;
     }
 
-    public async Task<List<SalesSummaryReportDto>> GetWeeklySalesSummaryAsync(ReportFilterDto filter,
-        CancellationToken cancellationToken = default)
+    public async Task<List<SalesSummaryReportDto>> GetWeeklySalesSummaryAsync(ReportFilterDto filter, CancellationToken cancellationToken = default)
     {
         var rawSales = await GetFilteredBaseSalesAsync(filter, cancellationToken);
         var persianCalendar = new PersianCalendar();
 
-        var weeklyData = rawSales
+        return rawSales
             .GroupBy(x =>
             {
                 var date = x.SaleDate.Add(IranOffset).Date;
                 int diff = (7 + (int)date.DayOfWeek - (int)DayOfWeek.Saturday) % 7;
-                var weekStart = date.AddDays(-1 * diff);
-                return weekStart;
+                return date.AddDays(-diff);
             })
             .Select(g =>
             {
                 var weekStart = g.Key;
                 var weekEnd = weekStart.AddDays(6);
-                var py = persianCalendar.GetYear(weekStart);
-                var pm = persianCalendar.GetMonth(weekStart);
-                var pd = persianCalendar.GetDayOfMonth(weekStart);
-                var pey = persianCalendar.GetYear(weekEnd);
-                var pem = persianCalendar.GetMonth(weekEnd);
-                var ped = persianCalendar.GetDayOfMonth(weekEnd);
-
                 return new SalesSummaryReportDto
                 {
                     Date = weekStart,
-                    PeriodTitle = $"هفته ({py:0000}/{pm:00}/{pd:00} الی {pey:0000}/{pem:00}/{ped:00})",
+                    PeriodTitle = $"هفته ({persianCalendar.GetYear(weekStart):0000}/{persianCalendar.GetMonth(weekStart):00}/{persianCalendar.GetDayOfMonth(weekStart):00} الی {persianCalendar.GetYear(weekEnd):0000}/{persianCalendar.GetMonth(weekEnd):00}/{persianCalendar.GetDayOfMonth(weekEnd):00})",
                     InvoiceCount = g.Count(),
                     TotalQuantitySold = g.Sum(x => x.TotalItems),
                     TotalSales = g.Sum(x => x.InvoiceTotal),
@@ -186,41 +160,26 @@ public class ReportService : IReportService
             })
             .OrderByDescending(r => r.Date)
             .ToList();
-
-        return weeklyData;
     }
 
-    public async Task<List<SalesSummaryReportDto>> GetMonthlySalesSummaryAsync(ReportFilterDto filter,
-        CancellationToken cancellationToken = default)
+    public async Task<List<SalesSummaryReportDto>> GetMonthlySalesSummaryAsync(ReportFilterDto filter, CancellationToken cancellationToken = default)
     {
         var rawSales = await GetFilteredBaseSalesAsync(filter, cancellationToken);
         var persianCalendar = new PersianCalendar();
+        var monthNames = new[] { "", "فروردین", "اردیبهشت", "خرداد", "تیر", "مرداد", "شهریور", "مهر", "آبان", "آذر", "دی", "بهمن", "اسفند" };
 
-        var monthNames = new[]
-        {
-            "", "فروردین", "اردیبهشت", "خرداد", "تیر", "مرداد", "شهریور",
-            "مهر", "آبان", "آذر", "دی", "بهمن", "اسفند"
-        };
-
-        var monthlyData = rawSales
+        return rawSales
             .GroupBy(x =>
             {
                 var iranDate = x.SaleDate.Add(IranOffset);
-                var py = persianCalendar.GetYear(iranDate);
-                var pm = persianCalendar.GetMonth(iranDate);
-                return new { Year = py, Month = pm };
+                return new { Year = persianCalendar.GetYear(iranDate), Month = persianCalendar.GetMonth(iranDate) };
             })
             .Select(g =>
             {
-                var monthName = (g.Key.Month >= 1 && g.Key.Month <= 12)
-                    ? monthNames[g.Key.Month]
-                    : $"ماه {g.Key.Month}";
-
-                var repDate = persianCalendar.ToDateTime(g.Key.Year, g.Key.Month, 1, 0, 0, 0, 0);
-
+                var monthName = g.Key.Month >= 1 && g.Key.Month <= 12 ? monthNames[g.Key.Month] : $"ماه {g.Key.Month}";
                 return new SalesSummaryReportDto
                 {
-                    Date = repDate,
+                    Date = persianCalendar.ToDateTime(g.Key.Year, g.Key.Month, 1, 0, 0, 0, 0),
                     PeriodTitle = $"{monthName} {g.Key.Year}",
                     InvoiceCount = g.Count(),
                     TotalQuantitySold = g.Sum(x => x.TotalItems),
@@ -231,12 +190,9 @@ public class ReportService : IReportService
             })
             .OrderByDescending(r => r.Date)
             .ToList();
-
-        return monthlyData;
     }
 
-    private async Task<List<RawSaleRecord>> GetFilteredBaseSalesAsync(ReportFilterDto filter,
-        CancellationToken cancellationToken)
+    private async Task<List<RawSaleRecord>> GetFilteredBaseSalesAsync(ReportFilterDto filter, CancellationToken cancellationToken)
     {
         var query = _context.Sales
             .AsNoTracking()
@@ -249,9 +205,7 @@ public class ReportService : IReportService
             query = query.Where(s => s.SaleDate <= filter.ToDate.Value);
 
         if (filter.WarehouseId.HasValue)
-            query = query.Where(s =>
-                s.WarehouseId == filter.WarehouseId.Value ||
-                s.Items.Any(i => i.WarehouseId == filter.WarehouseId.Value));
+            query = query.Where(s => s.WarehouseId == filter.WarehouseId.Value || s.Items.Any(i => i.WarehouseId == filter.WarehouseId.Value));
 
         return await query
             .Select(s => new RawSaleRecord
@@ -272,17 +226,14 @@ public class ReportService : IReportService
         public decimal InvoiceCost { get; set; }
     }
 
-    public async Task<List<TopSellingProductDto>> GetTopSellingProductsAsync(int count,
-        TopSellingSortMode sortMode = TopSellingSortMode.ByQuantity,
-        ReportFilterDto? filter = null,
-        CancellationToken cancellationToken = default)
+    public async Task<List<TopSellingProductDto>> GetTopSellingProductsAsync(int count, TopSellingSortMode sortMode = TopSellingSortMode.ByQuantity, ReportFilterDto? filter = null, CancellationToken cancellationToken = default)
     {
         var itemsQuery = _context.Sales
             .AsNoTracking()
             .Where(s => s.Status == SaleStatus.Completed)
             .SelectMany(s => s.Items.Select(item => new
             {
-                SaleDate = s.SaleDate,
+                s.SaleDate,
                 item.ProductId,
                 ProductName = item.Product != null ? item.Product.Name : string.Empty,
                 InternalCode = item.Product != null ? item.Product.InternalCode : string.Empty,
@@ -322,13 +273,10 @@ public class ReportService : IReportService
             ? groupedQuery.OrderByDescending(x => x.TotalSalesAmount)
             : groupedQuery.OrderByDescending(x => x.TotalQuantitySold);
 
-        return await groupedQuery
-            .Take(count)
-            .ToListAsync(cancellationToken);
+        return await groupedQuery.Take(count).ToListAsync(cancellationToken);
     }
 
-    public async Task<List<InventoryValuationDto>> GetInventoryValuationAsync(Guid? warehouseId = null,
-        CancellationToken cancellationToken = default)
+    public async Task<List<InventoryValuationDto>> GetInventoryValuationAsync(Guid? warehouseId = null, CancellationToken cancellationToken = default)
     {
         var query = _context.Inventories
             .AsNoTracking()
@@ -352,8 +300,7 @@ public class ReportService : IReportService
             .ToListAsync(cancellationToken);
     }
 
-    public async Task<List<ProfitItemReportDto>> GetProfitReportAsync(ReportFilterDto filter,
-        CancellationToken cancellationToken = default)
+    public async Task<List<ProfitItemReportDto>> GetProfitReportAsync(ReportFilterDto filter, CancellationToken cancellationToken = default)
     {
         var salesQuery = _context.Sales
             .AsNoTracking()
@@ -367,9 +314,7 @@ public class ReportService : IReportService
 
         if (filter.WarehouseId.HasValue)
         {
-            salesQuery = salesQuery.Where(s =>
-                s.WarehouseId == filter.WarehouseId.Value ||
-                s.Items.Any(i => i.WarehouseId == filter.WarehouseId.Value));
+            salesQuery = salesQuery.Where(s => s.WarehouseId == filter.WarehouseId.Value || s.Items.Any(i => i.WarehouseId == filter.WarehouseId.Value));
         }
 
         var itemsQuery = salesQuery.SelectMany(s => s.Items.Select(item => new
@@ -389,12 +334,10 @@ public class ReportService : IReportService
 
         if (filter.WarehouseId.HasValue)
         {
-            itemsQuery = itemsQuery.Where(x =>
-                x.ItemWarehouseId == filter.WarehouseId.Value ||
-                x.SaleWarehouseId == filter.WarehouseId.Value);
+            itemsQuery = itemsQuery.Where(x => x.ItemWarehouseId == filter.WarehouseId.Value || x.SaleWarehouseId == filter.WarehouseId.Value);
         }
 
-        var result = await itemsQuery
+        return await itemsQuery
             .OrderByDescending(x => x.SaleDate)
             .Select(x => new ProfitItemReportDto
             {
@@ -409,7 +352,5 @@ public class ReportService : IReportService
                 UnitPrice = x.UnitPrice
             })
             .ToListAsync(cancellationToken);
-
-        return result;
     }
 }
