@@ -81,6 +81,8 @@ try
 
     builder.Services.AddScoped<IReportService, ReportService>();
 
+    builder.Services.Configure<StoreSettings>(builder.Configuration.GetSection(StoreSettings.SectionName));
+
     // -------------------------------------------------------
     // Blazor UI Services
     // -------------------------------------------------------
