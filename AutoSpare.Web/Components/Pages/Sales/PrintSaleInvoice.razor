@@ -1,10 +1,10 @@
 @page "/sales/print/{Id:guid}"
 
+
 @using AutoSpare.Application.Common.Settings
 @using AutoSpare.Application.Sales
 @using AutoSpare.Application.Sales.DTOs
 @using Microsoft.Extensions.Options
-@using Microsoft.JSInterop
 
 @inject ISaleService SaleService
 @inject IOptions<StoreSettings> StoreSettingsOptions
@@ -12,29 +12,52 @@
 
 <PageTitle>چاپ فاکتور @(_sale?.InvoiceNumber ?? "")</PageTitle>
 
-<div class="print-container rtl">
+<MudContainer MaxWidth="MaxWidth.False" Class="print-root rtl">
+
     @if (_isLoading)
     {
-        <div class="no-print message">
-            <p>در حال آماده‌سازی فاکتور برای چاپ...</p>
-        </div>
+        <MudPaper Elevation="1" Class="pa-8 d-flex flex-column align-center justify-center mx-auto mt-6 print-shell">
+            <MudProgressCircular Indeterminate="true" Color="Color.Primary" Size="Size.Large" Class="mb-4"/>
+            <MudText Typo="Typo.body1">در حال آماده‌سازی فاکتور برای چاپ...</MudText>
+        </MudPaper>
     }
     else if (_sale is null)
     {
-        <div class="no-print message error-message">
-            <p>فاکتور مورد نظر یافت نشد.</p>
-        </div>
+        <MudPaper Elevation="1" Class="pa-6 mx-auto mt-6 print-shell">
+            <MudAlert Severity="Severity.Error" Variant="Variant.Filled">
+                فاکتور مورد نظر یافت نشد.
+            </MudAlert>
+
+            <div class="mt-4 d-flex gap-2">
+                <MudButton Variant="Variant.Filled"
+                           Color="Color.Primary"
+                           StartIcon="@Icons.Material.Filled.ArrowBack"
+                           OnClick="ClosePage">
+                    بستن صفحه
+                </MudButton>
+            </div>
+        </MudPaper>
     }
     else
     {
-        <div class="no-print action-bar">
-            <button type="button" class="btn btn-primary" @onclick="PrintInvoice">
-                چاپ فاکتور
-            </button>
-            <button type="button" class="btn btn-secondary" @onclick="ClosePage">
-                بستن صفحه
-            </button>
-        </div>
+        @* Action Bar (در چاپ مخفی می‌شود) *@
+        <MudPaper Elevation="1" Class="no-print pa-3 mb-3 mx-auto print-shell">
+            <div class="d-flex flex-wrap gap-2 justify-center">
+                <MudButton Variant="Variant.Filled"
+                           Color="Color.Primary"
+                           StartIcon="@Icons.Material.Filled.Print"
+                           OnClick="PrintInvoice">
+                    چاپ فاکتور
+                </MudButton>
+
+                <MudButton Variant="Variant.Outlined"
+                           Color="Color.Default"
+                           StartIcon="@Icons.Material.Filled.Close"
+                           OnClick="ClosePage">
+                    بستن صفحه
+                </MudButton>
+            </div>
+        </MudPaper>
 
         <main class="invoice-a4">
             <div class="invoice-header">
@@ -60,44 +83,41 @@
                 </section>
             </div>
 
-            <hr class="divider" />
+            <hr class="divider"/>
 
             <section class="customer-section">
                 <strong>نام خریدار:</strong>
                 <span>
-                    @(string.IsNullOrWhiteSpace(_sale.CustomerName)
-                        ? "مشتری متفرقه"
-                        : _sale.CustomerName)
+                    @(string.IsNullOrWhiteSpace(_sale.CustomerName) ? "مشتری متفرقه" : _sale.CustomerName)
                 </span>
             </section>
 
             <table class="items-table">
                 <thead>
-                    <tr>
-                        <th class="column-index">#</th>
-                        <th>شرح کالا</th>
-                        <th class="column-quantity">تعداد</th>
-                        <th class="column-price">قیمت واحد</th>
-                        <th class="column-total">مبلغ کل</th>
-                    </tr>
+                <tr>
+                    <th class="column-index">#</th>
+                    <th>شرح کالا</th>
+                    <th class="column-quantity">تعداد</th>
+                    <th class="column-price">قیمت واحد</th>
+                    <th class="column-total">مبلغ کل</th>
+                </tr>
                 </thead>
                 <tbody>
-                    @{
-                        var index = 1;
-                    }
+                @{
+                    var index = 1;
+                }
+                @foreach (var item in _sale.Items)
+                {
+                    <tr>
+                        <td class="text-center">@index</td>
+                        <td>@item.ProductName</td>
+                        <td class="text-center">@item.Quantity</td>
+                        <td class="number-cell">@item.UnitPrice.ToString("N0")</td>
+                        <td class="number-cell">@((item.Quantity * item.UnitPrice).ToString("N0"))</td>
+                    </tr>
 
-                    @foreach (var item in _sale.Items)
-                    {
-                        <tr>
-                            <td class="text-center">@index</td>
-                            <td>@item.ProductName</td>
-                            <td class="text-center">@item.Quantity</td>
-                            <td class="number-cell">@item.UnitPrice.ToString("N0")</td>
-                            <td class="number-cell">@((item.Quantity * item.UnitPrice).ToString("N0"))</td>
-                        </tr>
-
-                        index++;
-                    }
+                    index++;
+                }
                 </tbody>
             </table>
 
@@ -131,31 +151,29 @@
             </footer>
         </main>
     }
-</div>
+</MudContainer>
 
 <style>
-    .print-container {
+    .print-root {
         min-height: 100vh;
         padding: 16px;
         background: #f2f2f2;
         color: #222;
         font-family: Sahel, Vazirmatn, Tahoma, sans-serif;
+        direction: rtl;
+    }
+
+    .print-shell {
+        max-width: 210mm;
     }
 
     .rtl {
         direction: rtl;
     }
 
-    .message {
-        max-width: 210mm;
-        margin: 24px auto;
-        padding: 24px;
-        text-align: center;
-        background: #fff;
-    }
-
-    .error-message {
-        color: #b00020;
+    .dir-ltr {
+        direction: ltr;
+        display: inline-block;
     }
 
     .invoice-a4 {
@@ -226,8 +244,7 @@
         border-collapse: collapse;
     }
 
-    .items-table th,
-    .items-table td {
+    .items-table th, .items-table td {
         padding: 8px;
         border: 1px solid #bbb;
     }
@@ -246,8 +263,7 @@
         width: 12%;
     }
 
-    .column-price,
-    .column-total {
+    .column-price, .column-total {
         width: 20%;
     }
 
@@ -259,11 +275,6 @@
         direction: ltr;
         text-align: left;
         white-space: nowrap;
-    }
-
-    .dir-ltr {
-        direction: ltr;
-        display: inline-block;
     }
 
     .invoice-footer {
@@ -322,33 +333,6 @@
         font-size: 12px;
     }
 
-    .action-bar {
-        max-width: 210mm;
-        margin: 0 auto 12px;
-        padding: 10px;
-        background: #e9ecef;
-        text-align: center;
-    }
-
-    .btn {
-        margin: 0 4px;
-        padding: 8px 16px;
-        border: 0;
-        border-radius: 4px;
-        cursor: pointer;
-        font: inherit;
-    }
-
-    .btn-primary {
-        background: #1976d2;
-        color: #fff;
-    }
-
-    .btn-secondary {
-        background: #6c757d;
-        color: #fff;
-    }
-
     @@media print {
         @@page {
             size: A4 portrait;
@@ -361,7 +345,7 @@
             background: #fff !important;
         }
 
-        .print-container {
+        .print-root {
             min-height: 0;
             margin: 0;
             padding: 0;
@@ -380,9 +364,7 @@
             box-shadow: none;
         }
 
-        .items-table,
-        .invoice-header,
-        .invoice-footer {
+        .items-table, .invoice-header, .invoice-footer {
             break-inside: avoid;
         }
 
@@ -410,21 +392,18 @@
             font-size: 11px;
         }
 
-        .items-table th,
-        .items-table td {
+        .items-table th, .items-table td {
             padding: 5px;
         }
     }
 </style>
 
 @code {
-    [Parameter]
-    public Guid Id { get; set; }
+    [Parameter] public Guid Id { get; set; }
 
     private SaleDetailsDto? _sale;
     private StoreSettings _store = new();
     private bool _isLoading = true;
-    private bool _printRequested;
 
     protected override async Task OnInitializedAsync()
     {
@@ -440,15 +419,6 @@
         }
     }
 
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        if (!_isLoading && _sale is not null && !_printRequested)
-        {
-            _printRequested = true;
-            await Js.InvokeVoidAsync("window.print");
-        }
-    }
-
     private async Task PrintInvoice()
     {
         await Js.InvokeVoidAsync("window.print");
@@ -459,3 +429,4 @@
         await Js.InvokeVoidAsync("window.close");
     }
 }
+
