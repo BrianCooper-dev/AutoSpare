@@ -1,0 +1,284 @@
+@page "/sales/print-receipt/{Id:guid}"
+@using AutoSpare.Application.Common.Settings
+@using AutoSpare.Application.Sales
+@using AutoSpare.Application.Sales.DTOs
+@using Microsoft.Extensions.Options
+@inject ISaleService SaleService
+@inject IOptions<StoreSettings> StoreSettingsOptions
+@inject IJSRuntime Js
+
+<PageTitle>چاپ فیش حرارتی @(_sale?.InvoiceNumber ?? string.Empty)</PageTitle>
+
+<div class="thermal-receipt-container rtl">
+    @if (_isLoading)
+    {
+        <div class="no-print text-center p-4">
+            <p>در حال بارگذاری اطلاعات فیش...</p>
+        </div>
+    }
+    else if (_sale == null)
+    {
+        <div class="no-print text-center p-4">
+            <p class="text-danger">فاکتور مورد نظر یافت نشد.</p>
+        </div>
+    }
+    else
+    {
+        <!-- دکمه‌های کنترل صفحه (در حالت پرینت مخفی می‌شوند) -->
+        <div class="no-print text-center mb-3">
+            <button class="btn-print" @onclick="TriggerPrint">چاپ فیش</button>
+        </div>
+
+        <!-- بدنه اصلی فیش ۸۰ میلی‌متری -->
+        <div class="receipt-sheet">
+            <!-- هدر فروشگاه -->
+            <div class="text-center mb-2">
+                <h3 class="store-title">@(StoreSettingsOptions.Value.StoreName)</h3>
+                <p class="store-info">@StoreSettingsOptions.Value.Address</p>
+                <p class="store-info">تلفن: @StoreSettingsOptions.Value.Phone</p>
+            </div>
+
+            <div class="divider">--------------------------------------------------</div>
+
+            <!-- اطلاعات فاکتور و مشتری -->
+            <div class="invoice-meta">
+                <div class="d-flex justify-between">
+                    <span>شماره فاکتور:</span>
+                    <strong>@_sale.InvoiceNumber</strong>
+                </div>
+                <div class="d-flex justify-between">
+                    <span>تاریخ:</span>
+                    <span>@_sale.SaleDate.ToLocalTime().ToString("yyyy/MM/dd HH:mm")</span>
+                </div>
+                <div class="d-flex justify-between">
+                    <span>مشتری:</span>
+                    <strong>@_sale.CustomerName</strong>
+                </div>
+                <div class="d-flex justify-between">
+                    <span>وضعیت:</span>
+                    <span>@_sale.Status</span>
+                </div>
+            </div>
+
+            <div class="divider">--------------------------------------------------</div>
+
+            <!-- جدول اقلام فیش -->
+            <table class="receipt-table">
+                <thead>
+                <tr>
+                    <th style="text-align: right;">شرح کالا</th>
+                    <th style="text-align: center; width: 35px;">تعداد</th>
+                    <th style="text-align: left;">مبلغ کل (تومان)</th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach (var item in _sale.Items)
+                {
+                    <tr>
+                        <td colspan="3" class="product-name">@item.ProductName</td>
+                    </tr>
+                    <tr>
+                        <td class="product-code">کد: @item.ProductCode</td>
+                        <td style="text-align: center;">@item.Quantity</td>
+                        <td style="text-align: left;">@item.TotalPrice.ToString("N0")</td>
+                    </tr>
+                    <tr class="item-sep">
+                        <td colspan="3"></td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+
+            <div class="divider">--------------------------------------------------</div>
+
+            <!-- خلاصه‌ی مالی -->
+            <div class="financial-summary">
+                <div class="d-flex justify-between total-row">
+                    <span>مبلغ قابل پرداخت:</span>
+                    <span><strong>@_sale.TotalAmount.ToString("N0") تومان</strong></span>
+                </div>
+            </div>
+
+            @if (!string.IsNullOrWhiteSpace(_sale.Notes))
+            {
+                <div class="divider">--------------------------------------------------</div>
+                <div class="receipt-notes">
+                    <small><strong>یادداشت:</strong> @_sale.Notes</small>
+                </div>
+            }
+
+            <div class="divider">--------------------------------------------------</div>
+
+            <!-- پاورقی فیش -->
+            <div class="text-center footer-text">
+                <p>اجناس فروخته شده در صورت باز نشدن پلمپ تا ۴۸ ساعت قابل تعویض می‌باشد.</p>
+                <p class="mt-1">از خرید شما سپاسگزاریم</p>
+            </div>
+        </div>
+    }
+</div>
+
+<style>
+    .thermal-receipt-container {
+        font-family: Tahoma, Arial, sans-serif;
+        background-color: #eee;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        direction: rtl;
+    }
+
+    .receipt-sheet {
+        width: 80mm;
+        background: #fff;
+        padding: 4mm;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        font-size: 11px;
+        color: #000;
+        line-height: 1.4;
+    }
+
+    .store-title {
+        font-size: 14px;
+        font-weight: bold;
+        margin-bottom: 4px;
+    }
+
+    .store-info {
+        font-size: 10px;
+        margin: 2px 0;
+        color: #333;
+    }
+
+    .divider {
+        text-align: center;
+        font-family: monospace;
+        letter-spacing: -1px;
+        color: #666;
+        margin: 6px 0;
+        font-size: 10px;
+    }
+
+    .invoice-meta {
+        font-size: 11px;
+    }
+
+    .d-flex {
+        display: flex;
+    }
+
+    .justify-between {
+        justify-content: space-between;
+    }
+
+    .text-center {
+        text-align: center;
+    }
+
+    .receipt-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 11px;
+    }
+
+    .receipt-table th {
+        font-size: 10px;
+        border-bottom: 1px dashed #000;
+        padding-bottom: 3px;
+    }
+
+    .product-name {
+        font-weight: bold;
+        padding-top: 4px;
+    }
+
+    .product-code {
+        font-size: 9px;
+        color: #555;
+    }
+
+    .item-sep td {
+        border-bottom: 1px dotted #ddd;
+        height: 4px;
+    }
+
+    .total-row {
+        font-size: 13px;
+        font-weight: bold;
+        margin: 6px 0;
+    }
+
+    .footer-text {
+        font-size: 9px;
+        color: #444;
+        margin-top: 8px;
+    }
+
+    .btn-print {
+        background-color: #1976d2;
+        color: white;
+        border: none;
+        padding: 8px 16px;
+        border-radius: 4px;
+        cursor: pointer;
+        font-family: Tahoma;
+    }
+
+    .btn-print:hover {
+        background-color: #115293;
+    }
+
+    @@media print {
+        body {
+            background: none !important;
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+
+        .no-print {
+            display: none !important;
+        }
+
+        .thermal-receipt-container {
+            background: none !important;
+            padding: 0 !important;
+        }
+
+        .receipt-sheet {
+            width: 80mm !important;
+            box-shadow: none !important;
+            margin: 0 !important;
+            padding: 2mm !important;
+        }
+    }
+</style>
+
+@code {
+    [Parameter] public Guid Id { get; set; }
+    private SaleDetailsDto? _sale;
+    private bool _isLoading = true;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            _isLoading = true;
+            _sale = await SaleService.GetSaleDetailsAsync(Id);
+        }
+        catch
+        {
+            // مدیریت خطا
+        }
+        finally
+        {
+            _isLoading = false;
+        }
+    }
+
+    private async Task TriggerPrint()
+    {
+        await Js.InvokeVoidAsync("window.print");
+    }
+
+}
