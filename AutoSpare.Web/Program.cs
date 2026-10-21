@@ -10,6 +10,7 @@ using Microsoft.Extensions.Options;
 using MudBlazor.Services;
 using Serilog;
 using System.Globalization;
+using AutoSpare.Application.Backup;
 using AutoSpare.Application.Brands;
 using AutoSpare.Application.Categories;
 using AutoSpare.Application.DailySettlements;
@@ -82,6 +83,8 @@ try
     builder.Services.AddScoped<IReportService, ReportService>();
 
     builder.Services.Configure<StoreSettings>(builder.Configuration.GetSection(StoreSettings.SectionName));
+
+    builder.Services.AddScoped<IBackupService, BackupService>();
 
     // -------------------------------------------------------
     // Blazor UI Services
