@@ -1,0 +1,1366 @@
+2026-10-21 11:33:38.682 +03:30 [WRN] No store type was specified for the decimal property 'UnitPurchasePrice' on entity type 'SaleItem'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'. 
+2026-10-21 11:33:54.041 +03:30 [ERR] An error occurred during database migration or seeding. 
+Microsoft.Data.SqlClient.SqlException (0x80131904): A network-related or instance-specific error occurred while establishing a connection to SQL Server. The server was not found or was not accessible. Verify that the instance name is correct and that SQL Server is configured to allow remote connections. (provider: Named Pipes Provider, error: 40 - Could not open a connection to SQL Server)
+ ---> System.ComponentModel.Win32Exception (2): The system cannot find the file specified.
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, SqlCommand command, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.Connect(ServerInfo serverInfo, SqlInternalConnectionTds connHandler, TimeoutTimer timeout, SqlConnectionString connectionOptions, Boolean withFailover)
+   at Microsoft.Data.SqlClient.SqlInternalConnectionTds.AttemptOneLogin(ServerInfo serverInfo, String newPassword, SecureString newSecurePassword, TimeoutTimer timeout, Boolean withFailover)
+   at Microsoft.Data.SqlClient.SqlInternalConnectionTds.LoginNoFailover(ServerInfo serverInfo, String newPassword, SecureString newSecurePassword, Boolean redirectedUserInstance, SqlConnectionString connectionOptions, SqlCredential credential, TimeoutTimer timeout)
+   at Microsoft.Data.SqlClient.SqlInternalConnectionTds.OpenLoginEnlist(TimeoutTimer timeout, SqlConnectionString connectionOptions, SqlCredential credential, String newPassword, SecureString newSecurePassword, Boolean redirectedUserInstance)
+   at Microsoft.Data.SqlClient.SqlInternalConnectionTds..ctor(DbConnectionPoolIdentity identity, SqlConnectionString connectionOptions, SqlCredential credential, Object providerInfo, String newPassword, SecureString newSecurePassword, Boolean redirectedUserInstance, SqlConnectionString userConnectionOptions, SessionData reconnectSessionData, Boolean applyTransientFaultHandling, String accessToken, IDbConnectionPool pool, Func`3 accessTokenCallback)
+   at Microsoft.Data.SqlClient.SqlConnectionFactory.CreateConnection(DbConnectionOptions options, DbConnectionPoolKey poolKey, DbConnectionPoolGroupProviderInfo poolGroupProviderInfo, IDbConnectionPool pool, DbConnection owningConnection, DbConnectionOptions userOptions)
+   at Microsoft.Data.ProviderBase.DbConnectionFactory.CreatePooledConnection(IDbConnectionPool pool, DbConnection owningObject, DbConnectionOptions options, DbConnectionPoolKey poolKey, DbConnectionOptions userOptions)
+   at Microsoft.Data.SqlClient.ConnectionPool.WaitHandleDbConnectionPool.CreateObject(DbConnection owningObject, DbConnectionOptions userOptions, DbConnectionInternal oldConnection)
+   at Microsoft.Data.SqlClient.ConnectionPool.WaitHandleDbConnectionPool.UserCreateRequest(DbConnection owningObject, DbConnectionOptions userOptions, DbConnectionInternal oldConnection)
+   at Microsoft.Data.SqlClient.ConnectionPool.WaitHandleDbConnectionPool.TryGetConnection(DbConnection owningObject, UInt32 waitForMultipleObjectsTimeout, Boolean allowCreate, Boolean onlyOneCheckConnection, DbConnectionOptions userOptions, DbConnectionInternal& connection)
+   at Microsoft.Data.SqlClient.ConnectionPool.WaitHandleDbConnectionPool.WaitForPendingOpen()
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenInternalAsync(Boolean errorsExpected, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenInternalAsync(Boolean errorsExpected, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenAsync(CancellationToken cancellationToken, Boolean errorsExpected)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerDatabaseCreator.<>c__DisplayClass20_0.<<ExistsAsync>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerDatabaseCreator.<>c__DisplayClass20_0.<<ExistsAsync>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerDatabaseCreator.<>c__DisplayClass20_0.<<ExistsAsync>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Migrations.HistoryRepository.ExistsAsync(CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Migrations.HistoryRepository.GetAppliedMigrationsAsync(CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.RelationalDatabaseFacadeExtensions.GetAppliedMigrationsAsync(DatabaseFacade databaseFacade, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.RelationalDatabaseFacadeExtensions.GetPendingMigrationsAsync(DatabaseFacade databaseFacade, CancellationToken cancellationToken)
+   at AutoSpare.Infrastructure.Persistence.Seed.DbInitializer.SeedAsync(ApplicationDbContext context, ILogger logger, IPasswordHasher passwordHasher, CancellationToken cancellationToken) in D:\porograming\Rider\AutoSpare\AutoSpare.Infrastructure\Persistence\Seed\DbInitializer.cs:line 19
+   at Program.<Main>$(String[] args) in D:\porograming\Rider\AutoSpare\AutoSpare.Web\Program.cs:line 152
+ClientConnectionId:00000000-0000-0000-0000-000000000000
+Error Number:2,State:0,Class:20
+2026-10-21 11:33:54.226 +03:30 [FTL] AutoSpare Web Application terminated unexpectedly. 
+Microsoft.Data.SqlClient.SqlException (0x80131904): A network-related or instance-specific error occurred while establishing a connection to SQL Server. The server was not found or was not accessible. Verify that the instance name is correct and that SQL Server is configured to allow remote connections. (provider: Named Pipes Provider, error: 40 - Could not open a connection to SQL Server)
+ ---> System.ComponentModel.Win32Exception (2): The system cannot find the file specified.
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, SqlCommand command, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.Connect(ServerInfo serverInfo, SqlInternalConnectionTds connHandler, TimeoutTimer timeout, SqlConnectionString connectionOptions, Boolean withFailover)
+   at Microsoft.Data.SqlClient.SqlInternalConnectionTds.AttemptOneLogin(ServerInfo serverInfo, String newPassword, SecureString newSecurePassword, TimeoutTimer timeout, Boolean withFailover)
+   at Microsoft.Data.SqlClient.SqlInternalConnectionTds.LoginNoFailover(ServerInfo serverInfo, String newPassword, SecureString newSecurePassword, Boolean redirectedUserInstance, SqlConnectionString connectionOptions, SqlCredential credential, TimeoutTimer timeout)
+   at Microsoft.Data.SqlClient.SqlInternalConnectionTds.OpenLoginEnlist(TimeoutTimer timeout, SqlConnectionString connectionOptions, SqlCredential credential, String newPassword, SecureString newSecurePassword, Boolean redirectedUserInstance)
+   at Microsoft.Data.SqlClient.SqlInternalConnectionTds..ctor(DbConnectionPoolIdentity identity, SqlConnectionString connectionOptions, SqlCredential credential, Object providerInfo, String newPassword, SecureString newSecurePassword, Boolean redirectedUserInstance, SqlConnectionString userConnectionOptions, SessionData reconnectSessionData, Boolean applyTransientFaultHandling, String accessToken, IDbConnectionPool pool, Func`3 accessTokenCallback)
+   at Microsoft.Data.SqlClient.SqlConnectionFactory.CreateConnection(DbConnectionOptions options, DbConnectionPoolKey poolKey, DbConnectionPoolGroupProviderInfo poolGroupProviderInfo, IDbConnectionPool pool, DbConnection owningConnection, DbConnectionOptions userOptions)
+   at Microsoft.Data.ProviderBase.DbConnectionFactory.CreatePooledConnection(IDbConnectionPool pool, DbConnection owningObject, DbConnectionOptions options, DbConnectionPoolKey poolKey, DbConnectionOptions userOptions)
+   at Microsoft.Data.SqlClient.ConnectionPool.WaitHandleDbConnectionPool.CreateObject(DbConnection owningObject, DbConnectionOptions userOptions, DbConnectionInternal oldConnection)
+   at Microsoft.Data.SqlClient.ConnectionPool.WaitHandleDbConnectionPool.UserCreateRequest(DbConnection owningObject, DbConnectionOptions userOptions, DbConnectionInternal oldConnection)
+   at Microsoft.Data.SqlClient.ConnectionPool.WaitHandleDbConnectionPool.TryGetConnection(DbConnection owningObject, UInt32 waitForMultipleObjectsTimeout, Boolean allowCreate, Boolean onlyOneCheckConnection, DbConnectionOptions userOptions, DbConnectionInternal& connection)
+   at Microsoft.Data.SqlClient.ConnectionPool.WaitHandleDbConnectionPool.WaitForPendingOpen()
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenInternalAsync(Boolean errorsExpected, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenInternalAsync(Boolean errorsExpected, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenAsync(CancellationToken cancellationToken, Boolean errorsExpected)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerDatabaseCreator.<>c__DisplayClass20_0.<<ExistsAsync>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerDatabaseCreator.<>c__DisplayClass20_0.<<ExistsAsync>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerDatabaseCreator.<>c__DisplayClass20_0.<<ExistsAsync>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Migrations.HistoryRepository.ExistsAsync(CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Migrations.HistoryRepository.GetAppliedMigrationsAsync(CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.RelationalDatabaseFacadeExtensions.GetAppliedMigrationsAsync(DatabaseFacade databaseFacade, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.RelationalDatabaseFacadeExtensions.GetPendingMigrationsAsync(DatabaseFacade databaseFacade, CancellationToken cancellationToken)
+   at AutoSpare.Infrastructure.Persistence.Seed.DbInitializer.SeedAsync(ApplicationDbContext context, ILogger logger, IPasswordHasher passwordHasher, CancellationToken cancellationToken) in D:\porograming\Rider\AutoSpare\AutoSpare.Infrastructure\Persistence\Seed\DbInitializer.cs:line 19
+   at Program.<Main>$(String[] args) in D:\porograming\Rider\AutoSpare\AutoSpare.Web\Program.cs:line 152
+ClientConnectionId:00000000-0000-0000-0000-000000000000
+Error Number:2,State:0,Class:20
+2026-10-21 11:37:00.041 +03:30 [WRN] No store type was specified for the decimal property 'UnitPurchasePrice' on entity type 'SaleItem'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'. 
+2026-10-21 11:37:00.735 +03:30 [INF] Storage directories are ready. ImagesPath: D:\porograming\Rider\AutoSpare\AutoSpare.Web\wwwroot\Uploads\Images, BackupPath: D:\AutoSpareBackups 
+2026-10-21 11:37:01.023 +03:30 [INF] HTTP GET / responded 302 in 13.9153 ms 
+2026-10-21 11:37:01.339 +03:30 [INF] HTTP GET /login responded 200 in 300.9285 ms 
+2026-10-21 11:37:01.385 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 16.9823 ms 
+2026-10-21 11:37:01.389 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 23.0848 ms 
+2026-10-21 11:37:01.480 +03:30 [INF] HTTP GET /app.css responded 200 in 114.2935 ms 
+2026-10-21 11:37:01.485 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 200 in 119.3859 ms 
+2026-10-21 11:37:02.262 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 200 in 3.8011 ms 
+2026-10-21 11:37:02.262 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 200 in 3.8429 ms 
+2026-10-21 11:37:02.281 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 13.3355 ms 
+2026-10-21 11:37:02.296 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 3.3048 ms 
+2026-10-21 11:37:03.189 +03:30 [INF] HTTP GET /favicon.ico responded 404 in 0.4077 ms 
+2026-10-21 11:37:03.220 +03:30 [INF] HTTP GET /not-found responded 302 in 1.6941 ms 
+2026-10-21 11:37:03.247 +03:30 [INF] HTTP GET /login responded 200 in 23.9764 ms 
+2026-10-21 11:37:13.998 +03:30 [INF] HTTP POST /api/auth/login responded 302 in 372.5430 ms 
+2026-10-21 11:37:14.541 +03:30 [INF] HTTP GET / responded 200 in 537.9231 ms 
+2026-10-21 11:37:14.562 +03:30 [INF] HTTP GET /app.css responded 200 in 2.5573 ms 
+2026-10-21 11:37:14.571 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 2.4931 ms 
+2026-10-21 11:37:14.573 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 4.3872 ms 
+2026-10-21 11:37:14.578 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 4.4675 ms 
+2026-10-21 11:37:14.580 +03:30 [INF] HTTP GET /_blazor responded 101 in 12276.7751 ms 
+2026-10-21 11:37:14.585 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 31.6721 ms 
+2026-10-21 11:37:14.603 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.4437 ms 
+2026-10-21 11:37:14.629 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 1.1309 ms 
+2026-10-21 11:37:14.636 +03:30 [INF] HTTP GET /favicon.ico responded 404 in 0.4982 ms 
+2026-10-21 11:37:14.637 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.5722 ms 
+2026-10-21 11:37:14.655 +03:30 [INF] HTTP GET /not-found responded 404 in 10.4508 ms 
+2026-10-21 11:38:41.387 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 0.6592 ms 
+2026-10-21 11:38:52.175 +03:30 [INF] HTTP POST /api/auth/logout responded 302 in 2.5504 ms 
+2026-10-21 11:38:52.188 +03:30 [INF] HTTP GET /login responded 200 in 6.5844 ms 
+2026-10-21 11:38:52.200 +03:30 [INF] HTTP GET /_blazor responded 101 in 97556.3070 ms 
+2026-10-21 11:38:52.205 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 0.5261 ms 
+2026-10-21 11:38:52.207 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 1.5946 ms 
+2026-10-21 11:38:52.209 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 4.5210 ms 
+2026-10-21 11:38:52.210 +03:30 [INF] HTTP GET /app.css responded 200 in 3.6432 ms 
+2026-10-21 11:38:52.219 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 21.7375 ms 
+2026-10-21 11:38:52.242 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 0.4299 ms 
+2026-10-21 11:38:52.242 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.4299 ms 
+2026-10-21 11:38:52.246 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 0.4137 ms 
+2026-10-21 11:38:52.260 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.7232 ms 
+2026-10-21 11:38:56.183 +03:30 [INF] HTTP POST /api/auth/login responded 302 in 66.8713 ms 
+2026-10-21 11:38:56.195 +03:30 [INF] HTTP GET / responded 200 in 8.5358 ms 
+2026-10-21 11:38:56.203 +03:30 [INF] HTTP GET /_blazor responded 101 in 3934.3782 ms 
+2026-10-21 11:38:56.204 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 1.1316 ms 
+2026-10-21 11:38:56.210 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 0.4757 ms 
+2026-10-21 11:38:56.211 +03:30 [INF] HTTP GET /app.css responded 200 in 2.2632 ms 
+2026-10-21 11:38:56.212 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 2.3752 ms 
+2026-10-21 11:38:56.215 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 6.0739 ms 
+2026-10-21 11:38:56.244 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.4809 ms 
+2026-10-21 11:38:56.258 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 0.3615 ms 
+2026-10-21 11:38:56.272 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.6778 ms 
+2026-10-21 11:40:19.932 +03:30 [INF] HTTP GET /_blazor responded 101 in 83648.8650 ms 
+2026-10-21 12:36:08.493 +03:30 [ERR] An error occurred during database migration or seeding. 
+System.IO.FileLoadException: Could not load file or assembly 'D:\porograming\Rider\AutoSpare\AutoSpare.Web\bin\Debug\net10.0\AutoSpare.Domain.dll'. An Application Control policy has blocked this file. (0x800711C7)
+File name: 'D:\porograming\Rider\AutoSpare\AutoSpare.Web\bin\Debug\net10.0\AutoSpare.Domain.dll'
+   at System.Signature.Init(ObjectHandleOnStack _this, Void* pCorSig, Int32 cCorSig, RuntimeFieldHandleInternal fieldHandle, RuntimeMethodHandleInternal methodHandle)
+   at System.Signature.Init(ObjectHandleOnStack _this, Void* pCorSig, Int32 cCorSig, RuntimeFieldHandleInternal fieldHandle, RuntimeMethodHandleInternal methodHandle)
+   at System.Reflection.RuntimeMethodInfo.<get_Signature>g__LazyCreateSignature|25_0()
+   at System.Reflection.RuntimeMethodInfo.FetchNonReturnParameters()
+   at System.Reflection.RuntimePropertyInfo.GetIndexParametersSpan()
+   at System.Reflection.RuntimePropertyInfo.GetIndexParameters()
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.DbSetFinder.<>c.<FindSetsNonCached>b__2_0(PropertyInfo p)
+   at System.Linq.Enumerable.ArrayWhereIterator`1.ToArray(ReadOnlySpan`1 source, Func`2 predicate)
+   at System.Linq.Enumerable.ArrayWhereIterator`1.ToArray()
+   at System.Linq.Enumerable.OrderedIterator`2.MoveNext()
+   at System.Linq.Enumerable.IteratorSelectIterator`2.ToArrayNoPresizing()
+   at System.Linq.Enumerable.IteratorSelectIterator`2.ToArray()
+   at System.Linq.Enumerable.ToArray[TSource](IEnumerable`1 source)
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.DbSetFinder.FindSetsNonCached(Type contextType)
+   at System.Collections.Concurrent.ConcurrentDictionary`2.GetOrAdd(TKey key, Func`2 valueFactory)
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.DbSetFinder.FindSets(Type contextType)
+   at Microsoft.EntityFrameworkCore.Internal.DbSetInitializer.InitializeSets(DbContext context)
+   at Microsoft.EntityFrameworkCore.DbContext..ctor(DbContextOptions options)
+   at AutoSpare.Infrastructure.Persistence.ApplicationDbContext..ctor(DbContextOptions`1 options) in D:\porograming\Rider\AutoSpare\AutoSpare.Infrastructure\Persistence\ApplicationDbContext.cs:line 18
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Constructor(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at System.Reflection.RuntimeConstructorInfo.Invoke(BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitConstructor(ConstructorCallSite constructorCallSite, RuntimeResolverContext context)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitCache(ServiceCallSite callSite, RuntimeResolverContext context, ServiceProviderEngineScope serviceProviderEngine, RuntimeResolverLock lockType)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitScopeCache(ServiceCallSite callSite, RuntimeResolverContext context)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSite(ServiceCallSite callSite, TArgument argument)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.Resolve(ServiceCallSite callSite, ServiceProviderEngineScope scope)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.DynamicServiceProviderEngine.<>c__DisplayClass2_0.<RealizeService>b__0(ServiceProviderEngineScope scope)
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider.GetService(ServiceIdentifier serviceIdentifier, ServiceProviderEngineScope serviceProviderEngineScope)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.ServiceProviderEngineScope.GetService(Type serviceType)
+   at Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService(IServiceProvider provider, Type serviceType)
+   at Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService[T](IServiceProvider provider)
+   at Program.<Main>$(String[] args) in D:\porograming\Rider\AutoSpare\AutoSpare.Web\Program.cs:line 148
+2026-10-21 12:36:08.684 +03:30 [FTL] AutoSpare Web Application terminated unexpectedly. 
+System.IO.FileLoadException: Could not load file or assembly 'D:\porograming\Rider\AutoSpare\AutoSpare.Web\bin\Debug\net10.0\AutoSpare.Domain.dll'. An Application Control policy has blocked this file. (0x800711C7)
+File name: 'D:\porograming\Rider\AutoSpare\AutoSpare.Web\bin\Debug\net10.0\AutoSpare.Domain.dll'
+   at System.Signature.Init(ObjectHandleOnStack _this, Void* pCorSig, Int32 cCorSig, RuntimeFieldHandleInternal fieldHandle, RuntimeMethodHandleInternal methodHandle)
+   at System.Signature.Init(ObjectHandleOnStack _this, Void* pCorSig, Int32 cCorSig, RuntimeFieldHandleInternal fieldHandle, RuntimeMethodHandleInternal methodHandle)
+   at System.Reflection.RuntimeMethodInfo.<get_Signature>g__LazyCreateSignature|25_0()
+   at System.Reflection.RuntimeMethodInfo.FetchNonReturnParameters()
+   at System.Reflection.RuntimePropertyInfo.GetIndexParametersSpan()
+   at System.Reflection.RuntimePropertyInfo.GetIndexParameters()
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.DbSetFinder.<>c.<FindSetsNonCached>b__2_0(PropertyInfo p)
+   at System.Linq.Enumerable.ArrayWhereIterator`1.ToArray(ReadOnlySpan`1 source, Func`2 predicate)
+   at System.Linq.Enumerable.ArrayWhereIterator`1.ToArray()
+   at System.Linq.Enumerable.OrderedIterator`2.MoveNext()
+   at System.Linq.Enumerable.IteratorSelectIterator`2.ToArrayNoPresizing()
+   at System.Linq.Enumerable.IteratorSelectIterator`2.ToArray()
+   at System.Linq.Enumerable.ToArray[TSource](IEnumerable`1 source)
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.DbSetFinder.FindSetsNonCached(Type contextType)
+   at System.Collections.Concurrent.ConcurrentDictionary`2.GetOrAdd(TKey key, Func`2 valueFactory)
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.DbSetFinder.FindSets(Type contextType)
+   at Microsoft.EntityFrameworkCore.Internal.DbSetInitializer.InitializeSets(DbContext context)
+   at Microsoft.EntityFrameworkCore.DbContext..ctor(DbContextOptions options)
+   at AutoSpare.Infrastructure.Persistence.ApplicationDbContext..ctor(DbContextOptions`1 options) in D:\porograming\Rider\AutoSpare\AutoSpare.Infrastructure\Persistence\ApplicationDbContext.cs:line 18
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Constructor(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at System.Reflection.RuntimeConstructorInfo.Invoke(BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitConstructor(ConstructorCallSite constructorCallSite, RuntimeResolverContext context)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitCache(ServiceCallSite callSite, RuntimeResolverContext context, ServiceProviderEngineScope serviceProviderEngine, RuntimeResolverLock lockType)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitScopeCache(ServiceCallSite callSite, RuntimeResolverContext context)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSite(ServiceCallSite callSite, TArgument argument)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.Resolve(ServiceCallSite callSite, ServiceProviderEngineScope scope)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.DynamicServiceProviderEngine.<>c__DisplayClass2_0.<RealizeService>b__0(ServiceProviderEngineScope scope)
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider.GetService(ServiceIdentifier serviceIdentifier, ServiceProviderEngineScope serviceProviderEngineScope)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.ServiceProviderEngineScope.GetService(Type serviceType)
+   at Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService(IServiceProvider provider, Type serviceType)
+   at Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService[T](IServiceProvider provider)
+   at Program.<Main>$(String[] args) in D:\porograming\Rider\AutoSpare\AutoSpare.Web\Program.cs:line 148
+2026-10-21 12:36:53.886 +03:30 [ERR] An error occurred during database migration or seeding. 
+System.IO.FileLoadException: Could not load file or assembly 'D:\porograming\Rider\AutoSpare\AutoSpare.Web\bin\Debug\net10.0\AutoSpare.Domain.dll'. An Application Control policy has blocked this file. (0x800711C7)
+File name: 'D:\porograming\Rider\AutoSpare\AutoSpare.Web\bin\Debug\net10.0\AutoSpare.Domain.dll'
+   at System.Signature..ctor(IRuntimeMethodInfo methodHandle, RuntimeType declaringType)
+   at System.Reflection.RuntimeMethodInfo.<get_Signature>g__LazyCreateSignature|25_0()
+   at System.Reflection.RuntimeMethodInfo.FetchNonReturnParameters()
+   at System.Reflection.RuntimePropertyInfo.GetIndexParametersSpan()
+   at System.Reflection.RuntimePropertyInfo.GetIndexParameters()
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.DbSetFinder.<>c.<FindSetsNonCached>b__2_0(PropertyInfo p)
+   at System.Linq.Enumerable.ArrayWhereIterator`1.ToArray(ReadOnlySpan`1 source, Func`2 predicate)
+   at System.Linq.Enumerable.ArrayWhereIterator`1.ToArray()
+   at System.Linq.Enumerable.OrderedIterator`2.MoveNext()
+   at System.Linq.Enumerable.IteratorSelectIterator`2.ToArrayNoPresizing()
+   at System.Linq.Enumerable.IteratorSelectIterator`2.ToArray()
+   at System.Linq.Enumerable.ToArray[TSource](IEnumerable`1 source)
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.DbSetFinder.FindSetsNonCached(Type contextType)
+   at System.Collections.Concurrent.ConcurrentDictionary`2.GetOrAdd(TKey key, Func`2 valueFactory)
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.DbSetFinder.FindSets(Type contextType)
+   at Microsoft.EntityFrameworkCore.Internal.DbSetInitializer.InitializeSets(DbContext context)
+   at Microsoft.EntityFrameworkCore.DbContext..ctor(DbContextOptions options)
+   at AutoSpare.Infrastructure.Persistence.ApplicationDbContext..ctor(DbContextOptions`1 options) in D:\porograming\Rider\AutoSpare\AutoSpare.Infrastructure\Persistence\ApplicationDbContext.cs:line 18
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Constructor(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at System.Reflection.RuntimeConstructorInfo.Invoke(BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitConstructor(ConstructorCallSite constructorCallSite, RuntimeResolverContext context)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitCache(ServiceCallSite callSite, RuntimeResolverContext context, ServiceProviderEngineScope serviceProviderEngine, RuntimeResolverLock lockType)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitScopeCache(ServiceCallSite callSite, RuntimeResolverContext context)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSite(ServiceCallSite callSite, TArgument argument)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.Resolve(ServiceCallSite callSite, ServiceProviderEngineScope scope)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.DynamicServiceProviderEngine.<>c__DisplayClass2_0.<RealizeService>b__0(ServiceProviderEngineScope scope)
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider.GetService(ServiceIdentifier serviceIdentifier, ServiceProviderEngineScope serviceProviderEngineScope)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.ServiceProviderEngineScope.GetService(Type serviceType)
+   at Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService(IServiceProvider provider, Type serviceType)
+   at Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService[T](IServiceProvider provider)
+   at Program.<Main>$(String[] args) in D:\porograming\Rider\AutoSpare\AutoSpare.Web\Program.cs:line 148
+2026-10-21 12:36:53.923 +03:30 [FTL] AutoSpare Web Application terminated unexpectedly. 
+System.IO.FileLoadException: Could not load file or assembly 'D:\porograming\Rider\AutoSpare\AutoSpare.Web\bin\Debug\net10.0\AutoSpare.Domain.dll'. An Application Control policy has blocked this file. (0x800711C7)
+File name: 'D:\porograming\Rider\AutoSpare\AutoSpare.Web\bin\Debug\net10.0\AutoSpare.Domain.dll'
+   at System.Signature..ctor(IRuntimeMethodInfo methodHandle, RuntimeType declaringType)
+   at System.Reflection.RuntimeMethodInfo.<get_Signature>g__LazyCreateSignature|25_0()
+   at System.Reflection.RuntimeMethodInfo.FetchNonReturnParameters()
+   at System.Reflection.RuntimePropertyInfo.GetIndexParametersSpan()
+   at System.Reflection.RuntimePropertyInfo.GetIndexParameters()
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.DbSetFinder.<>c.<FindSetsNonCached>b__2_0(PropertyInfo p)
+   at System.Linq.Enumerable.ArrayWhereIterator`1.ToArray(ReadOnlySpan`1 source, Func`2 predicate)
+   at System.Linq.Enumerable.ArrayWhereIterator`1.ToArray()
+   at System.Linq.Enumerable.OrderedIterator`2.MoveNext()
+   at System.Linq.Enumerable.IteratorSelectIterator`2.ToArrayNoPresizing()
+   at System.Linq.Enumerable.IteratorSelectIterator`2.ToArray()
+   at System.Linq.Enumerable.ToArray[TSource](IEnumerable`1 source)
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.DbSetFinder.FindSetsNonCached(Type contextType)
+   at System.Collections.Concurrent.ConcurrentDictionary`2.GetOrAdd(TKey key, Func`2 valueFactory)
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.DbSetFinder.FindSets(Type contextType)
+   at Microsoft.EntityFrameworkCore.Internal.DbSetInitializer.InitializeSets(DbContext context)
+   at Microsoft.EntityFrameworkCore.DbContext..ctor(DbContextOptions options)
+   at AutoSpare.Infrastructure.Persistence.ApplicationDbContext..ctor(DbContextOptions`1 options) in D:\porograming\Rider\AutoSpare\AutoSpare.Infrastructure\Persistence\ApplicationDbContext.cs:line 18
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Constructor(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at System.Reflection.RuntimeConstructorInfo.Invoke(BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitConstructor(ConstructorCallSite constructorCallSite, RuntimeResolverContext context)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitCache(ServiceCallSite callSite, RuntimeResolverContext context, ServiceProviderEngineScope serviceProviderEngine, RuntimeResolverLock lockType)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitScopeCache(ServiceCallSite callSite, RuntimeResolverContext context)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSite(ServiceCallSite callSite, TArgument argument)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.Resolve(ServiceCallSite callSite, ServiceProviderEngineScope scope)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.DynamicServiceProviderEngine.<>c__DisplayClass2_0.<RealizeService>b__0(ServiceProviderEngineScope scope)
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider.GetService(ServiceIdentifier serviceIdentifier, ServiceProviderEngineScope serviceProviderEngineScope)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.ServiceProviderEngineScope.GetService(Type serviceType)
+   at Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService(IServiceProvider provider, Type serviceType)
+   at Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService[T](IServiceProvider provider)
+   at Program.<Main>$(String[] args) in D:\porograming\Rider\AutoSpare\AutoSpare.Web\Program.cs:line 148
+2026-10-21 12:37:14.926 +03:30 [ERR] An error occurred during database migration or seeding. 
+System.IO.FileLoadException: Could not load file or assembly 'D:\porograming\Rider\AutoSpare\AutoSpare.Web\bin\Debug\net10.0\AutoSpare.Domain.dll'. An Application Control policy has blocked this file. (0x800711C7)
+File name: 'D:\porograming\Rider\AutoSpare\AutoSpare.Web\bin\Debug\net10.0\AutoSpare.Domain.dll'
+   at System.Signature..ctor(IRuntimeMethodInfo methodHandle, RuntimeType declaringType)
+   at System.Reflection.RuntimeMethodInfo.<get_Signature>g__LazyCreateSignature|25_0()
+   at System.Reflection.RuntimeMethodInfo.FetchNonReturnParameters()
+   at System.Reflection.RuntimePropertyInfo.GetIndexParametersSpan()
+   at System.Reflection.RuntimePropertyInfo.GetIndexParameters()
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.DbSetFinder.<>c.<FindSetsNonCached>b__2_0(PropertyInfo p)
+   at System.Linq.Enumerable.ArrayWhereIterator`1.ToArray(ReadOnlySpan`1 source, Func`2 predicate)
+   at System.Linq.Enumerable.ArrayWhereIterator`1.ToArray()
+   at System.Linq.Enumerable.OrderedIterator`2.MoveNext()
+   at System.Linq.Enumerable.IteratorSelectIterator`2.ToArrayNoPresizing()
+   at System.Linq.Enumerable.IteratorSelectIterator`2.ToArray()
+   at System.Linq.Enumerable.ToArray[TSource](IEnumerable`1 source)
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.DbSetFinder.FindSetsNonCached(Type contextType)
+   at System.Collections.Concurrent.ConcurrentDictionary`2.GetOrAdd(TKey key, Func`2 valueFactory)
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.DbSetFinder.FindSets(Type contextType)
+   at Microsoft.EntityFrameworkCore.Internal.DbSetInitializer.InitializeSets(DbContext context)
+   at Microsoft.EntityFrameworkCore.DbContext..ctor(DbContextOptions options)
+   at AutoSpare.Infrastructure.Persistence.ApplicationDbContext..ctor(DbContextOptions`1 options) in D:\porograming\Rider\AutoSpare\AutoSpare.Infrastructure\Persistence\ApplicationDbContext.cs:line 18
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Constructor(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at System.Reflection.RuntimeConstructorInfo.Invoke(BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitConstructor(ConstructorCallSite constructorCallSite, RuntimeResolverContext context)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitCache(ServiceCallSite callSite, RuntimeResolverContext context, ServiceProviderEngineScope serviceProviderEngine, RuntimeResolverLock lockType)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitScopeCache(ServiceCallSite callSite, RuntimeResolverContext context)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSite(ServiceCallSite callSite, TArgument argument)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.Resolve(ServiceCallSite callSite, ServiceProviderEngineScope scope)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.DynamicServiceProviderEngine.<>c__DisplayClass2_0.<RealizeService>b__0(ServiceProviderEngineScope scope)
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider.GetService(ServiceIdentifier serviceIdentifier, ServiceProviderEngineScope serviceProviderEngineScope)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.ServiceProviderEngineScope.GetService(Type serviceType)
+   at Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService(IServiceProvider provider, Type serviceType)
+   at Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService[T](IServiceProvider provider)
+   at Program.<Main>$(String[] args) in D:\porograming\Rider\AutoSpare\AutoSpare.Web\Program.cs:line 148
+2026-10-21 12:37:14.992 +03:30 [FTL] AutoSpare Web Application terminated unexpectedly. 
+System.IO.FileLoadException: Could not load file or assembly 'D:\porograming\Rider\AutoSpare\AutoSpare.Web\bin\Debug\net10.0\AutoSpare.Domain.dll'. An Application Control policy has blocked this file. (0x800711C7)
+File name: 'D:\porograming\Rider\AutoSpare\AutoSpare.Web\bin\Debug\net10.0\AutoSpare.Domain.dll'
+   at System.Signature..ctor(IRuntimeMethodInfo methodHandle, RuntimeType declaringType)
+   at System.Reflection.RuntimeMethodInfo.<get_Signature>g__LazyCreateSignature|25_0()
+   at System.Reflection.RuntimeMethodInfo.FetchNonReturnParameters()
+   at System.Reflection.RuntimePropertyInfo.GetIndexParametersSpan()
+   at System.Reflection.RuntimePropertyInfo.GetIndexParameters()
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.DbSetFinder.<>c.<FindSetsNonCached>b__2_0(PropertyInfo p)
+   at System.Linq.Enumerable.ArrayWhereIterator`1.ToArray(ReadOnlySpan`1 source, Func`2 predicate)
+   at System.Linq.Enumerable.ArrayWhereIterator`1.ToArray()
+   at System.Linq.Enumerable.OrderedIterator`2.MoveNext()
+   at System.Linq.Enumerable.IteratorSelectIterator`2.ToArrayNoPresizing()
+   at System.Linq.Enumerable.IteratorSelectIterator`2.ToArray()
+   at System.Linq.Enumerable.ToArray[TSource](IEnumerable`1 source)
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.DbSetFinder.FindSetsNonCached(Type contextType)
+   at System.Collections.Concurrent.ConcurrentDictionary`2.GetOrAdd(TKey key, Func`2 valueFactory)
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.DbSetFinder.FindSets(Type contextType)
+   at Microsoft.EntityFrameworkCore.Internal.DbSetInitializer.InitializeSets(DbContext context)
+   at Microsoft.EntityFrameworkCore.DbContext..ctor(DbContextOptions options)
+   at AutoSpare.Infrastructure.Persistence.ApplicationDbContext..ctor(DbContextOptions`1 options) in D:\porograming\Rider\AutoSpare\AutoSpare.Infrastructure\Persistence\ApplicationDbContext.cs:line 18
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Constructor(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at System.Reflection.RuntimeConstructorInfo.Invoke(BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitConstructor(ConstructorCallSite constructorCallSite, RuntimeResolverContext context)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitCache(ServiceCallSite callSite, RuntimeResolverContext context, ServiceProviderEngineScope serviceProviderEngine, RuntimeResolverLock lockType)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitScopeCache(ServiceCallSite callSite, RuntimeResolverContext context)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSite(ServiceCallSite callSite, TArgument argument)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.Resolve(ServiceCallSite callSite, ServiceProviderEngineScope scope)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.DynamicServiceProviderEngine.<>c__DisplayClass2_0.<RealizeService>b__0(ServiceProviderEngineScope scope)
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider.GetService(ServiceIdentifier serviceIdentifier, ServiceProviderEngineScope serviceProviderEngineScope)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.ServiceProviderEngineScope.GetService(Type serviceType)
+   at Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService(IServiceProvider provider, Type serviceType)
+   at Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService[T](IServiceProvider provider)
+   at Program.<Main>$(String[] args) in D:\porograming\Rider\AutoSpare\AutoSpare.Web\Program.cs:line 148
+2026-10-21 12:37:25.223 +03:30 [ERR] An error occurred during database migration or seeding. 
+System.IO.FileLoadException: Could not load file or assembly 'D:\porograming\Rider\AutoSpare\AutoSpare.Web\bin\Debug\net10.0\AutoSpare.Domain.dll'. An Application Control policy has blocked this file. (0x800711C7)
+File name: 'D:\porograming\Rider\AutoSpare\AutoSpare.Web\bin\Debug\net10.0\AutoSpare.Domain.dll'
+   at System.Signature..ctor(IRuntimeMethodInfo methodHandle, RuntimeType declaringType)
+   at System.Reflection.RuntimeMethodInfo.<get_Signature>g__LazyCreateSignature|25_0()
+   at System.Reflection.RuntimeMethodInfo.FetchNonReturnParameters()
+   at System.Reflection.RuntimePropertyInfo.GetIndexParametersSpan()
+   at System.Reflection.RuntimePropertyInfo.GetIndexParameters()
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.DbSetFinder.<>c.<FindSetsNonCached>b__2_0(PropertyInfo p)
+   at System.Linq.Enumerable.ArrayWhereIterator`1.ToArray(ReadOnlySpan`1 source, Func`2 predicate)
+   at System.Linq.Enumerable.ArrayWhereIterator`1.ToArray()
+   at System.Linq.Enumerable.OrderedIterator`2.MoveNext()
+   at System.Linq.Enumerable.IteratorSelectIterator`2.ToArrayNoPresizing()
+   at System.Linq.Enumerable.IteratorSelectIterator`2.ToArray()
+   at System.Linq.Enumerable.ToArray[TSource](IEnumerable`1 source)
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.DbSetFinder.FindSetsNonCached(Type contextType)
+   at System.Collections.Concurrent.ConcurrentDictionary`2.GetOrAdd(TKey key, Func`2 valueFactory)
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.DbSetFinder.FindSets(Type contextType)
+   at Microsoft.EntityFrameworkCore.Internal.DbSetInitializer.InitializeSets(DbContext context)
+   at Microsoft.EntityFrameworkCore.DbContext..ctor(DbContextOptions options)
+   at AutoSpare.Infrastructure.Persistence.ApplicationDbContext..ctor(DbContextOptions`1 options) in D:\porograming\Rider\AutoSpare\AutoSpare.Infrastructure\Persistence\ApplicationDbContext.cs:line 18
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Constructor(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at System.Reflection.RuntimeConstructorInfo.Invoke(BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitConstructor(ConstructorCallSite constructorCallSite, RuntimeResolverContext context)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitCache(ServiceCallSite callSite, RuntimeResolverContext context, ServiceProviderEngineScope serviceProviderEngine, RuntimeResolverLock lockType)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitScopeCache(ServiceCallSite callSite, RuntimeResolverContext context)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSite(ServiceCallSite callSite, TArgument argument)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.Resolve(ServiceCallSite callSite, ServiceProviderEngineScope scope)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.DynamicServiceProviderEngine.<>c__DisplayClass2_0.<RealizeService>b__0(ServiceProviderEngineScope scope)
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider.GetService(ServiceIdentifier serviceIdentifier, ServiceProviderEngineScope serviceProviderEngineScope)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.ServiceProviderEngineScope.GetService(Type serviceType)
+   at Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService(IServiceProvider provider, Type serviceType)
+   at Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService[T](IServiceProvider provider)
+   at Program.<Main>$(String[] args) in D:\porograming\Rider\AutoSpare\AutoSpare.Web\Program.cs:line 148
+2026-10-21 12:37:25.252 +03:30 [FTL] AutoSpare Web Application terminated unexpectedly. 
+System.IO.FileLoadException: Could not load file or assembly 'D:\porograming\Rider\AutoSpare\AutoSpare.Web\bin\Debug\net10.0\AutoSpare.Domain.dll'. An Application Control policy has blocked this file. (0x800711C7)
+File name: 'D:\porograming\Rider\AutoSpare\AutoSpare.Web\bin\Debug\net10.0\AutoSpare.Domain.dll'
+   at System.Signature..ctor(IRuntimeMethodInfo methodHandle, RuntimeType declaringType)
+   at System.Reflection.RuntimeMethodInfo.<get_Signature>g__LazyCreateSignature|25_0()
+   at System.Reflection.RuntimeMethodInfo.FetchNonReturnParameters()
+   at System.Reflection.RuntimePropertyInfo.GetIndexParametersSpan()
+   at System.Reflection.RuntimePropertyInfo.GetIndexParameters()
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.DbSetFinder.<>c.<FindSetsNonCached>b__2_0(PropertyInfo p)
+   at System.Linq.Enumerable.ArrayWhereIterator`1.ToArray(ReadOnlySpan`1 source, Func`2 predicate)
+   at System.Linq.Enumerable.ArrayWhereIterator`1.ToArray()
+   at System.Linq.Enumerable.OrderedIterator`2.MoveNext()
+   at System.Linq.Enumerable.IteratorSelectIterator`2.ToArrayNoPresizing()
+   at System.Linq.Enumerable.IteratorSelectIterator`2.ToArray()
+   at System.Linq.Enumerable.ToArray[TSource](IEnumerable`1 source)
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.DbSetFinder.FindSetsNonCached(Type contextType)
+   at System.Collections.Concurrent.ConcurrentDictionary`2.GetOrAdd(TKey key, Func`2 valueFactory)
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.DbSetFinder.FindSets(Type contextType)
+   at Microsoft.EntityFrameworkCore.Internal.DbSetInitializer.InitializeSets(DbContext context)
+   at Microsoft.EntityFrameworkCore.DbContext..ctor(DbContextOptions options)
+   at AutoSpare.Infrastructure.Persistence.ApplicationDbContext..ctor(DbContextOptions`1 options) in D:\porograming\Rider\AutoSpare\AutoSpare.Infrastructure\Persistence\ApplicationDbContext.cs:line 18
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Constructor(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at System.Reflection.RuntimeConstructorInfo.Invoke(BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitConstructor(ConstructorCallSite constructorCallSite, RuntimeResolverContext context)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitCache(ServiceCallSite callSite, RuntimeResolverContext context, ServiceProviderEngineScope serviceProviderEngine, RuntimeResolverLock lockType)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitScopeCache(ServiceCallSite callSite, RuntimeResolverContext context)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSite(ServiceCallSite callSite, TArgument argument)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.Resolve(ServiceCallSite callSite, ServiceProviderEngineScope scope)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.DynamicServiceProviderEngine.<>c__DisplayClass2_0.<RealizeService>b__0(ServiceProviderEngineScope scope)
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider.GetService(ServiceIdentifier serviceIdentifier, ServiceProviderEngineScope serviceProviderEngineScope)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.ServiceProviderEngineScope.GetService(Type serviceType)
+   at Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService(IServiceProvider provider, Type serviceType)
+   at Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService[T](IServiceProvider provider)
+   at Program.<Main>$(String[] args) in D:\porograming\Rider\AutoSpare\AutoSpare.Web\Program.cs:line 148
+2026-10-21 12:38:15.987 +03:30 [ERR] An error occurred during database migration or seeding. 
+System.IO.FileLoadException: Could not load file or assembly 'D:\porograming\Rider\AutoSpare\AutoSpare.Web\bin\Debug\net10.0\AutoSpare.Domain.dll'. An Application Control policy has blocked this file. (0x800711C7)
+File name: 'D:\porograming\Rider\AutoSpare\AutoSpare.Web\bin\Debug\net10.0\AutoSpare.Domain.dll'
+   at System.Signature..ctor(IRuntimeMethodInfo methodHandle, RuntimeType declaringType)
+   at System.Reflection.RuntimeMethodInfo.<get_Signature>g__LazyCreateSignature|25_0()
+   at System.Reflection.RuntimeMethodInfo.FetchNonReturnParameters()
+   at System.Reflection.RuntimePropertyInfo.GetIndexParametersSpan()
+   at System.Reflection.RuntimePropertyInfo.GetIndexParameters()
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.DbSetFinder.<>c.<FindSetsNonCached>b__2_0(PropertyInfo p)
+   at System.Linq.Enumerable.ArrayWhereIterator`1.ToArray(ReadOnlySpan`1 source, Func`2 predicate)
+   at System.Linq.Enumerable.ArrayWhereIterator`1.ToArray()
+   at System.Linq.Enumerable.OrderedIterator`2.MoveNext()
+   at System.Linq.Enumerable.IteratorSelectIterator`2.ToArrayNoPresizing()
+   at System.Linq.Enumerable.IteratorSelectIterator`2.ToArray()
+   at System.Linq.Enumerable.ToArray[TSource](IEnumerable`1 source)
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.DbSetFinder.FindSetsNonCached(Type contextType)
+   at System.Collections.Concurrent.ConcurrentDictionary`2.GetOrAdd(TKey key, Func`2 valueFactory)
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.DbSetFinder.FindSets(Type contextType)
+   at Microsoft.EntityFrameworkCore.Internal.DbSetInitializer.InitializeSets(DbContext context)
+   at Microsoft.EntityFrameworkCore.DbContext..ctor(DbContextOptions options)
+   at AutoSpare.Infrastructure.Persistence.ApplicationDbContext..ctor(DbContextOptions`1 options) in D:\porograming\Rider\AutoSpare\AutoSpare.Infrastructure\Persistence\ApplicationDbContext.cs:line 18
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Constructor(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at System.Reflection.RuntimeConstructorInfo.Invoke(BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitConstructor(ConstructorCallSite constructorCallSite, RuntimeResolverContext context)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitCache(ServiceCallSite callSite, RuntimeResolverContext context, ServiceProviderEngineScope serviceProviderEngine, RuntimeResolverLock lockType)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitScopeCache(ServiceCallSite callSite, RuntimeResolverContext context)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSite(ServiceCallSite callSite, TArgument argument)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.Resolve(ServiceCallSite callSite, ServiceProviderEngineScope scope)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.DynamicServiceProviderEngine.<>c__DisplayClass2_0.<RealizeService>b__0(ServiceProviderEngineScope scope)
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider.GetService(ServiceIdentifier serviceIdentifier, ServiceProviderEngineScope serviceProviderEngineScope)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.ServiceProviderEngineScope.GetService(Type serviceType)
+   at Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService(IServiceProvider provider, Type serviceType)
+   at Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService[T](IServiceProvider provider)
+   at Program.<Main>$(String[] args) in D:\porograming\Rider\AutoSpare\AutoSpare.Web\Program.cs:line 148
+2026-10-21 12:38:16.029 +03:30 [FTL] AutoSpare Web Application terminated unexpectedly. 
+System.IO.FileLoadException: Could not load file or assembly 'D:\porograming\Rider\AutoSpare\AutoSpare.Web\bin\Debug\net10.0\AutoSpare.Domain.dll'. An Application Control policy has blocked this file. (0x800711C7)
+File name: 'D:\porograming\Rider\AutoSpare\AutoSpare.Web\bin\Debug\net10.0\AutoSpare.Domain.dll'
+   at System.Signature..ctor(IRuntimeMethodInfo methodHandle, RuntimeType declaringType)
+   at System.Reflection.RuntimeMethodInfo.<get_Signature>g__LazyCreateSignature|25_0()
+   at System.Reflection.RuntimeMethodInfo.FetchNonReturnParameters()
+   at System.Reflection.RuntimePropertyInfo.GetIndexParametersSpan()
+   at System.Reflection.RuntimePropertyInfo.GetIndexParameters()
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.DbSetFinder.<>c.<FindSetsNonCached>b__2_0(PropertyInfo p)
+   at System.Linq.Enumerable.ArrayWhereIterator`1.ToArray(ReadOnlySpan`1 source, Func`2 predicate)
+   at System.Linq.Enumerable.ArrayWhereIterator`1.ToArray()
+   at System.Linq.Enumerable.OrderedIterator`2.MoveNext()
+   at System.Linq.Enumerable.IteratorSelectIterator`2.ToArrayNoPresizing()
+   at System.Linq.Enumerable.IteratorSelectIterator`2.ToArray()
+   at System.Linq.Enumerable.ToArray[TSource](IEnumerable`1 source)
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.DbSetFinder.FindSetsNonCached(Type contextType)
+   at System.Collections.Concurrent.ConcurrentDictionary`2.GetOrAdd(TKey key, Func`2 valueFactory)
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.DbSetFinder.FindSets(Type contextType)
+   at Microsoft.EntityFrameworkCore.Internal.DbSetInitializer.InitializeSets(DbContext context)
+   at Microsoft.EntityFrameworkCore.DbContext..ctor(DbContextOptions options)
+   at AutoSpare.Infrastructure.Persistence.ApplicationDbContext..ctor(DbContextOptions`1 options) in D:\porograming\Rider\AutoSpare\AutoSpare.Infrastructure\Persistence\ApplicationDbContext.cs:line 18
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Constructor(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at System.Reflection.RuntimeConstructorInfo.Invoke(BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitConstructor(ConstructorCallSite constructorCallSite, RuntimeResolverContext context)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitCache(ServiceCallSite callSite, RuntimeResolverContext context, ServiceProviderEngineScope serviceProviderEngine, RuntimeResolverLock lockType)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitScopeCache(ServiceCallSite callSite, RuntimeResolverContext context)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSite(ServiceCallSite callSite, TArgument argument)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.Resolve(ServiceCallSite callSite, ServiceProviderEngineScope scope)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.DynamicServiceProviderEngine.<>c__DisplayClass2_0.<RealizeService>b__0(ServiceProviderEngineScope scope)
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider.GetService(ServiceIdentifier serviceIdentifier, ServiceProviderEngineScope serviceProviderEngineScope)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.ServiceProviderEngineScope.GetService(Type serviceType)
+   at Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService(IServiceProvider provider, Type serviceType)
+   at Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService[T](IServiceProvider provider)
+   at Program.<Main>$(String[] args) in D:\porograming\Rider\AutoSpare\AutoSpare.Web\Program.cs:line 148
+2026-10-21 12:39:28.813 +03:30 [ERR] An error occurred during database migration or seeding. 
+System.IO.FileLoadException: Could not load file or assembly 'D:\porograming\Rider\AutoSpare\AutoSpare.Web\bin\Debug\net10.0\AutoSpare.Domain.dll'. An Application Control policy has blocked this file. (0x800711C7)
+File name: 'D:\porograming\Rider\AutoSpare\AutoSpare.Web\bin\Debug\net10.0\AutoSpare.Domain.dll'
+   at System.Signature..ctor(IRuntimeMethodInfo methodHandle, RuntimeType declaringType)
+   at System.Reflection.RuntimeMethodInfo.<get_Signature>g__LazyCreateSignature|25_0()
+   at System.Reflection.RuntimeMethodInfo.FetchNonReturnParameters()
+   at System.Reflection.RuntimePropertyInfo.GetIndexParametersSpan()
+   at System.Reflection.RuntimePropertyInfo.GetIndexParameters()
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.DbSetFinder.<>c.<FindSetsNonCached>b__2_0(PropertyInfo p)
+   at System.Linq.Enumerable.ArrayWhereIterator`1.ToArray(ReadOnlySpan`1 source, Func`2 predicate)
+   at System.Linq.Enumerable.ArrayWhereIterator`1.ToArray()
+   at System.Linq.Enumerable.OrderedIterator`2.MoveNext()
+   at System.Linq.Enumerable.IteratorSelectIterator`2.ToArrayNoPresizing()
+   at System.Linq.Enumerable.IteratorSelectIterator`2.ToArray()
+   at System.Linq.Enumerable.ToArray[TSource](IEnumerable`1 source)
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.DbSetFinder.FindSetsNonCached(Type contextType)
+   at System.Collections.Concurrent.ConcurrentDictionary`2.GetOrAdd(TKey key, Func`2 valueFactory)
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.DbSetFinder.FindSets(Type contextType)
+   at Microsoft.EntityFrameworkCore.Internal.DbSetInitializer.InitializeSets(DbContext context)
+   at Microsoft.EntityFrameworkCore.DbContext..ctor(DbContextOptions options)
+   at AutoSpare.Infrastructure.Persistence.ApplicationDbContext..ctor(DbContextOptions`1 options) in D:\porograming\Rider\AutoSpare\AutoSpare.Infrastructure\Persistence\ApplicationDbContext.cs:line 18
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Constructor(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at System.Reflection.RuntimeConstructorInfo.Invoke(BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitConstructor(ConstructorCallSite constructorCallSite, RuntimeResolverContext context)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitCache(ServiceCallSite callSite, RuntimeResolverContext context, ServiceProviderEngineScope serviceProviderEngine, RuntimeResolverLock lockType)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitScopeCache(ServiceCallSite callSite, RuntimeResolverContext context)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSite(ServiceCallSite callSite, TArgument argument)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.Resolve(ServiceCallSite callSite, ServiceProviderEngineScope scope)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.DynamicServiceProviderEngine.<>c__DisplayClass2_0.<RealizeService>b__0(ServiceProviderEngineScope scope)
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider.GetService(ServiceIdentifier serviceIdentifier, ServiceProviderEngineScope serviceProviderEngineScope)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.ServiceProviderEngineScope.GetService(Type serviceType)
+   at Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService(IServiceProvider provider, Type serviceType)
+   at Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService[T](IServiceProvider provider)
+   at Program.<Main>$(String[] args) in D:\porograming\Rider\AutoSpare\AutoSpare.Web\Program.cs:line 148
+2026-10-21 12:39:28.861 +03:30 [FTL] AutoSpare Web Application terminated unexpectedly. 
+System.IO.FileLoadException: Could not load file or assembly 'D:\porograming\Rider\AutoSpare\AutoSpare.Web\bin\Debug\net10.0\AutoSpare.Domain.dll'. An Application Control policy has blocked this file. (0x800711C7)
+File name: 'D:\porograming\Rider\AutoSpare\AutoSpare.Web\bin\Debug\net10.0\AutoSpare.Domain.dll'
+   at System.Signature..ctor(IRuntimeMethodInfo methodHandle, RuntimeType declaringType)
+   at System.Reflection.RuntimeMethodInfo.<get_Signature>g__LazyCreateSignature|25_0()
+   at System.Reflection.RuntimeMethodInfo.FetchNonReturnParameters()
+   at System.Reflection.RuntimePropertyInfo.GetIndexParametersSpan()
+   at System.Reflection.RuntimePropertyInfo.GetIndexParameters()
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.DbSetFinder.<>c.<FindSetsNonCached>b__2_0(PropertyInfo p)
+   at System.Linq.Enumerable.ArrayWhereIterator`1.ToArray(ReadOnlySpan`1 source, Func`2 predicate)
+   at System.Linq.Enumerable.ArrayWhereIterator`1.ToArray()
+   at System.Linq.Enumerable.OrderedIterator`2.MoveNext()
+   at System.Linq.Enumerable.IteratorSelectIterator`2.ToArrayNoPresizing()
+   at System.Linq.Enumerable.IteratorSelectIterator`2.ToArray()
+   at System.Linq.Enumerable.ToArray[TSource](IEnumerable`1 source)
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.DbSetFinder.FindSetsNonCached(Type contextType)
+   at System.Collections.Concurrent.ConcurrentDictionary`2.GetOrAdd(TKey key, Func`2 valueFactory)
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.DbSetFinder.FindSets(Type contextType)
+   at Microsoft.EntityFrameworkCore.Internal.DbSetInitializer.InitializeSets(DbContext context)
+   at Microsoft.EntityFrameworkCore.DbContext..ctor(DbContextOptions options)
+   at AutoSpare.Infrastructure.Persistence.ApplicationDbContext..ctor(DbContextOptions`1 options) in D:\porograming\Rider\AutoSpare\AutoSpare.Infrastructure\Persistence\ApplicationDbContext.cs:line 18
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Constructor(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at System.Reflection.RuntimeConstructorInfo.Invoke(BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitConstructor(ConstructorCallSite constructorCallSite, RuntimeResolverContext context)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitCache(ServiceCallSite callSite, RuntimeResolverContext context, ServiceProviderEngineScope serviceProviderEngine, RuntimeResolverLock lockType)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitScopeCache(ServiceCallSite callSite, RuntimeResolverContext context)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSite(ServiceCallSite callSite, TArgument argument)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.Resolve(ServiceCallSite callSite, ServiceProviderEngineScope scope)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.DynamicServiceProviderEngine.<>c__DisplayClass2_0.<RealizeService>b__0(ServiceProviderEngineScope scope)
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider.GetService(ServiceIdentifier serviceIdentifier, ServiceProviderEngineScope serviceProviderEngineScope)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.ServiceProviderEngineScope.GetService(Type serviceType)
+   at Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService(IServiceProvider provider, Type serviceType)
+   at Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService[T](IServiceProvider provider)
+   at Program.<Main>$(String[] args) in D:\porograming\Rider\AutoSpare\AutoSpare.Web\Program.cs:line 148
+2026-10-21 12:41:31.684 +03:30 [ERR] An error occurred during database migration or seeding. 
+System.IO.FileLoadException: Could not load file or assembly 'D:\porograming\Rider\AutoSpare\AutoSpare.Web\bin\Debug\net10.0\AutoSpare.Domain.dll'. An Application Control policy has blocked this file. (0x800711C7)
+File name: 'D:\porograming\Rider\AutoSpare\AutoSpare.Web\bin\Debug\net10.0\AutoSpare.Domain.dll'
+   at System.Signature.Init(ObjectHandleOnStack _this, Void* pCorSig, Int32 cCorSig, RuntimeFieldHandleInternal fieldHandle, RuntimeMethodHandleInternal methodHandle)
+   at System.Signature.Init(ObjectHandleOnStack _this, Void* pCorSig, Int32 cCorSig, RuntimeFieldHandleInternal fieldHandle, RuntimeMethodHandleInternal methodHandle)
+   at System.Reflection.RuntimeMethodInfo.<get_Signature>g__LazyCreateSignature|25_0()
+   at System.Reflection.RuntimeMethodInfo.FetchNonReturnParameters()
+   at System.Reflection.RuntimePropertyInfo.GetIndexParametersSpan()
+   at System.Reflection.RuntimePropertyInfo.GetIndexParameters()
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.DbSetFinder.<>c.<FindSetsNonCached>b__2_0(PropertyInfo p)
+   at System.Linq.Enumerable.ArrayWhereIterator`1.ToArray(ReadOnlySpan`1 source, Func`2 predicate)
+   at System.Linq.Enumerable.ArrayWhereIterator`1.ToArray()
+   at System.Linq.Enumerable.OrderedIterator`2.MoveNext()
+   at System.Linq.Enumerable.IteratorSelectIterator`2.ToArrayNoPresizing()
+   at System.Linq.Enumerable.IteratorSelectIterator`2.ToArray()
+   at System.Linq.Enumerable.ToArray[TSource](IEnumerable`1 source)
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.DbSetFinder.FindSetsNonCached(Type contextType)
+   at System.Collections.Concurrent.ConcurrentDictionary`2.GetOrAdd(TKey key, Func`2 valueFactory)
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.DbSetFinder.FindSets(Type contextType)
+   at Microsoft.EntityFrameworkCore.Internal.DbSetInitializer.InitializeSets(DbContext context)
+   at Microsoft.EntityFrameworkCore.DbContext..ctor(DbContextOptions options)
+   at AutoSpare.Infrastructure.Persistence.ApplicationDbContext..ctor(DbContextOptions`1 options) in D:\porograming\Rider\AutoSpare\AutoSpare.Infrastructure\Persistence\ApplicationDbContext.cs:line 18
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Constructor(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at System.Reflection.RuntimeConstructorInfo.Invoke(BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitConstructor(ConstructorCallSite constructorCallSite, RuntimeResolverContext context)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitCache(ServiceCallSite callSite, RuntimeResolverContext context, ServiceProviderEngineScope serviceProviderEngine, RuntimeResolverLock lockType)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitScopeCache(ServiceCallSite callSite, RuntimeResolverContext context)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSite(ServiceCallSite callSite, TArgument argument)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.Resolve(ServiceCallSite callSite, ServiceProviderEngineScope scope)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.DynamicServiceProviderEngine.<>c__DisplayClass2_0.<RealizeService>b__0(ServiceProviderEngineScope scope)
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider.GetService(ServiceIdentifier serviceIdentifier, ServiceProviderEngineScope serviceProviderEngineScope)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.ServiceProviderEngineScope.GetService(Type serviceType)
+   at Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService(IServiceProvider provider, Type serviceType)
+   at Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService[T](IServiceProvider provider)
+   at Program.<Main>$(String[] args) in D:\porograming\Rider\AutoSpare\AutoSpare.Web\Program.cs:line 148
+2026-10-21 12:41:31.731 +03:30 [FTL] AutoSpare Web Application terminated unexpectedly. 
+System.IO.FileLoadException: Could not load file or assembly 'D:\porograming\Rider\AutoSpare\AutoSpare.Web\bin\Debug\net10.0\AutoSpare.Domain.dll'. An Application Control policy has blocked this file. (0x800711C7)
+File name: 'D:\porograming\Rider\AutoSpare\AutoSpare.Web\bin\Debug\net10.0\AutoSpare.Domain.dll'
+   at System.Signature.Init(ObjectHandleOnStack _this, Void* pCorSig, Int32 cCorSig, RuntimeFieldHandleInternal fieldHandle, RuntimeMethodHandleInternal methodHandle)
+   at System.Signature.Init(ObjectHandleOnStack _this, Void* pCorSig, Int32 cCorSig, RuntimeFieldHandleInternal fieldHandle, RuntimeMethodHandleInternal methodHandle)
+   at System.Reflection.RuntimeMethodInfo.<get_Signature>g__LazyCreateSignature|25_0()
+   at System.Reflection.RuntimeMethodInfo.FetchNonReturnParameters()
+   at System.Reflection.RuntimePropertyInfo.GetIndexParametersSpan()
+   at System.Reflection.RuntimePropertyInfo.GetIndexParameters()
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.DbSetFinder.<>c.<FindSetsNonCached>b__2_0(PropertyInfo p)
+   at System.Linq.Enumerable.ArrayWhereIterator`1.ToArray(ReadOnlySpan`1 source, Func`2 predicate)
+   at System.Linq.Enumerable.ArrayWhereIterator`1.ToArray()
+   at System.Linq.Enumerable.OrderedIterator`2.MoveNext()
+   at System.Linq.Enumerable.IteratorSelectIterator`2.ToArrayNoPresizing()
+   at System.Linq.Enumerable.IteratorSelectIterator`2.ToArray()
+   at System.Linq.Enumerable.ToArray[TSource](IEnumerable`1 source)
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.DbSetFinder.FindSetsNonCached(Type contextType)
+   at System.Collections.Concurrent.ConcurrentDictionary`2.GetOrAdd(TKey key, Func`2 valueFactory)
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.DbSetFinder.FindSets(Type contextType)
+   at Microsoft.EntityFrameworkCore.Internal.DbSetInitializer.InitializeSets(DbContext context)
+   at Microsoft.EntityFrameworkCore.DbContext..ctor(DbContextOptions options)
+   at AutoSpare.Infrastructure.Persistence.ApplicationDbContext..ctor(DbContextOptions`1 options) in D:\porograming\Rider\AutoSpare\AutoSpare.Infrastructure\Persistence\ApplicationDbContext.cs:line 18
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Constructor(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at System.Reflection.RuntimeConstructorInfo.Invoke(BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitConstructor(ConstructorCallSite constructorCallSite, RuntimeResolverContext context)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitCache(ServiceCallSite callSite, RuntimeResolverContext context, ServiceProviderEngineScope serviceProviderEngine, RuntimeResolverLock lockType)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitScopeCache(ServiceCallSite callSite, RuntimeResolverContext context)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSite(ServiceCallSite callSite, TArgument argument)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.Resolve(ServiceCallSite callSite, ServiceProviderEngineScope scope)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.DynamicServiceProviderEngine.<>c__DisplayClass2_0.<RealizeService>b__0(ServiceProviderEngineScope scope)
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider.GetService(ServiceIdentifier serviceIdentifier, ServiceProviderEngineScope serviceProviderEngineScope)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.ServiceProviderEngineScope.GetService(Type serviceType)
+   at Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService(IServiceProvider provider, Type serviceType)
+   at Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService[T](IServiceProvider provider)
+   at Program.<Main>$(String[] args) in D:\porograming\Rider\AutoSpare\AutoSpare.Web\Program.cs:line 148
+2026-10-21 12:42:10.477 +03:30 [ERR] An error occurred during database migration or seeding. 
+System.IO.FileLoadException: Could not load file or assembly 'D:\porograming\Rider\AutoSpare\AutoSpare.Web\bin\Debug\net10.0\AutoSpare.Domain.dll'. An Application Control policy has blocked this file. (0x800711C7)
+File name: 'D:\porograming\Rider\AutoSpare\AutoSpare.Web\bin\Debug\net10.0\AutoSpare.Domain.dll'
+   at System.Signature..ctor(IRuntimeMethodInfo methodHandle, RuntimeType declaringType)
+   at System.Reflection.RuntimeMethodInfo.<get_Signature>g__LazyCreateSignature|25_0()
+   at System.Reflection.RuntimeMethodInfo.FetchNonReturnParameters()
+   at System.Reflection.RuntimePropertyInfo.GetIndexParametersSpan()
+   at System.Reflection.RuntimePropertyInfo.GetIndexParameters()
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.DbSetFinder.<>c.<FindSetsNonCached>b__2_0(PropertyInfo p)
+   at System.Linq.Enumerable.ArrayWhereIterator`1.ToArray(ReadOnlySpan`1 source, Func`2 predicate)
+   at System.Linq.Enumerable.ArrayWhereIterator`1.ToArray()
+   at System.Linq.Enumerable.OrderedIterator`2.MoveNext()
+   at System.Linq.Enumerable.IteratorSelectIterator`2.ToArrayNoPresizing()
+   at System.Linq.Enumerable.IteratorSelectIterator`2.ToArray()
+   at System.Linq.Enumerable.ToArray[TSource](IEnumerable`1 source)
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.DbSetFinder.FindSetsNonCached(Type contextType)
+   at System.Collections.Concurrent.ConcurrentDictionary`2.GetOrAdd(TKey key, Func`2 valueFactory)
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.DbSetFinder.FindSets(Type contextType)
+   at Microsoft.EntityFrameworkCore.Internal.DbSetInitializer.InitializeSets(DbContext context)
+   at Microsoft.EntityFrameworkCore.DbContext..ctor(DbContextOptions options)
+   at AutoSpare.Infrastructure.Persistence.ApplicationDbContext..ctor(DbContextOptions`1 options) in D:\porograming\Rider\AutoSpare\AutoSpare.Infrastructure\Persistence\ApplicationDbContext.cs:line 18
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Constructor(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at System.Reflection.RuntimeConstructorInfo.Invoke(BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitConstructor(ConstructorCallSite constructorCallSite, RuntimeResolverContext context)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitCache(ServiceCallSite callSite, RuntimeResolverContext context, ServiceProviderEngineScope serviceProviderEngine, RuntimeResolverLock lockType)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitScopeCache(ServiceCallSite callSite, RuntimeResolverContext context)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSite(ServiceCallSite callSite, TArgument argument)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.Resolve(ServiceCallSite callSite, ServiceProviderEngineScope scope)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.DynamicServiceProviderEngine.<>c__DisplayClass2_0.<RealizeService>b__0(ServiceProviderEngineScope scope)
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider.GetService(ServiceIdentifier serviceIdentifier, ServiceProviderEngineScope serviceProviderEngineScope)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.ServiceProviderEngineScope.GetService(Type serviceType)
+   at Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService(IServiceProvider provider, Type serviceType)
+   at Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService[T](IServiceProvider provider)
+   at Program.<Main>$(String[] args) in D:\porograming\Rider\AutoSpare\AutoSpare.Web\Program.cs:line 148
+2026-10-21 12:42:10.518 +03:30 [FTL] AutoSpare Web Application terminated unexpectedly. 
+System.IO.FileLoadException: Could not load file or assembly 'D:\porograming\Rider\AutoSpare\AutoSpare.Web\bin\Debug\net10.0\AutoSpare.Domain.dll'. An Application Control policy has blocked this file. (0x800711C7)
+File name: 'D:\porograming\Rider\AutoSpare\AutoSpare.Web\bin\Debug\net10.0\AutoSpare.Domain.dll'
+   at System.Signature..ctor(IRuntimeMethodInfo methodHandle, RuntimeType declaringType)
+   at System.Reflection.RuntimeMethodInfo.<get_Signature>g__LazyCreateSignature|25_0()
+   at System.Reflection.RuntimeMethodInfo.FetchNonReturnParameters()
+   at System.Reflection.RuntimePropertyInfo.GetIndexParametersSpan()
+   at System.Reflection.RuntimePropertyInfo.GetIndexParameters()
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.DbSetFinder.<>c.<FindSetsNonCached>b__2_0(PropertyInfo p)
+   at System.Linq.Enumerable.ArrayWhereIterator`1.ToArray(ReadOnlySpan`1 source, Func`2 predicate)
+   at System.Linq.Enumerable.ArrayWhereIterator`1.ToArray()
+   at System.Linq.Enumerable.OrderedIterator`2.MoveNext()
+   at System.Linq.Enumerable.IteratorSelectIterator`2.ToArrayNoPresizing()
+   at System.Linq.Enumerable.IteratorSelectIterator`2.ToArray()
+   at System.Linq.Enumerable.ToArray[TSource](IEnumerable`1 source)
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.DbSetFinder.FindSetsNonCached(Type contextType)
+   at System.Collections.Concurrent.ConcurrentDictionary`2.GetOrAdd(TKey key, Func`2 valueFactory)
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.DbSetFinder.FindSets(Type contextType)
+   at Microsoft.EntityFrameworkCore.Internal.DbSetInitializer.InitializeSets(DbContext context)
+   at Microsoft.EntityFrameworkCore.DbContext..ctor(DbContextOptions options)
+   at AutoSpare.Infrastructure.Persistence.ApplicationDbContext..ctor(DbContextOptions`1 options) in D:\porograming\Rider\AutoSpare\AutoSpare.Infrastructure\Persistence\ApplicationDbContext.cs:line 18
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Constructor(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at System.Reflection.RuntimeConstructorInfo.Invoke(BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitConstructor(ConstructorCallSite constructorCallSite, RuntimeResolverContext context)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitCache(ServiceCallSite callSite, RuntimeResolverContext context, ServiceProviderEngineScope serviceProviderEngine, RuntimeResolverLock lockType)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitScopeCache(ServiceCallSite callSite, RuntimeResolverContext context)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSite(ServiceCallSite callSite, TArgument argument)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.Resolve(ServiceCallSite callSite, ServiceProviderEngineScope scope)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.DynamicServiceProviderEngine.<>c__DisplayClass2_0.<RealizeService>b__0(ServiceProviderEngineScope scope)
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider.GetService(ServiceIdentifier serviceIdentifier, ServiceProviderEngineScope serviceProviderEngineScope)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.ServiceProviderEngineScope.GetService(Type serviceType)
+   at Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService(IServiceProvider provider, Type serviceType)
+   at Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService[T](IServiceProvider provider)
+   at Program.<Main>$(String[] args) in D:\porograming\Rider\AutoSpare\AutoSpare.Web\Program.cs:line 148
+2026-10-21 12:42:17.290 +03:30 [ERR] An error occurred during database migration or seeding. 
+System.IO.FileLoadException: Could not load file or assembly 'D:\porograming\Rider\AutoSpare\AutoSpare.Web\bin\Debug\net10.0\AutoSpare.Domain.dll'. An Application Control policy has blocked this file. (0x800711C7)
+File name: 'D:\porograming\Rider\AutoSpare\AutoSpare.Web\bin\Debug\net10.0\AutoSpare.Domain.dll'
+   at System.Signature..ctor(IRuntimeMethodInfo methodHandle, RuntimeType declaringType)
+   at System.Reflection.RuntimeMethodInfo.<get_Signature>g__LazyCreateSignature|25_0()
+   at System.Reflection.RuntimeMethodInfo.FetchNonReturnParameters()
+   at System.Reflection.RuntimePropertyInfo.GetIndexParametersSpan()
+   at System.Reflection.RuntimePropertyInfo.GetIndexParameters()
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.DbSetFinder.<>c.<FindSetsNonCached>b__2_0(PropertyInfo p)
+   at System.Linq.Enumerable.ArrayWhereIterator`1.ToArray(ReadOnlySpan`1 source, Func`2 predicate)
+   at System.Linq.Enumerable.ArrayWhereIterator`1.ToArray()
+   at System.Linq.Enumerable.OrderedIterator`2.MoveNext()
+   at System.Linq.Enumerable.IteratorSelectIterator`2.ToArrayNoPresizing()
+   at System.Linq.Enumerable.IteratorSelectIterator`2.ToArray()
+   at System.Linq.Enumerable.ToArray[TSource](IEnumerable`1 source)
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.DbSetFinder.FindSetsNonCached(Type contextType)
+   at System.Collections.Concurrent.ConcurrentDictionary`2.GetOrAdd(TKey key, Func`2 valueFactory)
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.DbSetFinder.FindSets(Type contextType)
+   at Microsoft.EntityFrameworkCore.Internal.DbSetInitializer.InitializeSets(DbContext context)
+   at Microsoft.EntityFrameworkCore.DbContext..ctor(DbContextOptions options)
+   at AutoSpare.Infrastructure.Persistence.ApplicationDbContext..ctor(DbContextOptions`1 options) in D:\porograming\Rider\AutoSpare\AutoSpare.Infrastructure\Persistence\ApplicationDbContext.cs:line 18
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Constructor(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at System.Reflection.RuntimeConstructorInfo.Invoke(BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitConstructor(ConstructorCallSite constructorCallSite, RuntimeResolverContext context)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitCache(ServiceCallSite callSite, RuntimeResolverContext context, ServiceProviderEngineScope serviceProviderEngine, RuntimeResolverLock lockType)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitScopeCache(ServiceCallSite callSite, RuntimeResolverContext context)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSite(ServiceCallSite callSite, TArgument argument)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.Resolve(ServiceCallSite callSite, ServiceProviderEngineScope scope)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.DynamicServiceProviderEngine.<>c__DisplayClass2_0.<RealizeService>b__0(ServiceProviderEngineScope scope)
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider.GetService(ServiceIdentifier serviceIdentifier, ServiceProviderEngineScope serviceProviderEngineScope)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.ServiceProviderEngineScope.GetService(Type serviceType)
+   at Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService(IServiceProvider provider, Type serviceType)
+   at Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService[T](IServiceProvider provider)
+   at Program.<Main>$(String[] args) in D:\porograming\Rider\AutoSpare\AutoSpare.Web\Program.cs:line 148
+2026-10-21 12:42:17.336 +03:30 [FTL] AutoSpare Web Application terminated unexpectedly. 
+System.IO.FileLoadException: Could not load file or assembly 'D:\porograming\Rider\AutoSpare\AutoSpare.Web\bin\Debug\net10.0\AutoSpare.Domain.dll'. An Application Control policy has blocked this file. (0x800711C7)
+File name: 'D:\porograming\Rider\AutoSpare\AutoSpare.Web\bin\Debug\net10.0\AutoSpare.Domain.dll'
+   at System.Signature..ctor(IRuntimeMethodInfo methodHandle, RuntimeType declaringType)
+   at System.Reflection.RuntimeMethodInfo.<get_Signature>g__LazyCreateSignature|25_0()
+   at System.Reflection.RuntimeMethodInfo.FetchNonReturnParameters()
+   at System.Reflection.RuntimePropertyInfo.GetIndexParametersSpan()
+   at System.Reflection.RuntimePropertyInfo.GetIndexParameters()
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.DbSetFinder.<>c.<FindSetsNonCached>b__2_0(PropertyInfo p)
+   at System.Linq.Enumerable.ArrayWhereIterator`1.ToArray(ReadOnlySpan`1 source, Func`2 predicate)
+   at System.Linq.Enumerable.ArrayWhereIterator`1.ToArray()
+   at System.Linq.Enumerable.OrderedIterator`2.MoveNext()
+   at System.Linq.Enumerable.IteratorSelectIterator`2.ToArrayNoPresizing()
+   at System.Linq.Enumerable.IteratorSelectIterator`2.ToArray()
+   at System.Linq.Enumerable.ToArray[TSource](IEnumerable`1 source)
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.DbSetFinder.FindSetsNonCached(Type contextType)
+   at System.Collections.Concurrent.ConcurrentDictionary`2.GetOrAdd(TKey key, Func`2 valueFactory)
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.DbSetFinder.FindSets(Type contextType)
+   at Microsoft.EntityFrameworkCore.Internal.DbSetInitializer.InitializeSets(DbContext context)
+   at Microsoft.EntityFrameworkCore.DbContext..ctor(DbContextOptions options)
+   at AutoSpare.Infrastructure.Persistence.ApplicationDbContext..ctor(DbContextOptions`1 options) in D:\porograming\Rider\AutoSpare\AutoSpare.Infrastructure\Persistence\ApplicationDbContext.cs:line 18
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Constructor(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at System.Reflection.RuntimeConstructorInfo.Invoke(BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitConstructor(ConstructorCallSite constructorCallSite, RuntimeResolverContext context)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitCache(ServiceCallSite callSite, RuntimeResolverContext context, ServiceProviderEngineScope serviceProviderEngine, RuntimeResolverLock lockType)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitScopeCache(ServiceCallSite callSite, RuntimeResolverContext context)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSite(ServiceCallSite callSite, TArgument argument)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.Resolve(ServiceCallSite callSite, ServiceProviderEngineScope scope)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.DynamicServiceProviderEngine.<>c__DisplayClass2_0.<RealizeService>b__0(ServiceProviderEngineScope scope)
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider.GetService(ServiceIdentifier serviceIdentifier, ServiceProviderEngineScope serviceProviderEngineScope)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.ServiceProviderEngineScope.GetService(Type serviceType)
+   at Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService(IServiceProvider provider, Type serviceType)
+   at Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService[T](IServiceProvider provider)
+   at Program.<Main>$(String[] args) in D:\porograming\Rider\AutoSpare\AutoSpare.Web\Program.cs:line 148
+2026-10-21 12:43:01.526 +03:30 [ERR] An error occurred during database migration or seeding. 
+System.IO.FileLoadException: Could not load file or assembly 'D:\porograming\Rider\AutoSpare\AutoSpare.Web\bin\Debug\net10.0\AutoSpare.Domain.dll'. An Application Control policy has blocked this file. (0x800711C7)
+File name: 'D:\porograming\Rider\AutoSpare\AutoSpare.Web\bin\Debug\net10.0\AutoSpare.Domain.dll'
+   at System.Signature..ctor(IRuntimeMethodInfo methodHandle, RuntimeType declaringType)
+   at System.Reflection.RuntimeMethodInfo.<get_Signature>g__LazyCreateSignature|25_0()
+   at System.Reflection.RuntimeMethodInfo.FetchNonReturnParameters()
+   at System.Reflection.RuntimePropertyInfo.GetIndexParametersSpan()
+   at System.Reflection.RuntimePropertyInfo.GetIndexParameters()
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.DbSetFinder.<>c.<FindSetsNonCached>b__2_0(PropertyInfo p)
+   at System.Linq.Enumerable.ArrayWhereIterator`1.ToArray(ReadOnlySpan`1 source, Func`2 predicate)
+   at System.Linq.Enumerable.ArrayWhereIterator`1.ToArray()
+   at System.Linq.Enumerable.OrderedIterator`2.MoveNext()
+   at System.Linq.Enumerable.IteratorSelectIterator`2.ToArrayNoPresizing()
+   at System.Linq.Enumerable.IteratorSelectIterator`2.ToArray()
+   at System.Linq.Enumerable.ToArray[TSource](IEnumerable`1 source)
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.DbSetFinder.FindSetsNonCached(Type contextType)
+   at System.Collections.Concurrent.ConcurrentDictionary`2.GetOrAdd(TKey key, Func`2 valueFactory)
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.DbSetFinder.FindSets(Type contextType)
+   at Microsoft.EntityFrameworkCore.Internal.DbSetInitializer.InitializeSets(DbContext context)
+   at Microsoft.EntityFrameworkCore.DbContext..ctor(DbContextOptions options)
+   at AutoSpare.Infrastructure.Persistence.ApplicationDbContext..ctor(DbContextOptions`1 options) in D:\porograming\Rider\AutoSpare\AutoSpare.Infrastructure\Persistence\ApplicationDbContext.cs:line 18
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Constructor(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at System.Reflection.RuntimeConstructorInfo.Invoke(BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitConstructor(ConstructorCallSite constructorCallSite, RuntimeResolverContext context)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitCache(ServiceCallSite callSite, RuntimeResolverContext context, ServiceProviderEngineScope serviceProviderEngine, RuntimeResolverLock lockType)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitScopeCache(ServiceCallSite callSite, RuntimeResolverContext context)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSite(ServiceCallSite callSite, TArgument argument)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.Resolve(ServiceCallSite callSite, ServiceProviderEngineScope scope)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.DynamicServiceProviderEngine.<>c__DisplayClass2_0.<RealizeService>b__0(ServiceProviderEngineScope scope)
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider.GetService(ServiceIdentifier serviceIdentifier, ServiceProviderEngineScope serviceProviderEngineScope)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.ServiceProviderEngineScope.GetService(Type serviceType)
+   at Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService(IServiceProvider provider, Type serviceType)
+   at Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService[T](IServiceProvider provider)
+   at Program.<Main>$(String[] args) in D:\porograming\Rider\AutoSpare\AutoSpare.Web\Program.cs:line 148
+2026-10-21 12:43:01.560 +03:30 [FTL] AutoSpare Web Application terminated unexpectedly. 
+System.IO.FileLoadException: Could not load file or assembly 'D:\porograming\Rider\AutoSpare\AutoSpare.Web\bin\Debug\net10.0\AutoSpare.Domain.dll'. An Application Control policy has blocked this file. (0x800711C7)
+File name: 'D:\porograming\Rider\AutoSpare\AutoSpare.Web\bin\Debug\net10.0\AutoSpare.Domain.dll'
+   at System.Signature..ctor(IRuntimeMethodInfo methodHandle, RuntimeType declaringType)
+   at System.Reflection.RuntimeMethodInfo.<get_Signature>g__LazyCreateSignature|25_0()
+   at System.Reflection.RuntimeMethodInfo.FetchNonReturnParameters()
+   at System.Reflection.RuntimePropertyInfo.GetIndexParametersSpan()
+   at System.Reflection.RuntimePropertyInfo.GetIndexParameters()
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.DbSetFinder.<>c.<FindSetsNonCached>b__2_0(PropertyInfo p)
+   at System.Linq.Enumerable.ArrayWhereIterator`1.ToArray(ReadOnlySpan`1 source, Func`2 predicate)
+   at System.Linq.Enumerable.ArrayWhereIterator`1.ToArray()
+   at System.Linq.Enumerable.OrderedIterator`2.MoveNext()
+   at System.Linq.Enumerable.IteratorSelectIterator`2.ToArrayNoPresizing()
+   at System.Linq.Enumerable.IteratorSelectIterator`2.ToArray()
+   at System.Linq.Enumerable.ToArray[TSource](IEnumerable`1 source)
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.DbSetFinder.FindSetsNonCached(Type contextType)
+   at System.Collections.Concurrent.ConcurrentDictionary`2.GetOrAdd(TKey key, Func`2 valueFactory)
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.DbSetFinder.FindSets(Type contextType)
+   at Microsoft.EntityFrameworkCore.Internal.DbSetInitializer.InitializeSets(DbContext context)
+   at Microsoft.EntityFrameworkCore.DbContext..ctor(DbContextOptions options)
+   at AutoSpare.Infrastructure.Persistence.ApplicationDbContext..ctor(DbContextOptions`1 options) in D:\porograming\Rider\AutoSpare\AutoSpare.Infrastructure\Persistence\ApplicationDbContext.cs:line 18
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Constructor(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at System.Reflection.RuntimeConstructorInfo.Invoke(BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitConstructor(ConstructorCallSite constructorCallSite, RuntimeResolverContext context)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitCache(ServiceCallSite callSite, RuntimeResolverContext context, ServiceProviderEngineScope serviceProviderEngine, RuntimeResolverLock lockType)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitScopeCache(ServiceCallSite callSite, RuntimeResolverContext context)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSite(ServiceCallSite callSite, TArgument argument)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.Resolve(ServiceCallSite callSite, ServiceProviderEngineScope scope)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.DynamicServiceProviderEngine.<>c__DisplayClass2_0.<RealizeService>b__0(ServiceProviderEngineScope scope)
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider.GetService(ServiceIdentifier serviceIdentifier, ServiceProviderEngineScope serviceProviderEngineScope)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.ServiceProviderEngineScope.GetService(Type serviceType)
+   at Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService(IServiceProvider provider, Type serviceType)
+   at Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService[T](IServiceProvider provider)
+   at Program.<Main>$(String[] args) in D:\porograming\Rider\AutoSpare\AutoSpare.Web\Program.cs:line 148
+2026-10-21 12:44:03.440 +03:30 [ERR] An error occurred during database migration or seeding. 
+System.IO.FileLoadException: Could not load file or assembly 'D:\porograming\Rider\AutoSpare\AutoSpare.Web\bin\Debug\net10.0\AutoSpare.Domain.dll'. An Application Control policy has blocked this file. (0x800711C7)
+File name: 'D:\porograming\Rider\AutoSpare\AutoSpare.Web\bin\Debug\net10.0\AutoSpare.Domain.dll'
+   at System.Signature..ctor(IRuntimeMethodInfo methodHandle, RuntimeType declaringType)
+   at System.Reflection.RuntimeMethodInfo.<get_Signature>g__LazyCreateSignature|25_0()
+   at System.Reflection.RuntimeMethodInfo.FetchNonReturnParameters()
+   at System.Reflection.RuntimePropertyInfo.GetIndexParametersSpan()
+   at System.Reflection.RuntimePropertyInfo.GetIndexParameters()
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.DbSetFinder.<>c.<FindSetsNonCached>b__2_0(PropertyInfo p)
+   at System.Linq.Enumerable.ArrayWhereIterator`1.ToArray(ReadOnlySpan`1 source, Func`2 predicate)
+   at System.Linq.Enumerable.ArrayWhereIterator`1.ToArray()
+   at System.Linq.Enumerable.OrderedIterator`2.MoveNext()
+   at System.Linq.Enumerable.IteratorSelectIterator`2.ToArrayNoPresizing()
+   at System.Linq.Enumerable.IteratorSelectIterator`2.ToArray()
+   at System.Linq.Enumerable.ToArray[TSource](IEnumerable`1 source)
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.DbSetFinder.FindSetsNonCached(Type contextType)
+   at System.Collections.Concurrent.ConcurrentDictionary`2.GetOrAdd(TKey key, Func`2 valueFactory)
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.DbSetFinder.FindSets(Type contextType)
+   at Microsoft.EntityFrameworkCore.Internal.DbSetInitializer.InitializeSets(DbContext context)
+   at Microsoft.EntityFrameworkCore.DbContext..ctor(DbContextOptions options)
+   at AutoSpare.Infrastructure.Persistence.ApplicationDbContext..ctor(DbContextOptions`1 options) in D:\porograming\Rider\AutoSpare\AutoSpare.Infrastructure\Persistence\ApplicationDbContext.cs:line 18
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Constructor(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at System.Reflection.RuntimeConstructorInfo.Invoke(BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitConstructor(ConstructorCallSite constructorCallSite, RuntimeResolverContext context)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitCache(ServiceCallSite callSite, RuntimeResolverContext context, ServiceProviderEngineScope serviceProviderEngine, RuntimeResolverLock lockType)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitScopeCache(ServiceCallSite callSite, RuntimeResolverContext context)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSite(ServiceCallSite callSite, TArgument argument)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.Resolve(ServiceCallSite callSite, ServiceProviderEngineScope scope)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.DynamicServiceProviderEngine.<>c__DisplayClass2_0.<RealizeService>b__0(ServiceProviderEngineScope scope)
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider.GetService(ServiceIdentifier serviceIdentifier, ServiceProviderEngineScope serviceProviderEngineScope)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.ServiceProviderEngineScope.GetService(Type serviceType)
+   at Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService(IServiceProvider provider, Type serviceType)
+   at Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService[T](IServiceProvider provider)
+   at Program.<Main>$(String[] args) in D:\porograming\Rider\AutoSpare\AutoSpare.Web\Program.cs:line 148
+2026-10-21 12:44:03.526 +03:30 [FTL] AutoSpare Web Application terminated unexpectedly. 
+System.IO.FileLoadException: Could not load file or assembly 'D:\porograming\Rider\AutoSpare\AutoSpare.Web\bin\Debug\net10.0\AutoSpare.Domain.dll'. An Application Control policy has blocked this file. (0x800711C7)
+File name: 'D:\porograming\Rider\AutoSpare\AutoSpare.Web\bin\Debug\net10.0\AutoSpare.Domain.dll'
+   at System.Signature..ctor(IRuntimeMethodInfo methodHandle, RuntimeType declaringType)
+   at System.Reflection.RuntimeMethodInfo.<get_Signature>g__LazyCreateSignature|25_0()
+   at System.Reflection.RuntimeMethodInfo.FetchNonReturnParameters()
+   at System.Reflection.RuntimePropertyInfo.GetIndexParametersSpan()
+   at System.Reflection.RuntimePropertyInfo.GetIndexParameters()
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.DbSetFinder.<>c.<FindSetsNonCached>b__2_0(PropertyInfo p)
+   at System.Linq.Enumerable.ArrayWhereIterator`1.ToArray(ReadOnlySpan`1 source, Func`2 predicate)
+   at System.Linq.Enumerable.ArrayWhereIterator`1.ToArray()
+   at System.Linq.Enumerable.OrderedIterator`2.MoveNext()
+   at System.Linq.Enumerable.IteratorSelectIterator`2.ToArrayNoPresizing()
+   at System.Linq.Enumerable.IteratorSelectIterator`2.ToArray()
+   at System.Linq.Enumerable.ToArray[TSource](IEnumerable`1 source)
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.DbSetFinder.FindSetsNonCached(Type contextType)
+   at System.Collections.Concurrent.ConcurrentDictionary`2.GetOrAdd(TKey key, Func`2 valueFactory)
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.DbSetFinder.FindSets(Type contextType)
+   at Microsoft.EntityFrameworkCore.Internal.DbSetInitializer.InitializeSets(DbContext context)
+   at Microsoft.EntityFrameworkCore.DbContext..ctor(DbContextOptions options)
+   at AutoSpare.Infrastructure.Persistence.ApplicationDbContext..ctor(DbContextOptions`1 options) in D:\porograming\Rider\AutoSpare\AutoSpare.Infrastructure\Persistence\ApplicationDbContext.cs:line 18
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Constructor(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at System.Reflection.RuntimeConstructorInfo.Invoke(BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitConstructor(ConstructorCallSite constructorCallSite, RuntimeResolverContext context)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitCache(ServiceCallSite callSite, RuntimeResolverContext context, ServiceProviderEngineScope serviceProviderEngine, RuntimeResolverLock lockType)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitScopeCache(ServiceCallSite callSite, RuntimeResolverContext context)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSite(ServiceCallSite callSite, TArgument argument)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.Resolve(ServiceCallSite callSite, ServiceProviderEngineScope scope)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.DynamicServiceProviderEngine.<>c__DisplayClass2_0.<RealizeService>b__0(ServiceProviderEngineScope scope)
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider.GetService(ServiceIdentifier serviceIdentifier, ServiceProviderEngineScope serviceProviderEngineScope)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.ServiceProviderEngineScope.GetService(Type serviceType)
+   at Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService(IServiceProvider provider, Type serviceType)
+   at Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService[T](IServiceProvider provider)
+   at Program.<Main>$(String[] args) in D:\porograming\Rider\AutoSpare\AutoSpare.Web\Program.cs:line 148
+2026-10-21 12:44:28.112 +03:30 [ERR] An error occurred during database migration or seeding. 
+System.IO.FileLoadException: Could not load file or assembly 'D:\porograming\Rider\AutoSpare\AutoSpare.Web\bin\Debug\net10.0\AutoSpare.Domain.dll'. An Application Control policy has blocked this file. (0x800711C7)
+File name: 'D:\porograming\Rider\AutoSpare\AutoSpare.Web\bin\Debug\net10.0\AutoSpare.Domain.dll'
+   at System.Signature..ctor(IRuntimeMethodInfo methodHandle, RuntimeType declaringType)
+   at System.Reflection.RuntimeMethodInfo.<get_Signature>g__LazyCreateSignature|25_0()
+   at System.Reflection.RuntimeMethodInfo.FetchNonReturnParameters()
+   at System.Reflection.RuntimePropertyInfo.GetIndexParametersSpan()
+   at System.Reflection.RuntimePropertyInfo.GetIndexParameters()
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.DbSetFinder.<>c.<FindSetsNonCached>b__2_0(PropertyInfo p)
+   at System.Linq.Enumerable.ArrayWhereIterator`1.ToArray(ReadOnlySpan`1 source, Func`2 predicate)
+   at System.Linq.Enumerable.ArrayWhereIterator`1.ToArray()
+   at System.Linq.Enumerable.OrderedIterator`2.MoveNext()
+   at System.Linq.Enumerable.IteratorSelectIterator`2.ToArrayNoPresizing()
+   at System.Linq.Enumerable.IteratorSelectIterator`2.ToArray()
+   at System.Linq.Enumerable.ToArray[TSource](IEnumerable`1 source)
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.DbSetFinder.FindSetsNonCached(Type contextType)
+   at System.Collections.Concurrent.ConcurrentDictionary`2.GetOrAdd(TKey key, Func`2 valueFactory)
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.DbSetFinder.FindSets(Type contextType)
+   at Microsoft.EntityFrameworkCore.Internal.DbSetInitializer.InitializeSets(DbContext context)
+   at Microsoft.EntityFrameworkCore.DbContext..ctor(DbContextOptions options)
+   at AutoSpare.Infrastructure.Persistence.ApplicationDbContext..ctor(DbContextOptions`1 options) in D:\porograming\Rider\AutoSpare\AutoSpare.Infrastructure\Persistence\ApplicationDbContext.cs:line 18
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Constructor(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at System.Reflection.RuntimeConstructorInfo.Invoke(BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitConstructor(ConstructorCallSite constructorCallSite, RuntimeResolverContext context)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitCache(ServiceCallSite callSite, RuntimeResolverContext context, ServiceProviderEngineScope serviceProviderEngine, RuntimeResolverLock lockType)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitScopeCache(ServiceCallSite callSite, RuntimeResolverContext context)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSite(ServiceCallSite callSite, TArgument argument)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.Resolve(ServiceCallSite callSite, ServiceProviderEngineScope scope)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.DynamicServiceProviderEngine.<>c__DisplayClass2_0.<RealizeService>b__0(ServiceProviderEngineScope scope)
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider.GetService(ServiceIdentifier serviceIdentifier, ServiceProviderEngineScope serviceProviderEngineScope)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.ServiceProviderEngineScope.GetService(Type serviceType)
+   at Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService(IServiceProvider provider, Type serviceType)
+   at Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService[T](IServiceProvider provider)
+   at Program.<Main>$(String[] args) in D:\porograming\Rider\AutoSpare\AutoSpare.Web\Program.cs:line 148
+2026-10-21 12:44:28.165 +03:30 [FTL] AutoSpare Web Application terminated unexpectedly. 
+System.IO.FileLoadException: Could not load file or assembly 'D:\porograming\Rider\AutoSpare\AutoSpare.Web\bin\Debug\net10.0\AutoSpare.Domain.dll'. An Application Control policy has blocked this file. (0x800711C7)
+File name: 'D:\porograming\Rider\AutoSpare\AutoSpare.Web\bin\Debug\net10.0\AutoSpare.Domain.dll'
+   at System.Signature..ctor(IRuntimeMethodInfo methodHandle, RuntimeType declaringType)
+   at System.Reflection.RuntimeMethodInfo.<get_Signature>g__LazyCreateSignature|25_0()
+   at System.Reflection.RuntimeMethodInfo.FetchNonReturnParameters()
+   at System.Reflection.RuntimePropertyInfo.GetIndexParametersSpan()
+   at System.Reflection.RuntimePropertyInfo.GetIndexParameters()
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.DbSetFinder.<>c.<FindSetsNonCached>b__2_0(PropertyInfo p)
+   at System.Linq.Enumerable.ArrayWhereIterator`1.ToArray(ReadOnlySpan`1 source, Func`2 predicate)
+   at System.Linq.Enumerable.ArrayWhereIterator`1.ToArray()
+   at System.Linq.Enumerable.OrderedIterator`2.MoveNext()
+   at System.Linq.Enumerable.IteratorSelectIterator`2.ToArrayNoPresizing()
+   at System.Linq.Enumerable.IteratorSelectIterator`2.ToArray()
+   at System.Linq.Enumerable.ToArray[TSource](IEnumerable`1 source)
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.DbSetFinder.FindSetsNonCached(Type contextType)
+   at System.Collections.Concurrent.ConcurrentDictionary`2.GetOrAdd(TKey key, Func`2 valueFactory)
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.DbSetFinder.FindSets(Type contextType)
+   at Microsoft.EntityFrameworkCore.Internal.DbSetInitializer.InitializeSets(DbContext context)
+   at Microsoft.EntityFrameworkCore.DbContext..ctor(DbContextOptions options)
+   at AutoSpare.Infrastructure.Persistence.ApplicationDbContext..ctor(DbContextOptions`1 options) in D:\porograming\Rider\AutoSpare\AutoSpare.Infrastructure\Persistence\ApplicationDbContext.cs:line 18
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Constructor(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at System.Reflection.RuntimeConstructorInfo.Invoke(BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitConstructor(ConstructorCallSite constructorCallSite, RuntimeResolverContext context)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitCache(ServiceCallSite callSite, RuntimeResolverContext context, ServiceProviderEngineScope serviceProviderEngine, RuntimeResolverLock lockType)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitScopeCache(ServiceCallSite callSite, RuntimeResolverContext context)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSite(ServiceCallSite callSite, TArgument argument)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.Resolve(ServiceCallSite callSite, ServiceProviderEngineScope scope)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.DynamicServiceProviderEngine.<>c__DisplayClass2_0.<RealizeService>b__0(ServiceProviderEngineScope scope)
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider.GetService(ServiceIdentifier serviceIdentifier, ServiceProviderEngineScope serviceProviderEngineScope)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.ServiceProviderEngineScope.GetService(Type serviceType)
+   at Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService(IServiceProvider provider, Type serviceType)
+   at Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService[T](IServiceProvider provider)
+   at Program.<Main>$(String[] args) in D:\porograming\Rider\AutoSpare\AutoSpare.Web\Program.cs:line 148
+2026-10-21 12:46:56.349 +03:30 [ERR] An error occurred during database migration or seeding. 
+System.IO.FileLoadException: Could not load file or assembly 'D:\porograming\Rider\AutoSpare\AutoSpare.Web\bin\Debug\net10.0\AutoSpare.Domain.dll'. An Application Control policy has blocked this file. (0x800711C7)
+File name: 'D:\porograming\Rider\AutoSpare\AutoSpare.Web\bin\Debug\net10.0\AutoSpare.Domain.dll'
+   at System.Signature.Init(ObjectHandleOnStack _this, Void* pCorSig, Int32 cCorSig, RuntimeFieldHandleInternal fieldHandle, RuntimeMethodHandleInternal methodHandle)
+   at System.Signature.Init(ObjectHandleOnStack _this, Void* pCorSig, Int32 cCorSig, RuntimeFieldHandleInternal fieldHandle, RuntimeMethodHandleInternal methodHandle)
+   at System.Reflection.RuntimeMethodInfo.<get_Signature>g__LazyCreateSignature|25_0()
+   at System.Reflection.RuntimeMethodInfo.FetchNonReturnParameters()
+   at System.Reflection.RuntimePropertyInfo.GetIndexParametersSpan()
+   at System.Reflection.RuntimePropertyInfo.GetIndexParameters()
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.DbSetFinder.<>c.<FindSetsNonCached>b__2_0(PropertyInfo p)
+   at System.Linq.Enumerable.ArrayWhereIterator`1.ToArray(ReadOnlySpan`1 source, Func`2 predicate)
+   at System.Linq.Enumerable.ArrayWhereIterator`1.ToArray()
+   at System.Linq.Enumerable.OrderedIterator`2.MoveNext()
+   at System.Linq.Enumerable.IteratorSelectIterator`2.ToArrayNoPresizing()
+   at System.Linq.Enumerable.IteratorSelectIterator`2.ToArray()
+   at System.Linq.Enumerable.ToArray[TSource](IEnumerable`1 source)
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.DbSetFinder.FindSetsNonCached(Type contextType)
+   at System.Collections.Concurrent.ConcurrentDictionary`2.GetOrAdd(TKey key, Func`2 valueFactory)
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.DbSetFinder.FindSets(Type contextType)
+   at Microsoft.EntityFrameworkCore.Internal.DbSetInitializer.InitializeSets(DbContext context)
+   at Microsoft.EntityFrameworkCore.DbContext..ctor(DbContextOptions options)
+   at AutoSpare.Infrastructure.Persistence.ApplicationDbContext..ctor(DbContextOptions`1 options) in D:\porograming\Rider\AutoSpare\AutoSpare.Infrastructure\Persistence\ApplicationDbContext.cs:line 18
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Constructor(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at System.Reflection.RuntimeConstructorInfo.Invoke(BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitConstructor(ConstructorCallSite constructorCallSite, RuntimeResolverContext context)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitCache(ServiceCallSite callSite, RuntimeResolverContext context, ServiceProviderEngineScope serviceProviderEngine, RuntimeResolverLock lockType)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitScopeCache(ServiceCallSite callSite, RuntimeResolverContext context)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSite(ServiceCallSite callSite, TArgument argument)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.Resolve(ServiceCallSite callSite, ServiceProviderEngineScope scope)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.DynamicServiceProviderEngine.<>c__DisplayClass2_0.<RealizeService>b__0(ServiceProviderEngineScope scope)
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider.GetService(ServiceIdentifier serviceIdentifier, ServiceProviderEngineScope serviceProviderEngineScope)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.ServiceProviderEngineScope.GetService(Type serviceType)
+   at Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService(IServiceProvider provider, Type serviceType)
+   at Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService[T](IServiceProvider provider)
+   at Program.<Main>$(String[] args) in D:\porograming\Rider\AutoSpare\AutoSpare.Web\Program.cs:line 148
+2026-10-21 12:46:56.395 +03:30 [FTL] AutoSpare Web Application terminated unexpectedly. 
+System.IO.FileLoadException: Could not load file or assembly 'D:\porograming\Rider\AutoSpare\AutoSpare.Web\bin\Debug\net10.0\AutoSpare.Domain.dll'. An Application Control policy has blocked this file. (0x800711C7)
+File name: 'D:\porograming\Rider\AutoSpare\AutoSpare.Web\bin\Debug\net10.0\AutoSpare.Domain.dll'
+   at System.Signature.Init(ObjectHandleOnStack _this, Void* pCorSig, Int32 cCorSig, RuntimeFieldHandleInternal fieldHandle, RuntimeMethodHandleInternal methodHandle)
+   at System.Signature.Init(ObjectHandleOnStack _this, Void* pCorSig, Int32 cCorSig, RuntimeFieldHandleInternal fieldHandle, RuntimeMethodHandleInternal methodHandle)
+   at System.Reflection.RuntimeMethodInfo.<get_Signature>g__LazyCreateSignature|25_0()
+   at System.Reflection.RuntimeMethodInfo.FetchNonReturnParameters()
+   at System.Reflection.RuntimePropertyInfo.GetIndexParametersSpan()
+   at System.Reflection.RuntimePropertyInfo.GetIndexParameters()
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.DbSetFinder.<>c.<FindSetsNonCached>b__2_0(PropertyInfo p)
+   at System.Linq.Enumerable.ArrayWhereIterator`1.ToArray(ReadOnlySpan`1 source, Func`2 predicate)
+   at System.Linq.Enumerable.ArrayWhereIterator`1.ToArray()
+   at System.Linq.Enumerable.OrderedIterator`2.MoveNext()
+   at System.Linq.Enumerable.IteratorSelectIterator`2.ToArrayNoPresizing()
+   at System.Linq.Enumerable.IteratorSelectIterator`2.ToArray()
+   at System.Linq.Enumerable.ToArray[TSource](IEnumerable`1 source)
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.DbSetFinder.FindSetsNonCached(Type contextType)
+   at System.Collections.Concurrent.ConcurrentDictionary`2.GetOrAdd(TKey key, Func`2 valueFactory)
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.DbSetFinder.FindSets(Type contextType)
+   at Microsoft.EntityFrameworkCore.Internal.DbSetInitializer.InitializeSets(DbContext context)
+   at Microsoft.EntityFrameworkCore.DbContext..ctor(DbContextOptions options)
+   at AutoSpare.Infrastructure.Persistence.ApplicationDbContext..ctor(DbContextOptions`1 options) in D:\porograming\Rider\AutoSpare\AutoSpare.Infrastructure\Persistence\ApplicationDbContext.cs:line 18
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Constructor(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at System.Reflection.RuntimeConstructorInfo.Invoke(BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitConstructor(ConstructorCallSite constructorCallSite, RuntimeResolverContext context)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitCache(ServiceCallSite callSite, RuntimeResolverContext context, ServiceProviderEngineScope serviceProviderEngine, RuntimeResolverLock lockType)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitScopeCache(ServiceCallSite callSite, RuntimeResolverContext context)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSite(ServiceCallSite callSite, TArgument argument)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.Resolve(ServiceCallSite callSite, ServiceProviderEngineScope scope)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.DynamicServiceProviderEngine.<>c__DisplayClass2_0.<RealizeService>b__0(ServiceProviderEngineScope scope)
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider.GetService(ServiceIdentifier serviceIdentifier, ServiceProviderEngineScope serviceProviderEngineScope)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.ServiceProviderEngineScope.GetService(Type serviceType)
+   at Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService(IServiceProvider provider, Type serviceType)
+   at Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService[T](IServiceProvider provider)
+   at Program.<Main>$(String[] args) in D:\porograming\Rider\AutoSpare\AutoSpare.Web\Program.cs:line 148
+2026-10-21 14:05:09.839 +03:30 [ERR] An error occurred during database migration or seeding. 
+System.IO.FileLoadException: Could not load file or assembly 'D:\porograming\Rider\AutoSpare\AutoSpare.Web\bin\Debug\net10.0\AutoSpare.Domain.dll'. An Application Control policy has blocked this file. (0x800711C7)
+File name: 'D:\porograming\Rider\AutoSpare\AutoSpare.Web\bin\Debug\net10.0\AutoSpare.Domain.dll'
+   at System.Signature.Init(ObjectHandleOnStack _this, Void* pCorSig, Int32 cCorSig, RuntimeFieldHandleInternal fieldHandle, RuntimeMethodHandleInternal methodHandle)
+   at System.Signature.Init(ObjectHandleOnStack _this, Void* pCorSig, Int32 cCorSig, RuntimeFieldHandleInternal fieldHandle, RuntimeMethodHandleInternal methodHandle)
+   at System.Reflection.RuntimeMethodInfo.<get_Signature>g__LazyCreateSignature|25_0()
+   at System.Reflection.RuntimeMethodInfo.FetchNonReturnParameters()
+   at System.Reflection.RuntimePropertyInfo.GetIndexParametersSpan()
+   at System.Reflection.RuntimePropertyInfo.GetIndexParameters()
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.DbSetFinder.<>c.<FindSetsNonCached>b__2_0(PropertyInfo p)
+   at System.Linq.Enumerable.ArrayWhereIterator`1.ToArray(ReadOnlySpan`1 source, Func`2 predicate)
+   at System.Linq.Enumerable.ArrayWhereIterator`1.ToArray()
+   at System.Linq.Enumerable.OrderedIterator`2.MoveNext()
+   at System.Linq.Enumerable.IteratorSelectIterator`2.ToArrayNoPresizing()
+   at System.Linq.Enumerable.IteratorSelectIterator`2.ToArray()
+   at System.Linq.Enumerable.ToArray[TSource](IEnumerable`1 source)
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.DbSetFinder.FindSetsNonCached(Type contextType)
+   at System.Collections.Concurrent.ConcurrentDictionary`2.GetOrAdd(TKey key, Func`2 valueFactory)
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.DbSetFinder.FindSets(Type contextType)
+   at Microsoft.EntityFrameworkCore.Internal.DbSetInitializer.InitializeSets(DbContext context)
+   at Microsoft.EntityFrameworkCore.DbContext..ctor(DbContextOptions options)
+   at AutoSpare.Infrastructure.Persistence.ApplicationDbContext..ctor(DbContextOptions`1 options) in D:\porograming\Rider\AutoSpare\AutoSpare.Infrastructure\Persistence\ApplicationDbContext.cs:line 18
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Constructor(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at System.Reflection.RuntimeConstructorInfo.Invoke(BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitConstructor(ConstructorCallSite constructorCallSite, RuntimeResolverContext context)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitCache(ServiceCallSite callSite, RuntimeResolverContext context, ServiceProviderEngineScope serviceProviderEngine, RuntimeResolverLock lockType)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitScopeCache(ServiceCallSite callSite, RuntimeResolverContext context)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSite(ServiceCallSite callSite, TArgument argument)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.Resolve(ServiceCallSite callSite, ServiceProviderEngineScope scope)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.DynamicServiceProviderEngine.<>c__DisplayClass2_0.<RealizeService>b__0(ServiceProviderEngineScope scope)
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider.GetService(ServiceIdentifier serviceIdentifier, ServiceProviderEngineScope serviceProviderEngineScope)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.ServiceProviderEngineScope.GetService(Type serviceType)
+   at Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService(IServiceProvider provider, Type serviceType)
+   at Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService[T](IServiceProvider provider)
+   at Program.<Main>$(String[] args) in D:\porograming\Rider\AutoSpare\AutoSpare.Web\Program.cs:line 148
+2026-10-21 14:05:09.932 +03:30 [FTL] AutoSpare Web Application terminated unexpectedly. 
+System.IO.FileLoadException: Could not load file or assembly 'D:\porograming\Rider\AutoSpare\AutoSpare.Web\bin\Debug\net10.0\AutoSpare.Domain.dll'. An Application Control policy has blocked this file. (0x800711C7)
+File name: 'D:\porograming\Rider\AutoSpare\AutoSpare.Web\bin\Debug\net10.0\AutoSpare.Domain.dll'
+   at System.Signature.Init(ObjectHandleOnStack _this, Void* pCorSig, Int32 cCorSig, RuntimeFieldHandleInternal fieldHandle, RuntimeMethodHandleInternal methodHandle)
+   at System.Signature.Init(ObjectHandleOnStack _this, Void* pCorSig, Int32 cCorSig, RuntimeFieldHandleInternal fieldHandle, RuntimeMethodHandleInternal methodHandle)
+   at System.Reflection.RuntimeMethodInfo.<get_Signature>g__LazyCreateSignature|25_0()
+   at System.Reflection.RuntimeMethodInfo.FetchNonReturnParameters()
+   at System.Reflection.RuntimePropertyInfo.GetIndexParametersSpan()
+   at System.Reflection.RuntimePropertyInfo.GetIndexParameters()
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.DbSetFinder.<>c.<FindSetsNonCached>b__2_0(PropertyInfo p)
+   at System.Linq.Enumerable.ArrayWhereIterator`1.ToArray(ReadOnlySpan`1 source, Func`2 predicate)
+   at System.Linq.Enumerable.ArrayWhereIterator`1.ToArray()
+   at System.Linq.Enumerable.OrderedIterator`2.MoveNext()
+   at System.Linq.Enumerable.IteratorSelectIterator`2.ToArrayNoPresizing()
+   at System.Linq.Enumerable.IteratorSelectIterator`2.ToArray()
+   at System.Linq.Enumerable.ToArray[TSource](IEnumerable`1 source)
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.DbSetFinder.FindSetsNonCached(Type contextType)
+   at System.Collections.Concurrent.ConcurrentDictionary`2.GetOrAdd(TKey key, Func`2 valueFactory)
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.DbSetFinder.FindSets(Type contextType)
+   at Microsoft.EntityFrameworkCore.Internal.DbSetInitializer.InitializeSets(DbContext context)
+   at Microsoft.EntityFrameworkCore.DbContext..ctor(DbContextOptions options)
+   at AutoSpare.Infrastructure.Persistence.ApplicationDbContext..ctor(DbContextOptions`1 options) in D:\porograming\Rider\AutoSpare\AutoSpare.Infrastructure\Persistence\ApplicationDbContext.cs:line 18
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Constructor(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at System.Reflection.RuntimeConstructorInfo.Invoke(BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitConstructor(ConstructorCallSite constructorCallSite, RuntimeResolverContext context)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitCache(ServiceCallSite callSite, RuntimeResolverContext context, ServiceProviderEngineScope serviceProviderEngine, RuntimeResolverLock lockType)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitScopeCache(ServiceCallSite callSite, RuntimeResolverContext context)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSite(ServiceCallSite callSite, TArgument argument)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.Resolve(ServiceCallSite callSite, ServiceProviderEngineScope scope)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.DynamicServiceProviderEngine.<>c__DisplayClass2_0.<RealizeService>b__0(ServiceProviderEngineScope scope)
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider.GetService(ServiceIdentifier serviceIdentifier, ServiceProviderEngineScope serviceProviderEngineScope)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.ServiceProviderEngineScope.GetService(Type serviceType)
+   at Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService(IServiceProvider provider, Type serviceType)
+   at Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService[T](IServiceProvider provider)
+   at Program.<Main>$(String[] args) in D:\porograming\Rider\AutoSpare\AutoSpare.Web\Program.cs:line 148
+2026-10-21 14:22:50.480 +03:30 [WRN] No store type was specified for the decimal property 'UnitPurchasePrice' on entity type 'SaleItem'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'. 
+2026-10-21 14:22:51.809 +03:30 [INF] Storage directories are ready. ImagesPath: D:\porograming\Rider\AutoSpare\AutoSpare.Web\wwwroot\Uploads\Images, BackupPath: D:\AutoSpareBackups 
+2026-10-21 14:22:52.354 +03:30 [INF] HTTP GET / responded 302 in 14.7739 ms 
+2026-10-21 14:22:52.722 +03:30 [INF] HTTP GET /login responded 200 in 352.5934 ms 
+2026-10-21 14:22:52.752 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 6.4138 ms 
+2026-10-21 14:22:52.806 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 60.9460 ms 
+2026-10-21 14:22:52.806 +03:30 [INF] HTTP GET /app.css responded 200 in 61.6302 ms 
+2026-10-21 14:22:52.811 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 66.2687 ms 
+2026-10-21 14:22:52.882 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 1.3567 ms 
+2026-10-21 14:22:52.897 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 0.8981 ms 
+2026-10-21 14:22:52.916 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 13.8035 ms 
+2026-10-21 14:22:52.944 +03:30 [INF] HTTP GET /favicon.ico responded 404 in 0.2479 ms 
+2026-10-21 14:22:52.947 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 3.9017 ms 
+2026-10-21 14:22:52.988 +03:30 [INF] HTTP GET /not-found responded 302 in 1.5391 ms 
+2026-10-21 14:22:53.008 +03:30 [INF] HTTP GET /login responded 200 in 17.9247 ms 
+2026-10-21 14:23:01.736 +03:30 [INF] HTTP POST /api/auth/login responded 302 in 453.0572 ms 
+2026-10-21 14:23:02.121 +03:30 [INF] HTTP GET / responded 200 in 379.6524 ms 
+2026-10-21 14:23:02.141 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 0.6987 ms 
+2026-10-21 14:23:02.145 +03:30 [INF] HTTP GET /app.css responded 200 in 3.5458 ms 
+2026-10-21 14:23:02.146 +03:30 [INF] HTTP GET /_blazor responded 101 in 9191.8175 ms 
+2026-10-21 14:23:02.152 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 7.6598 ms 
+2026-10-21 14:23:02.154 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 4.6015 ms 
+2026-10-21 14:23:02.169 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 38.2121 ms 
+2026-10-21 14:23:02.192 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.4335 ms 
+2026-10-21 14:23:02.229 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 1.0967 ms 
+2026-10-21 14:23:02.238 +03:30 [INF] HTTP GET /favicon.ico responded 404 in 0.7224 ms 
+2026-10-21 14:23:02.241 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 3.2198 ms 
+2026-10-21 14:23:02.276 +03:30 [INF] HTTP GET /not-found responded 404 in 20.7662 ms 
+2026-10-21 14:23:14.349 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 4.1935 ms 
+2026-10-21 14:23:14.352 +03:30 [INF] HTTP GET /_blazor responded 101 in 12095.5993 ms 
+2026-10-21 15:03:37.508 +03:30 [WRN] No store type was specified for the decimal property 'UnitPurchasePrice' on entity type 'SaleItem'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'. 
+2026-10-21 15:03:38.637 +03:30 [INF] Storage directories are ready. ImagesPath: D:\porograming\Rider\AutoSpare\AutoSpare.Web\wwwroot\Uploads\Images, BackupPath: D:\AutoSpareBackups 
+2026-10-21 15:03:38.974 +03:30 [INF] HTTP GET / responded 302 in 16.3694 ms 
+2026-10-21 15:03:39.345 +03:30 [INF] HTTP GET /login responded 200 in 353.3179 ms 
+2026-10-21 15:03:39.385 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 8.0590 ms 
+2026-10-21 15:03:39.399 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 22.5217 ms 
+2026-10-21 15:03:39.399 +03:30 [INF] HTTP GET /app.css responded 200 in 22.4943 ms 
+2026-10-21 15:03:39.403 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 25.3336 ms 
+2026-10-21 15:03:39.490 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 0.5754 ms 
+2026-10-21 15:03:39.490 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.5753 ms 
+2026-10-21 15:03:39.523 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 19.7322 ms 
+2026-10-21 15:03:39.539 +03:30 [INF] HTTP GET /favicon.ico responded 404 in 0.3935 ms 
+2026-10-21 15:03:39.541 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 4.4564 ms 
+2026-10-21 15:03:39.602 +03:30 [INF] HTTP GET /not-found responded 302 in 2.1605 ms 
+2026-10-21 15:03:39.628 +03:30 [INF] HTTP GET /login responded 200 in 23.1695 ms 
+2026-10-21 15:03:42.042 +03:30 [INF] HTTP POST /api/auth/login responded 302 in 305.5781 ms 
+2026-10-21 15:03:42.476 +03:30 [INF] HTTP GET / responded 200 in 428.1907 ms 
+2026-10-21 15:03:42.499 +03:30 [INF] HTTP GET /_blazor responded 101 in 2948.5446 ms 
+2026-10-21 15:03:42.503 +03:30 [INF] HTTP GET /app.css responded 200 in 1.6168 ms 
+2026-10-21 15:03:42.505 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 1.8150 ms 
+2026-10-21 15:03:42.507 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 3.4147 ms 
+2026-10-21 15:03:42.514 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 6.2104 ms 
+2026-10-21 15:03:42.531 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 45.7722 ms 
+2026-10-21 15:03:42.564 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.7071 ms 
+2026-10-21 15:03:42.595 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 1.6580 ms 
+2026-10-21 15:03:42.603 +03:30 [INF] HTTP GET /favicon.ico responded 404 in 0.4353 ms 
+2026-10-21 15:03:42.604 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 1.2045 ms 
+2026-10-21 15:03:42.636 +03:30 [INF] HTTP GET /not-found responded 404 in 21.3867 ms 
+2026-10-21 15:04:12.672 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 0.4432 ms 
+2026-10-21 15:04:22.937 +03:30 [INF] HTTP GET /customers responded 404 in 0.3895 ms 
+2026-10-21 15:04:22.944 +03:30 [INF] HTTP GET /not-found responded 404 in 7.3972 ms 
+2026-10-21 15:04:22.954 +03:30 [INF] HTTP GET /_blazor responded 101 in 40329.1568 ms 
+2026-10-21 15:04:22.962 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 0.8860 ms 
+2026-10-21 15:04:22.963 +03:30 [INF] HTTP GET /app.css responded 200 in 1.7401 ms 
+2026-10-21 15:04:22.967 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 3.2185 ms 
+2026-10-21 15:04:22.971 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 8.2812 ms 
+2026-10-21 15:04:22.981 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.5928 ms 
+2026-10-21 15:04:22.982 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 0.6957 ms 
+2026-10-21 15:04:22.988 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 34.3271 ms 
+2026-10-21 15:04:23.012 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 0.7392 ms 
+2026-10-21 15:04:23.019 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.4704 ms 
+2026-10-21 15:04:36.932 +03:30 [INF] HTTP GET /_blazor responded 101 in 13904.5396 ms 
+2026-10-21 15:04:36.933 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 3.3463 ms 
+2026-10-21 18:09:39.484 +03:30 [WRN] No store type was specified for the decimal property 'UnitPurchasePrice' on entity type 'SaleItem'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'. 
+2026-10-21 18:09:40.264 +03:30 [INF] Storage directories are ready. ImagesPath: D:\porograming\Rider\AutoSpare\AutoSpare.Web\wwwroot\Uploads\Images, BackupPath: D:\AutoSpareBackups 
+2026-10-21 18:09:40.532 +03:30 [INF] HTTP GET / responded 302 in 13.9549 ms 
+2026-10-21 18:09:40.827 +03:30 [INF] HTTP GET /login responded 200 in 273.4254 ms 
+2026-10-21 18:09:40.858 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 7.9491 ms 
+2026-10-21 18:09:40.870 +03:30 [INF] HTTP GET /app.css responded 200 in 20.3339 ms 
+2026-10-21 18:09:40.870 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 20.5572 ms 
+2026-10-21 18:09:40.874 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 24.0932 ms 
+2026-10-21 18:09:40.947 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 0.4103 ms 
+2026-10-21 18:09:40.947 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.4724 ms 
+2026-10-21 18:09:40.969 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 5.8487 ms 
+2026-10-21 18:09:40.996 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 2.6904 ms 
+2026-10-21 18:09:50.216 +03:30 [INF] HTTP POST /api/auth/login responded 302 in 247.7798 ms 
+2026-10-21 18:09:50.556 +03:30 [INF] HTTP GET / responded 200 in 335.2462 ms 
+2026-10-21 18:09:50.576 +03:30 [INF] HTTP GET /app.css responded 200 in 4.0740 ms 
+2026-10-21 18:09:50.578 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 1.1110 ms 
+2026-10-21 18:09:50.581 +03:30 [INF] HTTP GET /_blazor responded 101 in 9578.9478 ms 
+2026-10-21 18:09:50.583 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 2.1732 ms 
+2026-10-21 18:09:50.586 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 4.5100 ms 
+2026-10-21 18:09:50.605 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 39.7578 ms 
+2026-10-21 18:09:50.615 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.4093 ms 
+2026-10-21 18:09:50.647 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 1.5159 ms 
+2026-10-21 18:09:50.654 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.7428 ms 
+2026-10-21 18:10:00.030 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 0.8117 ms 
+2026-10-21 18:10:36.215 +03:30 [INF] HTTP GET /_blazor responded 101 in 45548.6866 ms 
+2026-10-21 18:48:06.183 +03:30 [WRN] No store type was specified for the decimal property 'UnitPurchasePrice' on entity type 'SaleItem'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'. 
+2026-10-21 18:48:06.918 +03:30 [INF] Storage directories are ready. ImagesPath: D:\porograming\Rider\AutoSpare\AutoSpare.Web\wwwroot\Uploads\Images, BackupPath: D:\AutoSpareBackups 
+2026-10-21 18:48:07.773 +03:30 [INF] HTTP GET / responded 200 in 613.5294 ms 
+2026-10-21 18:48:07.802 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 7.6122 ms 
+2026-10-21 18:48:07.814 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 19.0536 ms 
+2026-10-21 18:48:07.814 +03:30 [INF] HTTP GET /app.css responded 200 in 19.3133 ms 
+2026-10-21 18:48:07.820 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 25.1910 ms 
+2026-10-21 18:48:07.899 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 3.4261 ms 
+2026-10-21 18:48:07.917 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 6.5646 ms 
+2026-10-21 18:48:07.946 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 7.6064 ms 
+2026-10-21 18:48:23.685 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 0.6179 ms 
+2026-10-21 18:48:30.694 +03:30 [INF] HTTP GET /sales/print/2806454f-77e9-4ddc-9d7c-960c92035782 responded 200 in 23.6749 ms 
+2026-10-21 18:48:30.709 +03:30 [INF] HTTP GET /app.css responded 200 in 1.4470 ms 
+2026-10-21 18:48:30.711 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 0.9599 ms 
+2026-10-21 18:48:30.713 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 1.8849 ms 
+2026-10-21 18:48:30.714 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 3.2737 ms 
+2026-10-21 18:48:30.785 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.4483 ms 
+2026-10-21 18:48:30.785 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 0.4494 ms 
+2026-10-21 18:48:30.819 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 1.1867 ms 
+2026-10-21 18:48:30.831 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.9744 ms 
+2026-10-21 18:49:00.977 +03:30 [INF] HTTP GET /_blazor responded 101 in 30136.5000 ms 
+2026-10-21 18:49:14.315 +03:30 [INF] HTTP GET /_blazor responded 101 in 66363.7647 ms 
+2026-10-21 18:49:14.321 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 19.0295 ms 
+2026-10-21 18:49:14.338 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 32.7851 ms 
+2026-10-21 18:50:37.781 +03:30 [WRN] No store type was specified for the decimal property 'UnitPurchasePrice' on entity type 'SaleItem'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'. 
+2026-10-21 18:50:38.336 +03:30 [INF] Storage directories are ready. ImagesPath: D:\porograming\Rider\AutoSpare\AutoSpare.Web\wwwroot\Uploads\Images, BackupPath: D:\AutoSpareBackups 
+2026-10-21 18:50:38.539 +03:30 [INF] HTTP GET / responded 302 in 15.8228 ms 
+2026-10-21 18:50:38.794 +03:30 [INF] HTTP GET /login responded 200 in 242.7039 ms 
+2026-10-21 18:50:38.820 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 5.4735 ms 
+2026-10-21 18:50:38.827 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 13.1105 ms 
+2026-10-21 18:50:38.827 +03:30 [INF] HTTP GET /app.css responded 200 in 13.0929 ms 
+2026-10-21 18:50:38.830 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 16.1558 ms 
+2026-10-21 18:50:38.889 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 0.4210 ms 
+2026-10-21 18:50:38.889 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.4184 ms 
+2026-10-21 18:50:38.910 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 7.5019 ms 
+2026-10-21 18:50:38.928 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 5.5214 ms 
+2026-10-21 18:50:42.065 +03:30 [INF] HTTP POST /api/auth/login responded 302 in 536.3763 ms 
+2026-10-21 18:50:42.491 +03:30 [INF] HTTP GET / responded 200 in 416.5076 ms 
+2026-10-21 18:50:42.511 +03:30 [INF] HTTP GET /app.css responded 200 in 2.3953 ms 
+2026-10-21 18:50:42.514 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 0.4180 ms 
+2026-10-21 18:50:42.515 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 1.7146 ms 
+2026-10-21 18:50:42.518 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 4.7702 ms 
+2026-10-21 18:50:42.520 +03:30 [INF] HTTP GET /_blazor responded 101 in 3583.3606 ms 
+2026-10-21 18:50:42.531 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 28.4457 ms 
+2026-10-21 18:50:42.549 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.4866 ms 
+2026-10-21 18:50:42.576 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 1.5271 ms 
+2026-10-21 18:50:42.585 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 1.5305 ms 
+2026-10-21 18:52:05.426 +03:30 [INF] HTTP GET /_blazor responded 101 in 82828.8781 ms 
+2026-10-21 18:52:19.085 +03:30 [WRN] No store type was specified for the decimal property 'UnitPurchasePrice' on entity type 'SaleItem'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'. 
+2026-10-21 18:52:19.714 +03:30 [INF] Storage directories are ready. ImagesPath: D:\porograming\Rider\AutoSpare\AutoSpare.Web\wwwroot\Uploads\Images, BackupPath: D:\AutoSpareBackups 
+2026-10-21 18:52:19.957 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 42.7672 ms 
+2026-10-21 18:52:20.608 +03:30 [INF] HTTP GET / responded 200 in 695.3687 ms 
+2026-10-21 18:52:20.627 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 5.3697 ms 
+2026-10-21 18:52:20.634 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 11.6802 ms 
+2026-10-21 18:52:20.635 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 13.4135 ms 
+2026-10-21 18:52:20.638 +03:30 [INF] HTTP GET /app.css responded 200 in 11.7304 ms 
+2026-10-21 18:52:20.711 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 1.6301 ms 
+2026-10-21 18:52:20.768 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 5.7604 ms 
+2026-10-21 18:52:20.774 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 1.0470 ms 
+2026-10-21 18:52:20.776 +03:30 [INF] HTTP GET / responded 200 in 167.3786 ms 
+2026-10-21 18:52:20.793 +03:30 [INF] HTTP GET /_blazor responded 101 in 815.5353 ms 
+2026-10-21 18:52:20.793 +03:30 [INF] HTTP GET /app.css responded 200 in 1.5898 ms 
+2026-10-21 18:52:20.798 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 0.6944 ms 
+2026-10-21 18:52:20.800 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 2.2535 ms 
+2026-10-21 18:52:20.800 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 4.4888 ms 
+2026-10-21 18:52:20.813 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 27.3172 ms 
+2026-10-21 18:52:20.831 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 0.7743 ms 
+2026-10-21 18:52:20.833 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.6159 ms 
+2026-10-21 18:52:20.837 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.4211 ms 
+2026-10-21 18:54:31.878 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 0.5929 ms 
+2026-10-21 18:54:34.154 +03:30 [INF] HTTP GET /sales/print/2806454f-77e9-4ddc-9d7c-960c92035782 responded 200 in 24.8842 ms 
+2026-10-21 18:54:34.167 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 0.5912 ms 
+2026-10-21 18:54:34.168 +03:30 [INF] HTTP GET /app.css responded 200 in 1.6637 ms 
+2026-10-21 18:54:34.168 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 1.9315 ms 
+2026-10-21 18:54:34.175 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 8.8780 ms 
+2026-10-21 18:54:34.258 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.4988 ms 
+2026-10-21 18:54:34.258 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 0.4994 ms 
+2026-10-21 18:54:34.291 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 0.5448 ms 
+2026-10-21 18:54:34.300 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.5063 ms 
+2026-10-21 18:55:04.767 +03:30 [INF] HTTP GET /_blazor responded 101 in 30460.1466 ms 
+2026-10-21 19:06:22.765 +03:30 [INF] HTTP GET /_blazor responded 101 in 841915.8429 ms 
+2026-10-21 19:10:00.755 +03:30 [INF] HTTP GET /_blazor responded 101 in 1059974.8016 ms 
+2026-10-21 19:48:22.158 +03:30 [WRN] No store type was specified for the decimal property 'UnitPurchasePrice' on entity type 'SaleItem'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'. 
+2026-10-21 19:48:22.715 +03:30 [INF] Storage directories are ready. ImagesPath: D:\porograming\Rider\AutoSpare\AutoSpare.Web\wwwroot\Uploads\Images, BackupPath: D:\AutoSpareBackups 
+2026-10-21 19:48:23.481 +03:30 [INF] HTTP GET / responded 200 in 556.5155 ms 
+2026-10-21 19:48:23.504 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 6.4870 ms 
+2026-10-21 19:48:23.513 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 15.2996 ms 
+2026-10-21 19:48:23.513 +03:30 [INF] HTTP GET /app.css responded 200 in 15.2932 ms 
+2026-10-21 19:48:23.515 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 17.3383 ms 
+2026-10-21 19:48:23.594 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 4.2392 ms 
+2026-10-21 19:48:23.628 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 7.6565 ms 
+2026-10-21 19:48:23.644 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 7.2792 ms 
+2026-10-21 19:48:34.054 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 0.5829 ms 
+2026-10-21 19:48:35.948 +03:30 [INF] HTTP GET /sales/print/2806454f-77e9-4ddc-9d7c-960c92035782 responded 200 in 34.9526 ms 
+2026-10-21 19:48:35.968 +03:30 [INF] HTTP GET /app.css responded 200 in 3.3899 ms 
+2026-10-21 19:48:35.970 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 2.2122 ms 
+2026-10-21 19:48:35.971 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 1.9458 ms 
+2026-10-21 19:48:35.976 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 7.0527 ms 
+2026-10-21 19:48:36.052 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 0.5811 ms 
+2026-10-21 19:48:36.052 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.5331 ms 
+2026-10-21 19:48:36.082 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 0.8336 ms 
+2026-10-21 19:48:36.093 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 1.1088 ms 
+2026-10-21 19:49:06.749 +03:30 [INF] HTTP GET /_blazor responded 101 in 30647.3154 ms 
+2026-10-21 19:49:55.837 +03:30 [INF] HTTP GET /sales/print-receipt/2806454f-77e9-4ddc-9d7c-960c92035782 responded 200 in 30.2474 ms 
+2026-10-21 19:49:55.854 +03:30 [INF] HTTP GET /_blazor responded 101 in 92204.1686 ms 
+2026-10-21 19:49:55.858 +03:30 [INF] HTTP GET /app.css responded 200 in 2.7349 ms 
+2026-10-21 19:49:55.859 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 2.1043 ms 
+2026-10-21 19:49:55.859 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 0.8090 ms 
+2026-10-21 19:49:55.875 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 16.6082 ms 
+2026-10-21 19:49:55.912 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 63.7361 ms 
+2026-10-21 19:49:55.930 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.6817 ms 
+2026-10-21 19:49:55.930 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 0.6818 ms 
+2026-10-21 19:49:55.968 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 0.6547 ms 
+2026-10-21 19:49:55.975 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.8254 ms 
+2026-10-21 19:50:16.277 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 1.2683 ms 
+2026-10-21 19:50:16.366 +03:30 [INF] HTTP GET /sales/2806454f-77e9-4ddc-9d7c-960c92035782 responded 200 in 46.2834 ms 
+2026-10-21 19:50:16.377 +03:30 [INF] HTTP GET /_blazor responded 101 in 90.4819 ms 
+2026-10-21 19:50:16.378 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 1.1641 ms 
+2026-10-21 19:50:16.384 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 0.4276 ms 
+2026-10-21 19:50:16.385 +03:30 [INF] HTTP GET /app.css responded 200 in 1.4031 ms 
+2026-10-21 19:50:16.386 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 1.5108 ms 
+2026-10-21 19:50:16.391 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 6.5079 ms 
+2026-10-21 19:50:16.426 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.3048 ms 
+2026-10-21 19:50:16.426 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 0.3049 ms 
+2026-10-21 19:50:16.456 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 0.9333 ms 
+2026-10-21 19:50:16.465 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.4913 ms 
+2026-10-21 19:50:34.745 +03:30 [INF] HTTP GET /_blazor responded 101 in 38761.9303 ms 
+2026-10-21 19:59:17.091 +03:30 [INF] HTTP GET /_blazor responded 101 in 540614.3606 ms 
