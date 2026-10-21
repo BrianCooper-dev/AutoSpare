@@ -1,0 +1,461 @@
+@page "/sales/print/{Id:guid}"
+
+@using AutoSpare.Application.Common.Settings
+@using AutoSpare.Application.Sales
+@using AutoSpare.Application.Sales.DTOs
+@using Microsoft.Extensions.Options
+@using Microsoft.JSInterop
+
+@inject ISaleService SaleService
+@inject IOptions<StoreSettings> StoreSettingsOptions
+@inject IJSRuntime Js
+
+<PageTitle>چاپ فاکتور @(_sale?.InvoiceNumber ?? "")</PageTitle>
+
+<div class="print-container rtl">
+    @if (_isLoading)
+    {
+        <div class="no-print message">
+            <p>در حال آماده‌سازی فاکتور برای چاپ...</p>
+        </div>
+    }
+    else if (_sale is null)
+    {
+        <div class="no-print message error-message">
+            <p>فاکتور مورد نظر یافت نشد.</p>
+        </div>
+    }
+    else
+    {
+        <div class="no-print action-bar">
+            <button type="button" class="btn btn-primary" @onclick="PrintInvoice">
+                چاپ فاکتور
+            </button>
+            <button type="button" class="btn btn-secondary" @onclick="ClosePage">
+                بستن صفحه
+            </button>
+        </div>
+
+        <main class="invoice-a4">
+            <div class="invoice-header">
+                <section class="store-info">
+                    <h1 class="store-name">@_store.StoreName</h1>
+                    <p class="store-meta">آدرس: @_store.Address</p>
+                    <p class="store-meta">تلفن: @_store.Phone | همراه: @_store.Mobile</p>
+                </section>
+
+                <section class="invoice-meta">
+                    <div class="meta-row">
+                        <strong>شماره فاکتور:</strong>
+                        <span class="dir-ltr">@_sale.InvoiceNumber</span>
+                    </div>
+                    <div class="meta-row">
+                        <strong>تاریخ:</strong>
+                        <span>@_sale.SaleDate.ToString("yyyy/MM/dd HH:mm")</span>
+                    </div>
+                    <div class="meta-row">
+                        <strong>وضعیت:</strong>
+                        <span>@_sale.Status</span>
+                    </div>
+                </section>
+            </div>
+
+            <hr class="divider" />
+
+            <section class="customer-section">
+                <strong>نام خریدار:</strong>
+                <span>
+                    @(string.IsNullOrWhiteSpace(_sale.CustomerName)
+                        ? "مشتری متفرقه"
+                        : _sale.CustomerName)
+                </span>
+            </section>
+
+            <table class="items-table">
+                <thead>
+                    <tr>
+                        <th class="column-index">#</th>
+                        <th>شرح کالا</th>
+                        <th class="column-quantity">تعداد</th>
+                        <th class="column-price">قیمت واحد</th>
+                        <th class="column-total">مبلغ کل</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        var index = 1;
+                    }
+
+                    @foreach (var item in _sale.Items)
+                    {
+                        <tr>
+                            <td class="text-center">@index</td>
+                            <td>@item.ProductName</td>
+                            <td class="text-center">@item.Quantity</td>
+                            <td class="number-cell">@item.UnitPrice.ToString("N0")</td>
+                            <td class="number-cell">@((item.Quantity * item.UnitPrice).ToString("N0"))</td>
+                        </tr>
+
+                        index++;
+                    }
+                </tbody>
+            </table>
+
+            <footer class="invoice-footer">
+                <div class="total-box">
+                    <div class="total-row">
+                        <span>مبلغ قابل پرداخت:</span>
+                        <span class="number-cell">@_sale.TotalAmount.ToString("N0")</span>
+                    </div>
+                </div>
+
+                @if (!string.IsNullOrWhiteSpace(_sale.Notes))
+                {
+                    <div class="notes-box">
+                        <strong>یادداشت:</strong>
+                        <span>@_sale.Notes</span>
+                    </div>
+                }
+
+                @if (!string.IsNullOrWhiteSpace(_store.FooterNote))
+                {
+                    <div class="footer-note">
+                        <p>@_store.FooterNote</p>
+                    </div>
+                }
+
+                <div class="signatures">
+                    <div class="signature-box">امضای فروشنده</div>
+                    <div class="signature-box">امضای خریدار</div>
+                </div>
+            </footer>
+        </main>
+    }
+</div>
+
+<style>
+    .print-container {
+        min-height: 100vh;
+        padding: 16px;
+        background: #f2f2f2;
+        color: #222;
+        font-family: Sahel, Vazirmatn, Tahoma, sans-serif;
+    }
+
+    .rtl {
+        direction: rtl;
+    }
+
+    .message {
+        max-width: 210mm;
+        margin: 24px auto;
+        padding: 24px;
+        text-align: center;
+        background: #fff;
+    }
+
+    .error-message {
+        color: #b00020;
+    }
+
+    .invoice-a4 {
+        width: 210mm;
+        min-height: 297mm;
+        margin: 0 auto;
+        padding: 15mm;
+        background: #fff;
+        color: #222;
+        font-size: 13px;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.12);
+    }
+
+    .invoice-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 20px;
+    }
+
+    .store-info {
+        flex: 1;
+    }
+
+    .store-name {
+        margin: 0 0 8px;
+        font-size: 20px;
+        font-weight: 700;
+    }
+
+    .store-meta {
+        margin: 4px 0;
+        color: #555;
+        font-size: 12px;
+    }
+
+    .invoice-meta {
+        min-width: 220px;
+        padding: 8px 12px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        background: #fafafa;
+    }
+
+    .meta-row {
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        margin: 5px 0;
+    }
+
+    .divider {
+        margin: 15px 0;
+        border: 0;
+        border-top: 1px solid #222;
+    }
+
+    .customer-section {
+        margin-bottom: 15px;
+        padding: 8px 10px;
+        border-radius: 4px;
+        background: #f5f5f5;
+    }
+
+    .items-table {
+        width: 100%;
+        margin-bottom: 20px;
+        border-collapse: collapse;
+    }
+
+    .items-table th,
+    .items-table td {
+        padding: 8px;
+        border: 1px solid #bbb;
+    }
+
+    .items-table th {
+        background: #eee;
+        font-weight: 700;
+        text-align: center;
+    }
+
+    .column-index {
+        width: 6%;
+    }
+
+    .column-quantity {
+        width: 12%;
+    }
+
+    .column-price,
+    .column-total {
+        width: 20%;
+    }
+
+    .text-center {
+        text-align: center;
+    }
+
+    .number-cell {
+        direction: ltr;
+        text-align: left;
+        white-space: nowrap;
+    }
+
+    .dir-ltr {
+        direction: ltr;
+        display: inline-block;
+    }
+
+    .invoice-footer {
+        margin-top: 25px;
+    }
+
+    .total-box {
+        width: 320px;
+        max-width: 100%;
+        margin-right: auto;
+        margin-bottom: 20px;
+        border: 1px solid #444;
+    }
+
+    .total-row {
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 10px 12px;
+        background: #f0f0f0;
+        font-size: 15px;
+        font-weight: 700;
+    }
+
+    .notes-box {
+        margin-bottom: 12px;
+        color: #444;
+        font-size: 12px;
+        overflow-wrap: anywhere;
+    }
+
+    .footer-note {
+        margin-bottom: 30px;
+        padding-top: 8px;
+        border-top: 1px dashed #ccc;
+        color: #666;
+        font-size: 11px;
+    }
+
+    .footer-note p {
+        margin: 0;
+    }
+
+    .signatures {
+        display: flex;
+        justify-content: space-around;
+        gap: 24px;
+        margin-top: 40px;
+    }
+
+    .signature-box {
+        width: 160px;
+        padding-top: 6px;
+        border-top: 1px dotted #888;
+        text-align: center;
+        font-size: 12px;
+    }
+
+    .action-bar {
+        max-width: 210mm;
+        margin: 0 auto 12px;
+        padding: 10px;
+        background: #e9ecef;
+        text-align: center;
+    }
+
+    .btn {
+        margin: 0 4px;
+        padding: 8px 16px;
+        border: 0;
+        border-radius: 4px;
+        cursor: pointer;
+        font: inherit;
+    }
+
+    .btn-primary {
+        background: #1976d2;
+        color: #fff;
+    }
+
+    .btn-secondary {
+        background: #6c757d;
+        color: #fff;
+    }
+
+    @@media print {
+        @@page {
+            size: A4 portrait;
+            margin: 10mm;
+        }
+
+        body {
+            margin: 0 !important;
+            padding: 0 !important;
+            background: #fff !important;
+        }
+
+        .print-container {
+            min-height: 0;
+            margin: 0;
+            padding: 0;
+            background: #fff;
+        }
+
+        .no-print {
+            display: none !important;
+        }
+
+        .invoice-a4 {
+            width: 100%;
+            min-height: 0;
+            margin: 0;
+            padding: 0;
+            box-shadow: none;
+        }
+
+        .items-table,
+        .invoice-header,
+        .invoice-footer {
+            break-inside: avoid;
+        }
+
+        .items-table tr {
+            break-inside: avoid;
+        }
+    }
+
+    @@media screen and (max-width: 800px) {
+        .invoice-a4 {
+            width: 100%;
+            min-height: 0;
+            padding: 20px;
+        }
+
+        .invoice-header {
+            flex-direction: column;
+        }
+
+        .invoice-meta {
+            width: 100%;
+        }
+
+        .items-table {
+            font-size: 11px;
+        }
+
+        .items-table th,
+        .items-table td {
+            padding: 5px;
+        }
+    }
+</style>
+
+@code {
+    [Parameter]
+    public Guid Id { get; set; }
+
+    private SaleDetailsDto? _sale;
+    private StoreSettings _store = new();
+    private bool _isLoading = true;
+    private bool _printRequested;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _store = StoreSettingsOptions.Value;
+
+        try
+        {
+            _sale = await SaleService.GetSaleDetailsAsync(Id);
+        }
+        finally
+        {
+            _isLoading = false;
+        }
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (!_isLoading && _sale is not null && !_printRequested)
+        {
+            _printRequested = true;
+            await Js.InvokeVoidAsync("window.print");
+        }
+    }
+
+    private async Task PrintInvoice()
+    {
+        await Js.InvokeVoidAsync("window.print");
+    }
+
+    private async Task ClosePage()
+    {
+        await Js.InvokeVoidAsync("window.close");
+    }
+}

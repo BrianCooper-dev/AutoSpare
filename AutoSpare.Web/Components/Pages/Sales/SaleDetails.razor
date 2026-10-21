@@ -44,22 +44,43 @@
                 </MudText>
                 @if (_sale.Status == nameof(SaleStatus.Draft))
                 {
-                    <MudChip T="string" Color="Color.Warning" Size="Size.Small" Variant="Variant.Filled">پیش‌نویس
+                    <MudChip T="string" Color="Color.Warning" Size="Size.Small" Variant="Variant.Filled">
+                        پیش‌نویس
                     </MudChip>
                 }
                 else if (_sale.Status == nameof(SaleStatus.Completed))
                 {
-                    <MudChip T="string" Color="Color.Success" Size="Size.Small" Variant="Variant.Filled">نهایی شده
+                    <MudChip T="string" Color="Color.Success" Size="Size.Small" Variant="Variant.Filled">
+                        نهایی شده
                     </MudChip>
                 }
                 else if (_sale.Status == nameof(SaleStatus.Cancelled))
                 {
-                    <MudChip T="string" Color="Color.Error" Size="Size.Small" Variant="Variant.Filled">ابطال شده
+                    <MudChip T="string" Color="Color.Error" Size="Size.Small" Variant="Variant.Filled">
+                        ابطال شده
                     </MudChip>
                 }
             </div>
 
             <div class="d-flex gap-2">
+                @* دکمه چاپ فاکتور در تب جدید *@
+                <MudButton Variant="Variant.Outlined"
+                           Color="Color.Default"
+                           StartIcon="@Icons.Material.Filled.Print"
+                           Href="@($"/sales/print/{Id}")"
+                           Target="_blank">
+                    چاپ فاکتور
+                </MudButton>
+
+                @* دکمه چاپ فیش حرارتی ۸۰ میلی‌متری در تب جدید *@
+                <MudButton Variant="Variant.Outlined"
+                           Color="Color.Primary"
+                           StartIcon="@Icons.Material.Filled.Receipt"
+                           Href="@($"/sales/print-receipt/{Id}")"
+                           Target="_blank">
+                    چاپ فیش حرارتی (80mm)
+                </MudButton>
+
                 @* دکمه نهایی‌سازی فقط مخصوص فاکتورهای پیش‌نویس *@
                 @if (_sale.Status == nameof(SaleStatus.Draft))
                 {
