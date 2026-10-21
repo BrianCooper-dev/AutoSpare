@@ -1,60 +1,94 @@
 @page "/sales/print-receipt/{Id:guid}"
+
 @using AutoSpare.Application.Common.Settings
 @using AutoSpare.Application.Sales
 @using AutoSpare.Application.Sales.DTOs
 @using Microsoft.Extensions.Options
+
 @inject ISaleService SaleService
 @inject IOptions<StoreSettings> StoreSettingsOptions
 @inject IJSRuntime Js
 
 <PageTitle>چاپ فیش حرارتی @(_sale?.InvoiceNumber ?? string.Empty)</PageTitle>
 
-<div class="thermal-receipt-container rtl">
+<MudContainer MaxWidth="MaxWidth.False" Class="thermal-root rtl">
+
     @if (_isLoading)
     {
-        <div class="no-print text-center p-4">
-            <p>در حال بارگذاری اطلاعات فیش...</p>
-        </div>
+        <MudPaper Elevation="1" Class="pa-6 d-flex flex-column align-center justify-center mt-6 thermal-shell">
+            <MudProgressCircular Indeterminate="true" Color="Color.Primary" Size="Size.Large" Class="mb-4"/>
+            <MudText Typo="Typo.body2">در حال بارگذاری اطلاعات فیش...</MudText>
+        </MudPaper>
     }
-    else if (_sale == null)
+    else if (_sale is null)
     {
-        <div class="no-print text-center p-4">
-            <p class="text-danger">فاکتور مورد نظر یافت نشد.</p>
-        </div>
+        <MudPaper Elevation="1" Class="pa-6 mt-6 thermal-shell">
+            <MudAlert Severity="Severity.Error" Variant="Variant.Filled">
+                فاکتور مورد نظر یافت نشد.
+            </MudAlert>
+
+            <div class="mt-4 d-flex justify-center">
+                <MudButton Variant="Variant.Outlined"
+                           Color="Color.Default"
+                           StartIcon="@Icons.Material.Filled.Close"
+                           OnClick="ClosePage">
+                    بستن صفحه
+                </MudButton>
+            </div>
+        </MudPaper>
     }
     else
     {
-        <!-- دکمه‌های کنترل صفحه (در حالت پرینت مخفی می‌شوند) -->
-        <div class="no-print text-center mb-3">
-            <button class="btn-print" @onclick="TriggerPrint">چاپ فیش</button>
-        </div>
+        @* Action Bar (در چاپ مخفی می‌شود) *@
+        <MudPaper Elevation="1" Class="no-print pa-3 mb-3 thermal-shell">
+            <div class="d-flex flex-wrap gap-2 justify-center">
+                <MudButton Variant="Variant.Filled"
+                           Color="Color.Primary"
+                           StartIcon="@Icons.Material.Filled.Print"
+                           OnClick="TriggerPrint">
+                    چاپ فیش
+                </MudButton>
 
-        <!-- بدنه اصلی فیش ۸۰ میلی‌متری -->
+                <MudButton Variant="Variant.Outlined"
+                           Color="Color.Default"
+                           StartIcon="@Icons.Material.Filled.Close"
+                           OnClick="ClosePage">
+                    بستن صفحه
+                </MudButton>
+            </div>
+        </MudPaper>
+
         <div class="receipt-sheet">
-            <!-- هدر فروشگاه -->
             <div class="text-center mb-2">
-                <h3 class="store-title">@(StoreSettingsOptions.Value.StoreName)</h3>
-                <p class="store-info">@StoreSettingsOptions.Value.Address</p>
-                <p class="store-info">تلفن: @StoreSettingsOptions.Value.Phone</p>
+                <h3 class="store-title">@_store.StoreName</h3>
+                @if (!string.IsNullOrWhiteSpace(_store.Address))
+                {
+                    <p class="store-info">@_store.Address</p>
+                }
+                @if (!string.IsNullOrWhiteSpace(_store.Phone))
+                {
+                    <p class="store-info">تلفن: @_store.Phone</p>
+                }
             </div>
 
             <div class="divider">--------------------------------------------------</div>
 
-            <!-- اطلاعات فاکتور و مشتری -->
             <div class="invoice-meta">
-                <div class="d-flex justify-between">
+                <div class="row-line">
                     <span>شماره فاکتور:</span>
-                    <strong>@_sale.InvoiceNumber</strong>
+                    <strong class="dir-ltr">@_sale.InvoiceNumber</strong>
                 </div>
-                <div class="d-flex justify-between">
+                <div class="row-line">
                     <span>تاریخ:</span>
                     <span>@_sale.SaleDate.ToLocalTime().ToString("yyyy/MM/dd HH:mm")</span>
                 </div>
-                <div class="d-flex justify-between">
+                <div class="row-line">
                     <span>مشتری:</span>
-                    <strong>@_sale.CustomerName</strong>
+                    <strong>
+                        @(string.IsNullOrWhiteSpace(_sale.CustomerName) ? "مشتری متفرقه" : _sale.CustomerName)
+                    </strong>
                 </div>
-                <div class="d-flex justify-between">
+                <div class="row-line">
                     <span>وضعیت:</span>
                     <span>@_sale.Status</span>
                 </div>
@@ -62,13 +96,12 @@
 
             <div class="divider">--------------------------------------------------</div>
 
-            <!-- جدول اقلام فیش -->
             <table class="receipt-table">
                 <thead>
                 <tr>
-                    <th style="text-align: right;">شرح کالا</th>
-                    <th style="text-align: center; width: 35px;">تعداد</th>
-                    <th style="text-align: left;">مبلغ کل (تومان)</th>
+                    <th style="text-align:right;">شرح کالا</th>
+                    <th style="text-align:center; width:35px;">تعداد</th>
+                    <th style="text-align:left;">مبلغ کل</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -79,8 +112,8 @@
                     </tr>
                     <tr>
                         <td class="product-code">کد: @item.ProductCode</td>
-                        <td style="text-align: center;">@item.Quantity</td>
-                        <td style="text-align: left;">@item.TotalPrice.ToString("N0")</td>
+                        <td style="text-align:center;">@item.Quantity</td>
+                        <td style="text-align:left;" class="dir-ltr">@item.TotalPrice.ToString("N0")</td>
                     </tr>
                     <tr class="item-sep">
                         <td colspan="3"></td>
@@ -91,11 +124,10 @@
 
             <div class="divider">--------------------------------------------------</div>
 
-            <!-- خلاصه‌ی مالی -->
             <div class="financial-summary">
-                <div class="d-flex justify-between total-row">
+                <div class="row-line total-row">
                     <span>مبلغ قابل پرداخت:</span>
-                    <span><strong>@_sale.TotalAmount.ToString("N0") تومان</strong></span>
+                    <span class="dir-ltr"><strong>@_sale.TotalAmount.ToString("N0") تومان</strong></span>
                 </div>
             </div>
 
@@ -109,40 +141,55 @@
 
             <div class="divider">--------------------------------------------------</div>
 
-            <!-- پاورقی فیش -->
             <div class="text-center footer-text">
-                <p>اجناس فروخته شده در صورت باز نشدن پلمپ تا ۴۸ ساعت قابل تعویض می‌باشد.</p>
-                <p class="mt-1">از خرید شما سپاسگزاریم</p>
+                @if (!string.IsNullOrWhiteSpace(_store.FooterNote))
+                {
+                    <p>@_store.FooterNote</p>
+                }
+                else
+                {
+                    <p>اجناس فروخته شده در صورت باز نشدن پلمپ تا ۴۸ ساعت قابل تعویض می‌باشد.</p>
+                    <p class="mt-1">از خرید شما سپاسگزاریم</p>
+                }
             </div>
         </div>
     }
-</div>
+</MudContainer>
 
 <style>
-    .thermal-receipt-container {
-        font-family: Tahoma, Arial, sans-serif;
+    .thermal-root {
+        min-height: 100vh;
+        padding: 16px;
         background-color: #eee;
-        padding: 20px;
+        font-family: Sahel, Vazirmatn, Tahoma, Arial, sans-serif;
+        direction: rtl;
         display: flex;
         flex-direction: column;
         align-items: center;
-        direction: rtl;
+        color: #000;
+    }
+
+    .thermal-shell {
+        width: 80mm;
+        max-width: calc(100vw - 24px);
+        margin-left: auto;
+        margin-right: auto;
     }
 
     .receipt-sheet {
         width: 80mm;
+        max-width: calc(100vw - 24px);
         background: #fff;
         padding: 4mm;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.10);
         font-size: 11px;
-        color: #000;
         line-height: 1.4;
     }
 
     .store-title {
         font-size: 14px;
         font-weight: bold;
-        margin-bottom: 4px;
+        margin: 0 0 4px;
     }
 
     .store-info {
@@ -164,16 +211,10 @@
         font-size: 11px;
     }
 
-    .d-flex {
+    .row-line {
         display: flex;
-    }
-
-    .justify-between {
         justify-content: space-between;
-    }
-
-    .text-center {
-        text-align: center;
+        gap: 10px;
     }
 
     .receipt-table {
@@ -215,18 +256,9 @@
         margin-top: 8px;
     }
 
-    .btn-print {
-        background-color: #1976d2;
-        color: white;
-        border: none;
-        padding: 8px 16px;
-        border-radius: 4px;
-        cursor: pointer;
-        font-family: Tahoma;
-    }
-
-    .btn-print:hover {
-        background-color: #115293;
+    .dir-ltr {
+        direction: ltr;
+        display: inline-block;
     }
 
     @@media print {
@@ -240,7 +272,7 @@
             display: none !important;
         }
 
-        .thermal-receipt-container {
+        .thermal-root {
             background: none !important;
             padding: 0 !important;
         }
@@ -256,19 +288,18 @@
 
 @code {
     [Parameter] public Guid Id { get; set; }
+
     private SaleDetailsDto? _sale;
+    private StoreSettings _store = new();
     private bool _isLoading = true;
 
     protected override async Task OnInitializedAsync()
     {
+        _store = StoreSettingsOptions.Value;
+
         try
         {
-            _isLoading = true;
             _sale = await SaleService.GetSaleDetailsAsync(Id);
-        }
-        catch
-        {
-            // مدیریت خطا
         }
         finally
         {
@@ -281,4 +312,10 @@
         await Js.InvokeVoidAsync("window.print");
     }
 
+    private async Task ClosePage()
+    {
+        await Js.InvokeVoidAsync("window.close");
+    }
+
 }
+
