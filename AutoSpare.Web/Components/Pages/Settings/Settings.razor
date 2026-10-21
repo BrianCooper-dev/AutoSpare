@@ -1,0 +1,244 @@
+@page "/settings"
+@using AutoSpare.Application.Backup
+@using AutoSpare.Application.Backup.DTOs
+@using AutoSpare.Application.Common.Settings
+@using Microsoft.Extensions.Options
+@inject IBackupService BackupService
+@inject IOptions<StorageSettings> StorageOptions
+@inject ISnackbar Snackbar
+@inject IDialogService DialogService
+
+<PageTitle>تنظیمات | AutoSpare</PageTitle>
+
+<MudContainer MaxWidth="MaxWidth.ExtraLarge" Class="mt-4 mb-6">
+    <!-- هدر صفحه -->
+    <div class="d-flex align-center justify-space-between mb-4">
+        <div class="d-flex align-center gap-2">
+            <MudIcon Icon="@Icons.Material.Filled.Settings" Color="Color.Primary" Size="Size.Medium"/>
+            <MudText Typo="Typo.h6" Class="font-weight-bold">پشتیبان‌گیری و نگهداری دیتابیس</MudText>
+        </div>
+        <MudChip T="string" Color="Color.Surface" Variant="Variant.Outlined" Size="Size.Small">
+            نسخه‌های ثبت‌شده: @_backupList.Count
+        </MudChip>
+    </div>
+
+    <MudGrid Spacing="3">
+        <!-- پنل عملیات بکاپ -->
+        <MudItem xs="12" md="5" lg="4">
+            <MudCard Elevation="1" Class="rounded-lg pa-2">
+                <MudCardHeader Class="pb-2">
+                    <CardHeaderAvatar>
+                        <MudAvatar Color="Color.Primary" Variant="Variant.Outlined" Size="Size.Small">
+                            <MudIcon Icon="@Icons.Material.Filled.Backup" Size="Size.Small"/>
+                        </MudAvatar>
+                    </CardHeaderAvatar>
+                    <CardHeaderContent>
+                        <MudText Typo="Typo.subtitle1" Class="font-weight-bold">تهیه بکاپ جدید</MudText>
+                    </CardHeaderContent>
+                </MudCardHeader>
+
+                <MudCardContent Class="pt-1 pb-2">
+                    <MudTextField @bind-Value="_backupPath"
+                                  Label="مسیر ذخیره فایل (.bak)"
+                                  Variant="Variant.Outlined"
+                                  Margin="Margin.Dense"
+                                  Adornment="Adornment.Start"
+                                  AdornmentIcon="@Icons.Material.Filled.Folder"
+                                  Class="mb-2"/>
+
+                    <!-- دکمه‌های مسیرهای سریع جهت راحتی کار و جلوگیری از تایپ دستی -->
+                    <div class="d-flex flex-wrap gap-1 align-center mb-3">
+                        <MudText Typo="Typo.caption" Color="Color.Secondary" Class="me-1">مسیرهای سریع:</MudText>
+                        <MudChip T="string"
+                                 Size="Size.Small"
+                                 Variant="Variant.Text"
+                                 Color="Color.Primary"
+                                 OnClick="@(() => SetPath(StorageOptions.Value.BackupPath))">
+                            پیش‌فرض
+                        </MudChip>
+                        <MudChip T="string"
+                                 Size="Size.Small"
+                                 Variant="Variant.Text"
+                                 Color="Color.Secondary"
+                                 OnClick="@(() => SetPath(@"D:\AutoSpareBackups"))">
+                            درایو D
+                        </MudChip>
+                        <MudChip T="string"
+                                 Size="Size.Small"
+                                 Variant="Variant.Text"
+                                 Color="Color.Secondary"
+                                 OnClick="@(() => SetPath(@"C:\AutoSpareBackups"))">
+                            درایو C
+                        </MudChip>
+                    </div>
+
+                    @if (_isProcessing)
+                    {
+                        <div class="d-flex align-center gap-2 py-2">
+                            <MudProgressCircular Color="Color.Primary" Size="Size.Small" Indeterminate="true"/>
+                            <MudText Typo="Typo.caption" Color="Color.Primary">در حال پشتیبان‌گیری از پایگاه‌داده...
+                            </MudText>
+                        </div>
+                    }
+                </MudCardContent>
+
+                <MudCardActions Class="px-3 pb-3 pt-0">
+                    <MudButton Variant="Variant.Filled"
+                               Color="Color.Primary"
+                               FullWidth="true"
+                               StartIcon="@Icons.Material.Filled.CloudDownload"
+                               Disabled="@_isProcessing"
+                               OnClick="CreateBackupAsync">
+                        شروع پشتیبان‌گیری
+                    </MudButton>
+                </MudCardActions>
+            </MudCard>
+
+            <MudText Typo="Typo.caption" Color="Color.Secondary" Class="d-block mt-3 px-1">
+                <MudIcon Icon="@Icons.Material.Filled.Info" Size="Size.Small" Class="vertical-align-middle me-1"/>
+                سرویس SQL Server باید دسترسی Write به پوشه مقصد داشته باشد.
+            </MudText>
+        </MudItem>
+
+        <!-- پنل تاریخچه بکاپ‌ها -->
+        <MudItem xs="12" md="7" lg="8">
+            <MudCard Elevation="1" Class="rounded-lg">
+                <MudCardHeader Class="pb-2">
+                    <CardHeaderAvatar>
+                        <MudAvatar Color="Color.Info" Variant="Variant.Outlined" Size="Size.Small">
+                            <MudIcon Icon="@Icons.Material.Filled.History" Size="Size.Small"/>
+                        </MudAvatar>
+                    </CardHeaderAvatar>
+                    <CardHeaderContent>
+                        <MudText Typo="Typo.subtitle1" Class="font-weight-bold">فایل‌های پشتیبان</MudText>
+                    </CardHeaderContent>
+                    <CardHeaderActions>
+                        <MudIconButton Icon="@Icons.Material.Filled.Refresh"
+                                       Color="Color.Default"
+                                       Size="Size.Small"
+                                       OnClick="LoadBackupsAsync"
+                                       Disabled="@_isLoadingList"
+                                       Title="بروزرسانی"/>
+                    </CardHeaderActions>
+                </MudCardHeader>
+
+                <MudCardContent Class="pa-0">
+                    <MudTable Items="@_backupList"
+                              Hover="true"
+                              Dense="true"
+                              Elevation="0"
+                              Loading="@_isLoadingList"
+                              LoadingProgressColor="Color.Primary"
+                              EmptyDataText="هیچ فایل پشتیبانی در این مسیر یافت نشد.">
+                        <HeaderContent>
+                            <MudTh>نام فایل</MudTh>
+                            <MudTh Style="width: 170px;">تاریخ ایجاد</MudTh>
+                            <MudTh Style="width: 110px; text-align: center;">حجم</MudTh>
+                        </HeaderContent>
+                        <RowTemplate>
+                            <MudTd DataLabel="نام فایل">
+                                <div class="d-flex align-center gap-2">
+                                    <MudIcon Icon="@Icons.Material.Filled.InsertDriveFile" Size="Size.Small"
+                                             Color="Color.Primary"/>
+                                    <span style="font-family: monospace; font-size: 0.82rem;" title="@context.FullPath">
+                                        @context.FileName
+                                    </span>
+                                </div>
+                            </MudTd>
+                            <MudTd DataLabel="تاریخ ایجاد">
+                                <MudText Typo="Typo.body2">@context.PersianCreatedAt</MudText>
+                            </MudTd>
+                            <MudTd DataLabel="حجم" Style="text-align: center;">
+                                <MudChip T="string" Size="Size.Small" Variant="Variant.Outlined" Color="Color.Default">
+                                    @context.FileSizeFormatted
+                                </MudChip>
+                            </MudTd>
+                        </RowTemplate>
+                        <PagerContent>
+                            <MudTablePager PageSizeOptions="[5, 10, 20]" RowsPerPageString="تعداد:"/>
+                        </PagerContent>
+                    </MudTable>
+                </MudCardContent>
+            </MudCard>
+        </MudItem>
+    </MudGrid>
+</MudContainer>
+
+@code {
+    private string _backupPath = string.Empty;
+    private bool _isProcessing;
+    private bool _isLoadingList;
+    private List<BackupFileDto> _backupList = [];
+
+    protected override async Task OnInitializedAsync()
+    {
+        _backupPath = StorageOptions.Value.BackupPath;
+        await LoadBackupsAsync();
+    }
+
+    private void SetPath(string path)
+    {
+        if (string.IsNullOrWhiteSpace(path)) return;
+        _backupPath = path;
+    }
+
+    private async Task LoadBackupsAsync()
+    {
+        _isLoadingList = true;
+        try
+        {
+            var files = await BackupService.GetBackupFilesAsync();
+            _backupList = files.ToList();
+        }
+        catch (Exception ex)
+        {
+            Snackbar.Add($"خطا در بارگذاری لیست بکاپ‌ها: {ex.Message}", Severity.Error);
+        }
+        finally
+        {
+            _isLoadingList = false;
+        }
+    }
+
+    private async Task CreateBackupAsync()
+    {
+        if (string.IsNullOrWhiteSpace(_backupPath))
+        {
+            Snackbar.Add("لطفاً مسیر ذخیره‌سازی را مشخص کنید.", Severity.Warning);
+            return;
+        }
+
+        bool? confirm = await DialogService.ShowMessageBoxAsync(
+            "تأیید نسخه پشتیبان",
+            "آیا از ایجاد نسخه پشتیبان جدید از دیتابیس اطمینان دارید؟",
+            yesText: "بله، ایجاد بکاپ",
+            cancelText: "انصراف");
+
+        if (confirm != true) return;
+
+        _isProcessing = true;
+        try
+        {
+            var result = await BackupService.CreateBackupAsync(_backupPath.Trim());
+
+            if (result.IsSuccess)
+            {
+                Snackbar.Add($"{result.Message} ({result.FileName})", Severity.Success);
+                await LoadBackupsAsync();
+            }
+            else
+            {
+                Snackbar.Add(result.Message, Severity.Error);
+            }
+        }
+        catch (Exception ex)
+        {
+            Snackbar.Add($"خطا در زمان بکاپ‌گیری: {ex.Message}", Severity.Error);
+        }
+        finally
+        {
+            _isProcessing = false;
+        }
+    }
+
+}
