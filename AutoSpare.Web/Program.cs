@@ -86,6 +86,13 @@ try
 
     builder.Services.AddScoped<IBackupService, BackupService>();
 
+    builder.Services
+        .AddOptions<BackupSchedulerSettings>()
+        .Bind(builder.Configuration.GetRequiredSection(BackupSchedulerSettings.SectionName))
+        .ValidateOnStart();
+
+    builder.Services.AddHostedService<AutoSpare.Infrastructure.Services.ScheduledBackupHostedService>();
+
     // -------------------------------------------------------
     // Blazor UI Services
     // -------------------------------------------------------
