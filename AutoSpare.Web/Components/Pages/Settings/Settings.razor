@@ -46,7 +46,7 @@
                                   AdornmentIcon="@Icons.Material.Filled.Folder"
                                   Class="mb-2"/>
 
-                    <!-- دکمه‌های مسیرهای سریع جهت راحتی کار و جلوگیری از تایپ دستی -->
+                    <!-- دکمه‌های مسیرهای سریع -->
                     <div class="d-flex flex-wrap gap-1 align-center mb-3">
                         <MudText Typo="Typo.caption" Color="Color.Secondary" Class="me-1">مسیرهای سریع:</MudText>
                         <MudChip T="string"
@@ -76,8 +76,7 @@
                     {
                         <div class="d-flex align-center gap-2 py-2">
                             <MudProgressCircular Color="Color.Primary" Size="Size.Small" Indeterminate="true"/>
-                            <MudText Typo="Typo.caption" Color="Color.Primary">در حال پشتیبان‌گیری از پایگاه‌داده...
-                            </MudText>
+                            <MudText Typo="Typo.caption" Color="Color.Primary">@_processingStatusText</MudText>
                         </div>
                     }
                 </MudCardContent>
@@ -94,10 +93,14 @@
                 </MudCardActions>
             </MudCard>
 
-            <MudText Typo="Typo.caption" Color="Color.Secondary" Class="d-block mt-3 px-1">
-                <MudIcon Icon="@Icons.Material.Filled.Info" Size="Size.Small" Class="vertical-align-middle me-1"/>
-                سرویس SQL Server باید دسترسی Write به پوشه مقصد داشته باشد.
-            </MudText>
+            <MudAlert Severity="Severity.Warning" Variant="Variant.Outlined" Class="mt-3" Dense="true">
+                <MudText Typo="Typo.caption">
+                    <strong>توجه امنیتی:</strong>
+                    بازیابی نسخه پشتیبان باعث جایگزینی کامل اطلاعات فعلی پایگاه‌داده با فایل انتخابی خواهد شد.
+                    <br/>
+                    <strong>نکته:</strong> قبل از Restore یک بکاپ ایمنی از وضعیت فعلی به‌صورت خودکار تهیه می‌شود.
+                </MudText>
+            </MudAlert>
         </MudItem>
 
         <!-- پنل تاریخچه بکاپ‌ها -->
@@ -117,7 +120,7 @@
                                        Color="Color.Default"
                                        Size="Size.Small"
                                        OnClick="LoadBackupsAsync"
-                                       Disabled="@_isLoadingList"
+                                       Disabled="@(_isLoadingList || _isProcessing)"
                                        Title="بروزرسانی"/>
                     </CardHeaderActions>
                 </MudCardHeader>
@@ -133,7 +136,8 @@
                         <HeaderContent>
                             <MudTh>نام فایل</MudTh>
                             <MudTh Style="width: 170px;">تاریخ ایجاد</MudTh>
-                            <MudTh Style="width: 110px; text-align: center;">حجم</MudTh>
+                            <MudTh Style="width: 100px; text-align: center;">حجم</MudTh>
+                            <MudTh Style="width: 130px; text-align: center;">عملیات</MudTh>
                         </HeaderContent>
                         <RowTemplate>
                             <MudTd DataLabel="نام فایل">
@@ -153,6 +157,16 @@
                                     @context.FileSizeFormatted
                                 </MudChip>
                             </MudTd>
+                            <MudTd DataLabel="عملیات" Style="text-align: center;">
+                                <MudButton Variant="Variant.Outlined"
+                                           Color="Color.Error"
+                                           Size="Size.Small"
+                                           StartIcon="@Icons.Material.Filled.Restore"
+                                           Disabled="@_isProcessing"
+                                           OnClick="@(() => PromptRestoreAsync(context))">
+                                    بازیابی
+                                </MudButton>
+                            </MudTd>
                         </RowTemplate>
                         <PagerContent>
                             <MudTablePager PageSizeOptions="[5, 10, 20]" RowsPerPageString="تعداد:"/>
@@ -167,6 +181,7 @@
 @code {
     private string _backupPath = string.Empty;
     private bool _isProcessing;
+    private string _processingStatusText = "در حال پردازش...";
     private bool _isLoadingList;
     private List<BackupFileDto> _backupList = [];
 
@@ -217,6 +232,7 @@
         if (confirm != true) return;
 
         _isProcessing = true;
+        _processingStatusText = "در حال پشتیبان‌گیری از پایگاه‌داده...";
         try
         {
             var result = await BackupService.CreateBackupAsync(_backupPath.Trim());
@@ -238,6 +254,62 @@
         finally
         {
             _isProcessing = false;
+        }
+    }
+
+    private async Task PromptRestoreAsync(BackupFileDto backup)
+    {
+        // مرحله ۱: تأییدیه سخت‌گیرانه
+        var message = $"هشدار بحرانی: شما در حال بازیابی پایگاه‌داده از فایل «{backup.FileName}» هستید.\n" +
+                      "کلیه تغییرات ثبت‌شده پس از تاریخ این بکاپ بازنویسی خواهند شد و این عملیات غیرقابل بازگشت است.\n" +
+                      "پیش از شروع Restore، یک بکاپ ایمنی از وضعیت فعلی به‌صورت خودکار تهیه می‌شود.\n\n" +
+                      "آیا از انجام این عملیات اطمینان قطعی دارید؟";
+
+        bool? confirm = await DialogService.ShowMessageBoxAsync(
+            "⚠️ تأیید حساس بازیابی دیتابیس",
+            message,
+            yesText: "بله، بازیابی کن",
+            cancelText: "انصراف");
+
+        if (confirm != true) return;
+
+        _isProcessing = true;
+        _processingStatusText = "در حال اعتبارسنجی فایل پشتیبان...";
+
+        try
+        {
+            // مرحله ۲: اعتبارسنجی اولیه فایل (Verify)
+            var (isValid, valMsg) = await BackupService.ValidateBackupFileAsync(backup.FullPath);
+            if (!isValid)
+            {
+                Snackbar.Add(valMsg, Severity.Error);
+                return;
+            }
+
+            _processingStatusText = "در حال تهیه بکاپ ایمنی و بازگردانی پایگاه‌داده (لطفاً صبر کنید)...";
+            StateHasChanged();
+
+            // مرحله ۳: اجرای عملیات Restore (به همراه Safety Backup داخلی در سرویس)
+            var restoreResult = await BackupService.RestoreBackupAsync(backup.FullPath, _backupPath.Trim());
+
+            if (restoreResult.IsSuccess)
+            {
+                Snackbar.Add(restoreResult.Message, Severity.Success);
+                await LoadBackupsAsync();
+            }
+            else
+            {
+                Snackbar.Add(restoreResult.Message, Severity.Error);
+            }
+        }
+        catch (Exception ex)
+        {
+            Snackbar.Add($"خطای غیرمنتظره در بازیابی: {ex.Message}", Severity.Error);
+        }
+        finally
+        {
+            _isProcessing = false;
+            StateHasChanged();
         }
     }
 

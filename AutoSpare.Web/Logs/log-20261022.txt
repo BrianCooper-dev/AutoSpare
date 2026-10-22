@@ -84,3 +84,106 @@
 2026-10-22 10:52:07.640 +03:30 [INF] HTTP GET /_blazor responded 101 in 245783.4464 ms 
 2026-10-22 10:52:07.640 +03:30 [INF] HTTP GET /_blazor responded 101 in 246526.0217 ms 
 2026-10-22 10:52:08.646 +03:30 [INF] سرویس زمان‌بندی بکاپ متوقف شد. 
+2026-10-22 11:03:07.356 +03:30 [WRN] No store type was specified for the decimal property 'UnitPurchasePrice' on entity type 'SaleItem'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'. 
+2026-10-22 11:03:08.112 +03:30 [INF] Storage directories are ready. ImagesPath: D:\porograming\Rider\AutoSpare\AutoSpare.Web\wwwroot\Uploads\Images, BackupPath: D:\AutoSpareBackups 
+2026-10-22 11:03:08.130 +03:30 [INF] سرویس زمان‌بندی بکاپ پایگاه داده راه‌اندازی شد. 
+2026-10-22 11:03:08.136 +03:30 [INF] شروع بکاپ خودکار دیتابیس. علت: Startup | مسیر مقصد: D:/AutoSpareBackups 
+2026-10-22 11:03:08.136 +03:30 [INF] بکاپ بعدی در ساعت 2026/10/22 21:00:00 اجرا خواهد شد (مدت انتظار: "09:56:51.8690721"). 
+2026-10-22 11:03:08.176 +03:30 [INF] شروع فرآیند بکاپ‌گیری از دیتابیس AutoSpareDb در مسیر D:\AutoSpareBackups\AutoSpareDb_Backup_1405-07-30_110308.bak 
+2026-10-22 11:03:08.562 +03:30 [INF] بکاپ با موفقیت ایجاد شد: AutoSpareDb_Backup_1405-07-30_110308.bak به حجم 10604544 بایت 
+2026-10-22 11:03:08.605 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 68.0327 ms 
+2026-10-22 11:03:08.605 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 70.1887 ms 
+2026-10-22 11:03:08.618 +03:30 [INF] بکاپ مازاد قدیمی با موفقیت حذف گردید: AutoSpareDb_Backup_1405-07-29_210316.bak 
+2026-10-22 11:03:08.618 +03:30 [INF] فرآیند پاک‌سازی بکاپ‌ها خاتمه یافت. تعداد حذف‌شده: 1 | تعداد مجاز: 3 
+2026-10-22 11:03:08.621 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 86.9738 ms 
+2026-10-22 11:03:08.619 +03:30 [INF] بکاپ زمان‌بندی‌شده با موفقیت ایجاد شد: AutoSpareDb_Backup_1405-07-30_110308.bak (10604544 بایت) 
+2026-10-22 11:03:08.834 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 3.6664 ms 
+2026-10-22 11:03:08.844 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.7956 ms 
+2026-10-22 11:03:08.851 +03:30 [INF] HTTP GET /_blazor responded 101 in 206.0851 ms 
+2026-10-22 11:03:09.258 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 2.8991 ms 
+2026-10-22 11:03:09.262 +03:30 [INF] HTTP GET /_blazor responded 101 in 396.7298 ms 
+2026-10-22 11:03:09.594 +03:30 [INF] HTTP GET /settings responded 200 in 850.8358 ms 
+2026-10-22 11:03:09.594 +03:30 [INF] HTTP GET /settings responded 200 in 684.0669 ms 
+2026-10-22 11:03:09.720 +03:30 [INF] HTTP GET / responded 200 in 1186.0225 ms 
+2026-10-22 11:03:09.744 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 5.6068 ms 
+2026-10-22 11:03:09.785 +03:30 [INF] HTTP GET /app.css responded 200 in 46.5611 ms 
+2026-10-22 11:03:09.785 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 46.7552 ms 
+2026-10-22 11:03:09.787 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 48.8700 ms 
+2026-10-22 11:03:09.891 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.6939 ms 
+2026-10-22 11:03:09.921 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 10.2598 ms 
+2026-10-22 11:03:09.939 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 1.0491 ms 
+2026-10-22 11:03:18.254 +03:30 [INF] شروع فرآیند بکاپ‌گیری از دیتابیس AutoSpareDb در مسیر D:\AutoSpareBackups\AutoSpareDb_Backup_1405-07-30_110318.bak 
+2026-10-22 11:03:18.531 +03:30 [INF] بکاپ با موفقیت ایجاد شد: AutoSpareDb_Backup_1405-07-30_110318.bak به حجم 10604544 بایت 
+2026-10-22 11:03:18.533 +03:30 [INF] بکاپ مازاد قدیمی با موفقیت حذف گردید: AutoSpareDb_Backup_1405-07-29_211004.bak 
+2026-10-22 11:03:18.534 +03:30 [INF] فرآیند پاک‌سازی بکاپ‌ها خاتمه یافت. تعداد حذف‌شده: 1 | تعداد مجاز: 3 
+2026-10-22 11:18:40.208 +03:30 [INF] HTTP GET /_blazor responded 101 in 930257.7444 ms 
+2026-10-22 12:34:22.574 +03:30 [INF] سرویس زمان‌بندی بکاپ متوقف شد. 
+2026-10-22 12:37:39.629 +03:30 [WRN] No store type was specified for the decimal property 'UnitPurchasePrice' on entity type 'SaleItem'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'. 
+2026-10-22 12:37:40.288 +03:30 [INF] Storage directories are ready. ImagesPath: D:\porograming\Rider\AutoSpare\AutoSpare.Web\wwwroot\Uploads\Images, BackupPath: D:\AutoSpareBackups 
+2026-10-22 12:37:40.303 +03:30 [INF] سرویس زمان‌بندی بکاپ پایگاه داده راه‌اندازی شد. 
+2026-10-22 12:37:40.306 +03:30 [INF] بکاپ بعدی در ساعت 2026/10/22 20:00:00 اجرا خواهد شد (مدت انتظار: "07:22:19.6962740"). 
+2026-10-22 12:37:40.524 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 30.1856 ms 
+2026-10-22 12:37:41.053 +03:30 [INF] HTTP GET /settings responded 200 in 453.9346 ms 
+2026-10-22 12:37:41.081 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 18.9727 ms 
+2026-10-22 12:37:41.081 +03:30 [INF] HTTP GET /_blazor responded 101 in 539.3264 ms 
+2026-10-22 12:37:41.085 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 3.8418 ms 
+2026-10-22 12:37:41.091 +03:30 [INF] HTTP GET /app.css responded 200 in 12.3089 ms 
+2026-10-22 12:37:41.124 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 45.4046 ms 
+2026-10-22 12:37:41.138 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 55.2100 ms 
+2026-10-22 12:37:41.148 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.6571 ms 
+2026-10-22 12:37:41.154 +03:30 [INF] HTTP GET / responded 200 in 662.1719 ms 
+2026-10-22 12:37:41.170 +03:30 [INF] HTTP GET /app.css responded 200 in 1.4004 ms 
+2026-10-22 12:37:41.175 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 2.9342 ms 
+2026-10-22 12:37:41.174 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 1.2056 ms 
+2026-10-22 12:37:41.177 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 5.5425 ms 
+2026-10-22 12:37:41.204 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 0.9294 ms 
+2026-10-22 12:37:41.228 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 7.3828 ms 
+2026-10-22 12:37:41.242 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.7041 ms 
+2026-10-22 12:37:41.270 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.3506 ms 
+2026-10-22 12:37:41.317 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 1.7109 ms 
+2026-10-22 12:37:41.330 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.9181 ms 
+2026-10-22 12:37:42.268 +03:30 [INF] HTTP GET /_blazor responded 101 in 1021.1730 ms 
+2026-10-22 12:37:42.291 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 27.7662 ms 
+2026-10-22 12:37:43.735 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 0.7774 ms 
+2026-10-22 12:38:07.831 +03:30 [WRN] شروع عملیات بازیابی دیتابیس AutoSpareDb از مسیر D:\AutoSpareBackups\AutoSpareDb_Backup_1405-07-30_110318.bak 
+2026-10-22 12:38:11.241 +03:30 [INF] بازیابی پایگاه‌داده AutoSpareDb با موفقیت به پایان رسید. 
+2026-10-22 12:38:43.428 +03:30 [WRN] شروع عملیات بازیابی دیتابیس AutoSpareDb از مسیر D:\AutoSpareBackups\AutoSpareDb_Backup_1405-07-30_110318.bak 
+2026-10-22 12:38:43.694 +03:30 [INF] بازیابی پایگاه‌داده AutoSpareDb با موفقیت به پایان رسید. 
+2026-10-22 12:41:52.001 +03:30 [WRN] شروع عملیات بازیابی دیتابیس AutoSpareDb از مسیر D:\AutoSpareBackups\AutoSpareDb_Backup_1405-07-30_110308.bak 
+2026-10-22 12:41:55.287 +03:30 [INF] بازیابی پایگاه‌داده AutoSpareDb با موفقیت به پایان رسید. 
+2026-10-22 12:46:01.390 +03:30 [INF] HTTP GET /_blazor responded 101 in 500047.4716 ms 
+2026-10-22 12:46:02.400 +03:30 [INF] سرویس زمان‌بندی بکاپ متوقف شد. 
+2026-10-22 12:51:34.717 +03:30 [WRN] No store type was specified for the decimal property 'UnitPurchasePrice' on entity type 'SaleItem'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'. 
+2026-10-22 12:51:35.309 +03:30 [INF] Storage directories are ready. ImagesPath: D:\porograming\Rider\AutoSpare\AutoSpare.Web\wwwroot\Uploads\Images, BackupPath: D:\AutoSpareBackups 
+2026-10-22 12:51:35.321 +03:30 [INF] سرویس زمان‌بندی بکاپ پایگاه داده راه‌اندازی شد. 
+2026-10-22 12:51:35.324 +03:30 [INF] بکاپ بعدی در ساعت 2026/10/22 20:00:00 اجرا خواهد شد (مدت انتظار: "07:08:24.6780286"). 
+2026-10-22 12:51:36.122 +03:30 [INF] HTTP GET / responded 200 in 620.9569 ms 
+2026-10-22 12:51:36.146 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 6.7253 ms 
+2026-10-22 12:51:36.186 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 47.0666 ms 
+2026-10-22 12:51:36.186 +03:30 [INF] HTTP GET /app.css responded 200 in 47.1816 ms 
+2026-10-22 12:51:36.189 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 49.3869 ms 
+2026-10-22 12:51:36.263 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 3.6391 ms 
+2026-10-22 12:51:36.278 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 6.4199 ms 
+2026-10-22 12:51:36.303 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 7.1935 ms 
+2026-10-22 12:51:43.248 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 0.5711 ms 
+2026-10-22 12:51:58.470 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.7968 ms 
+2026-10-22 12:51:58.678 +03:30 [INF] HTTP GET /products responded 200 in 178.6176 ms 
+2026-10-22 12:51:58.696 +03:30 [INF] HTTP GET /_blazor responded 101 in 220.1708 ms 
+2026-10-22 12:51:58.697 +03:30 [INF] HTTP GET /app.css responded 200 in 1.4122 ms 
+2026-10-22 12:51:58.704 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 0.4452 ms 
+2026-10-22 12:51:58.707 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 4.6028 ms 
+2026-10-22 12:51:58.714 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 26.6476 ms 
+2026-10-22 12:51:58.714 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 11.4032 ms 
+2026-10-22 12:51:58.756 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.4182 ms 
+2026-10-22 12:51:58.822 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 0.7490 ms 
+2026-10-22 12:51:58.829 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.5983 ms 
+2026-10-22 12:52:30.258 +03:30 [WRN] تهیه بکاپ ایمنی قبل از بازیابی دیتابیس AutoSpareDb. مسیر: D:\AutoSpareBackups\Safety 
+2026-10-22 12:52:30.261 +03:30 [INF] شروع فرآیند بکاپ‌گیری از دیتابیس AutoSpareDb در مسیر D:\AutoSpareBackups\Safety\AutoSpareDb_Backup_1405-07-30_125230.bak 
+2026-10-22 12:52:30.475 +03:30 [INF] بکاپ با موفقیت ایجاد شد: AutoSpareDb_Backup_1405-07-30_125230.bak به حجم 10604544 بایت 
+2026-10-22 12:52:30.479 +03:30 [INF] تعداد بکاپ‌های موجود (1) از سقف مجاز (30) بیشتر نیست. فایلی حذف نشد. 
+2026-10-22 12:52:30.479 +03:30 [INF] بکاپ ایمنی با موفقیت ایجاد شد: AutoSpareDb_Backup_1405-07-30_125230.bak | D:\AutoSpareBackups\Safety\AutoSpareDb_Backup_1405-07-30_125230.bak 
+2026-10-22 12:52:30.480 +03:30 [WRN] شروع عملیات بازیابی دیتابیس AutoSpareDb از مسیر D:\AutoSpareBackups\AutoSpareDb_Backup_1405-07-30_110318.bak 
+2026-10-22 12:52:33.944 +03:30 [INF] بازیابی پایگاه‌داده AutoSpareDb با موفقیت به پایان رسید. بکاپ ایمنی: AutoSpareDb_Backup_1405-07-30_125230.bak 
+2026-10-22 13:01:24.430 +03:30 [INF] HTTP GET /_blazor responded 101 in 565594.6790 ms 
+2026-10-22 13:01:24.430 +03:30 [INF] HTTP GET /_blazor responded 101 in 588121.1766 ms 
+2026-10-22 13:01:25.435 +03:30 [INF] سرویس زمان‌بندی بکاپ متوقف شد. 
