@@ -1,0 +1,86 @@
+2026-10-22 10:19:29.404 +03:30 [WRN] No store type was specified for the decimal property 'UnitPurchasePrice' on entity type 'SaleItem'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'. 
+2026-10-22 10:19:30.578 +03:30 [INF] Storage directories are ready. ImagesPath: D:\porograming\Rider\AutoSpare\AutoSpare.Web\wwwroot\Uploads\Images, BackupPath: D:\AutoSpareBackups 
+2026-10-22 10:19:31.271 +03:30 [INF] HTTP GET / responded 302 in 27.4072 ms 
+2026-10-22 10:19:32.375 +03:30 [INF] HTTP GET /login responded 200 in 1043.6474 ms 
+2026-10-22 10:19:32.426 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 9.2377 ms 
+2026-10-22 10:19:32.442 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 25.1885 ms 
+2026-10-22 10:19:32.446 +03:30 [INF] HTTP GET /app.css responded 200 in 27.0268 ms 
+2026-10-22 10:19:32.457 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 40.1071 ms 
+2026-10-22 10:19:32.568 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 0.4419 ms 
+2026-10-22 10:19:32.568 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.4424 ms 
+2026-10-22 10:19:32.665 +03:30 [INF] HTTP GET /favicon.ico responded 404 in 0.3593 ms 
+2026-10-22 10:19:32.680 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 48.9373 ms 
+2026-10-22 10:19:32.701 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 7.9018 ms 
+2026-10-22 10:19:32.757 +03:30 [INF] HTTP GET /not-found responded 302 in 2.5409 ms 
+2026-10-22 10:19:32.802 +03:30 [INF] HTTP GET /login responded 200 in 40.3274 ms 
+2026-10-22 10:19:34.691 +03:30 [INF] HTTP POST /api/auth/login responded 302 in 351.4357 ms 
+2026-10-22 10:19:35.250 +03:30 [INF] HTTP GET / responded 200 in 553.7661 ms 
+2026-10-22 10:19:35.274 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 0.6953 ms 
+2026-10-22 10:19:35.275 +03:30 [INF] HTTP GET /app.css responded 200 in 2.2417 ms 
+2026-10-22 10:19:35.277 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 3.3117 ms 
+2026-10-22 10:19:35.280 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 6.2764 ms 
+2026-10-22 10:19:35.291 +03:30 [INF] HTTP GET /_blazor responded 101 in 2544.7569 ms 
+2026-10-22 10:19:35.314 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 53.1557 ms 
+2026-10-22 10:19:35.340 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.7036 ms 
+2026-10-22 10:19:35.367 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 1.6545 ms 
+2026-10-22 10:19:35.389 +03:30 [INF] HTTP GET /favicon.ico responded 404 in 0.9514 ms 
+2026-10-22 10:19:35.390 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 4.3563 ms 
+2026-10-22 10:19:35.440 +03:30 [INF] HTTP GET /not-found responded 404 in 30.6406 ms 
+2026-10-22 10:40:12.973 +03:30 [INF] HTTP GET /_blazor responded 101 in 1237558.2962 ms 
+2026-10-22 10:40:34.151 +03:30 [WRN] No store type was specified for the decimal property 'UnitPurchasePrice' on entity type 'SaleItem'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'. 
+2026-10-22 10:40:34.830 +03:30 [INF] Storage directories are ready. ImagesPath: D:\porograming\Rider\AutoSpare\AutoSpare.Web\wwwroot\Uploads\Images, BackupPath: D:\AutoSpareBackups 
+2026-10-22 10:40:34.847 +03:30 [INF] Scheduled backup service started. 
+2026-10-22 10:40:34.851 +03:30 [INF] Next scheduled backup at "2026-10-22T21:00:00.0000000+03:30" (in "10:19:25.1523605"). 
+2026-10-22 10:40:35.193 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 28.6825 ms 
+2026-10-22 10:40:35.734 +03:30 [INF] HTTP GET /settings responded 200 in 465.8007 ms 
+2026-10-22 10:40:35.756 +03:30 [INF] HTTP GET /_blazor responded 101 in 544.6253 ms 
+2026-10-22 10:40:35.756 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 4.5655 ms 
+2026-10-22 10:40:35.758 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 16.0543 ms 
+2026-10-22 10:40:35.765 +03:30 [INF] HTTP GET /app.css responded 200 in 13.7204 ms 
+2026-10-22 10:40:35.770 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 18.3546 ms 
+2026-10-22 10:40:35.818 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 46.8696 ms 
+2026-10-22 10:40:35.837 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.5553 ms 
+2026-10-22 10:40:35.848 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 5.6700 ms 
+2026-10-22 10:40:35.860 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.5784 ms 
+2026-10-22 10:40:35.864 +03:30 [INF] HTTP GET / responded 200 in 701.3527 ms 
+2026-10-22 10:40:35.888 +03:30 [INF] HTTP GET /app.css responded 200 in 9.0622 ms 
+2026-10-22 10:40:35.891 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 3.2608 ms 
+2026-10-22 10:40:35.897 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 9.6913 ms 
+2026-10-22 10:40:35.901 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 21.6990 ms 
+2026-10-22 10:40:35.997 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 1.4674 ms 
+2026-10-22 10:40:36.010 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 0.6887 ms 
+2026-10-22 10:40:36.037 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.7925 ms 
+2026-10-22 10:41:37.992 +03:30 [INF] HTTP GET /_blazor responded 101 in 62121.1429 ms 
+2026-10-22 10:41:38.416 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.7879 ms 
+2026-10-22 10:42:23.991 +03:30 [INF] HTTP GET /_blazor responded 101 in 45546.7541 ms 
+2026-10-22 10:47:43.427 +03:30 [INF] HTTP GET /_blazor responded 101 in 427382.9083 ms 
+2026-10-22 10:47:59.142 +03:30 [WRN] No store type was specified for the decimal property 'UnitPurchasePrice' on entity type 'SaleItem'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'. 
+2026-10-22 10:47:59.798 +03:30 [INF] Storage directories are ready. ImagesPath: D:\porograming\Rider\AutoSpare\AutoSpare.Web\wwwroot\Uploads\Images, BackupPath: D:\AutoSpareBackups 
+2026-10-22 10:47:59.808 +03:30 [INF] سرویس زمان‌بندی بکاپ پایگاه داده راه‌اندازی شد. 
+2026-10-22 10:47:59.811 +03:30 [INF] شروع بکاپ خودکار دیتابیس. علت: Startup | مسیر مقصد: D:/AutoSpareBackups 
+2026-10-22 10:47:59.811 +03:30 [INF] بکاپ بعدی در ساعت 2026/10/22 21:00:00 اجرا خواهد شد (مدت انتظار: "10:12:00.1913387"). 
+2026-10-22 10:48:00.061 +03:30 [INF] شروع فرآیند بکاپ‌گیری از دیتابیس AutoSpareDb در مسیر D:\AutoSpareBackups\AutoSpareDb_Backup_1405-07-30_104800.bak 
+2026-10-22 10:48:00.316 +03:30 [INF] بکاپ با موفقیت ایجاد شد: AutoSpareDb_Backup_1405-07-30_104800.bak به حجم 10604544 بایت 
+2026-10-22 10:48:00.317 +03:30 [INF] بکاپ زمان‌بندی‌شده با موفقیت ایجاد شد: AutoSpareDb_Backup_1405-07-30_104800.bak (10604544 بایت) 
+2026-10-22 10:48:00.946 +03:30 [INF] HTTP GET / responded 200 in 700.4221 ms 
+2026-10-22 10:48:00.971 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 6.8603 ms 
+2026-10-22 10:48:00.981 +03:30 [INF] HTTP GET /app.css responded 200 in 16.8481 ms 
+2026-10-22 10:48:00.984 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 19.5730 ms 
+2026-10-22 10:48:00.989 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 24.9787 ms 
+2026-10-22 10:48:01.070 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 4.8678 ms 
+2026-10-22 10:48:01.083 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 8.0347 ms 
+2026-10-22 10:48:01.109 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 7.5958 ms 
+2026-10-22 10:48:01.468 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.9752 ms 
+2026-10-22 10:48:01.757 +03:30 [INF] HTTP GET /settings responded 200 in 252.8217 ms 
+2026-10-22 10:48:01.775 +03:30 [INF] HTTP GET /app.css responded 200 in 2.5855 ms 
+2026-10-22 10:48:01.775 +03:30 [INF] HTTP GET /_blazor responded 101 in 300.0259 ms 
+2026-10-22 10:48:01.779 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 2.3291 ms 
+2026-10-22 10:48:01.782 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 2.2696 ms 
+2026-10-22 10:48:01.785 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 5.0403 ms 
+2026-10-22 10:48:01.789 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 25.1261 ms 
+2026-10-22 10:48:01.824 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.4495 ms 
+2026-10-22 10:48:01.845 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 0.8233 ms 
+2026-10-22 10:48:01.850 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.5170 ms 
+2026-10-22 10:52:07.640 +03:30 [INF] HTTP GET /_blazor responded 101 in 245783.4464 ms 
+2026-10-22 10:52:07.640 +03:30 [INF] HTTP GET /_blazor responded 101 in 246526.0217 ms 
+2026-10-22 10:52:08.646 +03:30 [INF] سرویس زمان‌بندی بکاپ متوقف شد. 
