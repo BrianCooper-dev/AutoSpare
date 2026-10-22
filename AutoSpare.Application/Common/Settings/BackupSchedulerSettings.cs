@@ -15,12 +15,12 @@ public sealed class BackupSchedulerSettings
     public List<string> Times { get; set; } = new();
 
     /// <summary>
-    /// محاسبه زمان بر پایه ساعت محلی سرور (false) یا بر پایه ساعت هماهنگ جهانی (true)
+    /// محاسبه زمان بر پایه ساعت محلی سرور یا UTC
     /// </summary>
     public bool UseUtc { get; set; } = false;
 
     /// <summary>
-    /// در صورتی که نیاز به ذخیره در پوشه‌ای مجزا از مسیر پیش‌فرض باشد
+    /// مسیر جایگزین برای ذخیره بکاپ
     /// </summary>
     public string? BackupPathOverride { get; set; }
 
@@ -28,4 +28,10 @@ public sealed class BackupSchedulerSettings
     /// اجرای یک بکاپ بلافاصله پس از بالا آمدن برنامه
     /// </summary>
     public bool RunOnStartup { get; set; } = false;
+
+    /// <summary>
+    /// حداکثر تعداد فایل‌های بکاپ قابل نگهداری برای هر دیتابیس.
+    /// مقدار صفر یعنی پاک‌سازی خودکار غیرفعال است.
+    /// </summary>
+    public int MaxBackupCount { get; set; } = 30;
 }
