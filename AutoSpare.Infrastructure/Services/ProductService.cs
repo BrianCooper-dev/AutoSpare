@@ -1,3 +1,4 @@
+using AutoSpare.Application.Common.Models;
 using AutoSpare.Application.Products;
 using AutoSpare.Application.Products.DTOs;
 using AutoSpare.Domain.Inventories;
@@ -146,7 +147,7 @@ public class ProductService : IProductService
         return product.Id;
     }
 
-    public async Task<List<ProductListItemDto>> GetProductsAsync(
+    public async Task<PagedResult<ProductListItemDto>> GetProductsAsync(
         ProductFilterDto? filter = null)
     {
         filter ??= new ProductFilterDto();
@@ -257,7 +258,17 @@ public class ProductService : IProductService
                 break;
         }
 
-        return await projectedQuery.ToListAsync();
+        var totalCount = await projectedQuery.CountAsync();
+
+        var pageNumber = filter.PageNumber > 0 ? filter.PageNumber : 1;
+        var pageSize = filter.PageSize > 0 ? filter.PageSize : 20;
+
+        var items = await projectedQuery
+            .Skip((pageNumber - 1) * pageSize)
+            .Take(pageSize)
+            .ToListAsync();
+
+        return new PagedResult<ProductListItemDto>(items, totalCount, pageNumber, pageSize);
     }
 
     public async Task<ProductDetailsDto?> GetProductDetailsByIdAsync(Guid id)
@@ -725,7 +736,7 @@ public class ProductService : IProductService
         bool isLowStockAlertEnabled,
         int minStockThreshold)
     {
-        if (string.IsNullOrWhiteSpace(name))
+        if (string.IsNullOrWhiteSpace(name)) // اصلاح شد (حذف نام پارامتر اضافی)
         {
             throw new ArgumentException(
                 "نام کالا الزامی است.");

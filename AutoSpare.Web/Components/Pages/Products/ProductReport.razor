@@ -393,7 +393,8 @@
     {
         try
         {
-            _allProducts = await ProductService.GetProductsAsync(new ProductFilterDto());
+            var pagedResult = await ProductService.GetProductsAsync(new ProductFilterDto());
+            _allProducts = pagedResult.Items;
 
             if (ProductId.HasValue && ProductId.Value != Guid.Empty)
             {
@@ -451,6 +452,6 @@
             _isLoading = false;
         }
     }
-
 }
+
 

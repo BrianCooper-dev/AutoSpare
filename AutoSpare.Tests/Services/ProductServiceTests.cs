@@ -410,8 +410,11 @@ public class ProductServiceTests : IDisposable
     {
         await SeedStockProductsAsync();
 
-        var products = await _service.GetProductsAsync(new ProductFilterDto());
-        var item = products.Should().ContainSingle(p => p.InternalCode == "LOW").Subject;
+        var result = await _service.GetProductsAsync(new ProductFilterDto());
+        var item = result.Items
+            .Should()
+            .ContainSingle(p => p.InternalCode == "LOW")
+            .Subject;
 
         item.TotalStock.Should().Be(8);
         item.MinStockThreshold.Should().Be(10);
@@ -429,8 +432,12 @@ public class ProductServiceTests : IDisposable
             StockStatus = StockStatusFilter.LowStock
         });
 
-        result.Should().ContainSingle().Which.InternalCode.Should().Be("LOW");
+        result.Items
+            .Should()
+            .ContainSingle()
+            .Which.InternalCode.Should().Be("LOW");
     }
+
 
     [Fact]
     public async Task AdjustProductsPriceAsync_IncreasePrice_ShouldUpdateSalePriceAndRecordHistory()

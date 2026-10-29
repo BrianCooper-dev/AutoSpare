@@ -367,7 +367,8 @@
         try
         {
             _isLoading = true;
-            _products = await ProductService.GetProductsAsync(_filter);
+            var pagedResult = await ProductService.GetProductsAsync(_filter);
+            _products = pagedResult.Items;
         }
         catch (Exception ex)
         {
@@ -423,5 +424,5 @@
         _filter = new ProductFilterDto();
         await LoadProductsAsync();
     }
-
 }
+

@@ -1,3 +1,4 @@
+using AutoSpare.Application.Common.Models;
 using AutoSpare.Application.Products.DTOs;
 
 namespace AutoSpare.Application.Products;
@@ -11,11 +12,11 @@ public interface IProductService
     Task<Guid> CreateProductAsync(CreateProductDto dto);
     Task<UpdateProductDto?> GetProductForEditByIdAsync(Guid id);
     Task UpdateProductAsync(UpdateProductDto dto);
-    Task<List<ProductListItemDto>> GetProductsAsync(ProductFilterDto? filter = null);
     Task<ProductDetailsDto?> GetProductDetailsByIdAsync(Guid id);
     Task ToggleProductStatusAsync(Guid id);
     Task DeleteProductAsync(Guid id);
     Task<List<LowStockAlertDto>> GetLowStockAlertsAsync(Guid? warehouseId = null);
     Task<List<LowStockAlertDto>> GetTopLowStockAlertsAsync(int count = 5);
     Task AdjustProductsPriceAsync(BatchPriceAdjustmentDto dto);
+    Task<PagedResult<ProductListItemDto>> GetProductsAsync(ProductFilterDto? filter = null);
 }
