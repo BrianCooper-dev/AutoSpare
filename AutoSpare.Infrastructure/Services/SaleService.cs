@@ -2,6 +2,7 @@ using System.Globalization;
 using AutoSpare.Application.Products.DTOs;
 using AutoSpare.Application.Sales;
 using AutoSpare.Application.Sales.DTOs;
+using AutoSpare.Domain.Inventories;
 using AutoSpare.Domain.Inventories.Enums;
 using AutoSpare.Domain.Sales;
 using AutoSpare.Domain.Sales.Enums;
@@ -129,8 +130,7 @@ public class SaleService : ISaleService
 
         if (string.IsNullOrWhiteSpace(dto.InvoiceNumber))
         {
-            throw new ArgumentException(
-                "شماره فاکتور فروش الزامی است.");
+            throw new ArgumentException("شماره فاکتور فروش الزامی است.");
         }
 
         var customerName = string.IsNullOrWhiteSpace(dto.CustomerName)
@@ -145,24 +145,21 @@ public class SaleService : ISaleService
 
         if (validItems.Count == 0)
         {
-            throw new ArgumentException(
-                "حداقل یک قلم کالا برای فاکتور فروش الزامی است.");
+            throw new ArgumentException("حداقل یک قلم کالا برای فاکتور فروش الزامی است.");
         }
 
         if (validItems.Any(i =>
                 !i.WarehouseId.HasValue ||
                 i.WarehouseId.Value == Guid.Empty))
         {
-            throw new ArgumentException(
-                "برای هر ردیف کالا، انتخاب انبار الزامی است.");
+            throw new ArgumentException("برای هر ردیف کالا، انتخاب انبار الزامی است.");
         }
 
         var strategy = _context.Database.CreateExecutionStrategy();
 
         return await strategy.ExecuteAsync(async () =>
         {
-            await using var transaction =
-                await _context.Database.BeginTransactionAsync();
+            await using var transaction = await _context.Database.BeginTransactionAsync();
 
             try
             {
@@ -198,9 +195,7 @@ public class SaleService : ISaleService
                     customerName: customerName,
                     warehouseId: dto.WarehouseId,
                     saleDate: dto.SaleDate.HasValue
-                        ? DateTime.SpecifyKind(
-                            dto.SaleDate.Value,
-                            DateTimeKind.Utc)
+                        ? DateTime.SpecifyKind(dto.SaleDate.Value, DateTimeKind.Utc)
                         : DateTime.UtcNow,
                     notes: dto.Notes);
 
@@ -208,20 +203,15 @@ public class SaleService : ISaleService
                 {
                     if (item.Quantity <= 0)
                     {
-                        throw new ArgumentException(
-                            "تعداد کالا باید بزرگتر از صفر باشد.");
+                        throw new ArgumentException("تعداد کالا باید بزرگتر از صفر باشد.");
                     }
 
-                    if (item.UnitPrice.HasValue &&
-                        item.UnitPrice.Value < 0)
+                    if (item.UnitPrice.HasValue && item.UnitPrice.Value < 0)
                     {
-                        throw new ArgumentException(
-                            "قیمت واحد نمی‌تواند منفی باشد.");
+                        throw new ArgumentException("قیمت واحد نمی‌تواند منفی باشد.");
                     }
 
-                    var costPrice = productInfos.TryGetValue(
-                        item.ProductId!.Value,
-                        out var product)
+                    var costPrice = productInfos.TryGetValue(item.ProductId!.Value, out var product)
                         ? product.PurchasePrice
                         : 0m;
 
@@ -245,6 +235,7 @@ public class SaleService : ISaleService
                         .ToList();
 
                     var inventories = await _context.Inventories
+                        .Include(i => i.Movements)
                         .Where(i =>
                             involvedWarehouseIds.Contains(i.WarehouseId) &&
                             distinctProductIds.Contains(i.ProductId))
@@ -262,9 +253,7 @@ public class SaleService : ISaleService
 
                         if (inventory.Quantity < item.Quantity)
                         {
-                            var productName = productInfos.TryGetValue(
-                                item.ProductId,
-                                out var product)
+                            var productName = productInfos.TryGetValue(item.ProductId, out var product)
                                 ? product.Name
                                 : "کالا";
 
@@ -281,9 +270,8 @@ public class SaleService : ISaleService
                             reference: sale.InvoiceNumber,
                             performedBy: currentUserName ?? "سیستم");
 
-                        // فقط حرکت تازه‌ای که همین فراخوانی ساخته است INSERT شود.
-                        _context.Entry(inventory.Movements.Last()).State =
-                            EntityState.Added;
+                        MarkLatestMovementAsAdded(inventory);
+                        // وضعیت inventory به صورت خودکار توسط EF Core (به خاطر تغییر Quantity) ردیابی می‌شود
                     }
                 }
 
@@ -332,18 +320,10 @@ public class SaleService : ISaleService
                     {
                         Id = i.Id,
                         ProductId = i.ProductId,
-                        ProductName = i.Product != null
-                            ? i.Product.Name
-                            : "نامشخص",
-                        ProductCode = i.Product != null
-                            ? i.Product.InternalCode
-                            : null,
-                        ImageUrl = i.Product != null
-                            ? i.Product.ImagePath
-                            : null,
-                        WarehouseName = i.Warehouse != null
-                            ? i.Warehouse.Name
-                            : "نامشخص",
+                        ProductName = i.Product != null ? i.Product.Name : "نامشخص",
+                        ProductCode = i.Product != null ? i.Product.InternalCode : null,
+                        ImageUrl = i.Product != null ? i.Product.ImagePath : null,
+                        WarehouseName = i.Warehouse != null ? i.Warehouse.Name : "نامشخص",
                         Quantity = i.Quantity,
                         UnitPrice = i.UnitPrice,
                         UnitPurchasePrice = i.UnitPurchasePrice
@@ -375,19 +355,13 @@ public class SaleService : ISaleService
 
         if (fromDate.HasValue)
         {
-            var fromUtc = DateTime.SpecifyKind(
-                fromDate.Value.Date,
-                DateTimeKind.Utc);
-
+            var fromUtc = DateTime.SpecifyKind(fromDate.Value.Date, DateTimeKind.Utc);
             query = query.Where(s => s.SaleDate >= fromUtc);
         }
 
         if (toDate.HasValue)
         {
-            var toUtc = DateTime.SpecifyKind(
-                toDate.Value.Date.AddDays(1).AddTicks(-1),
-                DateTimeKind.Utc);
-
+            var toUtc = DateTime.SpecifyKind(toDate.Value.Date.AddDays(1).AddTicks(-1), DateTimeKind.Utc);
             query = query.Where(s => s.SaleDate <= toUtc);
         }
 
@@ -398,9 +372,7 @@ public class SaleService : ISaleService
                 Id = s.Id,
                 InvoiceNumber = s.InvoiceNumber,
                 CustomerName = s.CustomerName,
-                WarehouseName = s.Warehouse != null
-                    ? s.Warehouse.Name
-                    : "چند انبار / نامشخص",
+                WarehouseName = s.Warehouse != null ? s.Warehouse.Name : "چند انبار / نامشخص",
                 SaleDate = s.SaleDate,
                 Status = s.Status,
                 ItemsCount = s.Items.Count,
@@ -418,27 +390,22 @@ public class SaleService : ISaleService
         return await strategy.ExecuteAsync(async () =>
         {
             await using var transaction =
-                await _context.Database.BeginTransactionAsync(
-                    cancellationToken);
+                await _context.Database.BeginTransactionAsync(cancellationToken);
 
             try
             {
                 var sale = await _context.Sales
                     .Include(s => s.Items)
-                    .FirstOrDefaultAsync(
-                        s => s.Id == saleId,
-                        cancellationToken);
+                    .FirstOrDefaultAsync(s => s.Id == saleId, cancellationToken);
 
                 if (sale is null)
                 {
-                    throw new InvalidOperationException(
-                        "فاکتور مورد نظر یافت نشد.");
+                    throw new InvalidOperationException("فاکتور مورد نظر یافت نشد.");
                 }
 
                 if (sale.Status != SaleStatus.Draft)
                 {
-                    throw new InvalidOperationException(
-                        "تنها فاکتورهای پیش‌نویس قابل نهایی‌سازی هستند.");
+                    throw new InvalidOperationException("تنها فاکتورهای پیش‌نویس قابل نهایی‌سازی هستند.");
                 }
 
                 sale.Complete();
@@ -454,6 +421,7 @@ public class SaleService : ISaleService
                     .ToList();
 
                 var inventories = await _context.Inventories
+                    .Include(i => i.Movements)
                     .Where(i =>
                         involvedWarehouseIds.Contains(i.WarehouseId) &&
                         distinctProductIds.Contains(i.ProductId))
@@ -492,9 +460,7 @@ public class SaleService : ISaleService
                         reference: sale.InvoiceNumber,
                         performedBy: "سیستم");
 
-                    // فقط حرکت تازه‌ای که همین فراخوانی ساخته است INSERT شود.
-                    _context.Entry(inventory.Movements.Last()).State =
-                        EntityState.Added;
+                    MarkLatestMovementAsAdded(inventory);
                 }
 
                 await _context.SaveChangesAsync(cancellationToken);
@@ -528,8 +494,7 @@ public class SaleService : ISaleService
 
         await strategy.ExecuteAsync(async () =>
         {
-            await using var transaction =
-                await _context.Database.BeginTransactionAsync();
+            await using var transaction = await _context.Database.BeginTransactionAsync();
 
             try
             {
@@ -539,20 +504,17 @@ public class SaleService : ISaleService
 
                 if (sale is null)
                 {
-                    throw new InvalidOperationException(
-                        "فاکتور یافت نشد.");
+                    throw new InvalidOperationException("فاکتور یافت نشد.");
                 }
 
                 if (sale.Status == SaleStatus.Cancelled)
                 {
-                    throw new InvalidOperationException(
-                        "این فاکتور قبلاً باطل شده است.");
+                    throw new InvalidOperationException("این فاکتور قبلاً باطل شده است.");
                 }
 
-                var effectiveReason =
-                    string.IsNullOrWhiteSpace(reason)
-                        ? "بدون درج دلیل"
-                        : reason.Trim();
+                var effectiveReason = string.IsNullOrWhiteSpace(reason)
+                    ? "بدون درج دلیل"
+                    : reason.Trim();
 
                 if (sale.Status == SaleStatus.Completed)
                 {
@@ -567,6 +529,7 @@ public class SaleService : ISaleService
                         .ToList();
 
                     var inventories = await _context.Inventories
+                        .Include(i => i.Movements)
                         .Where(i =>
                             productIds.Contains(i.ProductId) &&
                             warehouseIds.Contains(i.WarehouseId))
@@ -578,25 +541,22 @@ public class SaleService : ISaleService
                                 (item.ProductId, item.WarehouseId),
                                 out var inventory))
                         {
-                            throw new InvalidOperationException(
-                                "رکورد انبار برای کالا یافت نشد.");
+                            throw new InvalidOperationException("رکورد انبار برای کالا یافت نشد.");
                         }
 
                         inventory.IncreaseQuantity(
                             amount: item.Quantity,
                             type: StockMovementType.CustomerReturn,
-                            reason:
-                            $"ابطال فاکتور فروش {sale.InvoiceNumber} - دلیل: {effectiveReason}",
+                            reason: $"ابطال فاکتور فروش {sale.InvoiceNumber} - دلیل: {effectiveReason}",
                             reference: sale.InvoiceNumber,
                             performedBy: "سیستم");
 
-                        // فقط حرکت تازه‌ای که همین فراخوانی ساخته است INSERT شود.
-                        _context.Entry(inventory.Movements.Last()).State =
-                            EntityState.Added;
+                        MarkLatestMovementAsAdded(inventory);
                     }
                 }
 
                 sale.Cancel(effectiveReason);
+                _context.Entry(sale).State = EntityState.Modified;
 
                 await _context.SaveChangesAsync();
                 await transaction.CommitAsync();
@@ -619,12 +579,22 @@ public class SaleService : ISaleService
         });
     }
 
-    private static void LogConcurrencyDetails(
-        DbUpdateConcurrencyException exception)
+    private void MarkLatestMovementAsAdded(Inventory inventory)
     {
-        Console.Error.WriteLine(
-            $"[SaleService] DbUpdateConcurrencyException: " +
-            $"{exception.Message}");
+        var movement = inventory.Movements.LastOrDefault();
+
+        if (movement == null)
+        {
+            throw new InvalidOperationException(
+                "پس از تغییر موجودی، حرکت انبار جدیدی ایجاد نشد.");
+        }
+
+        _context.Entry(movement).State = EntityState.Added;
+    }
+
+    private static void LogConcurrencyDetails(DbUpdateConcurrencyException exception)
+    {
+        Console.Error.WriteLine($"[SaleService] DbUpdateConcurrencyException: {exception.Message}");
 
         foreach (var entry in exception.Entries)
         {
@@ -633,20 +603,13 @@ public class SaleService : ISaleService
                 $"State={entry.State}");
 
             var primaryKey = entry.Metadata.FindPrimaryKey();
-
             if (primaryKey is null)
-            {
                 continue;
-            }
 
             foreach (var keyProperty in primaryKey.Properties)
             {
-                var keyValue = entry
-                    .Property(keyProperty.Name)
-                    .CurrentValue;
-
-                Console.Error.WriteLine(
-                    $"[SaleService] Key {keyProperty.Name}={keyValue}");
+                var keyValue = entry.Property(keyProperty.Name).CurrentValue;
+                Console.Error.WriteLine($"[SaleService] Key {keyProperty.Name}={keyValue}");
             }
         }
     }

@@ -446,8 +446,8 @@ namespace AutoSpare.Infrastructure.Persistence.Migrations
                         .HasColumnType("int");
 
                     b.Property<decimal>("UnitPrice")
-                        .HasPrecision(18, 2)
-                        .HasColumnType("decimal(18,2)");
+                        .HasPrecision(18, 4)
+                        .HasColumnType("decimal(18,4)");
 
                     b.HasKey("Id");
 
@@ -540,11 +540,12 @@ namespace AutoSpare.Infrastructure.Persistence.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<decimal>("UnitPrice")
-                        .HasPrecision(18, 2)
-                        .HasColumnType("decimal(18,2)");
+                        .HasPrecision(18, 4)
+                        .HasColumnType("decimal(18,4)");
 
                     b.Property<decimal>("UnitPurchasePrice")
-                        .HasColumnType("decimal(18,2)");
+                        .HasPrecision(18, 4)
+                        .HasColumnType("decimal(18,4)");
 
                     b.Property<Guid>("WarehouseId")
                         .HasColumnType("uniqueidentifier");
@@ -565,6 +566,8 @@ namespace AutoSpare.Infrastructure.Persistence.Migrations
                             t.HasCheckConstraint("CK_SaleItems_Quantity_Positive", "[Quantity] > 0");
 
                             t.HasCheckConstraint("CK_SaleItems_UnitPrice_NonNegative", "[UnitPrice] >= 0");
+
+                            t.HasCheckConstraint("CK_SaleItems_UnitPurchasePrice_NonNegative", "[UnitPurchasePrice] >= 0");
                         });
                 });
 
