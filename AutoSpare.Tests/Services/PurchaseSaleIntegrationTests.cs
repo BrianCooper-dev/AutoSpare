@@ -9,45 +9,57 @@ using AutoSpare.Domain.Suppliers;
 using AutoSpare.Domain.Warehouses;
 using AutoSpare.Infrastructure.Persistence;
 using AutoSpare.Infrastructure.Services;
+using AutoSpare.Tests.Infrastructure;
 using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
 
 namespace AutoSpare.Tests.Services;
 
 /// <summary>
-/// تست‌های یکپارچگی (Integration Tests) برای سناریوهای متوالی خرید، فروش، ابطال و زنجیره گردش کاردکس انبار
+/// تست جریان خرید، فروش، ابطال و گردش موجودی با دیتابیس InMemory.
+/// آزمون رفتار RowVersion واقعی باید جداگانه روی SQL Server اجرا شود.
 /// </summary>
-public class PurchaseSaleIntegrationTests : IDisposable
+public class PurchaseSaleIntegrationTests
 {
-    private readonly ApplicationDbContext _context;
-    private readonly PurchaseService _purchaseService;
-    private readonly SaleService _saleService;
+    private readonly DbContextOptions<ApplicationDbContext> _options;
 
     public PurchaseSaleIntegrationTests()
     {
-        var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-            .UseInMemoryDatabase(databaseName: $"IntegrationDb_{Guid.NewGuid()}")
+        _options = new DbContextOptionsBuilder<ApplicationDbContext>()
+            .UseInMemoryDatabase(
+                databaseName: $"IntegrationDb_{Guid.NewGuid()}")
             .ConfigureWarnings(x =>
-                x.Ignore(Microsoft.EntityFrameworkCore.Diagnostics.InMemoryEventId.TransactionIgnoredWarning))
+                x.Ignore(
+                    Microsoft.EntityFrameworkCore.Diagnostics.InMemoryEventId
+                        .TransactionIgnoredWarning))
             .Options;
-
-        _context = new ApplicationDbContext(options);
-        _purchaseService = new PurchaseService(_context);
-        _saleService = new SaleService(_context);
     }
 
-    private async Task<(Guid SupplierId, Guid WarehouseId, Guid ProductId)> SeedMasterDataAsync()
+    private ApplicationDbContext CreateContext() =>
+        new TestApplicationDbContext(_options);
+
+    private async Task<(Guid SupplierId, Guid WarehouseId, Guid ProductId)>
+        SeedMasterDataAsync()
     {
-        var supplier = new Supplier("تأمین‌کننده قطعات یدکی مرکزی", "02177889900", "تهران، چراغ‌برق");
-        var warehouse = new Warehouse("انبار پخش مرکزی", "تهران، خیابان امیرکبیر");
+        await using var db = CreateContext();
+
+        var supplier = new Supplier(
+            "تأمین‌کننده قطعات یدکی مرکزی",
+            "02177889900",
+            "تهران، چراغ‌برق");
+
+        var warehouse = new Warehouse(
+            "انبار پخش مرکزی",
+            "تهران، خیابان امیرکبیر");
+
         var category = new Category("سیستم ترمز و انتقال قدرت");
         var brand = new Brand("ایساکو");
 
-        await _context.Suppliers.AddAsync(supplier);
-        await _context.Warehouses.AddAsync(warehouse);
-        await _context.Categories.AddAsync(category);
-        await _context.Brands.AddAsync(brand);
-        await _context.SaveChangesAsync();
+        await db.Suppliers.AddAsync(supplier);
+        await db.Warehouses.AddAsync(warehouse);
+        await db.Categories.AddAsync(category);
+        await db.Brands.AddAsync(brand);
+        await db.SaveChangesAsync();
 
         var product = new Product(
             name: "دیسک ترمز چرخ جلو",
@@ -59,8 +71,9 @@ public class PurchaseSaleIntegrationTests : IDisposable
             brandId: brand.Id,
             defaultWarehouseId: warehouse.Id
         );
-        await _context.Products.AddAsync(product);
-        await _context.SaveChangesAsync();
+
+        await db.Products.AddAsync(product);
+        await db.SaveChangesAsync();
 
         return (supplier.Id, warehouse.Id, product.Id);
     }
@@ -69,9 +82,9 @@ public class PurchaseSaleIntegrationTests : IDisposable
     public async Task CompleteLifeCycle_PurchaseThenSaleThenCancelSale_InventoryAndMovementsMustMatch()
     {
         // Arrange
-        var (supplierId, warehouseId, productId) = await SeedMasterDataAsync();
+        var (supplierId, warehouseId, productId) =
+            await SeedMasterDataAsync();
 
-        // گام ۱: ثبت و نهایی‌سازی خرید به تعداد ۲۰ عدد
         var purchaseDto = new CreatePurchaseDto
         {
             InvoiceNumber = "INT-PUR-001",
@@ -80,21 +93,39 @@ public class PurchaseSaleIntegrationTests : IDisposable
             FinalizeImmediately = true,
             Items = new List<CreatePurchaseItemDto>
             {
-                new() { ProductId = productId, Quantity = 20, UnitPrice = 420_000m }
+                new()
+                {
+                    ProductId = productId,
+                    Quantity = 20,
+                    UnitPrice = 420_000m
+                }
             }
         };
 
-        var purchaseId = await _purchaseService.CreatePurchaseAsync(purchaseDto, "مدیر خرید");
-        purchaseId.Should().NotBeEmpty();
+        // گام ۱: ثبت و نهایی‌سازی خرید.
+        await using (var db = CreateContext())
+        {
+            var purchaseService = new PurchaseService(db);
 
-        var inventoryAfterPurchase = await _context.Inventories
-            .Include(i => i.Movements)
-            .FirstOrDefaultAsync(i => i.ProductId == productId && i.WarehouseId == warehouseId);
+            var purchaseId = await purchaseService.CreatePurchaseAsync(
+                purchaseDto,
+                "مدیر خرید");
 
-        inventoryAfterPurchase.Should().NotBeNull();
-        inventoryAfterPurchase!.Quantity.Should().Be(20);
+            purchaseId.Should().NotBeEmpty();
+        }
 
-        // گام ۲: ثبت فاکتور فروش به تعداد ۷ عدد
+        await using (var db = CreateContext())
+        {
+            var inventoryAfterPurchase = await db.Inventories
+                .AsNoTracking()
+                .FirstOrDefaultAsync(i =>
+                    i.ProductId == productId &&
+                    i.WarehouseId == warehouseId);
+
+            inventoryAfterPurchase.Should().NotBeNull();
+            inventoryAfterPurchase!.Quantity.Should().Be(20);
+        }
+
         var saleDto = new CreateSaleDto
         {
             InvoiceNumber = "INT-SALE-001",
@@ -113,42 +144,78 @@ public class PurchaseSaleIntegrationTests : IDisposable
             }
         };
 
-        var saleId = await _saleService.CreateSaleAsync(saleDto);
-        saleId.Should().NotBeEmpty();
+        // گام ۲: فروش ۷ عدد.
+        Guid saleId;
 
-        var inventoryAfterSale = await _context.Inventories
-            .FirstOrDefaultAsync(i => i.ProductId == productId && i.WarehouseId == warehouseId);
+        await using (var db = CreateContext())
+        {
+            var saleService = new SaleService(db);
+            saleId = await saleService.CreateSaleAsync(saleDto);
 
-        inventoryAfterSale!.Quantity.Should().Be(13);
+            saleId.Should().NotBeEmpty();
+        }
 
-        // گام ۳: ابطال فاکتور فروش و بازگشت موجودی
-        await _saleService.CancelSaleAsync(saleId);
+        await using (var db = CreateContext())
+        {
+            var inventoryAfterSale = await db.Inventories
+                .AsNoTracking()
+                .FirstOrDefaultAsync(i =>
+                    i.ProductId == productId &&
+                    i.WarehouseId == warehouseId);
 
-        var finalInventory = await _context.Inventories
-            .Include(i => i.Movements)
-            .FirstOrDefaultAsync(i => i.ProductId == productId && i.WarehouseId == warehouseId);
+            inventoryAfterSale.Should().NotBeNull();
+            inventoryAfterSale!.Quantity.Should().Be(13);
+        }
 
-        finalInventory!.Quantity.Should().Be(20);
+        // گام ۳: ابطال فروش و بازگشت ۷ عدد.
+        await using (var db = CreateContext())
+        {
+            var saleService = new SaleService(db);
+            await saleService.CancelSaleAsync(saleId);
+        }
 
-        // بررسی زنجیره کاردکس انبار (Movements)
-        var movements = finalInventory.Movements.OrderBy(m => m.CreatedAt).ToList();
-        movements.Should().HaveCount(3);
+        // Assert نهایی
+        await using (var db = CreateContext())
+        {
+            var finalInventory = await db.Inventories
+                .AsNoTracking()
+                .Include(i => i.Movements)
+                .FirstOrDefaultAsync(i =>
+                    i.ProductId == productId &&
+                    i.WarehouseId == warehouseId);
 
-        movements[0].Type.Should().Be(StockMovementType.Purchase);
-        movements[0].Reference.Should().Be("INT-PUR-001");
+            finalInventory.Should().NotBeNull();
+            finalInventory!.Quantity.Should().Be(20);
 
-        movements[1].Type.Should().Be(StockMovementType.Sale);
-        movements[1].Reference.Should().Be("INT-SALE-001");
+            var movements = finalInventory.Movements.ToList();
+            movements.Should().HaveCount(3);
 
-        movements[2].Type.Should().Be(StockMovementType.CustomerReturn);
-        movements[2].Reference.Should().Be("INT-SALE-001");
+            var purchaseMovement = movements.Single(m => m.Type == StockMovementType.Purchase);
+
+            purchaseMovement.Reference.Should().Be("INT-PUR-001");
+            purchaseMovement.QuantityChange.Should().Be(20);
+            purchaseMovement.BalanceAfter.Should().Be(20);
+
+            var saleMovement = movements.Single(m => m.Type == StockMovementType.Sale);
+
+            saleMovement.Reference.Should().Be("INT-SALE-001");
+            saleMovement.QuantityChange.Should().Be(-7);
+            saleMovement.BalanceAfter.Should().Be(13);
+
+            var returnMovement = movements.Single(m => m.Type == StockMovementType.CustomerReturn);
+
+            returnMovement.Reference.Should().Be("INT-SALE-001");
+            returnMovement.QuantityChange.Should().Be(7);
+            returnMovement.BalanceAfter.Should().Be(20);
+        }
     }
 
     [Fact]
     public async Task PurchaseDraft_Cancelled_CannotBeSoldDueToInsufficientStock()
     {
         // Arrange
-        var (supplierId, warehouseId, productId) = await SeedMasterDataAsync();
+        var (supplierId, warehouseId, productId) =
+            await SeedMasterDataAsync();
 
         var purchaseDto = new CreatePurchaseDto
         {
@@ -158,15 +225,37 @@ public class PurchaseSaleIntegrationTests : IDisposable
             FinalizeImmediately = false,
             Items = new List<CreatePurchaseItemDto>
             {
-                new() { ProductId = productId, Quantity = 10, UnitPrice = 400_000m }
+                new()
+                {
+                    ProductId = productId,
+                    Quantity = 10,
+                    UnitPrice = 400_000m
+                }
             }
         };
 
-        var purchaseId = await _purchaseService.CreatePurchaseAsync(purchaseDto);
-        await _purchaseService.CancelPurchaseAsync(purchaseId);
+        Guid purchaseId;
 
-        var purchase = await _context.Purchases.FindAsync(purchaseId);
-        purchase!.Status.Should().Be(PurchaseStatus.Cancelled);
+        await using (var db = CreateContext())
+        {
+            var purchaseService = new PurchaseService(db);
+            purchaseId = await purchaseService.CreatePurchaseAsync(purchaseDto);
+        }
+
+        await using (var db = CreateContext())
+        {
+            var purchaseService = new PurchaseService(db);
+            await purchaseService.CancelPurchaseAsync(purchaseId);
+        }
+
+        await using (var db = CreateContext())
+        {
+            var purchase = await db.Purchases
+                .AsNoTracking()
+                .FirstAsync(p => p.Id == purchaseId);
+
+            purchase.Status.Should().Be(PurchaseStatus.Cancelled);
+        }
 
         var saleDto = new CreateSaleDto
         {
@@ -176,18 +265,25 @@ public class PurchaseSaleIntegrationTests : IDisposable
             FinalizeImmediately = true,
             Items = new List<CreateSaleItemDto>
             {
-                new() { ProductId = productId, WarehouseId = warehouseId, Quantity = 1, UnitPrice = 500_000m }
+                new()
+                {
+                    ProductId = productId,
+                    WarehouseId = warehouseId,
+                    Quantity = 1,
+                    UnitPrice = 500_000m
+                }
             }
         };
 
-        var act = async () => await _saleService.CreateSaleAsync(saleDto);
-        await act.Should().ThrowAsync<InvalidOperationException>();
-    }
+        // فروش نباید بتواند روی موجودیِ حاصل‌نشده از خرید پیش‌نویس انجام شود.
+        await using (var db = CreateContext())
+        {
+            var saleService = new SaleService(db);
 
-    public void Dispose()
-    {
-        _context.Database.EnsureDeleted();
-        _context.Dispose();
-        GC.SuppressFinalize(this);
+            var act = async () =>
+                await saleService.CreateSaleAsync(saleDto);
+
+            await act.Should().ThrowAsync<InvalidOperationException>();
+        }
     }
 }
