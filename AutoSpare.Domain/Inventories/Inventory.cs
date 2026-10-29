@@ -16,6 +16,7 @@ public class Inventory : BaseEntity
     public Warehouse? Warehouse { get; private set; }
 
     public int Quantity { get; private set; }
+    public byte[] RowVersion { get; private set; } = Array.Empty<byte>();
 
     /// <summary>تاریخچهٔ کامل تغییرات این موجودی (فقط خواندنی)</summary>
     public virtual IReadOnlyCollection<StockMovement> Movements => _movements.AsReadOnly();

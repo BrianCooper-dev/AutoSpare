@@ -45,6 +45,9 @@ public class InventoryConfiguration : IEntityTypeConfiguration<Inventory>
         builder.HasIndex(i => new { i.ProductId, i.WarehouseId })
             .IsUnique();
 
+        builder.Property(i => i.RowVersion)
+            .IsRowVersion();
+
         // ایندکس جهت لیست کردن سریع موجودی‌های یک انبار خاص
         builder.HasIndex(i => i.WarehouseId);
     }

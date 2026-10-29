@@ -163,6 +163,12 @@ namespace AutoSpare.Infrastructure.Persistence.Migrations
                         .HasColumnType("int")
                         .HasDefaultValue(0);
 
+                    b.Property<byte[]>("RowVersion")
+                        .IsConcurrencyToken()
+                        .IsRequired()
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("rowversion");
+
                     b.Property<Guid>("WarehouseId")
                         .HasColumnType("uniqueidentifier");
 
