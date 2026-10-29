@@ -15,6 +15,8 @@ public class ProductFilterDto
     public Guid? BrandId { get; set; }
     public Guid? WarehouseId { get; set; }
     public StockStatusFilter StockStatus { get; set; } = StockStatusFilter.All;
+    public int PageNumber { get; set; } = 1;
+    public int PageSize { get; set; } = 20;
 
     // حد آستانه کم‌موجودی (پیش‌فرض ۵ عدد)
     public int LowStockThreshold { get; set; } = 5;

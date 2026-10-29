@@ -264,11 +264,11 @@
         {
             _isLoading = true;
 
-            // دریافت لیست کالاها و دسته‌بندی‌ها
-            var products = await ProductService.GetProductsAsync();
+            // دریافت لیست کالاها و دسته‌بندی‌ها (دریافت PagedResult)
+            var pagedResult = await ProductService.GetProductsAsync();
             _categories = await ProductService.GetCategoriesLookupAsync();
 
-            _tableItems = products.Select(p => new PriceAdjustmentItemDto
+            _tableItems = pagedResult.Items.Select(p => new PriceAdjustmentItemDto
             {
                 ProductId = p.Id,
                 Name = p.Name,
