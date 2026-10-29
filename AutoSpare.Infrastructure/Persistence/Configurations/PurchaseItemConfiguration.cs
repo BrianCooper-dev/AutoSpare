@@ -16,18 +16,14 @@ public class PurchaseItemConfiguration : IEntityTypeConfiguration<PurchaseItem>
 
         builder.HasKey(pi => pi.Id);
 
-        builder.Property(pi => pi.PurchaseId)
-            .IsRequired();
+        builder.Property(pi => pi.PurchaseId).IsRequired();
+        builder.Property(pi => pi.ProductId).IsRequired();
+        builder.Property(pi => pi.Quantity).IsRequired();
 
-        builder.Property(pi => pi.ProductId)
-            .IsRequired();
-
-        builder.Property(pi => pi.Quantity)
-            .IsRequired();
-
+        // اصلاح دقت اعشار خرید
         builder.Property(pi => pi.UnitPrice)
             .IsRequired()
-            .HasPrecision(18, 2);
+            .HasPrecision(18, 4);
 
         // پراپرتی محاسباتی است و نباید به ستون فیزیکی نگاشت شود
         builder.Ignore(pi => pi.TotalPrice);
@@ -38,10 +34,8 @@ public class PurchaseItemConfiguration : IEntityTypeConfiguration<PurchaseItem>
             .HasForeignKey(pi => pi.ProductId)
             .OnDelete(DeleteBehavior.Restrict);
 
-        // ایندکس جهت جوین و گزارش‌گیری روی کالاهای خریداری‌شده
+        // ایندکس‌ها
         builder.HasIndex(pi => pi.ProductId);
-
-        // ایندکس جهت بارگذاری سریع اقلام یک فاکتور خرید
         builder.HasIndex(pi => pi.PurchaseId);
     }
 }
