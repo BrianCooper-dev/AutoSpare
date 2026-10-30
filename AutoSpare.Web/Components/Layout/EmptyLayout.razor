@@ -1,0 +1,68 @@
+@inherits LayoutComponentBase
+@inject IJSRuntime JS
+
+<MudRTLProvider RightToLeft="true">
+    <MudThemeProvider @bind-IsDarkMode="@_isDarkMode" Theme="_currentTheme" />
+    <MudDialogProvider />
+    <MudSnackbarProvider />
+
+    <main>
+        @Body
+    </main>
+</MudRTLProvider>
+
+@code {
+    private const string DarkModeKey = "app_dark_mode";
+    private bool _isDarkMode;
+
+    private readonly MudTheme _currentTheme = new()
+    {
+        PaletteLight = new PaletteLight
+        {
+            Primary = "#2563EB",
+            Secondary = "#0EA5E9",
+            AppbarBackground = "#1E293B",
+            AppbarText = "#FFFFFF",
+            Surface = "#FFFFFF",
+            Background = "#F8FAFC",
+            DrawerBackground = "#FFFFFF",
+            DrawerText = "#334155",
+            TextPrimary = "#0F172A",
+            TableHover = "#F1F5F9"
+        },
+        PaletteDark = new PaletteDark
+        {
+            Primary = "#3B82F6",
+            Secondary = "#38BDF8",
+            Surface = "#1E293B",
+            Background = "#0F172A",
+            AppbarBackground = "#0F172A",
+            DrawerBackground = "#1E293B",
+            DrawerText = "#E2E8F0",
+            TextPrimary = "#F8FAFC",
+            TableHover = "#334155"
+        },
+        LayoutProperties = new LayoutProperties
+        {
+            DefaultBorderRadius = "8px"
+        }
+    };
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (!firstRender) return;
+
+        try
+        {
+            var savedTheme = await JS.InvokeAsync<string>("localStorage.getItem", DarkModeKey);
+            if (bool.TryParse(savedTheme, out var isDark) && isDark != _isDarkMode)
+            {
+                _isDarkMode = isDark;
+                StateHasChanged();
+            }
+        }
+        catch (InvalidOperationException)
+        {
+        }
+    }
+}

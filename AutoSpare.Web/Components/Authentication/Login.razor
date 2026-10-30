@@ -1,123 +1,228 @@
 @page "/login"
-
+@layout EmptyLayout
 @attribute [AllowAnonymous]
 
-<PageTitle>ورود به سیستم | AutoSpare</PageTitle>
+<PageTitle>ورود به سامانه | AutoSpare</PageTitle>
 
-<div class="login-wrapper">
-    <div class="login-card">
-        <div class="login-header">
-            <h2>سامانه مدیریت انبار و فروش</h2>
-            <p>لطفاً مشخصات حساب مدیر را وارد کنید</p>
-        </div>
-
-        @if (!string.IsNullOrEmpty(ErrorMessage))
-        {
-            <div class="alert alert-danger" role="alert">
-                @ErrorMessage
-            </div>
-        }
-
-        <!-- ارسال استاندارد فرم به صورت POST برای ایجاد کوکی احراز هویت -->
-        <form method="post" action="/api/auth/login">
-            <div class="form-group mb-3">
-                <label class="form-label">نام کاربری</label>
-                <input type="text" name="Username" class="form-control" placeholder="نام کاربری (مثلاً admin)" required autofocus />
+<div class="login-page-root">
+    <div class="login-container">
+        <MudPaper Elevation="6" Class="login-card pa-8 rounded-2xl">
+            <!-- سربرگ و لوگو -->
+            <div class="d-flex flex-column align-center mb-6">
+                <div class="brand-avatar-box mb-3">
+                    <MudAvatar Color="Color.Primary" Size="Size.Large" Class="brand-avatar elevation-4">
+                        <MudIcon Icon="@Icons.Material.Filled.DirectionsCar" Size="Size.Large"/>
+                    </MudAvatar>
+                </div>
+                <MudText Typo="Typo.h5" Class="font-weight-bold text-center brand-title" Color="Color.Primary">
+                    AutoSpare
+                </MudText>
+                <MudText Typo="Typo.body2" Class="mud-text-secondary text-center mt-1">
+                    سامانه هوشمند مدیریت انبار و فروشگاه قطعات یدکی
+                </MudText>
             </div>
 
-            <div class="form-group mb-3">
-                <label class="form-label">رمز عبور</label>
-                <input type="password" name="Password" class="form-control" placeholder="رمز عبور" required />
-            </div>
+            @if (!string.IsNullOrEmpty(ErrorMessage))
+            {
+                <MudAlert Severity="Severity.Error" Variant="Variant.Filled" Class="mb-5 rounded-lg" Elevation="1">
+                    @ErrorMessage
+                </MudAlert>
+            }
 
-            <div class="form-check mb-4">
-                <input class="form-check-input" type="checkbox" name="RememberMe" value="true" id="rememberMe">
-                <label class="form-check-label" for="rememberMe">
-                    مرا به خاطر بسپار
-                </label>
-            </div>
+            <!-- فرم احراز هویت -->
+            <form method="post" action="/api/auth/login" class="login-form">
+                <!-- فیلد نام کاربری -->
+                <div class="mb-5">
+                    <MudTextField T="string"
+                                  Name="Username"
+                                  Label="نام کاربری"
+                                  Variant="Variant.Outlined"
+                                  Adornment="Adornment.End"
+                                  AdornmentIcon="@Icons.Material.Filled.PersonOutline"
+                                  AdornmentColor="Color.Primary"
+                                  Required="true"
+                                  AutoGrow="false"
+                                  AutoFocus="true"
+                                  Class="custom-input mud-ltr-input"/>
+                </div>
 
-            <button type="submit" class="btn btn-primary w-100 py-2">
-                ورود به سامانه
-            </button>
-        </form>
+                <!-- فیلد رمز عبور -->
+                <div class="mb-3">
+                    <MudTextField T="string"
+                                  Name="Password"
+                                  Label="رمز عبور"
+                                  Variant="Variant.Outlined"
+                                  InputType="@_passwordInputType"
+                                  Adornment="Adornment.End"
+                                  AdornmentIcon="@_passwordIcon"
+                                  OnAdornmentClick="TogglePasswordVisibility"
+                                  AdornmentColor="Color.Default"
+                                  Required="true"
+                                  Class="custom-input mud-ltr-input"/>
+                </div>
+
+                <!-- تیک مرا به خاطر بسپار -->
+                <div class="d-flex align-center mb-5 mt-2">
+                    <input type="hidden" name="RememberMe" value="false"/>
+                    <label class="d-flex align-center cursor-pointer remember-me-box">
+                        <input type="checkbox" name="RememberMe" value="true" class="remember-checkbox"/>
+                        <span class="mud-typography mud-typography-body2 mr-2">مرا به خاطر بسپار</span>
+                    </label>
+                </div>
+
+                <!-- دکمه ورود -->
+                <MudButton ButtonType="ButtonType.Submit"
+                           Variant="Variant.Filled"
+                           Color="Color.Primary"
+                           Size="Size.Large"
+                           FullWidth="true"
+                           StartIcon="@Icons.Material.Filled.Login"
+                           Class="login-btn py-3 rounded-lg font-weight-bold">
+                    ورود به سامانه
+                </MudButton>
+            </form>
+
+            <div class="text-center mt-6">
+                <MudText Typo="Typo.caption" Class="mud-text-secondary">
+                    نسخه 1.0.0 | سیستم مدیریت اختصاصی
+                </MudText>
+            </div>
+        </MudPaper>
     </div>
 </div>
 
 <style>
-    .login-wrapper {
-        min-height: 100vh;
+    html, body {
+        overflow: hidden !important;
+        height: 100% !important;
+        margin: 0;
+        padding: 0;
+    }
+
+    .login-page-root {
+        position: fixed;
+        inset: 0;
+        width: 100vw;
+        height: 100vh;
         display: flex;
         align-items: center;
         justify-content: center;
-        background-color: #0f172a;
         direction: rtl;
-        font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+        overflow: hidden;
+        background-color: var(--mud-palette-background-grey);
     }
-    .login-card {
+
+    .login-container {
         width: 100%;
-        max-width: 400px;
-        padding: 2.5rem;
-        background: #1e293b;
-        border-radius: 12px;
-        box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
-        border: 1px solid #334155;
-        color: #f8fafc;
+        max-width: 490px;
+        padding: 1.5rem;
+        box-sizing: border-box;
     }
-    .login-header h2 {
-        font-size: 1.35rem;
-        font-weight: 700;
-        margin-bottom: 0.5rem;
-        text-align: center;
-        color: #38bdf8;
+
+    .login-card {
+        background-color: var(--mud-palette-surface) !important;
+        border: 1px solid var(--mud-palette-lines-default);
     }
-    .login-header p {
-        font-size: 0.875rem;
-        color: #94a3b8;
-        text-align: center;
-        margin-bottom: 1.5rem;
+
+    .brand-avatar-box {
+        animation: floatIcon 3s ease-in-out infinite;
     }
-    .form-label {
-        color: #cbd5e1;
-        font-size: 0.875rem;
-        margin-bottom: 0.4rem;
+
+    .brand-avatar {
+        box-shadow: 0 8px 20px rgba(var(--mud-palette-primary-rgb), 0.35);
     }
-    .form-control {
-        background-color: #0f172a;
-        border: 1px solid #334155;
-        color: #fff;
-        border-radius: 8px;
-        padding: 0.6rem 0.8rem;
+
+    .login-btn {
+        text-transform: none;
+        letter-spacing: 0.5px;
+        box-shadow: 0 4px 14px rgba(var(--mud-palette-primary-rgb), 0.35);
+        transition: transform 0.15s ease, box-shadow 0.15s ease;
     }
-    .form-control:focus {
-        background-color: #0f172a;
-        border-color: #38bdf8;
-        color: #fff;
-        box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.25);
+
+    .login-btn:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 6px 20px rgba(var(--mud-palette-primary-rgb), 0.45);
     }
-    .btn-primary {
-        background-color: #2563eb;
-        border: none;
-        border-radius: 8px;
-        font-weight: 600;
-        transition: background 0.2s;
+
+    .custom-input .mud-input-outlined-border {
+        border-radius: 10px !important;
     }
-    .btn-primary:hover {
-        background-color: #1d4ed8;
+
+    /* پوزیشن‌دهی کانتینر ورودی برای پین کردن قطعی آیکون‌ها */
+    .custom-input .mud-input-control-input-container {
+        position: relative !important;
     }
-    .alert-danger {
-        background-color: rgba(239, 68, 68, 0.15);
-        border: 1px solid #ef4444;
-        color: #fca5a5;
-        font-size: 0.85rem;
-        padding: 0.6rem;
-        border-radius: 6px;
-        margin-bottom: 1.2rem;
-        text-align: center;
+
+    .custom-input input {
+        direction: ltr !important;
+        text-align: left !important;
+        border-radius: 10px !important;
+        padding-top: 14px !important;
+        padding-bottom: 14px !important;
+        padding-left: 48px !important; /* فضا برای اینکه متن روی آیکون نیفتد */
+    }
+
+    .custom-input input:-webkit-autofill,
+    .custom-input input:-webkit-autofill:hover,
+    .custom-input input:-webkit-autofill:focus {
+        -webkit-box-shadow: 0 0 0px 1000px var(--mud-palette-surface) inset !important;
+        -webkit-text-fill-color: var(--mud-palette-text-primary) !important;
+        border-radius: 10px !important;
+    }
+
+    /* تراز دقیق هر دو آیکون دقیقا روی یک خط عمودی در سمت چپ کادر */
+    .custom-input .mud-input-adornment-end {
+        position: absolute !important;
+        left: 14px !important;
+        top: 50% !important;
+        transform: translateY(-50%) !important;
+        width: 32px !important;
+        height: 32px !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        z-index: 2 !important;
+    }
+
+    .custom-input .mud-input-adornment-end .mud-icon-root {
+        font-size: 1.35rem !important;
+    }
+
+    .custom-input .mud-input-adornment-end .mud-button-root {
+        padding: 0 !important;
+        margin: 0 !important;
+        width: 100% !important;
+        height: 100% !important;
+    }
+
+    .remember-me-box {
+        user-select: none;
+    }
+
+    .remember-checkbox {
+        accent-color: var(--mud-palette-primary);
+        width: 18px;
+        height: 18px;
+        cursor: pointer;
+    }
+
+    @@keyframes floatIcon {
+        0%, 100% {
+            transform: translateY(0);
+        }
+        50% {
+            transform: translateY(-5px);
+        }
     }
 </style>
 
 @code {
+    private bool _passwordVisibility;
+    private InputType _passwordInputType = InputType.Password;
+    private string _passwordIcon = Icons.Material.Filled.VisibilityOff;
+
     [SupplyParameterFromQuery]
     public string? Error { get; set; }
 
@@ -126,5 +231,20 @@
         "InvalidCredentials" => "نام کاربری یا رمز عبور اشتباه است.",
         _ => null
     };
-}
 
+    private void TogglePasswordVisibility()
+    {
+        if (_passwordVisibility)
+        {
+            _passwordVisibility = false;
+            _passwordIcon = Icons.Material.Filled.VisibilityOff;
+            _passwordInputType = InputType.Password;
+        }
+        else
+        {
+            _passwordVisibility = true;
+            _passwordIcon = Icons.Material.Filled.Visibility;
+            _passwordInputType = InputType.Text;
+        }
+    }
+}
