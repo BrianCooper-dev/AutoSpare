@@ -18,6 +18,7 @@ public class PurchaseItemConfiguration : IEntityTypeConfiguration<PurchaseItem>
 
         builder.Property(pi => pi.PurchaseId).IsRequired();
         builder.Property(pi => pi.ProductId).IsRequired();
+        builder.Property(pi => pi.WarehouseId).IsRequired();
         builder.Property(pi => pi.Quantity).IsRequired();
 
         // اصلاح دقت اعشار خرید
@@ -34,8 +35,15 @@ public class PurchaseItemConfiguration : IEntityTypeConfiguration<PurchaseItem>
             .HasForeignKey(pi => pi.ProductId)
             .OnDelete(DeleteBehavior.Restrict);
 
+        // رابطه با انبار
+        builder.HasOne(pi => pi.Warehouse)
+            .WithMany()
+            .HasForeignKey(pi => pi.WarehouseId)
+            .OnDelete(DeleteBehavior.Restrict);
+
         // ایندکس‌ها
         builder.HasIndex(pi => pi.ProductId);
+        builder.HasIndex(pi => pi.WarehouseId);
         builder.HasIndex(pi => pi.PurchaseId);
     }
 }

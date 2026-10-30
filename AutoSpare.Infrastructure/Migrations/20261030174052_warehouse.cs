@@ -5,10 +5,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
 
-namespace AutoSpare.Infrastructure.Persistence.Migrations
+namespace AutoSpare.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class warehouse : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -140,14 +140,15 @@ namespace AutoSpare.Infrastructure.Persistence.Migrations
                     CategoryId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     BrandId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     DefaultWarehouseId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    BrandId1 = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    CategoryId1 = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    IsLowStockAlertEnabled = table.Column<bool>(type: "bit", nullable: false, defaultValue: false),
+                    MinStockThreshold = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     LastModifiedAt = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Products", x => x.Id);
+                    table.CheckConstraint("CK_Products_MinStockThreshold_NonNegative", "[MinStockThreshold] >= 0");
                     table.CheckConstraint("CK_Products_PurchasePrice_NonNegative", "[PurchasePrice] >= 0");
                     table.CheckConstraint("CK_Products_SalePrice_NonNegative", "[SalePrice] >= 0");
                     table.ForeignKey(
@@ -157,21 +158,11 @@ namespace AutoSpare.Infrastructure.Persistence.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Products_Brands_BrandId1",
-                        column: x => x.BrandId1,
-                        principalTable: "Brands",
-                        principalColumn: "Id");
-                    table.ForeignKey(
                         name: "FK_Products_Categories_CategoryId",
                         column: x => x.CategoryId,
                         principalTable: "Categories",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Products_Categories_CategoryId1",
-                        column: x => x.CategoryId1,
-                        principalTable: "Categories",
-                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Products_Warehouses_DefaultWarehouseId",
                         column: x => x.DefaultWarehouseId,
@@ -218,10 +209,12 @@ namespace AutoSpare.Infrastructure.Persistence.Migrations
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     InvoiceNumber = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     CustomerName = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
-                    WarehouseId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    WarehouseId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     SaleDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Status = table.Column<int>(type: "int", nullable: false),
                     Notes = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
+                    CancelledAt = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    CancellationReason = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     LastModifiedAt = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
@@ -244,6 +237,7 @@ namespace AutoSpare.Infrastructure.Persistence.Migrations
                     ProductId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     WarehouseId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Quantity = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
+                    RowVersion = table.Column<byte[]>(type: "rowversion", rowVersion: true, nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     LastModifiedAt = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
@@ -299,8 +293,9 @@ namespace AutoSpare.Infrastructure.Persistence.Migrations
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     PurchaseId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     ProductId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    WarehouseId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Quantity = table.Column<int>(type: "int", nullable: false),
-                    UnitPrice = table.Column<decimal>(type: "decimal(18,2)", precision: 18, scale: 2, nullable: false),
+                    UnitPrice = table.Column<decimal>(type: "decimal(18,4)", precision: 18, scale: 4, nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     LastModifiedAt = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
@@ -321,6 +316,12 @@ namespace AutoSpare.Infrastructure.Persistence.Migrations
                         principalTable: "Purchases",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_PurchaseItems_Warehouses_WarehouseId",
+                        column: x => x.WarehouseId,
+                        principalTable: "Warehouses",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -330,8 +331,10 @@ namespace AutoSpare.Infrastructure.Persistence.Migrations
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     SaleId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     ProductId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    WarehouseId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Quantity = table.Column<int>(type: "int", nullable: false),
-                    UnitPrice = table.Column<decimal>(type: "decimal(18,2)", precision: 18, scale: 2, nullable: false),
+                    UnitPrice = table.Column<decimal>(type: "decimal(18,4)", precision: 18, scale: 4, nullable: false),
+                    UnitPurchasePrice = table.Column<decimal>(type: "decimal(18,4)", precision: 18, scale: 4, nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     LastModifiedAt = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
@@ -340,6 +343,7 @@ namespace AutoSpare.Infrastructure.Persistence.Migrations
                     table.PrimaryKey("PK_SaleItems", x => x.Id);
                     table.CheckConstraint("CK_SaleItems_Quantity_Positive", "[Quantity] > 0");
                     table.CheckConstraint("CK_SaleItems_UnitPrice_NonNegative", "[UnitPrice] >= 0");
+                    table.CheckConstraint("CK_SaleItems_UnitPurchasePrice_NonNegative", "[UnitPurchasePrice] >= 0");
                     table.ForeignKey(
                         name: "FK_SaleItems_Products_ProductId",
                         column: x => x.ProductId,
@@ -352,6 +356,12 @@ namespace AutoSpare.Infrastructure.Persistence.Migrations
                         principalTable: "Sales",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_SaleItems_Warehouses_WarehouseId",
+                        column: x => x.WarehouseId,
+                        principalTable: "Warehouses",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -437,19 +447,9 @@ namespace AutoSpare.Infrastructure.Persistence.Migrations
                 column: "BrandId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Products_BrandId1",
-                table: "Products",
-                column: "BrandId1");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Products_CategoryId",
                 table: "Products",
                 column: "CategoryId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Products_CategoryId1",
-                table: "Products",
-                column: "CategoryId1");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Products_DefaultWarehouseId",
@@ -483,6 +483,11 @@ namespace AutoSpare.Infrastructure.Persistence.Migrations
                 column: "PurchaseId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_PurchaseItems_WarehouseId",
+                table: "PurchaseItems",
+                column: "WarehouseId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Purchases_InvoiceNumber",
                 table: "Purchases",
                 column: "InvoiceNumber",
@@ -512,6 +517,17 @@ namespace AutoSpare.Infrastructure.Persistence.Migrations
                 name: "IX_SaleItems_SaleId",
                 table: "SaleItems",
                 column: "SaleId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SaleItems_SaleId_ProductId_WarehouseId",
+                table: "SaleItems",
+                columns: new[] { "SaleId", "ProductId", "WarehouseId" },
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SaleItems_WarehouseId",
+                table: "SaleItems",
+                column: "WarehouseId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Sales_CustomerName",

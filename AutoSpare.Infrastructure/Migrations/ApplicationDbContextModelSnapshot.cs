@@ -4,19 +4,16 @@ using AutoSpare.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace AutoSpare.Infrastructure.Persistence.Migrations
+namespace AutoSpare.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20261008101422_improvesomefile")]
-    partial class improvesomefile
+    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
     {
-        /// <inheritdoc />
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -165,6 +162,12 @@ namespace AutoSpare.Infrastructure.Persistence.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasDefaultValue(0);
+
+                    b.Property<byte[]>("RowVersion")
+                        .IsConcurrencyToken()
+                        .IsRequired()
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("rowversion");
 
                     b.Property<Guid>("WarehouseId")
                         .HasColumnType("uniqueidentifier");
@@ -315,8 +318,18 @@ namespace AutoSpare.Infrastructure.Persistence.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
+                    b.Property<bool>("IsLowStockAlertEnabled")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
+
                     b.Property<DateTime?>("LastModifiedAt")
                         .HasColumnType("datetime2");
+
+                    b.Property<int>("MinStockThreshold")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(0);
 
                     b.Property<string>("Model")
                         .IsRequired()
@@ -356,6 +369,8 @@ namespace AutoSpare.Infrastructure.Persistence.Migrations
 
                     b.ToTable("Products", null, t =>
                         {
+                            t.HasCheckConstraint("CK_Products_MinStockThreshold_NonNegative", "[MinStockThreshold] >= 0");
+
                             t.HasCheckConstraint("CK_Products_PurchasePrice_NonNegative", "[PurchasePrice] >= 0");
 
                             t.HasCheckConstraint("CK_Products_SalePrice_NonNegative", "[SalePrice] >= 0");
@@ -431,14 +446,19 @@ namespace AutoSpare.Infrastructure.Persistence.Migrations
                         .HasColumnType("int");
 
                     b.Property<decimal>("UnitPrice")
-                        .HasPrecision(18, 2)
-                        .HasColumnType("decimal(18,2)");
+                        .HasPrecision(18, 4)
+                        .HasColumnType("decimal(18,4)");
+
+                    b.Property<Guid>("WarehouseId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
                     b.HasIndex("ProductId");
 
                     b.HasIndex("PurchaseId");
+
+                    b.HasIndex("WarehouseId");
 
                     b.ToTable("PurchaseItems", null, t =>
                         {
@@ -453,6 +473,12 @@ namespace AutoSpare.Infrastructure.Persistence.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("CancellationReason")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("CancelledAt")
+                        .HasColumnType("datetime2");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
@@ -519,8 +545,12 @@ namespace AutoSpare.Infrastructure.Persistence.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<decimal>("UnitPrice")
-                        .HasPrecision(18, 2)
-                        .HasColumnType("decimal(18,2)");
+                        .HasPrecision(18, 4)
+                        .HasColumnType("decimal(18,4)");
+
+                    b.Property<decimal>("UnitPurchasePrice")
+                        .HasPrecision(18, 4)
+                        .HasColumnType("decimal(18,4)");
 
                     b.Property<Guid>("WarehouseId")
                         .HasColumnType("uniqueidentifier");
@@ -541,6 +571,8 @@ namespace AutoSpare.Infrastructure.Persistence.Migrations
                             t.HasCheckConstraint("CK_SaleItems_Quantity_Positive", "[Quantity] > 0");
 
                             t.HasCheckConstraint("CK_SaleItems_UnitPrice_NonNegative", "[UnitPrice] >= 0");
+
+                            t.HasCheckConstraint("CK_SaleItems_UnitPurchasePrice_NonNegative", "[UnitPurchasePrice] >= 0");
                         });
                 });
 
@@ -799,7 +831,15 @@ namespace AutoSpare.Infrastructure.Persistence.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("AutoSpare.Domain.Warehouses.Warehouse", "Warehouse")
+                        .WithMany()
+                        .HasForeignKey("WarehouseId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.Navigation("Product");
+
+                    b.Navigation("Warehouse");
                 });
 
             modelBuilder.Entity("AutoSpare.Domain.Sales.Sale", b =>

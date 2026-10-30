@@ -34,7 +34,7 @@ public class ReportServiceTests : IDisposable
     public async Task GetDashboardSummaryAsync_WithCompletedSalesAndPurchases_ShouldCalculateCorrectly()
     {
         // Arrange
-        var warehouse = new Warehouse("انبار مرکزی", "تهران");
+        var warehouse = new Warehouse(Warehouse.ShopWarehouseId, "انبار مرکزی", "تهران");
         var category = new Category("قطعات موتور");
         var brand = new Brand("ایران خودرو");
         await _context.Warehouses.AddAsync(warehouse);
@@ -56,8 +56,9 @@ public class ReportServiceTests : IDisposable
         sale.Complete();
         await _context.Sales.AddAsync(sale);
 
-        var purchase = new Purchase("PUR-001", Guid.NewGuid(), warehouse.Id, saleDateUtc);
-        purchase.AddOrUpdateItem(product.Id, 10, 500_000m);
+        // اصلاح فراخوانی AddOrUpdateItem با احتساب warehouseId
+        var purchase = new Purchase("PUR-001", supplierId: Guid.NewGuid(), warehouseId: warehouse.Id, purchaseDate: saleDateUtc);
+        purchase.AddOrUpdateItem(product.Id, warehouse.Id, quantity: 10, unitPrice: 500_000m);
         purchase.Complete();
         await _context.Purchases.AddAsync(purchase);
 
@@ -82,7 +83,7 @@ public class ReportServiceTests : IDisposable
     public async Task GetDailySalesSummaryAsync_ShouldGroupSalesByIranDateCorrectly()
     {
         // Arrange
-        var warehouse = new Warehouse("انبار مرکزی", "تهران");
+        var warehouse = new Warehouse(Warehouse.ShopWarehouseId, "انبار مرکزی", "تهران");
         var category = new Category("قطعات مصرفی");
         var brand = new Brand("ایران خودرو");
         await _context.Warehouses.AddAsync(warehouse);
@@ -121,7 +122,7 @@ public class ReportServiceTests : IDisposable
     public async Task GetTopSellingProductsAsync_ShouldReturnProductsSortedByQuantityOrSales()
     {
         // Arrange
-        var warehouse = new Warehouse("انبار مرکزی", "تهران");
+        var warehouse = new Warehouse(Warehouse.ShopWarehouseId, "انبار مرکزی", "تهران");
         var category = new Category("لوازم یدکی");
         var brand = new Brand("سایپا");
         await _context.Warehouses.AddAsync(warehouse);

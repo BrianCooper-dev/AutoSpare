@@ -1,11 +1,17 @@
 @page "/purchases/create"
+@rendermode InteractiveServer
+@attribute [Authorize]
 
+@using System.Security.Claims
 @using AutoSpare.Application.Purchases
 @using AutoSpare.Application.Purchases.DTOs
+@using Microsoft.AspNetCore.Components.Authorization
+@using MudBlazor
 
 @inject IPurchaseService PurchaseService
 @inject ISnackbar Snackbar
 @inject NavigationManager NavigationManager
+@inject AuthenticationStateProvider AuthenticationStateProvider
 
 <PageTitle>ثبت فاکتور خرید جدید</PageTitle>
 
@@ -16,17 +22,25 @@
         <MudCardHeader>
             <CardHeaderContent>
                 <div class="d-flex align-center gap-2">
-                    <MudIcon Icon="@Icons.Material.Filled.AddShoppingCart" Color="Color.Primary" Size="Size.Large"/>
+                    <MudIcon Icon="@Icons.Material.Filled.AddShoppingCart"
+                             Color="Color.Primary"
+                             Size="Size.Large"/>
                     <div>
-                        <MudText Typo="Typo.h5" Class="fw-bold">ثبت فاکتور خرید جدید</MudText>
-                        <MudText Typo="Typo.caption" Color="Color.Secondary">ورود کالا به انبار و ثبت فاکتور از تأمین‌کننده</MudText>
+                        <MudText Typo="Typo.h5" Class="fw-bold">
+                            ثبت فاکتور خرید جدید
+                        </MudText>
+                        <MudText Typo="Typo.caption" Color="Color.Secondary">
+                            ثبت کالاهای خریداری‌شده با امکان تعیین انبار مقصد مجزا برای هر ردیف
+                        </MudText>
                     </div>
                 </div>
             </CardHeaderContent>
+
             <CardHeaderActions>
                 <MudButton Variant="Variant.Outlined"
                            Color="Color.Secondary"
                            StartIcon="@Icons.Material.Filled.ArrowForward"
+                           Disabled="_isSubmitting"
                            OnClick="GoBack">
                     بازگشت
                 </MudButton>
@@ -36,19 +50,38 @@
         <MudCardContent>
             @if (_isLoading)
             {
-                <div class="d-flex justify-center my-8">
-                    <MudProgressCircular Color="Color.Primary" Indeterminate="true" Size="Size.Large"/>
+                <div class="d-flex justify-center align-center my-8">
+                    <MudProgressCircular Color="Color.Primary"
+                                         Indeterminate="true"
+                                         Size="Size.Large"/>
                 </div>
             }
             else
             {
-                <EditForm Model="@_model" OnValidSubmit="HandleSubmit">
-                    <!-- مشخصات سربرگ فاکتور -->
-                    <MudPaper Elevation="0" Outlined="true" Class="pa-4 rounded-lg mb-4 mud-theme-background-gray">
-                        <MudText Typo="Typo.subtitle1" Class="fw-bold mb-3" Color="Color.Primary">
-                            <MudIcon Icon="@Icons.Material.Filled.Info" Size="Size.Small" Class="me-1"/>
-                            اطلاعات سربرگ فاکتور
-                        </MudText>
+                <EditForm Model="@_model" OnValidSubmit="HandleSubmitAsync">
+                    <!-- اطلاعات سربرگ -->
+                    <MudPaper Elevation="0"
+                              Outlined="true"
+                              Class="pa-4 rounded-lg mb-4 mud-theme-background-gray">
+
+                        <div class="d-flex justify-space-between align-center flex-wrap gap-2 mb-3">
+                            <MudText Typo="Typo.subtitle1"
+                                     Class="fw-bold"
+                                     Color="Color.Primary">
+                                <MudIcon Icon="@Icons.Material.Filled.Info"
+                                         Size="Size.Small"
+                                         Class="me-1"/>
+                                اطلاعات سربرگ فاکتور
+                            </MudText>
+
+                            <MudChip T="string"
+                                     Size="Size.Small"
+                                     Color="Color.Info"
+                                     Variant="Variant.Outlined"
+                                     Icon="@Icons.Material.Filled.Warehouse">
+                                انبار سربرگ، انبار پیش‌فرض ردیف‌های جدید است
+                            </MudChip>
+                        </div>
 
                         <MudGrid Spacing="3">
                             <MudItem xs="12" sm="6" md="3">
@@ -57,7 +90,8 @@
                                               Variant="Variant.Outlined"
                                               Margin="Margin.Dense"
                                               Required="true"
-                                              RequiredError="شماره فاکتور الزامی است."/>
+                                              RequiredError="شماره فاکتور الزامی است."
+                                              Disabled="_isSubmitting"/>
                             </MudItem>
 
                             <MudItem xs="12" sm="6" md="3">
@@ -67,27 +101,48 @@
                                            Variant="Variant.Outlined"
                                            Margin="Margin.Dense"
                                            Required="true"
+                                           RequiredError="انتخاب تأمین‌کننده الزامی است."
+                                           Disabled="_isSubmitting"
                                            AnchorOrigin="Origin.BottomCenter">
-                                    <MudSelectItem T="Guid?" Value="@((Guid?)null)">انتخاب تأمین‌کننده...</MudSelectItem>
-                                    @foreach (var s in _suppliers)
+
+                                    <MudSelectItem T="Guid?"
+                                                   Value="@((Guid?)null)">
+                                        انتخاب تأمین‌کننده...
+                                    </MudSelectItem>
+
+                                    @foreach (var supplier in _suppliers)
                                     {
-                                        <MudSelectItem T="Guid?" Value="@s.Id">@s.Title</MudSelectItem>
+                                        <MudSelectItem T="Guid?"
+                                                       Value="@((Guid?)supplier.Id)">
+                                            @supplier.Title
+                                        </MudSelectItem>
                                     }
                                 </MudSelect>
                             </MudItem>
 
                             <MudItem xs="12" sm="6" md="3">
                                 <MudSelect T="Guid?"
-                                           @bind-Value="_model.WarehouseId"
-                                           Label="انبار مقصد *"
+                                           Value="_model.WarehouseId"
+                                           ValueChanged="OnHeaderWarehouseChanged"
+                                           Label="انبار پیش‌فرض فاکتور *"
                                            Variant="Variant.Outlined"
                                            Margin="Margin.Dense"
                                            Required="true"
+                                           RequiredError="انتخاب انبار پیش‌فرض الزامی است."
+                                           Disabled="_isSubmitting"
                                            AnchorOrigin="Origin.BottomCenter">
-                                    <MudSelectItem T="Guid?" Value="@((Guid?)null)">انتخاب انبار...</MudSelectItem>
-                                    @foreach (var w in _warehouses)
+
+                                    <MudSelectItem T="Guid?"
+                                                   Value="@((Guid?)null)">
+                                        انتخاب انبار...
+                                    </MudSelectItem>
+
+                                    @foreach (var warehouse in _warehouses)
                                     {
-                                        <MudSelectItem T="Guid?" Value="@w.Id">@w.Title</MudSelectItem>
+                                        <MudSelectItem T="Guid?"
+                                                       Value="@((Guid?)warehouse.Id)">
+                                            @warehouse.Title
+                                        </MudSelectItem>
                                     }
                                 </MudSelect>
                             </MudItem>
@@ -96,170 +151,300 @@
                                 <MudDatePicker Label="تاریخ فاکتور"
                                                @bind-Date="_model.PurchaseDate"
                                                Variant="Variant.Outlined"
-                                               Margin="Margin.Dense"/>
+                                               Margin="Margin.Dense"
+                                               Disabled="_isSubmitting"/>
                             </MudItem>
 
                             <MudItem xs="12" md="8">
                                 <MudTextField @bind-Value="_model.Notes"
                                               Label="توضیحات و یادداشت فاکتور"
                                               Variant="Variant.Outlined"
-                                              Margin="Margin.Dense"/>
+                                              Margin="Margin.Dense"
+                                              Lines="2"
+                                              Disabled="_isSubmitting"/>
                             </MudItem>
 
-                            <MudItem xs="12" md="4" Class="d-flex align-center">
+                            <MudItem xs="12"
+                                     md="4"
+                                     Class="d-flex align-center">
                                 <MudSwitch @bind-Value="_model.FinalizeImmediately"
                                            Color="Color.Success"
-                                           Label="نهایی‌سازی و افزایش فوری موجودی انبار"/>
+                                           Disabled="_isSubmitting"
+                                           Label="نهایی‌سازی و افزایش فوری موجودی‌ها"/>
                             </MudItem>
                         </MudGrid>
                     </MudPaper>
 
-                    <!-- اقلام و ردیف‌های کالا -->
-                    <MudPaper Elevation="0" Outlined="true" Class="pa-4 rounded-lg mb-4 mud-theme-surface">
-                        <div class="d-flex justify-space-between align-center mb-3">
-                            <MudText Typo="Typo.subtitle1" Class="fw-bold" Color="Color.Primary">
-                                <MudIcon Icon="@Icons.Material.Filled.ListAlt" Size="Size.Small" Class="me-1"/>
-                                اقلام فاکتور خرید
-                            </MudText>
+                    <!-- ردیف‌های فاکتور -->
+                    <MudPaper Elevation="0"
+                              Outlined="true"
+                              Class="pa-4 rounded-lg mb-4 mud-theme-surface">
+
+                        <div class="d-flex justify-space-between align-center flex-wrap gap-2 mb-3">
+                            <div>
+                                <MudText Typo="Typo.subtitle1"
+                                         Class="fw-bold"
+                                         Color="Color.Primary">
+                                    <MudIcon Icon="@Icons.Material.Filled.ListAlt"
+                                             Size="Size.Small"
+                                             Class="me-1"/>
+                                    اقلام فاکتور خرید
+                                </MudText>
+
+                                <MudText Typo="Typo.caption"
+                                         Color="Color.Secondary">
+                                    برای هر کالا می‌توانید انبار مقصد متفاوتی تعیین کنید.
+                                </MudText>
+                            </div>
+
                             <MudButton Variant="Variant.Filled"
                                        Color="Color.Primary"
                                        Size="Size.Small"
                                        StartIcon="@Icons.Material.Filled.Add"
+                                       Disabled="_isSubmitting"
                                        OnClick="AddNewItemRow">
                                 افزودن ردیف کالا
                             </MudButton>
                         </div>
 
-                        <MudTable T="CreatePurchaseItemDto" Items="_model.Items" Dense="true" Hover="true"
-                                  Striped="true" Elevation="0">
+                        <MudTable T="CreatePurchaseItemDto"
+                                  Items="_model.Items"
+                                  Dense="true"
+                                  Hover="true"
+                                  Striped="true"
+                                  Elevation="0"
+                                  Breakpoint="Breakpoint.Sm">
+
                             <HeaderContent>
-                                <MudTh Style="width: 50px;">ردیف</MudTh>
-                                <MudTh Style="min-width: 320px;">انتخاب کالا</MudTh>
-                                <MudTh Style="width: 130px;">تعداد</MudTh>
-                                <MudTh Style="width: 200px;">قیمت فی (تومان)</MudTh>
-                                <MudTh Style="width: 200px;">جمع ردیف (تومان)</MudTh>
-                                <MudTh Style="width: 80px; text-align: center;">عملیات</MudTh>
+                                <MudTh Style="width: 55px;">ردیف</MudTh>
+                                <MudTh Style="min-width: 300px;">انتخاب کالا</MudTh>
+                                <MudTh Style="min-width: 210px;">انبار مقصد</MudTh>
+                                <MudTh Style="width: 125px;">تعداد</MudTh>
+                                <MudTh Style="width: 185px;">قیمت فی</MudTh>
+                                <MudTh Style="width: 180px;">جمع ردیف</MudTh>
+                                <MudTh Style="width: 75px; text-align: center;">
+                                    عملیات
+                                </MudTh>
                             </HeaderContent>
+
                             <RowTemplate Context="item">
-                                <MudTd>@(_model.Items.IndexOf(item) + 1)</MudTd>
-                                <MudTd>
+                                <MudTd DataLabel="ردیف">
+                                    @(_model.Items.IndexOf(item) + 1)
+                                </MudTd>
+
+                                <MudTd DataLabel="کالا">
                                     <MudAutocomplete T="ProductLookupItemDto"
                                                      Value="@GetSelectedProduct(item.ProductId)"
-                                                     ValueChanged="@(p => OnAutocompleteProductSelected(item, p))"
+                                                     ValueChanged="@(product => OnProductSelected(item, product))"
                                                      SearchFunc="SearchProductsAsync"
-                                                     ToStringFunc="@(p => p?.DisplayText)"
-                                                     Placeholder="جستجو با نام، برند، مدل یا کد..."
+                                                     ToStringFunc="@(product => product?.DisplayText ?? string.Empty)"
+                                                     Placeholder="نام، برند، مدل یا کد کالا..."
                                                      Variant="Variant.Outlined"
                                                      Margin="Margin.Dense"
                                                      Dense="true"
+                                                     Clearable="true"
                                                      ResetValueOnEmptyText="true"
                                                      CoerceText="true"
+                                                     Strict="false"
+                                                     MaxItems="20"
+                                                     Disabled="_isSubmitting"
                                                      AdornmentIcon="@Icons.Material.Filled.Search"
                                                      AdornmentColor="Color.Primary">
+
                                         <ItemTemplate Context="product">
                                             <div class="d-flex align-center gap-3 py-1">
-                                                <MudAvatar Size="Size.Medium" Rounded="true" Variant="Variant.Outlined"
+                                                <MudAvatar Size="Size.Medium"
+                                                           Rounded="true"
+                                                           Variant="Variant.Outlined"
                                                            Color="Color.Surface">
+
                                                     @if (!string.IsNullOrWhiteSpace(product.ImagePath))
                                                     {
-                                                        <MudImage Src="@product.ImagePath" Alt="@product.Name"
+                                                        <MudImage Src="@product.ImagePath"
+                                                                  Alt="@product.Name"
                                                                   ObjectFit="ObjectFit.Cover"/>
                                                     }
                                                     else
                                                     {
                                                         <MudIcon Icon="@Icons.Material.Filled.Build"
-                                                                 Color="Color.Primary" Size="Size.Small"/>
+                                                                 Color="Color.Primary"
+                                                                 Size="Size.Small"/>
                                                     }
                                                 </MudAvatar>
 
                                                 <div class="d-flex flex-column flex-grow-1">
-                                                    <MudText Typo="Typo.body2" Class="fw-bold">@product.Name</MudText>
-                                                    <div class="d-flex align-center gap-2 mt-1">
-                                                        @if (!string.IsNullOrEmpty(product.BrandName))
+                                                    <MudText Typo="Typo.body2"
+                                                             Class="fw-bold">
+                                                        @product.Name
+                                                    </MudText>
+
+                                                    <div class="d-flex align-center gap-2 mt-1 flex-wrap">
+                                                        @if (!string.IsNullOrWhiteSpace(product.BrandName))
                                                         {
-                                                            <MudChip T="string" Size="Size.Small" Color="Color.Info"
+                                                            <MudChip T="string"
+                                                                     Size="Size.Small"
+                                                                     Color="Color.Info"
                                                                      Variant="Variant.Text"
-                                                                     Class="ma-0 pa-1">@product.BrandName</MudChip>
+                                                                     Class="ma-0 pa-1">
+                                                                @product.BrandName
+                                                            </MudChip>
                                                         }
-                                                        @if (!string.IsNullOrEmpty(product.Model))
+
+                                                        @if (!string.IsNullOrWhiteSpace(product.Model))
                                                         {
-                                                            <MudChip T="string" Size="Size.Small"
-                                                                     Color="Color.Secondary" Variant="Variant.Text"
-                                                                     Class="ma-0 pa-1">@product.Model</MudChip>
+                                                            <MudChip T="string"
+                                                                     Size="Size.Small"
+                                                                     Color="Color.Secondary"
+                                                                     Variant="Variant.Text"
+                                                                     Class="ma-0 pa-1">
+                                                                @product.Model
+                                                            </MudChip>
                                                         }
-                                                        <MudText Typo="Typo.caption" Color="Color.Secondary">
-                                                            کد: @product.InternalCode</MudText>
+
+                                                        <MudText Typo="Typo.caption"
+                                                                 Color="Color.Secondary">
+                                                            کد: @product.InternalCode
+                                                        </MudText>
                                                     </div>
                                                 </div>
                                             </div>
                                         </ItemTemplate>
                                     </MudAutocomplete>
                                 </MudTd>
-                                <MudTd>
-                                    <MudNumericField @bind-Value="item.Quantity"
+
+                                <MudTd DataLabel="انبار مقصد">
+                                    <MudSelect T="Guid?"
+                                               @bind-Value="item.WarehouseId"
+                                               Placeholder="انتخاب انبار..."
+                                               Variant="Variant.Outlined"
+                                               Margin="Margin.Dense"
+                                               Dense="true"
+                                               Disabled="_isSubmitting"
+                                               AnchorOrigin="Origin.BottomCenter">
+
+                                        <MudSelectItem T="Guid?"
+                                                       Value="@((Guid?)null)">
+                                            انتخاب انبار...
+                                        </MudSelectItem>
+
+                                        @foreach (var warehouse in _warehouses)
+                                        {
+                                            <MudSelectItem T="Guid?"
+                                                           Value="@((Guid?)warehouse.Id)">
+                                                @warehouse.Title
+                                            </MudSelectItem>
+                                        }
+                                    </MudSelect>
+                                </MudTd>
+
+                                <MudTd DataLabel="تعداد">
+                                    <MudNumericField T="int"
+                                                     @bind-Value="item.Quantity"
                                                      Min="1"
                                                      Variant="Variant.Outlined"
                                                      Margin="Margin.Dense"
-                                                     HideSpinButtons="false"/>
+                                                     HideSpinButtons="false"
+                                                     Disabled="_isSubmitting"/>
                                 </MudTd>
-                                <MudTd>
+
+                                <MudTd DataLabel="قیمت فی">
                                     <MudNumericField T="decimal?"
                                                      @bind-Value="item.UnitPrice"
                                                      Min="0m"
                                                      Format="N0"
-                                                     Placeholder="بدون تغییر"
+                                                     Placeholder="قیمت خرید"
                                                      Variant="Variant.Outlined"
-                                                     Margin="Margin.Dense"/>
+                                                     Margin="Margin.Dense"
+                                                     Disabled="_isSubmitting"/>
                                 </MudTd>
-                                <MudTd>
-                                    <MudText Typo="Typo.body2" Class="fw-bold" Color="Color.Success">
+
+                                <MudTd DataLabel="جمع ردیف">
+                                    <MudText Typo="Typo.body2"
+                                             Class="fw-bold"
+                                             Color="Color.Success">
                                         @item.TotalPrice.ToString("N0")
+                                        تومان
                                     </MudText>
                                 </MudTd>
-                                <MudTd Style="text-align: center;">
-                                    <MudIconButton Icon="@Icons.Material.Filled.Delete"
-                                                   Color="Color.Error"
-                                                   Size="Size.Small"
-                                                   Disabled="@(_model.Items.Count <= 1)"
-                                                   OnClick="@(() => RemoveItemRow(item))"/>
+
+                                <MudTd DataLabel="عملیات"
+                                       Style="text-align: center;">
+                                    <MudTooltip Text="حذف ردیف">
+                                        <MudIconButton Icon="@Icons.Material.Filled.Delete"
+                                                       Color="Color.Error"
+                                                       Size="Size.Small"
+                                                       Disabled="@(_isSubmitting || _model.Items.Count <= 1)"
+                                                       OnClick="@(() => RemoveItemRow(item))"/>
+                                    </MudTooltip>
                                 </MudTd>
                             </RowTemplate>
+
+                            <NoRecordsContent>
+                                <MudText Typo="Typo.body2"
+                                         Color="Color.Secondary"
+                                         Class="pa-4 text-center">
+                                    هنوز ردیفی به فاکتور اضافه نشده است.
+                                </MudText>
+                            </NoRecordsContent>
                         </MudTable>
                     </MudPaper>
 
-                    <!-- خلاصه مالی و دکمه‌های فرم -->
-                    <MudPaper Elevation="0" Outlined="true"
-                              Class="pa-4 rounded-lg d-flex flex-column flex-sm-row justify-space-between align-center gap-4 mud-theme-background-gray">
-                        <div class="d-flex align-center gap-4">
+                    <!-- خلاصه و عملیات ثبت -->
+                    <MudPaper Elevation="0"
+                              Outlined="true"
+                              Class="pa-4 rounded-lg d-flex flex-column flex-md-row justify-space-between align-center gap-4 mud-theme-background-gray">
+
+                        <div class="d-flex align-center gap-4 flex-wrap">
                             <MudText Typo="Typo.subtitle1">
-                                تعداد اقلام: <b>@_model.Items.Count(i => i.ProductId.HasValue)</b>
+                                تعداد ردیف‌های معتبر:
+                                <b>@ValidItemsCount</b>
                             </MudText>
+
                             <MudDivider Vertical="true" FlexItem="true"/>
-                            <MudText Typo="Typo.h6" Color="Color.Primary">
-                                مجموع کل فاکتور: <b>@TotalInvoiceAmount.ToString("N0") تومان</b>
+
+                            <MudText Typo="Typo.subtitle1">
+                                مجموع تعداد:
+                                <b>@TotalQuantity</b>
+                            </MudText>
+
+                            <MudDivider Vertical="true" FlexItem="true"/>
+
+                            <MudText Typo="Typo.h6"
+                                     Color="Color.Primary">
+                                مجموع کل فاکتور:
+                                <b>@TotalInvoiceAmount.ToString("N0") تومان</b>
                             </MudText>
                         </div>
 
                         <div class="d-flex gap-2">
                             <MudButton Variant="Variant.Outlined"
                                        Color="Color.Secondary"
+                                       Disabled="_isSubmitting"
                                        OnClick="GoBack">
                                 انصراف
                             </MudButton>
+
                             <MudButton ButtonType="ButtonType.Submit"
                                        Variant="Variant.Filled"
                                        Color="Color.Success"
                                        Size="Size.Large"
                                        Disabled="_isSubmitting"
                                        StartIcon="@Icons.Material.Filled.CheckCircle">
+
                                 @if (_isSubmitting)
                                 {
-                                    <MudProgressCircular Class="ms-n1" Size="Size.Small" Indeterminate="true"/>
+                                    <MudProgressCircular Class="ms-n1"
+                                                         Size="Size.Small"
+                                                         Indeterminate="true"/>
                                     <span class="ms-2">در حال ثبت...</span>
+                                }
+                                else if (_model.FinalizeImmediately)
+                                {
+                                    <span>ثبت نهایی و ورود به انبارها</span>
                                 }
                                 else
                                 {
-                                    <span>ثبت نهایی فاکتور</span>
+                                    <span>ثبت به‌صورت پیش‌نویس</span>
                                 }
                             </MudButton>
                         </div>
@@ -272,23 +457,44 @@
 
 @code {
     private CreatePurchaseDto _model = new();
+
     private List<PurchaseLookupItem> _suppliers = new();
     private List<PurchaseLookupItem> _warehouses = new();
     private List<ProductLookupItemDto> _products = new();
 
     private bool _isLoading = true;
-    private bool _isSubmitting = false;
+    private bool _isSubmitting;
 
-    private decimal TotalInvoiceAmount => _model.Items.Sum(i => i.TotalPrice);
+    private decimal TotalInvoiceAmount =>
+        _model.Items
+            .Where(item => item.ProductId.HasValue)
+            .Sum(item => item.TotalPrice);
 
-    private List<BreadcrumbItem> _breadcrumbItems = new()
-    {
+    private int ValidItemsCount =>
+        _model.Items.Count(item =>
+            item.ProductId.HasValue &&
+            item.ProductId.Value != Guid.Empty);
+
+    private int TotalQuantity =>
+        _model.Items
+            .Where(item =>
+                item.ProductId.HasValue &&
+                item.ProductId.Value != Guid.Empty)
+            .Sum(item => Math.Max(item.Quantity, 0));
+
+    private readonly List<BreadcrumbItem> _breadcrumbItems =
+    [
         new BreadcrumbItem("داشبورد", href: "/"),
         new BreadcrumbItem("مدیریت خریدها", href: "/purchases"),
-        new BreadcrumbItem("ثبت فاکتور جدید", href: null, disabled: true)
-    };
+        new BreadcrumbItem(
+            "ثبت فاکتور جدید",
+            href: null,
+            disabled: true)
+    ];
 
-    public record PurchaseLookupItem(Guid Id, string Title);
+    private sealed record PurchaseLookupItem(
+        Guid Id,
+        string Title);
 
     protected override async Task OnInitializedAsync()
     {
@@ -301,15 +507,37 @@
         {
             _isLoading = true;
 
-            var rawSuppliers = await PurchaseService.GetSuppliersLookupAsync();
-            _suppliers = rawSuppliers.Select(s => new PurchaseLookupItem(s.Id, s.Title)).ToList();
+            var suppliersTask =
+                PurchaseService.GetSuppliersLookupAsync();
 
-            var rawWarehouses = await PurchaseService.GetWarehousesLookupAsync();
-            _warehouses = rawWarehouses.Select(w => new PurchaseLookupItem(w.Id, w.Title)).ToList();
+            var warehousesTask =
+                PurchaseService.GetWarehousesLookupAsync();
 
-            _products = await PurchaseService.GetProductsLookupAsync();
+            var productsTask =
+                PurchaseService.GetProductsLookupAsync();
 
-            _model.InvoiceNumber = await PurchaseService.GenerateInvoiceNumberAsync();
+            var invoiceNumberTask =
+                PurchaseService.GenerateInvoiceNumberAsync();
+
+            await Task.WhenAll(
+                suppliersTask,
+                warehousesTask,
+                productsTask,
+                invoiceNumberTask);
+
+            _suppliers = suppliersTask.Result
+                .Select(item =>
+                    new PurchaseLookupItem(item.Id, item.Title))
+                .ToList();
+
+            _warehouses = warehousesTask.Result
+                .Select(item =>
+                    new PurchaseLookupItem(item.Id, item.Title))
+                .ToList();
+
+            _products = productsTask.Result;
+
+            _model.InvoiceNumber = invoiceNumberTask.Result;
 
             if (!_model.Items.Any())
             {
@@ -318,7 +546,9 @@
         }
         catch (Exception ex)
         {
-            Snackbar.Add($"خطا در بارگذاری اطلاعات: {ex.Message}", Severity.Error);
+            Snackbar.Add(
+                $"خطا در بارگذاری اطلاعات: {ex.Message}",
+                Severity.Error);
         }
         finally
         {
@@ -328,102 +558,248 @@
 
     private void AddNewItemRow()
     {
-        _model.Items.Add(new CreatePurchaseItemDto());
+        _model.Items.Add(new CreatePurchaseItemDto
+        {
+            Quantity = 1,
+            WarehouseId = GetValidHeaderWarehouseId()
+        });
     }
 
     private void RemoveItemRow(CreatePurchaseItemDto item)
     {
-        if (_model.Items.Count > 1)
+        if (_model.Items.Count <= 1)
         {
-            _model.Items.Remove(item);
+            return;
         }
+
+        _model.Items.Remove(item);
+    }
+
+    private Task OnHeaderWarehouseChanged(Guid? warehouseId)
+    {
+        _model.WarehouseId = IsValidWarehouse(warehouseId)
+            ? warehouseId
+            : null;
+
+        if (!_model.WarehouseId.HasValue)
+        {
+            return Task.CompletedTask;
+        }
+
+        foreach (var item in _model.Items.Where(item =>
+                     !IsValidWarehouse(item.WarehouseId)))
+        {
+            item.WarehouseId = _model.WarehouseId;
+        }
+
+        return Task.CompletedTask;
     }
 
     private ProductLookupItemDto? GetSelectedProduct(Guid? productId)
     {
-        if (!productId.HasValue) return null;
-        return _products.FirstOrDefault(p => p.Id == productId.Value);
+        if (!productId.HasValue ||
+            productId.Value == Guid.Empty)
+        {
+            return null;
+        }
+
+        return _products.FirstOrDefault(product =>
+            product.Id == productId.Value);
     }
 
-    private void OnAutocompleteProductSelected(CreatePurchaseItemDto item, ProductLookupItemDto? selectedProduct)
+    private void OnProductSelected(
+        CreatePurchaseItemDto item,
+        ProductLookupItemDto? selectedProduct)
     {
-        if (selectedProduct != null)
-        {
-            item.ProductId = selectedProduct.Id;
-            item.UnitPrice = selectedProduct.DefaultPurchasePrice;
-
-            if (selectedProduct.DefaultWarehouseId.HasValue &&
-                _warehouses.Any(w => w.Id == selectedProduct.DefaultWarehouseId.Value))
-            {
-                _model.WarehouseId = selectedProduct.DefaultWarehouseId.Value;
-            }
-        }
-        else
+        if (selectedProduct == null)
         {
             item.ProductId = null;
             item.UnitPrice = null;
+            return;
+        }
+
+        item.ProductId = selectedProduct.Id;
+        item.UnitPrice = selectedProduct.DefaultPurchasePrice;
+
+        if (IsValidWarehouse(selectedProduct.DefaultWarehouseId))
+        {
+            item.WarehouseId =
+                selectedProduct.DefaultWarehouseId;
+        }
+        else if (!IsValidWarehouse(item.WarehouseId))
+        {
+            item.WarehouseId =
+                GetValidHeaderWarehouseId();
         }
     }
 
-    private Task<IEnumerable<ProductLookupItemDto>> SearchProductsAsync(string value, CancellationToken token)
+    private Task<IEnumerable<ProductLookupItemDto>>
+        SearchProductsAsync(
+            string value,
+            CancellationToken cancellationToken)
     {
-        if (string.IsNullOrWhiteSpace(value))
-            return Task.FromResult<IEnumerable<ProductLookupItemDto>>(_products);
+        cancellationToken.ThrowIfCancellationRequested();
 
-        var query = value.Trim();
-        var filtered = _products.Where(p =>
-            (p.Name != null && p.Name.Contains(query, StringComparison.OrdinalIgnoreCase)) ||
-            (p.InternalCode != null && p.InternalCode.Contains(query, StringComparison.OrdinalIgnoreCase)) ||
-            (p.BrandName != null && p.BrandName.Contains(query, StringComparison.OrdinalIgnoreCase)) ||
-            (p.Model != null && p.Model.Contains(query, StringComparison.OrdinalIgnoreCase))
-        );
+        IEnumerable<ProductLookupItemDto> result = _products;
 
-        return Task.FromResult(filtered);
+        if (!string.IsNullOrWhiteSpace(value))
+        {
+            var query = value.Trim();
+
+            result = _products.Where(product =>
+                product.Name.Contains(
+                    query,
+                    StringComparison.OrdinalIgnoreCase) ||
+                product.InternalCode.Contains(
+                    query,
+                    StringComparison.OrdinalIgnoreCase) ||
+                (!string.IsNullOrWhiteSpace(product.BrandName) &&
+                 product.BrandName.Contains(
+                     query,
+                     StringComparison.OrdinalIgnoreCase)) ||
+                (!string.IsNullOrWhiteSpace(product.Model) &&
+                 product.Model.Contains(
+                     query,
+                     StringComparison.OrdinalIgnoreCase)));
+        }
+
+        return Task.FromResult(result);
     }
 
-    private async Task HandleSubmit()
+    private async Task HandleSubmitAsync()
     {
-        if (!_model.SupplierId.HasValue || _model.SupplierId == Guid.Empty)
+        if (_isSubmitting)
         {
-            Snackbar.Add("لطفاً تأمین‌کننده را انتخاب کنید.", Severity.Warning);
             return;
         }
 
-        if (!_model.WarehouseId.HasValue || _model.WarehouseId == Guid.Empty)
+        if (string.IsNullOrWhiteSpace(_model.InvoiceNumber))
         {
-            Snackbar.Add("لطفاً انبار مقصد را انتخاب کنید.", Severity.Warning);
+            Snackbar.Add(
+                "شماره فاکتور الزامی است.",
+                Severity.Warning);
             return;
         }
 
-        var validItems = _model.Items.Where(i => i.ProductId.HasValue && i.ProductId != Guid.Empty).ToList();
-        if (!validItems.Any())
+        if (!_model.SupplierId.HasValue ||
+            _model.SupplierId.Value == Guid.Empty)
         {
-            Snackbar.Add("حداقل باید یک کالا برای خرید انتخاب شده باشد.", Severity.Warning);
+            Snackbar.Add(
+                "لطفاً تأمین‌کننده را انتخاب کنید.",
+                Severity.Warning);
             return;
         }
 
-        var invalidQuantity = validItems.FirstOrDefault(i => i.Quantity <= 0);
-        if (invalidQuantity is not null)
+        if (!IsValidWarehouse(_model.WarehouseId))
         {
-            Snackbar.Add("تعداد خرید برای هر ردیف کالا باید بیشتر از صفر باشد.", Severity.Warning);
+            Snackbar.Add(
+                "لطفاً انبار پیش‌فرض فاکتور را انتخاب کنید.",
+                Severity.Warning);
             return;
         }
+
+        var validItems = _model.Items
+            .Where(item =>
+                item.ProductId.HasValue &&
+                item.ProductId.Value != Guid.Empty)
+            .ToList();
+
+        if (validItems.Count == 0)
+        {
+            Snackbar.Add(
+                "حداقل باید یک کالا برای خرید انتخاب شود.",
+                Severity.Warning);
+            return;
+        }
+
+        var missingWarehouseIndex = validItems.FindIndex(item =>
+            !IsValidWarehouse(item.WarehouseId));
+
+        if (missingWarehouseIndex >= 0)
+        {
+            Snackbar.Add(
+                $"انبار مقصد ردیف {missingWarehouseIndex + 1} انتخاب نشده است.",
+                Severity.Warning);
+            return;
+        }
+
+        var invalidQuantityIndex = validItems.FindIndex(item =>
+            item.Quantity <= 0);
+
+        if (invalidQuantityIndex >= 0)
+        {
+            Snackbar.Add(
+                $"تعداد کالای ردیف {invalidQuantityIndex + 1} باید بیشتر از صفر باشد.",
+                Severity.Warning);
+            return;
+        }
+
+        var invalidPriceIndex = validItems.FindIndex(item =>
+            item.UnitPrice.HasValue &&
+            item.UnitPrice.Value < 0);
+
+        if (invalidPriceIndex >= 0)
+        {
+            Snackbar.Add(
+                $"قیمت واحد ردیف {invalidPriceIndex + 1} نمی‌تواند منفی باشد.",
+                Severity.Warning);
+            return;
+        }
+
+        // ردیف‌های خالی رابط کاربری به سرویس ارسال نمی‌شوند.
+        _model.Items = validItems;
 
         try
         {
             _isSubmitting = true;
-            await PurchaseService.CreatePurchaseAsync(_model);
-            Snackbar.Add($"فاکتور خرید {_model.InvoiceNumber} با موفقیت ثبت شد.", Severity.Success);
+
+            var authenticationState =
+                await AuthenticationStateProvider
+                    .GetAuthenticationStateAsync();
+
+            var currentUserName =
+                authenticationState.User.FindFirstValue(ClaimTypes.Name) ??
+                authenticationState.User.Identity?.Name;
+
+            await PurchaseService.CreatePurchaseAsync(
+                _model,
+                currentUserName);
+
+            var statusText = _model.FinalizeImmediately
+                ? "ثبت و موجودی انبارهای انتخاب‌شده افزایش یافت"
+                : "به‌صورت پیش‌نویس ثبت شد";
+
+            Snackbar.Add(
+                $"فاکتور خرید {_model.InvoiceNumber} با موفقیت {statusText}.",
+                Severity.Success);
+
             NavigationManager.NavigateTo("/purchases");
         }
         catch (Exception ex)
         {
-            Snackbar.Add($"خطا در ثبت فاکتور: {ex.Message}", Severity.Error);
+            Snackbar.Add(
+                $"خطا در ثبت فاکتور: {ex.Message}",
+                Severity.Error);
         }
         finally
         {
             _isSubmitting = false;
         }
+    }
+
+    private Guid? GetValidHeaderWarehouseId()
+    {
+        return IsValidWarehouse(_model.WarehouseId)
+            ? _model.WarehouseId
+            : null;
+    }
+
+    private bool IsValidWarehouse(Guid? warehouseId)
+    {
+        return warehouseId.HasValue &&
+               warehouseId.Value != Guid.Empty &&
+               _warehouses.Any(warehouse =>
+                   warehouse.Id == warehouseId.Value);
     }
 
     private void GoBack()
