@@ -123,8 +123,8 @@
                                 <MudTh Style="width: 190px;">انبار مبدأ *</MudTh>
                                 <MudTh Style="width: 110px; text-align: center;">موجودی</MudTh>
                                 <MudTh Style="width: 140px;">تعداد</MudTh>
-                                <MudTh Style="width: 200px;">قیمت فی (ریال)</MudTh>
-                                <MudTh Style="width: 180px;">جمع ردیف (ریال)</MudTh>
+                                <MudTh Style="width: 200px;">قیمت فی (تومان)</MudTh>
+                                <MudTh Style="width: 180px;">جمع ردیف (تومان)</MudTh>
                                 <MudTh Style="width: 70px; text-align: center;">عملیات</MudTh>
                             </HeaderContent>
                             <RowTemplate Context="item">
@@ -254,7 +254,7 @@
                             </MudText>
                             <MudDivider Vertical="true" FlexItem="true"/>
                             <MudText Typo="Typo.h6" Color="Color.Primary">
-                                مجموع کل فاکتور: <b>@_model.Items.Sum(i => i.TotalPrice).ToString("N0") ریال</b>
+                                مجموع کل فاکتور: <b>@_model.Items.Sum(i => i.TotalPrice).ToString("N0") تومان</b>
                             </MudText>
                         </div>
 
