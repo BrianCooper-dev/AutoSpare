@@ -15,34 +15,34 @@ public class Purchase : BaseEntity
     /// <summary>
     /// شماره فاکتور خرید/سند
     /// </summary>
-    public string InvoiceNumber { private set; get; } = string.Empty;
+    public string InvoiceNumber { get; private set; } = string.Empty;
 
     /// <summary>
     /// شناسه تأمین‌کننده
     /// </summary>
-    public Guid SupplierId { private set; get; }
-    public Supplier? Supplier { private set; get; }
+    public Guid SupplierId { get; private set; }
+    public Supplier? Supplier { get; private set; }
 
     /// <summary>
-    /// شناسه انباری که کالاها به آن واریز می‌شوند
+    /// انبار پیش‌فرض فاکتور (برای ردیف‌هایی که انبار خاصی تعیین نکرده‌اند)
     /// </summary>
-    public Guid WarehouseId { private set; get; }
-    public Warehouse? Warehouse { private set; get; }
+    public Guid WarehouseId { get; private set; }
+    public Warehouse? Warehouse { get; private set; }
 
     /// <summary>
     /// تاریخ و زمان انجام خرید
     /// </summary>
-    public DateTime PurchaseDate { private set; get; }
+    public DateTime PurchaseDate { get; private set; }
 
     /// <summary>
     /// وضعیت فاکتور خرید
     /// </summary>
-    public PurchaseStatus Status { private set; get; }
+    public PurchaseStatus Status { get; private set; }
 
     /// <summary>
     /// توضیحات یا یادداشت فاکتور
     /// </summary>
-    public string? Notes { private set; get; }
+    public string? Notes { get; private set; }
 
     /// <summary>
     /// لیست ردیف‌های کالاها (ReadOnly)
@@ -70,7 +70,7 @@ public class Purchase : BaseEntity
             throw new ArgumentException("شناسه تأمین‌کننده نامعتبر است.", nameof(supplierId));
 
         if (warehouseId == Guid.Empty)
-            throw new ArgumentException("شناسه انبار نامعتبر است.", nameof(warehouseId));
+            throw new ArgumentException("شناسه انبار پیش‌فرض نامعتبر است.", nameof(warehouseId));
 
         SupplierId = supplierId;
         WarehouseId = warehouseId;
@@ -84,32 +84,34 @@ public class Purchase : BaseEntity
     // ==========================================
 
     /// <summary>
-    /// افزودن یا به‌روزرسانی آیتم در فاکتور (تنها در حالت Draft)
+    /// افزودن یا به‌روزرسانی آیتم در فاکتور بر اساس ترکیب کالا و انبار مقصد
     /// </summary>
-    public void AddOrUpdateItem(Guid productId, int quantity, decimal unitPrice)
+    public void AddOrUpdateItem(Guid productId, Guid warehouseId, int quantity, decimal unitPrice)
     {
         EnsureIsDraft();
 
-        var existingItem = _items.FirstOrDefault(i => i.ProductId == productId);
+        if (warehouseId == Guid.Empty)
+            warehouseId = WarehouseId; // در صورت خالی بودن، انبار پیش‌فرض هدر ست می‌شود
+
+        var existingItem = _items.FirstOrDefault(i => i.ProductId == productId && i.WarehouseId == warehouseId);
         if (existingItem != null)
         {
-            // به جای جایگزینی، تعداد جدید به تعداد قبلی اضافه می‌شود و آخرین قیمت واحد ملاک قرار می‌گیرد
             existingItem.Update(existingItem.Quantity + quantity, unitPrice);
         }
         else
         {
-            _items.Add(new PurchaseItem(productId, quantity, unitPrice));
+            _items.Add(new PurchaseItem(productId, warehouseId, quantity, unitPrice));
         }
     }
 
     /// <summary>
-    /// حذف یک آیتم از فاکتور
+    /// حذف یک آیتم مشخص از فاکتور با کالا و انبار
     /// </summary>
-    public void RemoveItem(Guid productId)
+    public void RemoveItem(Guid productId, Guid warehouseId)
     {
         EnsureIsDraft();
 
-        var item = _items.FirstOrDefault(i => i.ProductId == productId);
+        var item = _items.FirstOrDefault(i => i.ProductId == productId && i.WarehouseId == warehouseId);
         if (item != null)
         {
             _items.Remove(item);
@@ -130,12 +132,12 @@ public class Purchase : BaseEntity
     }
 
     /// <summary>
-    /// لغو فاکتور خرید
+    /// لغو فاکتور خرید (از حالت پیش‌نویس یا نهایی)
     /// </summary>
     public void Cancel()
     {
-        if (Status == PurchaseStatus.Completed)
-            throw new InvalidOperationException("فاکتور نهایی‌شده را نمی‌توان لغو کرد.");
+        if (Status == PurchaseStatus.Cancelled)
+            throw new InvalidOperationException("این فاکتور قبلاً لغو شده است.");
 
         Status = PurchaseStatus.Cancelled;
     }
@@ -179,4 +181,3 @@ public class Purchase : BaseEntity
             throw new InvalidOperationException("تغییرات فقط در حالت پیش‌نویس (Draft) امکان‌پذیر است.");
     }
 }
-

@@ -14,7 +14,7 @@
 @inject IDialogService DialogService
 @inject NavigationManager NavigationManager
 
-<PageTitle>جزئیات فاکتور خرید</PageTitle>
+<PageTitle>جزئیات فاکتور خرید @(_purchase?.InvoiceNumber)</PageTitle>
 
 <MudContainer MaxWidth="MaxWidth.ExtraLarge" Class="mt-4 mb-8">
     <MudBreadcrumbs Items="_breadcrumbItems" Class="pa-0 mb-4"/>
@@ -63,6 +63,7 @@
             </div>
 
             <div class="d-flex gap-2">
+                @* دکمه نهایی‌سازی فقط مخصوص فاکتورهای پیش‌نویس *@
                 @if (_purchase.Status == PurchaseStatus.Draft)
                 {
                     <MudButton Variant="Variant.Filled"
@@ -72,7 +73,11 @@
                                Disabled="_processing">
                         نهایی‌سازی و ورود به انبار
                     </MudButton>
+                }
 
+                @* دکمه لغو خرید در صورت پیش‌نویس بودن *@
+                @if (_purchase.Status == PurchaseStatus.Draft)
+                {
                     <MudButton Variant="Variant.Outlined"
                                Color="Color.Error"
                                StartIcon="@Icons.Material.Filled.Cancel"
@@ -164,7 +169,7 @@
                         <MudTh>برند / مدل</MudTh>
                         <MudTh Style="text-align: center;">تعداد</MudTh>
                         <MudTh>قیمت واحد (تومان)</MudTh>
-                        <MudTh>قیمت کل (تومان)</MudTh>
+                        <MudTh Style="text-align: end;">قیمت کل (تومان)</MudTh>
                     </HeaderContent>
                     <RowTemplate Context="item">
                         <MudTd>@(_purchase.Items.IndexOf(item) + 1)</MudTd>
@@ -204,17 +209,17 @@
                             <MudBadge Content="@item.Quantity" Color="Color.Primary" Overlap="false"/>
                         </MudTd>
                         <MudTd>@item.UnitPrice.ToString("N0")</MudTd>
-                        <MudTd>
+                        <MudTd Style="text-align: end;">
                             <MudText Typo="Typo.body2" Class="fw-bold" Color="Color.Success">
                                 @item.TotalPrice.ToString("N0")
                             </MudText>
                         </MudTd>
                     </RowTemplate>
                     <FooterContent>
-                        <MudTd ColSpan="4" Class="fw-bold text-end">جمع کل اقلام:</MudTd>
+                        <MudTd ColSpan="3" Class="fw-bold text-end">جمع کل اقلام:</MudTd>
                         <MudTd Style="text-align: center;" Class="fw-bold">@_purchase.Items.Sum(i => i.Quantity)</MudTd>
-                        <MudTd Class="fw-bold text-end">مبلغ قابل پرداخت:</MudTd>
-                        <MudTd Class="fw-bold" Color="Color.Success">@_purchase.TotalAmount.ToString("N0") تومان</MudTd>
+                        <MudTd ColSpan="2" Class="fw-bold text-end">مبلغ قابل پرداخت:</MudTd>
+                        <MudTd Style="text-align: end;" Class="fw-bold" Color="Color.Success">@_purchase.TotalAmount.ToString("N0") تومان</MudTd>
                     </FooterContent>
                 </MudTable>
             </MudCardContent>
@@ -241,8 +246,6 @@
     private PurchaseDetailsDto? _purchase;
     private bool _isLoading = true;
     private bool _processing;
-    private readonly PersianCalendar _persianCalendar = new();
-
     private List<BreadcrumbItem> _breadcrumbItems = new();
 
     protected override async Task OnInitializedAsync()
@@ -287,21 +290,14 @@
         }
     }
 
-    private string ToPersianDate(DateTime dateTime)
-    {
-        if (dateTime == default) return "-";
-        return $"{_persianCalendar.GetYear(dateTime):0000}/{_persianCalendar.GetMonth(dateTime):00}/{_persianCalendar.GetDayOfMonth(dateTime):00}";
-    }
-
     private async Task FinalizeInvoiceAsync()
     {
         var parameters = new DialogParameters<ConfirmDialog>
         {
             { x => x.Title, "تأیید نهایی‌سازی فاکتور" },
-            { x => x.ContentText, $"آیا از نهایی‌سازی فاکتور «{_purchase?.InvoiceNumber}» و ورود اقلام آن به انبار اطمینان دارید؟ پس از این مرحله امکان تغییر وجود نخواهد داشت." },
+            { x => x.ContentText, $"آیا از نهایی‌سازی فاکتور خرید «{_purchase?.InvoiceNumber}» و ورود اقلام آن به انبار اطمینان دارید؟ پس از این مرحله امکان تغییر وجود نخواهد داشت." },
             { x => x.ConfirmButtonText, "بله، نهایی و ثبت شود" },
-            { x => x.Color, Color.Success },
-            { x => x.Icon, Icons.Material.Filled.CheckCircle }
+            { x => x.Color, Color.Success }
         };
 
         var options = new DialogOptions
@@ -342,8 +338,7 @@
             { x => x.Title, "تأیید لغو فاکتور" },
             { x => x.ContentText, $"آیا از لغو فاکتور خرید «{_purchase?.InvoiceNumber}» اطمینان دارید؟" },
             { x => x.ConfirmButtonText, "بله، لغو شود" },
-            { x => x.Color, Color.Error },
-            { x => x.Icon, Icons.Material.Filled.Cancel }
+            { x => x.Color, Color.Error }
         };
 
         var options = new DialogOptions

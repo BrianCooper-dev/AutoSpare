@@ -27,8 +27,9 @@ public class PurchaseItemDetailsDto
     public string? BrandName { get; set; }
     public string? Model { get; set; }
     public string? ImagePath { get; set; }
+    public Guid WarehouseId { get; set; }
+    public string WarehouseName { get; set; } = string.Empty;
     public int Quantity { get; set; }
     public decimal UnitPrice { get; set; }
     public decimal TotalPrice { get; set; }
 }
-
