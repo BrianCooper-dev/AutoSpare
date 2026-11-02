@@ -11,6 +11,8 @@ using AutoSpare.Infrastructure.Persistence;
 using AutoSpare.Infrastructure.Services;
 using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
+using Moq;
 
 namespace AutoSpare.Tests.Services;
 
@@ -18,6 +20,7 @@ public class PurchaseServiceTests : IDisposable
 {
     private readonly ApplicationDbContext _context;
     private readonly PurchaseService _service;
+    private readonly Mock<ILogger<PurchaseService>> _loggerMock;
 
     public PurchaseServiceTests()
     {
@@ -30,7 +33,10 @@ public class PurchaseServiceTests : IDisposable
             .Options;
 
         _context = new ApplicationDbContext(options);
-        _service = new PurchaseService(_context);
+        _loggerMock = new Mock<ILogger<PurchaseService>>();
+
+        // اصلاح سازنده با پاس دادن Logger به عنوان پارامتر دوم
+        _service = new PurchaseService(_context, _loggerMock.Object);
     }
 
     private async Task<(

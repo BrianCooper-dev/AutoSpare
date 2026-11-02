@@ -2,12 +2,9 @@
 @rendermode InteractiveServer
 @attribute [Authorize]
 
-@using System.Globalization
 @using AutoSpare.Application.Purchases
 @using AutoSpare.Application.Purchases.DTOs
 @using AutoSpare.Domain.Purchases.Enums
-@using AutoSpare.Web.Components.Common
-@using MudBlazor
 
 @inject IPurchaseService PurchaseService
 @inject ISnackbar Snackbar
@@ -219,7 +216,9 @@
                         <MudTd ColSpan="3" Class="fw-bold text-end">جمع کل اقلام:</MudTd>
                         <MudTd Style="text-align: center;" Class="fw-bold">@_purchase.Items.Sum(i => i.Quantity)</MudTd>
                         <MudTd ColSpan="2" Class="fw-bold text-end">مبلغ قابل پرداخت:</MudTd>
-                        <MudTd Style="text-align: end;" Class="fw-bold" Color="Color.Success">@_purchase.TotalAmount.ToString("N0") تومان</MudTd>
+                        <MudTd Style="text-align: end;" Class="fw-bold"
+                               Color="Color.Success">@_purchase.TotalAmount.ToString("N0") تومان
+                        </MudTd>
                     </FooterContent>
                 </MudTable>
             </MudCardContent>
@@ -371,4 +370,5 @@
             }
         }
     }
+
 }

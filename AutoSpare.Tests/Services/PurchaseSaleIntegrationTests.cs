@@ -12,13 +12,11 @@ using AutoSpare.Infrastructure.Services;
 using AutoSpare.Tests.Infrastructure;
 using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
+using Moq;
 
 namespace AutoSpare.Tests.Services;
 
-/// <summary>
-/// تست جریان خرید، فروش، ابطال و گردش موجودی با دیتابیس InMemory.
-/// آزمون رفتار RowVersion واقعی باید جداگانه روی SQL Server اجرا شود.
-/// </summary>
 public class PurchaseSaleIntegrationTests
 {
     private readonly DbContextOptions<ApplicationDbContext> _options;
@@ -50,10 +48,11 @@ public class PurchaseSaleIntegrationTests
 
         var warehouse = new Warehouse(
             "انبار پخش مرکزی",
-            "تهران، خیابان امیرکبیر");
+            "تهران، خیابان امیرکبیر",
+            "02100000000");
 
-        var category = new Category("سیستم ترمز و انتقال قدرت");
-        var brand = new Brand("ایساکو");
+        var category = new Category("سیستم ترمز و انتقال قدرت", "Brake System");
+        var brand = new Brand("ایساکو", "ISACCO");
 
         await db.Suppliers.AddAsync(supplier);
         await db.Warehouses.AddAsync(warehouse);
@@ -69,6 +68,7 @@ public class PurchaseSaleIntegrationTests
             salePrice: 550_000m,
             categoryId: category.Id,
             brandId: brand.Id,
+            imagePath: null,
             defaultWarehouseId: warehouse.Id
         );
 
@@ -81,7 +81,6 @@ public class PurchaseSaleIntegrationTests
     [Fact]
     public async Task CompleteLifeCycle_PurchaseThenSaleThenCancelSale_InventoryAndMovementsMustMatch()
     {
-        // Arrange
         var (supplierId, warehouseId, productId) =
             await SeedMasterDataAsync();
 
@@ -102,10 +101,12 @@ public class PurchaseSaleIntegrationTests
             }
         };
 
-        // گام ۱: ثبت و نهایی‌سازی خرید.
+        var purchaseLoggerMock = new Mock<ILogger<PurchaseService>>();
+        var saleLoggerMock = new Mock<ILogger<SaleService>>();
+
         await using (var db = CreateContext())
         {
-            var purchaseService = new PurchaseService(db);
+            var purchaseService = new PurchaseService(db, purchaseLoggerMock.Object);
 
             var purchaseId = await purchaseService.CreatePurchaseAsync(
                 purchaseDto,
@@ -144,12 +145,11 @@ public class PurchaseSaleIntegrationTests
             }
         };
 
-        // گام ۲: فروش ۷ عدد.
         Guid saleId;
 
         await using (var db = CreateContext())
         {
-            var saleService = new SaleService(db);
+            var saleService = new SaleService(db, saleLoggerMock.Object);
             saleId = await saleService.CreateSaleAsync(saleDto);
 
             saleId.Should().NotBeEmpty();
@@ -167,14 +167,12 @@ public class PurchaseSaleIntegrationTests
             inventoryAfterSale!.Quantity.Should().Be(13);
         }
 
-        // گام ۳: ابطال فروش و بازگشت ۷ عدد.
         await using (var db = CreateContext())
         {
-            var saleService = new SaleService(db);
+            var saleService = new SaleService(db, saleLoggerMock.Object);
             await saleService.CancelSaleAsync(saleId);
         }
 
-        // Assert نهایی
         await using (var db = CreateContext())
         {
             var finalInventory = await db.Inventories
@@ -191,19 +189,16 @@ public class PurchaseSaleIntegrationTests
             movements.Should().HaveCount(3);
 
             var purchaseMovement = movements.Single(m => m.Type == StockMovementType.Purchase);
-
             purchaseMovement.Reference.Should().Be("INT-PUR-001");
             purchaseMovement.QuantityChange.Should().Be(20);
             purchaseMovement.BalanceAfter.Should().Be(20);
 
             var saleMovement = movements.Single(m => m.Type == StockMovementType.Sale);
-
             saleMovement.Reference.Should().Be("INT-SALE-001");
             saleMovement.QuantityChange.Should().Be(-7);
             saleMovement.BalanceAfter.Should().Be(13);
 
             var returnMovement = movements.Single(m => m.Type == StockMovementType.CustomerReturn);
-
             returnMovement.Reference.Should().Be("INT-SALE-001");
             returnMovement.QuantityChange.Should().Be(7);
             returnMovement.BalanceAfter.Should().Be(20);
@@ -213,7 +208,6 @@ public class PurchaseSaleIntegrationTests
     [Fact]
     public async Task PurchaseDraft_Cancelled_CannotBeSoldDueToInsufficientStock()
     {
-        // Arrange
         var (supplierId, warehouseId, productId) =
             await SeedMasterDataAsync();
 
@@ -235,16 +229,18 @@ public class PurchaseSaleIntegrationTests
         };
 
         Guid purchaseId;
+        var purchaseLoggerMock = new Mock<ILogger<PurchaseService>>();
+        var saleLoggerMock = new Mock<ILogger<SaleService>>();
 
         await using (var db = CreateContext())
         {
-            var purchaseService = new PurchaseService(db);
+            var purchaseService = new PurchaseService(db, purchaseLoggerMock.Object);
             purchaseId = await purchaseService.CreatePurchaseAsync(purchaseDto);
         }
 
         await using (var db = CreateContext())
         {
-            var purchaseService = new PurchaseService(db);
+            var purchaseService = new PurchaseService(db, purchaseLoggerMock.Object);
             await purchaseService.CancelPurchaseAsync(purchaseId);
         }
 
@@ -275,10 +271,9 @@ public class PurchaseSaleIntegrationTests
             }
         };
 
-        // فروش نباید بتواند روی موجودیِ حاصل‌نشده از خرید پیش‌نویس انجام شود.
         await using (var db = CreateContext())
         {
-            var saleService = new SaleService(db);
+            var saleService = new SaleService(db, saleLoggerMock.Object);
 
             var act = async () =>
                 await saleService.CreateSaleAsync(saleDto);

@@ -23,36 +23,37 @@ public class ProductService : IProductService
         _context = context;
     }
 
-    public async Task<List<DropdownItemDto>> GetCategoriesLookupAsync()
+    public async Task<List<DropdownItemDto>> GetCategoriesLookupAsync(CancellationToken cancellationToken = default)
     {
         return await _context.Categories
             .AsNoTracking()
             .Where(c => c.IsActive)
             .Select(c => new DropdownItemDto(c.Id, c.Name))
-            .ToListAsync();
+            .ToListAsync(cancellationToken);
     }
 
-    public async Task<List<DropdownItemDto>> GetBrandsLookupAsync()
+    public async Task<List<DropdownItemDto>> GetBrandsLookupAsync(CancellationToken cancellationToken = default)
     {
         return await _context.Brands
             .AsNoTracking()
             .Where(b => b.IsActive)
             .Select(b => new DropdownItemDto(b.Id, b.Name))
-            .ToListAsync();
+            .ToListAsync(cancellationToken);
     }
 
-    public async Task<List<DropdownItemDto>> GetWarehousesLookupAsync()
+    public async Task<List<DropdownItemDto>> GetWarehousesLookupAsync(CancellationToken cancellationToken = default)
     {
         return await _context.Warehouses
             .AsNoTracking()
             .Where(w => w.IsActive)
             .Select(w => new DropdownItemDto(w.Id, w.Name))
-            .ToListAsync();
+            .ToListAsync(cancellationToken);
     }
 
     public async Task<bool> IsInternalCodeUniqueAsync(
         string code,
-        Guid? currentProductId = null)
+        Guid? currentProductId = null,
+        CancellationToken cancellationToken = default)
     {
         if (string.IsNullOrWhiteSpace(code))
         {
@@ -63,10 +64,10 @@ public class ProductService : IProductService
 
         return !await _context.Products.AnyAsync(p =>
             p.InternalCode == trimmed &&
-            (!currentProductId.HasValue || p.Id != currentProductId.Value));
+            (!currentProductId.HasValue || p.Id != currentProductId.Value), cancellationToken);
     }
 
-    public async Task<Guid> CreateProductAsync(CreateProductDto dto)
+    public async Task<Guid> CreateProductAsync(CreateProductDto dto, CancellationToken cancellationToken = default)
     {
         ArgumentNullException.ThrowIfNull(dto);
 
@@ -97,7 +98,7 @@ public class ProductService : IProductService
                 "انتخاب انبار الزامی است.");
         }
 
-        var isUnique = await IsInternalCodeUniqueAsync(dto.InternalCode);
+        var isUnique = await IsInternalCodeUniqueAsync(dto.InternalCode, null, cancellationToken);
 
         if (!isUnique)
         {
@@ -108,7 +109,7 @@ public class ProductService : IProductService
         if (normalizedDefaultWarehouseId.HasValue)
         {
             var warehouseExists = await _context.Warehouses
-                .AnyAsync(w => w.Id == normalizedDefaultWarehouseId.Value);
+                .AnyAsync(w => w.Id == normalizedDefaultWarehouseId.Value, cancellationToken);
 
             if (!warehouseExists)
             {
@@ -130,7 +131,7 @@ public class ProductService : IProductService
             isLowStockAlertEnabled: dto.IsLowStockAlertEnabled,
             minStockThreshold: dto.MinStockThreshold);
 
-        await _context.Products.AddAsync(product);
+        await _context.Products.AddAsync(product, cancellationToken);
 
         if (dto.InitialQuantity > 0 && normalizedDefaultWarehouseId.HasValue)
         {
@@ -139,16 +140,17 @@ public class ProductService : IProductService
                 warehouseId: normalizedDefaultWarehouseId.Value,
                 initialQuantity: dto.InitialQuantity);
 
-            await _context.Inventories.AddAsync(inventory);
+            await _context.Inventories.AddAsync(inventory, cancellationToken);
         }
 
-        await _context.SaveChangesAsync();
+        await _context.SaveChangesAsync(cancellationToken);
 
         return product.Id;
     }
 
     public async Task<PagedResult<ProductListItemDto>> GetProductsAsync(
-        ProductFilterDto? filter = null)
+        ProductFilterDto? filter = null,
+        CancellationToken cancellationToken = default)
     {
         filter ??= new ProductFilterDto();
 
@@ -258,7 +260,7 @@ public class ProductService : IProductService
                 break;
         }
 
-        var totalCount = await projectedQuery.CountAsync();
+        var totalCount = await projectedQuery.CountAsync(cancellationToken);
 
         var pageNumber = filter.PageNumber > 0 ? filter.PageNumber : 1;
         var pageSize = filter.PageSize > 0 ? filter.PageSize : 20;
@@ -266,12 +268,13 @@ public class ProductService : IProductService
         var items = await projectedQuery
             .Skip((pageNumber - 1) * pageSize)
             .Take(pageSize)
-            .ToListAsync();
+            .ToListAsync(cancellationToken);
 
         return new PagedResult<ProductListItemDto>(items, totalCount, pageNumber, pageSize);
     }
 
-    public async Task<ProductDetailsDto?> GetProductDetailsByIdAsync(Guid id)
+    public async Task<ProductDetailsDto?> GetProductDetailsByIdAsync(Guid id,
+        CancellationToken cancellationToken = default)
     {
         if (id == Guid.Empty)
         {
@@ -285,7 +288,7 @@ public class ProductService : IProductService
             .Include(p => p.Category)
             .Include(p => p.Brand)
             .Include(p => p.DefaultWarehouse)
-            .FirstOrDefaultAsync(p => p.Id == id);
+            .FirstOrDefaultAsync(p => p.Id == id, cancellationToken);
 
         if (product == null)
         {
@@ -304,7 +307,7 @@ public class ProductService : IProductService
                     .FirstOrDefault() ?? "نامشخص",
                 Quantity = i.Quantity
             })
-            .ToListAsync();
+            .ToListAsync(cancellationToken);
 
         var movements = await _context.StockMovements
             .AsNoTracking()
@@ -325,7 +328,7 @@ public class ProductService : IProductService
                 PerformedBy = sm.PerformedBy,
                 OccurredAt = sm.OccurredAt
             })
-            .ToListAsync();
+            .ToListAsync(cancellationToken);
 
         var priceHistories = await _context.PriceChangeHistories
             .AsNoTracking()
@@ -342,7 +345,7 @@ public class ProductService : IProductService
                 ChangeDate = h.ChangeDate,
                 Reason = h.Reason
             })
-            .ToListAsync();
+            .ToListAsync(cancellationToken);
 
         return new ProductDetailsDto
         {
@@ -376,7 +379,8 @@ public class ProductService : IProductService
         };
     }
 
-    public async Task<UpdateProductDto?> GetProductForEditByIdAsync(Guid id)
+    public async Task<UpdateProductDto?> GetProductForEditByIdAsync(Guid id,
+        CancellationToken cancellationToken = default)
     {
         if (id == Guid.Empty)
         {
@@ -387,7 +391,7 @@ public class ProductService : IProductService
 
         var product = await _context.Products
             .AsNoTracking()
-            .FirstOrDefaultAsync(p => p.Id == id);
+            .FirstOrDefaultAsync(p => p.Id == id, cancellationToken);
 
         if (product == null)
         {
@@ -411,7 +415,7 @@ public class ProductService : IProductService
         };
     }
 
-    public async Task UpdateProductAsync(UpdateProductDto dto)
+    public async Task UpdateProductAsync(UpdateProductDto dto, CancellationToken cancellationToken = default)
     {
         ArgumentNullException.ThrowIfNull(dto);
 
@@ -435,7 +439,7 @@ public class ProductService : IProductService
             minStockThreshold: dto.MinStockThreshold);
 
         var product = await _context.Products
-            .FirstOrDefaultAsync(p => p.Id == dto.Id);
+            .FirstOrDefaultAsync(p => p.Id == dto.Id, cancellationToken);
 
         if (product == null)
         {
@@ -445,7 +449,8 @@ public class ProductService : IProductService
 
         var isUnique = await IsInternalCodeUniqueAsync(
             dto.InternalCode,
-            dto.Id);
+            dto.Id,
+            cancellationToken);
 
         if (!isUnique)
         {
@@ -458,7 +463,7 @@ public class ProductService : IProductService
         if (normalizedDefaultWarehouseId.HasValue)
         {
             var warehouseExists = await _context.Warehouses
-                .AnyAsync(w => w.Id == normalizedDefaultWarehouseId.Value);
+                .AnyAsync(w => w.Id == normalizedDefaultWarehouseId.Value, cancellationToken);
 
             if (!warehouseExists)
             {
@@ -485,10 +490,10 @@ public class ProductService : IProductService
             dto.IsLowStockAlertEnabled,
             dto.MinStockThreshold);
 
-        await _context.SaveChangesAsync();
+        await _context.SaveChangesAsync(cancellationToken);
     }
 
-    public async Task ToggleProductStatusAsync(Guid id)
+    public async Task ToggleProductStatusAsync(Guid id, CancellationToken cancellationToken = default)
     {
         if (id == Guid.Empty)
         {
@@ -498,7 +503,7 @@ public class ProductService : IProductService
         }
 
         var product = await _context.Products
-            .FirstOrDefaultAsync(p => p.Id == id);
+            .FirstOrDefaultAsync(p => p.Id == id, cancellationToken);
 
         if (product == null)
         {
@@ -512,10 +517,10 @@ public class ProductService : IProductService
 
         product.ChangeStatus(newStatus);
 
-        await _context.SaveChangesAsync();
+        await _context.SaveChangesAsync(cancellationToken);
     }
 
-    public async Task DeleteProductAsync(Guid id)
+    public async Task DeleteProductAsync(Guid id, CancellationToken cancellationToken = default)
     {
         if (id == Guid.Empty)
         {
@@ -525,7 +530,7 @@ public class ProductService : IProductService
         }
 
         var product = await _context.Products
-            .FirstOrDefaultAsync(p => p.Id == id);
+            .FirstOrDefaultAsync(p => p.Id == id, cancellationToken);
 
         if (product == null)
         {
@@ -534,11 +539,11 @@ public class ProductService : IProductService
         }
 
         var hasStockMovements = await _context.StockMovements
-            .AnyAsync(sm => sm.ProductId == id);
+            .AnyAsync(sm => sm.ProductId == id, cancellationToken);
 
         var totalStock = await _context.Inventories
             .Where(i => i.ProductId == id)
-            .SumAsync(i => (int?)i.Quantity) ?? 0;
+            .SumAsync(i => (int?)i.Quantity, cancellationToken) ?? 0;
 
         if (hasStockMovements || totalStock > 0)
         {
@@ -548,7 +553,7 @@ public class ProductService : IProductService
 
         var inventories = await _context.Inventories
             .Where(i => i.ProductId == id)
-            .ToListAsync();
+            .ToListAsync(cancellationToken);
 
         if (inventories.Count > 0)
         {
@@ -557,10 +562,11 @@ public class ProductService : IProductService
 
         _context.Products.Remove(product);
 
-        await _context.SaveChangesAsync();
+        await _context.SaveChangesAsync(cancellationToken);
     }
 
-    public async Task<List<LowStockAlertDto>> GetLowStockAlertsAsync(Guid? warehouseId = null)
+    public async Task<List<LowStockAlertDto>> GetLowStockAlertsAsync(Guid? warehouseId = null,
+        CancellationToken cancellationToken = default)
     {
         var query = _context.Inventories
             .AsNoTracking()
@@ -600,10 +606,11 @@ public class ProductService : IProductService
                 MinStockThreshold = i.Product.MinStockThreshold,
                 ImagePath = i.Product.ImagePath
             })
-            .ToListAsync();
+            .ToListAsync(cancellationToken);
     }
 
-    public async Task<List<LowStockAlertDto>> GetTopLowStockAlertsAsync(int count = 5)
+    public async Task<List<LowStockAlertDto>> GetTopLowStockAlertsAsync(int count = 5,
+        CancellationToken cancellationToken = default)
     {
         if (count <= 0)
         {
@@ -644,10 +651,11 @@ public class ProductService : IProductService
                 MinStockThreshold = i.Product.MinStockThreshold,
                 ImagePath = i.Product.ImagePath
             })
-            .ToListAsync();
+            .ToListAsync(cancellationToken);
     }
 
-    public async Task AdjustProductsPriceAsync(BatchPriceAdjustmentDto dto)
+    public async Task AdjustProductsPriceAsync(BatchPriceAdjustmentDto dto,
+        CancellationToken cancellationToken = default)
     {
         ArgumentNullException.ThrowIfNull(dto);
 
@@ -671,7 +679,7 @@ public class ProductService : IProductService
 
         var products = await _context.Products
             .Where(p => productIds.Contains(p.Id))
-            .ToListAsync();
+            .ToListAsync(cancellationToken);
 
         if (products.Count != productIds.Count)
         {
@@ -719,8 +727,8 @@ public class ProductService : IProductService
 
         if (historyRecords.Count > 0)
         {
-            await _context.PriceChangeHistories.AddRangeAsync(historyRecords);
-            await _context.SaveChangesAsync();
+            await _context.PriceChangeHistories.AddRangeAsync(historyRecords, cancellationToken);
+            await _context.SaveChangesAsync(cancellationToken);
         }
     }
 
@@ -736,78 +744,64 @@ public class ProductService : IProductService
         bool isLowStockAlertEnabled,
         int minStockThreshold)
     {
-        if (string.IsNullOrWhiteSpace(name)) // اصلاح شد (حذف نام پارامتر اضافی)
+        if (string.IsNullOrWhiteSpace(name))
         {
-            throw new ArgumentException(
-                "نام کالا الزامی است.");
+            throw new ArgumentException("نام کالا الزامی است.");
         }
 
         if (name.Trim().Length > MaxNameLength)
         {
-            throw new ArgumentException(
-                $"نام کالا نمی‌تواند بیش از {MaxNameLength} کاراکتر باشد.");
+            throw new ArgumentException($"نام کالا نمی‌تواند بیش از {MaxNameLength} کاراکتر باشد.");
         }
 
         if (string.IsNullOrWhiteSpace(internalCode))
         {
-            throw new ArgumentException(
-                "کد فنی کالا الزامی است.");
+            throw new ArgumentException("کد فنی کالا الزامی است.");
         }
 
         if (internalCode.Trim().Length > MaxInternalCodeLength)
         {
-            throw new ArgumentException(
-                $"کد فنی نمی‌تواند بیش از {MaxInternalCodeLength} کاراکتر باشد.");
+            throw new ArgumentException($"کد فنی نمی‌تواند بیش از {MaxInternalCodeLength} کاراکتر باشد.");
         }
 
-        if (!string.IsNullOrWhiteSpace(model) &&
-            model.Trim().Length > MaxModelLength)
+        if (!string.IsNullOrWhiteSpace(model) && model.Trim().Length > MaxModelLength)
         {
-            throw new ArgumentException(
-                $"مدل کالا نمی‌تواند بیش از {MaxModelLength} کاراکتر باشد.");
+            throw new ArgumentException($"مدل کالا نمی‌تواند بیش از {MaxModelLength} کاراکتر باشد.");
         }
 
-        if (!string.IsNullOrWhiteSpace(imagePath) &&
-            imagePath.Trim().Length > MaxImagePathLength)
+        if (!string.IsNullOrWhiteSpace(imagePath) && imagePath.Trim().Length > MaxImagePathLength)
         {
-            throw new ArgumentException(
-                $"مسیر تصویر نمی‌تواند بیش از {MaxImagePathLength} کاراکتر باشد.");
+            throw new ArgumentException($"مسیر تصویر نمی‌تواند بیش از {MaxImagePathLength} کاراکتر باشد.");
         }
 
         if (!categoryId.HasValue || categoryId.Value == Guid.Empty)
         {
-            throw new ArgumentException(
-                "انتخاب دسته‌بندی الزامی است.");
+            throw new ArgumentException("انتخاب دسته‌بندی الزامی است.");
         }
 
         if (!brandId.HasValue || brandId.Value == Guid.Empty)
         {
-            throw new ArgumentException(
-                "انتخاب برند الزامی است.");
+            throw new ArgumentException("انتخاب برند الزامی است.");
         }
 
         if (purchasePrice < 0)
         {
-            throw new ArgumentException(
-                "قیمت خرید نمی‌تواند منفی باشد.");
+            throw new ArgumentException("قیمت خرید نمی‌تواند منفی باشد.");
         }
 
         if (salePrice < 0)
         {
-            throw new ArgumentException(
-                "قیمت فروش نمی‌تواند منفی باشد.");
+            throw new ArgumentException("قیمت فروش نمی‌تواند منفی باشد.");
         }
 
         if (salePrice < purchasePrice)
         {
-            throw new ArgumentException(
-                "قیمت فروش نمی‌تواند کمتر از قیمت خرید باشد.");
+            throw new ArgumentException("قیمت فروش نمی‌تواند کمتر از قیمت خرید باشد.");
         }
 
         if (minStockThreshold < 0)
         {
-            throw new ArgumentException(
-                "آستانه هشدار نمی‌تواند منفی باشد.");
+            throw new ArgumentException("آستانه هشدار نمی‌تواند منفی باشد.");
         }
 
         _ = isLowStockAlertEnabled;

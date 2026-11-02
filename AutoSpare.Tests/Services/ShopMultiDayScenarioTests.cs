@@ -10,6 +10,8 @@ using AutoSpare.Infrastructure.Persistence;
 using AutoSpare.Infrastructure.Services;
 using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
+using Moq;
 
 namespace AutoSpare.Tests.Services;
 
@@ -29,9 +31,14 @@ public class ShopMultiDayScenarioTests : IDisposable
             .Options;
 
         _context = new ApplicationDbContext(options);
-        _purchaseService = new PurchaseService(_context);
-        _saleService = new SaleService(_context);
-        _settlementService = new DailySettlementService(_context);
+
+        var purchaseLoggerMock = new Mock<ILogger<PurchaseService>>();
+        var saleLoggerMock = new Mock<ILogger<SaleService>>();
+        var settlementLoggerMock = new Mock<ILogger<DailySettlementService>>();
+
+        _purchaseService = new PurchaseService(_context, purchaseLoggerMock.Object);
+        _saleService = new SaleService(_context, saleLoggerMock.Object);
+        _settlementService = new DailySettlementService(_context, settlementLoggerMock.Object);
     }
 
     [Fact]
@@ -41,7 +48,7 @@ public class ShopMultiDayScenarioTests : IDisposable
         // 0. آماده‌سازی داده‌های پایه (محیط مغازه)
         // ==========================================
         var supplier = new Supplier("تجهیزات یدکی پایتخت", "02144444444", "تهران");
-        var warehouse = new Warehouse("انبار مرکزی", "تهران");
+        var warehouse = new Warehouse("انبار مرکزی", "تهران", "02100000000");
         var category = new Category("قطعات مصرفی", "Consumables");
         var brand = new Brand("سایپا", "Saipa");
 
@@ -59,6 +66,7 @@ public class ShopMultiDayScenarioTests : IDisposable
             salePrice: 1_400_000m,
             categoryId: category.Id,
             brandId: brand.Id,
+            imagePath: null,
             defaultWarehouseId: warehouse.Id
         );
         await _context.Products.AddAsync(product);
@@ -87,7 +95,7 @@ public class ShopMultiDayScenarioTests : IDisposable
             FinalizeImmediately = true,
             Items = new List<CreatePurchaseItemDto>
             {
-                new() { ProductId = productId, Quantity = 20, UnitPrice = 1_000_000m }
+                new() { ProductId = productId, WarehouseId = warehouseId, Quantity = 20, UnitPrice = 1_000_000m }
             }
         };
         var purchaseId = await _purchaseService.CreatePurchaseAsync(purchaseDto);
@@ -120,7 +128,6 @@ public class ShopMultiDayScenarioTests : IDisposable
         invAfterPurchase.Quantity.Should().Be(15);
 
         // ج) ثبت تسویه روز اول (فروش ۵ عدد * ۱,۴۰۰,۰۰۰ = ۷,۰۰۰,۰۰۰ تومان)
-        // مثلاً ۵ میلیون کارت‌خوان ۱ و ۲ میلیون وجه نقد
         var settlementDto1 = new UpsertDailySettlementDto
         {
             SettlementDate = day1,
@@ -140,7 +147,7 @@ public class ShopMultiDayScenarioTests : IDisposable
         // 2. روز دوم: فروش جدید، ابطال فاکتور و خرید مجدد
         // ==========================================
 
-        // الف) ثبت یک فروش موقت یا قطعی دیگر (مثلاً ۳ عدد)
+        // الف) ثبت یک فروش قطعی دیگر (۳ عدد)
         var saleDto2 = new CreateSaleDto
         {
             InvoiceNumber = "INV-02",
@@ -167,7 +174,7 @@ public class ShopMultiDayScenarioTests : IDisposable
             .FirstAsync(i => i.ProductId == productId && i.WarehouseId == warehouseId);
         invAfterCancel.Quantity.Should().Be(15);
 
-        // ج) ثبت تسویه روز دوم (چون فاکتور روز دوم باطل شد، تسویه نقدی/کارت صفر یا مبالغ دیگر)
+        // ج) ثبت تسویه روز دوم
         var settlementDto2 = new UpsertDailySettlementDto
         {
             SettlementDate = day2,
@@ -193,12 +200,12 @@ public class ShopMultiDayScenarioTests : IDisposable
             FinalizeImmediately = true,
             Items = new List<CreatePurchaseItemDto>
             {
-                new() { ProductId = productId, Quantity = 10, UnitPrice = 1_050_000m }
+                new() { ProductId = productId, WarehouseId = warehouseId, Quantity = 10, UnitPrice = 1_050_000m }
             }
         };
         await _purchaseService.CreatePurchaseAsync(purchaseDto2);
 
-        // موجودی نهایی انبار باید بشود: ۱۵ (موجودی قبلی) + ۱۰ (خرید جدید) = ۲۵
+        // موجودی نهایی انبار باید بشود: ۱۵ + ۱۰ = ۲۵
         var finalInventory = await _context.Inventories
             .FirstAsync(i => i.ProductId == productId && i.WarehouseId == warehouseId);
         finalInventory.Quantity.Should().Be(25);
@@ -232,7 +239,7 @@ public class ShopMultiDayScenarioTests : IDisposable
         var savedSettlement3 = await _context.DailySettlements.FindAsync(settlementId3);
         savedSettlement3!.TotalAmount.Should().Be(14_000_000m);
 
-        // د) بررسی کلی تعداد کل تسویه‌های ثبت شده در سیستم (باید ۳ روز تسویه مجزا داشته باشیم)
+        // د) بررسی تعداد کل تسویه‌های ثبت شده در سیستم (باید ۳ روز تسویه مجزا داشته باشیم)
         var allSettlements = await _settlementService.GetAllAsync();
         allSettlements.Should().HaveCount(3);
     }

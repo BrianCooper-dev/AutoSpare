@@ -12,6 +12,7 @@ public class PriceChangeHistory : BaseEntity
     /// شناسه کالای مرتبط
     /// </summary>
     public Guid ProductId { private set; get; }
+
     public Product? Product { private set; get; }
 
     /// <summary>
@@ -101,4 +102,3 @@ public class PriceChangeHistory : BaseEntity
             throw new ArgumentException("مبلغ قیمت نمی‌تواند منفی باشد.", paramName);
     }
 }
-

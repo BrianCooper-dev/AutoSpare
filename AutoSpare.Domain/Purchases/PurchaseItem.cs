@@ -18,6 +18,7 @@ public class PurchaseItem : BaseEntity
     /// شناسه انبار مقصد این ردیف کالا
     /// </summary>
     public Guid WarehouseId { get; private set; }
+
     public Warehouse? Warehouse { get; private set; }
 
     /// <summary>

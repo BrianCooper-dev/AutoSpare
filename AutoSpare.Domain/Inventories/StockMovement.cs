@@ -101,4 +101,3 @@ public class StockMovement : BaseEntity
         return string.IsNullOrWhiteSpace(value) ? null : value.Trim();
     }
 }
-
