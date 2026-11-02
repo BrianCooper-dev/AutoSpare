@@ -169,41 +169,41 @@
                                           Margin="Margin.Dense"/>
                         </MudItem>
 
-                        <!-- ردیف سوم: دسته‌بندی و برند -->
+                        <!-- ردیف سوم: دسته‌بندی و برند (با قابلیت جستجو) -->
                         <MudItem xs="12" md="6">
-                            <MudSelect T="Guid?"
-                                       Label="دسته‌بندی"
-                                       @bind-Value="_model.CategoryId"
-                                       Required="true"
-                                       RequiredError="انتخاب دسته‌بندی الزامی است"
-                                       AnchorOrigin="Origin.BottomCenter"
-                                       Variant="Variant.Outlined"
-                                       Margin="Margin.Dense">
-                                @foreach (var category in _categories)
-                                {
-                                    <MudSelectItem Value="@((Guid?)category.Id)">
-                                        @category.Title
-                                    </MudSelectItem>
-                                }
-                            </MudSelect>
+                            <MudAutocomplete T="DropdownItemDto"
+                                             Label="دسته‌بندی"
+                                             Value="_selectedCategory"
+                                             ValueChanged="OnCategoryChanged"
+                                             SearchFunc="SearchCategories"
+                                             ToStringFunc="@(c => c?.Title)"
+                                             Clearable="true"
+                                             Required="true"
+                                             RequiredError="انتخاب دسته‌بندی الزامی است"
+                                             Variant="Variant.Outlined"
+                                             Margin="Margin.Dense"
+                                             AnchorOrigin="Origin.BottomCenter"
+                                             ResetValueOnEmptyText="true"
+                                             CoerceText="true"
+                                             CoerceValue="true"/>
                         </MudItem>
 
                         <MudItem xs="12" md="6">
-                            <MudSelect T="Guid?"
-                                       Label="برند سازنده"
-                                       @bind-Value="_model.BrandId"
-                                       Required="true"
-                                       RequiredError="انتخاب برند الزامی است"
-                                       AnchorOrigin="Origin.BottomCenter"
-                                       Variant="Variant.Outlined"
-                                       Margin="Margin.Dense">
-                                @foreach (var brand in _brands)
-                                {
-                                    <MudSelectItem Value="@((Guid?)brand.Id)">
-                                        @brand.Title
-                                    </MudSelectItem>
-                                }
-                            </MudSelect>
+                            <MudAutocomplete T="DropdownItemDto"
+                                             Label="برند سازنده"
+                                             Value="_selectedBrand"
+                                             ValueChanged="OnBrandChanged"
+                                             SearchFunc="SearchBrands"
+                                             ToStringFunc="@(b => b?.Title)"
+                                             Clearable="true"
+                                             Required="true"
+                                             RequiredError="انتخاب برند الزامی است"
+                                             Variant="Variant.Outlined"
+                                             Margin="Margin.Dense"
+                                             AnchorOrigin="Origin.BottomCenter"
+                                             ResetValueOnEmptyText="true"
+                                             CoerceText="true"
+                                             CoerceValue="true"/>
                         </MudItem>
 
                         <!-- بخش قیمت‌ها -->
@@ -359,6 +359,9 @@
     private List<DropdownItemDto> _brands = new();
     private List<DropdownItemDto> _warehouses = new();
 
+    private DropdownItemDto? _selectedCategory;
+    private DropdownItemDto? _selectedBrand;
+
     private IBrowserFile? _selectedImageFile;
     private string? _previewImageUrl;
     private string? _uploadedImagePath;
@@ -394,6 +397,36 @@
         }
     }
 
+    private Task<IEnumerable<DropdownItemDto>> SearchCategories(string value, CancellationToken token)
+    {
+        if (string.IsNullOrWhiteSpace(value))
+            return Task.FromResult<IEnumerable<DropdownItemDto>>(_categories);
+
+        var filtered = _categories.Where(x => x.Title.Contains(value, StringComparison.InvariantCultureIgnoreCase));
+        return Task.FromResult(filtered);
+    }
+
+    private Task<IEnumerable<DropdownItemDto>> SearchBrands(string value, CancellationToken token)
+    {
+        if (string.IsNullOrWhiteSpace(value))
+            return Task.FromResult<IEnumerable<DropdownItemDto>>(_brands);
+
+        var filtered = _brands.Where(x => x.Title.Contains(value, StringComparison.InvariantCultureIgnoreCase));
+        return Task.FromResult(filtered);
+    }
+
+    private void OnCategoryChanged(DropdownItemDto? category)
+    {
+        _selectedCategory = category;
+        _model.CategoryId = category?.Id;
+    }
+
+    private void OnBrandChanged(DropdownItemDto? brand)
+    {
+        _selectedBrand = brand;
+        _model.BrandId = brand?.Id;
+    }
+
     private async Task OnImageSelected(InputFileChangeEventArgs e)
     {
         var file = e.File;
@@ -420,7 +453,6 @@
 
         try
         {
-            // ساخت ایمن پیش‌نمایش به صورت Base64
             var resizedImage = await file.RequestImageFileAsync(file.ContentType, 300, 300);
             await using var sourceStream = resizedImage.OpenReadStream(MaxFileSize);
             using var memoryStream = new MemoryStream();
@@ -520,7 +552,6 @@
                 return;
             }
 
-            // ذخیره تصویر در سرور در صورت انتخاب
             if (_selectedImageFile is not null)
             {
                 await using var imageStream = _selectedImageFile.OpenReadStream(MaxFileSize);
@@ -535,7 +566,6 @@
         }
         catch (Exception ex)
         {
-            // Rollback فایل آپلود شده در صورت بروز خطا در ثبت محصول دیتابیس
             if (!string.IsNullOrWhiteSpace(_uploadedImagePath))
             {
                 try
@@ -544,7 +574,7 @@
                 }
                 catch
                 {
-                    // خطای پاک‌سازی فایل نباید خطای اصلی را بپوشاند
+                    // خطای پاک‌سازی فایل
                 }
 
                 _uploadedImagePath = null;
