@@ -1,64 +1,88 @@
 using AutoSpare.Application.Common.Interfaces;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Logging;
 
 namespace AutoSpare.Infrastructure.Services;
 
 public class FileStorageService : IFileStorageService
 {
     private readonly IWebHostEnvironment _environment;
+    private readonly ILogger<FileStorageService> _logger;
     private const long MaxFileSizeInBytes = 3 * 1024 * 1024; // ۳ مگابایت
+
     private static readonly HashSet<string> AllowedExtensions = new(StringComparer.OrdinalIgnoreCase)
     {
         ".jpg", ".jpeg", ".png", ".webp"
     };
 
-    public FileStorageService(IWebHostEnvironment environment)
+    public FileStorageService(IWebHostEnvironment environment, ILogger<FileStorageService> logger)
     {
         _environment = environment;
+        _logger = logger;
     }
 
-    public async Task<string> SaveProductImageAsync(Stream fileStream, string originalFileName, CancellationToken cancellationToken = default)
+    public async Task<string> SaveProductImageAsync(Stream fileStream, string originalFileName,
+        CancellationToken cancellationToken = default)
     {
         if (fileStream == null || !fileStream.CanRead)
             throw new ArgumentException("فایل ارسال شده خالی است.", nameof(fileStream));
-
-        if (fileStream.Length == 0)
-            throw new ArgumentException("فایل ارسال شده خالی است.", nameof(fileStream));
-
-        if (fileStream.Length > MaxFileSizeInBytes)
-            throw new InvalidOperationException("حجم تصویر نمی‌تواند بیشتر از ۳ مگابایت باشد.");
 
         var extension = Path.GetExtension(originalFileName);
         if (string.IsNullOrWhiteSpace(extension) || !AllowedExtensions.Contains(extension))
             throw new InvalidOperationException("فرمت فایل نامعتبر است. تنها فرمت‌های JPG, PNG و WEBP مجاز هستند.");
 
-        // اعتبارسنجی امضای باینری (MIME Sniffing)
-        if (!IsValidImageSignature(fileStream, extension))
-            throw new InvalidOperationException("فرمت فایل نامعتبر است. امضای باینری تصویر تطابق ندارد.");
+        // جهت سازگاری با Blazor InputFile که استریم آن Non-seekable است
+        Stream workingStream = fileStream;
+        MemoryStream? memoryStream = null;
 
-        var webRoot = _environment.WebRootPath ?? Path.Combine(Directory.GetCurrentDirectory(), "wwwroot");
-        var uploadsFolder = Path.Combine(webRoot, "uploads", "products");
-
-        if (!Directory.Exists(uploadsFolder))
+        try
         {
-            Directory.CreateDirectory(uploadsFolder);
+            if (!fileStream.CanSeek)
+            {
+                memoryStream = new MemoryStream();
+                await fileStream.CopyToAsync(memoryStream, cancellationToken);
+                workingStream = memoryStream;
+            }
+
+            if (workingStream.Length == 0)
+                throw new ArgumentException("فایل ارسال شده خالی است.", nameof(fileStream));
+
+            if (workingStream.Length > MaxFileSizeInBytes)
+                throw new InvalidOperationException("حجم تصویر نمی‌تواند بیشتر از ۳ مگابایت باشد.");
+
+            // بررسی امضای باینری
+            if (!IsValidImageSignature(workingStream, extension))
+                throw new InvalidOperationException(
+                    "فرمت فایل نامعتبر است. محتوای باینری فایل با پسوند آن همخوانی ندارد.");
+
+            var webRoot = _environment.WebRootPath ?? Path.Combine(Directory.GetCurrentDirectory(), "wwwroot");
+            var uploadsFolder = Path.Combine(webRoot, "uploads", "products");
+
+            if (!Directory.Exists(uploadsFolder))
+            {
+                Directory.CreateDirectory(uploadsFolder);
+            }
+
+            var uniqueFileName = $"{Guid.NewGuid():N}{extension.ToLowerInvariant()}";
+            var physicalPath = Path.Combine(uploadsFolder, uniqueFileName);
+
+            workingStream.Seek(0, SeekOrigin.Begin);
+
+            await using (var destinationStream = new FileStream(physicalPath, FileMode.Create, FileAccess.Write,
+                             FileShare.None, 4096, useAsync: true))
+            {
+                await workingStream.CopyToAsync(destinationStream, cancellationToken);
+            }
+
+            return $"/uploads/products/{uniqueFileName}";
         }
-
-        // نام‌گذاری تصادفی برای جلوگیری از تداخل و حملات تزریق مسیر
-        var uniqueFileName = $"{Guid.NewGuid():N}{extension.ToLowerInvariant()}";
-        var physicalPath = Path.Combine(uploadsFolder, uniqueFileName);
-
-        if (fileStream.CanSeek)
+        finally
         {
-            fileStream.Seek(0, SeekOrigin.Begin);
+            if (memoryStream != null)
+            {
+                await memoryStream.DisposeAsync();
+            }
         }
-
-        await using (var destinationStream = new FileStream(physicalPath, FileMode.Create, FileAccess.Write, FileShare.None))
-        {
-            await fileStream.CopyToAsync(destinationStream, cancellationToken);
-        }
-
-        return $"/uploads/products/{uniqueFileName}";
     }
 
     public void DeleteFile(string? relativePath)
@@ -73,9 +97,10 @@ public class FileStorageService : IFileStorageService
             var cleanPath = relativePath.TrimStart('/', '\\').Replace('/', Path.DirectorySeparatorChar);
             var fullPath = Path.GetFullPath(Path.Combine(webRoot, cleanPath));
 
-            // جلوگیری از Path Traversal: فایل باید حتماً درون پوشه مجاز باشد
+            // جلوگیری از حمله Directory Traversal
             if (!fullPath.StartsWith(allowedFolder, StringComparison.OrdinalIgnoreCase))
             {
+                _logger.LogWarning("درخواست نامعتبر برای حذف فایل خارج از مسیر مجاز: {Path}", relativePath);
                 return;
             }
 
@@ -84,9 +109,9 @@ public class FileStorageService : IFileStorageService
                 File.Delete(fullPath);
             }
         }
-        catch
+        catch (Exception ex)
         {
-            // عدم پرتاب خطا در زمان حذف اختیاری فایل
+            _logger.LogError(ex, "خطا در حذف فایل تصویر: {Path}", relativePath);
         }
     }
 
@@ -94,17 +119,9 @@ public class FileStorageService : IFileStorageService
     {
         Span<byte> header = stackalloc byte[16];
 
-        if (stream.CanSeek)
-        {
-            stream.Seek(0, SeekOrigin.Begin);
-        }
-
+        stream.Seek(0, SeekOrigin.Begin);
         int bytesRead = stream.Read(header);
-
-        if (stream.CanSeek)
-        {
-            stream.Seek(0, SeekOrigin.Begin);
-        }
+        stream.Seek(0, SeekOrigin.Begin);
 
         var ext = extension.ToLowerInvariant();
 
@@ -122,7 +139,7 @@ public class FileStorageService : IFileStorageService
                    header[4] == 0x0D && header[5] == 0x0A && header[6] == 0x1A && header[7] == 0x0A;
         }
 
-        // WEBP: RIFF (بایت‌های ۰ تا ۳) و WEBP (بایت‌های ۸ تا ۱۱)
+        // WEBP: RIFF....WEBP
         if (ext is ".webp")
         {
             return bytesRead >= 12 &&

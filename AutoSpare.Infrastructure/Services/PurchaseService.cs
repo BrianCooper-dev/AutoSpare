@@ -7,16 +7,19 @@ using AutoSpare.Domain.Purchases;
 using AutoSpare.Domain.Purchases.Enums;
 using AutoSpare.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 namespace AutoSpare.Infrastructure.Services;
 
 public class PurchaseService : IPurchaseService
 {
     private readonly ApplicationDbContext _context;
+    private readonly ILogger<PurchaseService> _logger;
 
-    public PurchaseService(ApplicationDbContext context)
+    public PurchaseService(ApplicationDbContext context, ILogger<PurchaseService> logger)
     {
         _context = context;
+        _logger = logger;
     }
 
     public async Task<List<DropdownItemDto>> GetSuppliersLookupAsync() =>
@@ -62,23 +65,22 @@ public class PurchaseService : IPurchaseService
             throw new ArgumentException("انتخاب تأمین‌کننده الزامی است.");
         }
 
-        if (!dto.WarehouseId.HasValue || dto.WarehouseId.Value == Guid.Empty)
-        {
-            throw new ArgumentException("انتخاب انبار پیش‌فرض الزامی است.");
-        }
+        var validItems = dto.Items?
+            .Where(i => i.ProductId.HasValue && i.ProductId.Value != Guid.Empty)
+            .ToList() ?? [];
 
-        if (dto.Items == null || dto.Items.Count == 0)
+        if (validItems.Count == 0)
         {
             throw new ArgumentException("ثبت حداقل یک قلم کالا برای فاکتور خرید الزامی است.");
         }
 
-        var validItems = dto.Items
-            .Where(i => i.ProductId.HasValue && i.ProductId.Value != Guid.Empty)
-            .ToList();
-
-        if (validItems.Count == 0)
+        // بررسی اینکه همه اقلام دارای انبار معتبر باشند
+        foreach (var item in validItems)
         {
-            throw new ArgumentException("حداقل یک ردیف کالای معتبر باید در فاکتور وجود داشته باشد.");
+            if (!item.WarehouseId.HasValue || item.WarehouseId.Value == Guid.Empty)
+            {
+                throw new ArgumentException("انتخاب انبار مقصد برای تمامی اقلام فاکتور خرید الزامی است.");
+            }
         }
 
         var strategy = _context.Database.CreateExecutionStrategy();
@@ -114,10 +116,13 @@ public class PurchaseService : IPurchaseService
                         continue;
                     }
 
+                    // انبار پیش‌فرض سربرگ را روی انبار اولین قلم فاکتور تنظیم می‌کنیم (برای سازگاری با موجودیت Purchase)
+                    var primaryWarehouseId = validItems.First().WarehouseId!.Value;
+
                     var purchase = new Purchase(
                         invoiceNumber: invoiceNumber,
                         supplierId: dto.SupplierId.Value,
-                        warehouseId: dto.WarehouseId.Value,
+                        warehouseId: primaryWarehouseId,
                         purchaseDate: dto.PurchaseDate.HasValue
                             ? DateTime.SpecifyKind(dto.PurchaseDate.Value, DateTimeKind.Utc)
                             : DateTime.UtcNow,
@@ -135,16 +140,9 @@ public class PurchaseService : IPurchaseService
                             throw new ArgumentException("قیمت واحد نمی‌تواند منفی باشد.");
                         }
 
-                        // در صورت عدم انتخاب انبار در ردیف، انبار پیش‌فرض سربرگ فاکتور در نظر گرفته می‌شود
-                        var targetWarehouseId = item.WarehouseId.GetValueOrDefault(Guid.Empty);
-                        if (targetWarehouseId == Guid.Empty)
-                        {
-                            targetWarehouseId = purchase.WarehouseId;
-                        }
-
                         purchase.AddOrUpdateItem(
                             item.ProductId!.Value,
-                            targetWarehouseId,
+                            item.WarehouseId!.Value,
                             item.Quantity,
                             item.UnitPrice ?? 0m);
                     }
@@ -155,41 +153,31 @@ public class PurchaseService : IPurchaseService
                     {
                         purchase.Complete();
 
+                        var productIds = purchase.Items.Select(i => i.ProductId).Distinct().ToList();
+                        var warehouseIds = purchase.Items.Select(i => i.WarehouseId).Distinct().ToList();
+
+                        var products = await _context.Products
+                            .Where(p => productIds.Contains(p.Id))
+                            .ToDictionaryAsync(p => p.Id);
+
+                        var inventories = await _context.Inventories
+                            .Include(i => i.Movements)
+                            .Where(i => productIds.Contains(i.ProductId) && warehouseIds.Contains(i.WarehouseId))
+                            .ToDictionaryAsync(i => (i.ProductId, i.WarehouseId));
+
                         foreach (var item in purchase.Items)
                         {
-                            if (item.UnitPrice > 0)
+                            if (products.TryGetValue(item.ProductId, out var product) && item.UnitPrice > 0)
                             {
-                                var product = await _context.Products.FindAsync(item.ProductId);
-                                if (product != null)
-                                {
-                                    var newSalePrice = Math.Max(product.SalePrice, item.UnitPrice);
-                                    product.UpdatePrices(item.UnitPrice, newSalePrice);
-                                }
+                                var newSalePrice = Math.Max(product.SalePrice, item.UnitPrice);
+                                product.UpdatePrices(item.UnitPrice, newSalePrice);
                             }
 
-                            // واکشی بر اساس کالا و انبار اختصاصی همان ردیف
-                            var inventory = _context.Inventories.Local
-                                .FirstOrDefault(i =>
-                                    i.ProductId == item.ProductId &&
-                                    i.WarehouseId == item.WarehouseId);
-
-                            if (inventory == null)
+                            if (!inventories.TryGetValue((item.ProductId, item.WarehouseId), out var inventory))
                             {
-                                inventory = await _context.Inventories
-                                    .Include(i => i.Movements)
-                                    .FirstOrDefaultAsync(i =>
-                                        i.ProductId == item.ProductId &&
-                                        i.WarehouseId == item.WarehouseId);
-                            }
-
-                            if (inventory == null)
-                            {
-                                inventory = new Inventory(
-                                    item.ProductId,
-                                    item.WarehouseId,
-                                    initialQuantity: 0);
-
+                                inventory = new Inventory(item.ProductId, item.WarehouseId, initialQuantity: 0);
                                 await _context.Inventories.AddAsync(inventory);
+                                inventories[(item.ProductId, item.WarehouseId)] = inventory;
                             }
 
                             inventory.IncreaseQuantity(
@@ -208,25 +196,22 @@ public class PurchaseService : IPurchaseService
 
                     return purchase.Id;
                 }
-                catch (DbUpdateException ex) when (
-                    isAutoGenerated &&
-                    (ex.InnerException?.Message.Contains("UNIQUE") == true ||
-                     ex.InnerException?.Message.Contains("IX_") == true))
+                catch (DbUpdateException ex) when (isAutoGenerated &&
+                                                   (ex.InnerException?.Message.Contains("UNIQUE") == true ||
+                                                    ex.InnerException?.Message.Contains("IX_") == true))
                 {
                     await transaction.RollbackAsync();
                     retryCount--;
-
                     if (retryCount == 0)
                     {
-                        throw new InvalidOperationException(
-                            "به دلیل همزمانی ثبت بالا، امکان تولید شماره فاکتور یکتا میسر نشد. لطفاً دوباره تلاش کنید.",
+                        throw new InvalidOperationException("به دلیل همزمانی، امکان تولید شماره فاکتور خرید میسر نشد.",
                             ex);
                     }
                 }
                 catch (Exception ex)
                 {
                     await transaction.RollbackAsync();
-                    Console.WriteLine($"[TRANSACTION ROLLBACK] خطا در ثبت تراکنشی خرید: {ex.Message}");
+                    _logger.LogError(ex, "[PurchaseService] Error in CreatePurchaseAsync transaction.");
                     throw;
                 }
             }
@@ -239,9 +224,7 @@ public class PurchaseService : IPurchaseService
     {
         return await _context.Purchases
             .AsNoTracking()
-            .Include(p => p.Supplier)
-            .Include(p => p.Warehouse)
-            .Include(p => p.Items)
+            .AsQueryable()
             .OrderByDescending(p => p.PurchaseDate)
             .Select(p => new PurchaseListDto
             {
@@ -271,7 +254,6 @@ public class PurchaseService : IPurchaseService
         if (!string.IsNullOrWhiteSpace(latestInvoice))
         {
             var raw = latestInvoice.Replace("PUR-", "");
-
             if (int.TryParse(raw, out var parsed))
             {
                 nextNumber = parsed + 1;
@@ -327,9 +309,7 @@ public class PurchaseService : IPurchaseService
             .FirstOrDefaultAsync();
     }
 
-    public async Task FinalizePurchaseAsync(
-        Guid id,
-        string? currentUserName = null)
+    public async Task FinalizePurchaseAsync(Guid id, string? currentUserName = null)
     {
         var strategy = _context.Database.CreateExecutionStrategy();
 
@@ -347,7 +327,7 @@ public class PurchaseService : IPurchaseService
                     throw new InvalidOperationException("فاکتور خرید مورد نظر یافت نشد.");
 
                 if (purchase.Status != PurchaseStatus.Draft)
-                    throw new InvalidOperationException("تنها فاکتورهای در وضعیت 'پیش‌نویس' قابل نهایی‌سازی هستند.");
+                    throw new InvalidOperationException("تنها فاکتورهای پیش‌نویس قابل نهایی‌سازی هستند.");
 
                 if (!purchase.Items.Any())
                     throw new InvalidOperationException("فاکتور بدون اقلام کالا قابل نهایی‌سازی نیست.");
@@ -355,9 +335,16 @@ public class PurchaseService : IPurchaseService
                 purchase.Complete();
 
                 var productIds = purchase.Items.Select(i => i.ProductId).Distinct().ToList();
+                var warehouseIds = purchase.Items.Select(i => i.WarehouseId).Distinct().ToList();
+
                 var products = await _context.Products
                     .Where(p => productIds.Contains(p.Id))
                     .ToDictionaryAsync(p => p.Id);
+
+                var inventories = await _context.Inventories
+                    .Include(i => i.Movements)
+                    .Where(i => productIds.Contains(i.ProductId) && warehouseIds.Contains(i.WarehouseId))
+                    .ToDictionaryAsync(i => (i.ProductId, i.WarehouseId));
 
                 foreach (var item in purchase.Items)
                 {
@@ -367,21 +354,11 @@ public class PurchaseService : IPurchaseService
                         product.UpdatePrices(item.UnitPrice, newSalePrice);
                     }
 
-                    // جستجو بر اساس کالا و انبار همان سطر
-                    var inventory = await _context.Inventories
-                        .Include(i => i.Movements)
-                        .FirstOrDefaultAsync(i =>
-                            i.ProductId == item.ProductId &&
-                            i.WarehouseId == item.WarehouseId);
-
-                    if (inventory == null)
+                    if (!inventories.TryGetValue((item.ProductId, item.WarehouseId), out var inventory))
                     {
-                        inventory = new Inventory(
-                            item.ProductId,
-                            item.WarehouseId,
-                            initialQuantity: 0);
-
+                        inventory = new Inventory(item.ProductId, item.WarehouseId, initialQuantity: 0);
                         await _context.Inventories.AddAsync(inventory);
+                        inventories[(item.ProductId, item.WarehouseId)] = inventory;
                     }
 
                     inventory.IncreaseQuantity(
@@ -397,6 +374,12 @@ public class PurchaseService : IPurchaseService
                 await _context.SaveChangesAsync();
                 await transaction.CommitAsync();
             }
+            catch (DbUpdateConcurrencyException ex)
+            {
+                _logger.LogError(ex, "[PurchaseService] Concurrency exception in FinalizePurchaseAsync.");
+                await transaction.RollbackAsync();
+                throw new InvalidOperationException("رکورد موجودی همزمان تغییر کرده است. لطفاً دوباره تلاش کنید.", ex);
+            }
             catch
             {
                 await transaction.RollbackAsync();
@@ -405,10 +388,7 @@ public class PurchaseService : IPurchaseService
         });
     }
 
-    public async Task CancelPurchaseAsync(
-        Guid id,
-        string? reason = null,
-        string? currentUserName = null)
+    public async Task CancelPurchaseAsync(Guid id, string? reason = null, string? currentUserName = null)
     {
         var strategy = _context.Database.CreateExecutionStrategy();
 
@@ -428,28 +408,30 @@ public class PurchaseService : IPurchaseService
                 if (purchase.Status == PurchaseStatus.Cancelled)
                     throw new InvalidOperationException("این فاکتور قبلاً لغو شده است.");
 
-                var effectiveReason = string.IsNullOrWhiteSpace(reason)
-                    ? "بدون درج دلیل"
-                    : reason.Trim();
-
-                var performedBy = string.IsNullOrWhiteSpace(currentUserName)
-                    ? "سیستم"
-                    : currentUserName.Trim();
+                var effectiveReason = string.IsNullOrWhiteSpace(reason) ? "بدون درج دلیل" : reason.Trim();
+                var performedBy = string.IsNullOrWhiteSpace(currentUserName) ? "سیستم" : currentUserName.Trim();
 
                 if (purchase.Status == PurchaseStatus.Completed)
                 {
+                    var productIds = purchase.Items.Select(i => i.ProductId).Distinct().ToList();
+                    var warehouseIds = purchase.Items.Select(i => i.WarehouseId).Distinct().ToList();
+
+                    var inventories = await _context.Inventories
+                        .Include(i => i.Movements)
+                        .Where(i => productIds.Contains(i.ProductId) && warehouseIds.Contains(i.WarehouseId))
+                        .ToDictionaryAsync(i => (i.ProductId, i.WarehouseId));
+
                     foreach (var item in purchase.Items)
                     {
-                        var inventory = await _context.Inventories
-                            .Include(i => i.Movements)
-                            .FirstOrDefaultAsync(i =>
-                                i.ProductId == item.ProductId &&
-                                i.WarehouseId == item.WarehouseId);
+                        if (!inventories.TryGetValue((item.ProductId, item.WarehouseId), out var inventory))
+                        {
+                            throw new InvalidOperationException($"رکورد موجودی برای کالا یافت نشد.");
+                        }
 
-                        if (inventory == null)
+                        if (inventory.Quantity < item.Quantity)
                         {
                             throw new InvalidOperationException(
-                                $"برای کالای با شناسه {item.ProductId} در انبار انتخاب‌شده رکورد موجودی یافت نشد.");
+                                "امکان ابطال خرید وجود ندارد؛ موجودی انبار کمتر از مقدار خریداری‌شده است.");
                         }
 
                         inventory.DecreaseQuantity(
@@ -468,6 +450,12 @@ public class PurchaseService : IPurchaseService
                 await _context.SaveChangesAsync();
                 await transaction.CommitAsync();
             }
+            catch (DbUpdateConcurrencyException ex)
+            {
+                _logger.LogError(ex, "[PurchaseService] Concurrency exception in CancelPurchaseAsync.");
+                await transaction.RollbackAsync();
+                throw new InvalidOperationException("رکورد موجودی همزمان تغییر کرده است. لطفاً دوباره تلاش کنید.", ex);
+            }
             catch
             {
                 await transaction.RollbackAsync();
@@ -479,7 +467,6 @@ public class PurchaseService : IPurchaseService
     private void MarkLatestMovementAsAdded(Inventory inventory)
     {
         var movement = inventory.Movements.LastOrDefault();
-
         if (movement == null)
         {
             throw new InvalidOperationException("پس از تغییر موجودی، حرکت انبار جدیدی ایجاد نشد.");

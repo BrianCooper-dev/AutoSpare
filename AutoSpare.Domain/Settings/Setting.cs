@@ -8,7 +8,9 @@ public class Setting : BaseEntity
     public string Phone { get; private set; } = "۰۲۱-۱۲۳۴۵۶۷۸";
     public string Mobile { get; private set; } = "۰۹۱۲۰۰۰۰۰۰۰";
     public string Address { get; private set; } = "تهران، خیابان چراغ برق، پلاک ۱";
-    public string FooterNote { get; private set; } = "اجناس فروخته شده در صورت باز نشدن پلمپ تا ۴۸ ساعت قابل مرجوع می‌باشد.";
+
+    public string FooterNote { get; private set; } =
+        "اجناس فروخته شده در صورت باز نشدن پلمپ تا ۴۸ ساعت قابل مرجوع می‌باشد.";
 
     private Setting() { } // سازنده برای EF Core
 

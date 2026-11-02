@@ -5,7 +5,8 @@ using AutoSpare.Domain.Products;
 using AutoSpare.Infrastructure.Persistence;
 using AutoSpare.Infrastructure.Services;
 using Microsoft.EntityFrameworkCore;
-
+using Microsoft.Extensions.Logging;
+using Moq;
 
 namespace AutoSpare.Tests.Services;
 
@@ -18,15 +19,12 @@ public class InventoryConcurrencyTests
             .Options;
     }
 
-    /// <summary>
-    /// تست قانون هسته دامنه (Domain Model): حتی در شرایط فراخوانی همزمان تردها، موجودی هرگز منفی نمی‌شود
-    /// </summary>
     [Fact]
     public async Task DomainInventory_ConcurrentDecreases_MustNeverResultInNegativeStock()
     {
         var inventory = new Inventory(Guid.NewGuid(), Guid.NewGuid(), initialQuantity: 10);
-        var attempts = 30; // ۳۰ تلاش همزمان
-        var decrementAmount = 1; // هر تلاش ۱ عدد کم می‌کند، در حالی که موجودی کل ۱۰ است
+        var attempts = 30;
+        var decrementAmount = 1;
 
         var tasks = Enumerable.Range(0, attempts).Select(_ => Task.Run(() =>
         {
@@ -44,7 +42,6 @@ public class InventoryConcurrencyTests
             }
             catch (InvalidOperationException)
             {
-                // این خطا به دلیل عدم موجودی کافی به درستی پرتاب شده است
                 return false;
             }
         })).ToArray();
@@ -52,14 +49,10 @@ public class InventoryConcurrencyTests
         var results = await Task.WhenAll(tasks);
         var successfulDecreases = results.Count(r => r);
 
-        // دقیقاً باید ۱۰ تا کسر شده و بقیه با خطا متوقف شده باشند
         Assert.Equal(10, successfulDecreases);
         Assert.Equal(0, inventory.Quantity);
     }
 
-    /// <summary>
-    /// تست همزمانی روی سرویس فروش در حالت فاکتورهای همزمان
-    /// </summary>
     [Fact]
     public async Task SaleService_ConcurrentSales_StockShouldRemainValid()
     {
@@ -69,7 +62,6 @@ public class InventoryConcurrencyTests
         var categoryId = Guid.NewGuid();
         var brandId = Guid.NewGuid();
 
-        // ایجاد دیتا در دیتابیس
         await using (var seedContext = new ApplicationDbContext(options))
         {
             var product = new Product(
@@ -92,11 +84,11 @@ public class InventoryConcurrencyTests
             await seedContext.SaveChangesAsync();
         }
 
-        // شبیه‌سازی دو درخواست فروش همزمان با موجودی کل ۵ عدد (هر کدام ۴ عدد درخواست می‌دهند)
         var runSale = async (string invoiceNum) =>
         {
             await using var context = new ApplicationDbContext(options);
-            var service = new SaleService(context);
+            var loggerMock = new Mock<ILogger<SaleService>>();
+            var service = new SaleService(context, loggerMock.Object);
 
             var dto = new CreateSaleDto
             {
@@ -132,16 +124,13 @@ public class InventoryConcurrencyTests
 
         var results = await Task.WhenAll(task1, task2);
 
-        // بررسی موجودی نهایی در دیتابیس
         await using (var verifyContext = new ApplicationDbContext(options))
         {
             var finalInventory = await verifyContext.Inventories.FirstAsync(i => i.ProductId == productId);
 
-            // شرط اصلی: موجودی تحت هیچ شرایطی منفی نخواهد بود
             Assert.True(finalInventory.Quantity >= 0,
                 $"موجودی نباید منفی باشد. موجودی فعلی: {finalInventory.Quantity}");
 
-            // چون مجموع درخواست‌ها ۸ عدد و موجودی ۵ عدد بوده، هر دو نمی‌توانند همزمان تمام شوند
             var successCount = results.Count(s => s);
             Assert.True(successCount <= 1, $"حداکثر یک فاکتور می‌تواند نهایی شود اما {successCount} فاکتور ثبت شد.");
         }

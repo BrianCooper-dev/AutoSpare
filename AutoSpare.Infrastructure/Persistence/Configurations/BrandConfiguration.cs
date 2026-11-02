@@ -34,4 +34,3 @@ public class BrandConfiguration : IEntityTypeConfiguration<Brand>
             .UsePropertyAccessMode(PropertyAccessMode.Field);
     }
 }
-

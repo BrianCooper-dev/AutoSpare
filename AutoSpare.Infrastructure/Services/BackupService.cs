@@ -192,20 +192,17 @@ public class BackupService : IBackupService
                 return new RestoreDatabaseResultDto(false, "فایل بکاپ انتخاب‌شده یافت نشد.");
             }
 
-            // ۱) اعتبارسنجی اولیه فایل پیش از انجام هر تغییری در وضعیت دیتابیس
             var (isValid, validationMessage) = await ValidateBackupFileAsync(normalizedPath, cancellationToken);
             if (!isValid)
             {
                 return new RestoreDatabaseResultDto(false, $"توقف عملیات: {validationMessage}");
             }
 
-            // ۲) تهیه بکاپ ایمنی از وضعیت فعلی قبل از Restore (داخل Safety تا توسط retention حذف نشود)
             var rootDir = string.IsNullOrWhiteSpace(safetyBackupRootDirectory)
                 ? _storageSettings.BackupPath
                 : safetyBackupRootDirectory.Trim();
 
             rootDir = Path.GetFullPath(rootDir);
-
             var safetyDir = Path.Combine(rootDir, "Safety");
 
             _logger.LogWarning(
@@ -229,14 +226,12 @@ public class BackupService : IBackupService
 
             _logger.LogWarning("شروع عملیات بازیابی دیتابیس {DbName} از مسیر {FilePath}", targetDb, normalizedPath);
 
-            // ۳) باز کردن اتصال مستقیم به دیتابیس master جهت جلوگیری از قفل شدن فرآیند ریستور روی دیتابیس جاری
             var masterConnString = GetMasterConnectionString();
             await using var connection = new SqlConnection(masterConnString);
             await connection.OpenAsync(cancellationToken);
 
             var safeDbName = targetDb.Replace("]", "]]");
 
-            // ۴) قطع کانکشن‌ها، بازگردانی کامل و بازگردانی وضعیت به MULTI_USER
             var restoreScript = $@"
                 ALTER DATABASE [{safeDbName}] SET SINGLE_USER WITH ROLLBACK IMMEDIATE;
                 RESTORE DATABASE [{safeDbName}] FROM DISK = @backupPath WITH REPLACE;
@@ -295,7 +290,7 @@ public class BackupService : IBackupService
         var builder = new SqlConnectionStringBuilder(connection.ConnectionString)
         {
             InitialCatalog = "master",
-            Pooling = false // جلوگیری از نگه‌داشتن نشست‌های معلق در Pool
+            Pooling = false
         };
         return builder.ConnectionString;
     }
@@ -326,8 +321,6 @@ public class BackupService : IBackupService
 
             if (maxBackupCount <= 0)
             {
-                _logger.LogInformation("سیاست پاک‌سازی خودکار بکاپ‌ها غیرفعال است (MaxBackupCount: {MaxBackupCount}).",
-                    maxBackupCount);
                 return;
             }
 
@@ -345,9 +338,6 @@ public class BackupService : IBackupService
 
             if (backupFiles.Count <= maxBackupCount)
             {
-                _logger.LogInformation(
-                    "تعداد بکاپ‌های موجود ({CurrentCount}) از سقف مجاز ({MaxCount}) بیشتر نیست. فایلی حذف نشد.",
-                    backupFiles.Count, maxBackupCount);
                 return;
             }
 
@@ -360,21 +350,12 @@ public class BackupService : IBackupService
                 try
                 {
                     file.Delete();
-                    _logger.LogInformation("بکاپ مازاد قدیمی با موفقیت حذف گردید: {FileName}", file.Name);
                 }
-                catch (UnauthorizedAccessException ex)
+                catch
                 {
-                    _logger.LogWarning(ex, "دسترسی مجاز برای حذف فایل بکاپ {FileName} وجود ندارد.", file.FullName);
-                }
-                catch (IOException ex)
-                {
-                    _logger.LogWarning(ex, "خطای ورودی/خروجی حین حذف فایل بکاپ {FileName}.", file.FullName);
+                    // ignored
                 }
             }
-
-            _logger.LogInformation(
-                "فرآیند پاک‌سازی بکاپ‌ها خاتمه یافت. تعداد حذف‌شده: {DeletedCount} | تعداد مجاز: {MaxCount}",
-                filesToDelete.Count, maxBackupCount);
         }
         catch (Exception ex)
         {
@@ -421,7 +402,6 @@ public class BackupService : IBackupService
             await using var connection = new SqlConnection(masterConnString);
             await connection.OpenAsync(cancellationToken);
 
-            // ۱) استخراج نام منطقی فایل‌های دیتابیس (Logical Names) از درون بکاپ
             var fileListQuery = "RESTORE FILELISTONLY FROM DISK = @backupPath";
             string? logicalDataName = null;
             string? logicalLogName = null;
@@ -433,7 +413,7 @@ public class BackupService : IBackupService
                 while (await reader.ReadAsync(cancellationToken))
                 {
                     var logicalName = reader["LogicalName"].ToString();
-                    var type = reader["Type"].ToString(); // D = Data, L = Log
+                    var type = reader["Type"].ToString();
                     if (type == "D" && logicalDataName is null)
                         logicalDataName = logicalName;
                     else if (type == "L" && logicalLogName is null)
@@ -446,7 +426,6 @@ public class BackupService : IBackupService
                 return new RestoreDatabaseResultDto(false, "امکان خواندن ساختار فایل‌های منطقی درون بکاپ وجود ندارد.");
             }
 
-            // ۲) تعیین مسیر فیزیکی مجزا برای دیتابیس آزمایشی در پوشه بکاپ تا با فایل‌های دیتابیس اصلی تداخل نداشته باشد
             var testDbFolder = Path.Combine(_storageSettings.BackupPath, "TestRestoreDb");
             if (!Directory.Exists(testDbFolder))
             {
@@ -458,7 +437,10 @@ public class BackupService : IBackupService
 
             var safeTargetDb = targetDatabaseName.Replace("]", "]]");
 
-            // ۳) اجرای RESTORE با MOVE به مسیرهای جدید
+            // اصلاح اصلی: جایگذاری امن نام‌های منطقی به‌جای استفاده از SQL Parameters
+            var safeLogicalData = logicalDataName.Replace("'", "''");
+            var safeLogicalLog = logicalLogName.Replace("'", "''");
+
             var restoreSql = $@"
                 IF EXISTS (SELECT name FROM sys.databases WHERE name = @targetDb)
                 BEGIN
@@ -468,8 +450,8 @@ public class BackupService : IBackupService
 
                 RESTORE DATABASE [{safeTargetDb}]
                 FROM DISK = @backupPath
-                WITH MOVE @logicalData TO @destMdf,
-                     MOVE @logicalLog TO @destLdf,
+                WITH MOVE N'{safeLogicalData}' TO @destMdf,
+                     MOVE N'{safeLogicalLog}' TO @destLdf,
                      REPLACE, STATS = 10;
 
                 ALTER DATABASE [{safeTargetDb}] SET MULTI_USER;
@@ -481,9 +463,7 @@ public class BackupService : IBackupService
             };
             restoreCmd.Parameters.AddWithValue("@targetDb", targetDatabaseName);
             restoreCmd.Parameters.AddWithValue("@backupPath", normalizedPath);
-            restoreCmd.Parameters.AddWithValue("@logicalData", logicalDataName);
             restoreCmd.Parameters.AddWithValue("@destMdf", destMdf);
-            restoreCmd.Parameters.AddWithValue("@logicalLog", logicalLogName);
             restoreCmd.Parameters.AddWithValue("@destLdf", destLdf);
 
             _logger.LogInformation("شروع بازیابی آزمایشی بر روی دیتابیس {TestDb}...", targetDatabaseName);

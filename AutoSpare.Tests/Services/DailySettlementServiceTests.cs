@@ -4,12 +4,15 @@ using AutoSpare.Infrastructure.Persistence;
 using AutoSpare.Infrastructure.Services;
 using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
+using Moq;
 
 namespace AutoSpare.Tests.Services;
 
 public class DailySettlementServiceTests : IDisposable
 {
     private readonly ApplicationDbContext _context;
+    private readonly Mock<ILogger<DailySettlementService>> _loggerMock;
     private readonly DailySettlementService _service;
 
     public DailySettlementServiceTests()
@@ -19,7 +22,8 @@ public class DailySettlementServiceTests : IDisposable
             .Options;
 
         _context = new ApplicationDbContext(options);
-        _service = new DailySettlementService(_context);
+        _loggerMock = new Mock<ILogger<DailySettlementService>>();
+        _service = new DailySettlementService(_context, _loggerMock.Object);
     }
 
     [Fact]
@@ -56,14 +60,13 @@ public class DailySettlementServiceTests : IDisposable
         var dto = new UpsertDailySettlementDto
         {
             SettlementDate = DateTime.Today,
-            Pos1Amount = -5_000_000, // مبلغ منفی غیرمجاز
+            Pos1Amount = -5_000_000,
             Pos2Amount = 10_000_000,
             CashAmount = 5_000_000
         };
 
         // Act & Assert
-        // مبالغ منفی توسط Constructor کلاس Domain (DailySettlement) با ArgumentException رد می‌شوند
-        var act = async () => await _service.UpsertAsync(dto);
+        Func<Task> act = async () => await _service.UpsertAsync(dto);
 
         await act.Should().ThrowAsync<ArgumentException>()
             .WithMessage("*مبلغ نمی‌تواند منفی باشد*");
@@ -75,7 +78,6 @@ public class DailySettlementServiceTests : IDisposable
         // Arrange
         var settlementDate = DateTime.Today;
 
-        // ثبت تسویه اول برای تاریخ مشخص
         var firstSettlement = new DailySettlement(
             settlementDate,
             pos1Amount: 10_000_000,
@@ -85,7 +87,6 @@ public class DailySettlementServiceTests : IDisposable
         await _context.DailySettlements.AddAsync(firstSettlement);
         await _context.SaveChangesAsync();
 
-        // تلاش برای ثبت تسویه دوم برای همان تاریخ
         var duplicateDto = new UpsertDailySettlementDto
         {
             SettlementDate = settlementDate,
@@ -95,7 +96,7 @@ public class DailySettlementServiceTests : IDisposable
         };
 
         // Act
-        var act = async () => await _service.UpsertAsync(duplicateDto);
+        Func<Task> act = async () => await _service.UpsertAsync(duplicateDto);
 
         // Assert
         await act.Should().ThrowAsync<InvalidOperationException>()

@@ -29,4 +29,3 @@ public class PasswordHasherService : IPasswordHasher
                result == PasswordVerificationResult.SuccessRehashNeeded;
     }
 }
-

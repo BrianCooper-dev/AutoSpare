@@ -18,7 +18,8 @@ public class BrandService : IBrandService
         _logger = logger;
     }
 
-    public async Task<List<BrandDto>> GetAllAsync(string? searchTerm = null, bool? isActive = null)
+    public async Task<List<BrandDto>> GetAllAsync(string? searchTerm = null, bool? isActive = null,
+        CancellationToken cancellationToken = default)
     {
         var query = _context.Brands.AsNoTracking().AsQueryable();
 
@@ -29,10 +30,10 @@ public class BrandService : IBrandService
 
         if (!string.IsNullOrWhiteSpace(searchTerm))
         {
-            var term = searchTerm.Trim().ToLower();
-            query = query.Where(b => b.Name.ToLower().Contains(term) ||
-                                     (b.Country != null && b.Country.ToLower().Contains(term)) ||
-                                     (b.Description != null && b.Description.ToLower().Contains(term)));
+            var term = searchTerm.Trim();
+            query = query.Where(b => b.Name.Contains(term) ||
+                                     (b.Country != null && b.Country.Contains(term)) ||
+                                     (b.Description != null && b.Description.Contains(term)));
         }
 
         return await query
@@ -47,10 +48,10 @@ public class BrandService : IBrandService
                 ProductsCount = b.Products.Count,
                 CreatedAt = b.CreatedAt
             })
-            .ToListAsync();
+            .ToListAsync(cancellationToken);
     }
 
-    public async Task<BrandDto?> GetByIdAsync(Guid id)
+    public async Task<BrandDto?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
     {
         return await _context.Brands
             .AsNoTracking()
@@ -65,16 +66,17 @@ public class BrandService : IBrandService
                 ProductsCount = b.Products.Count,
                 CreatedAt = b.CreatedAt
             })
-            .FirstOrDefaultAsync();
+            .FirstOrDefaultAsync(cancellationToken);
     }
 
-    public async Task<(bool Success, string? ErrorMessage, Guid? Id)> CreateAsync(CreateBrandModel model)
+    public async Task<(bool Success, string? ErrorMessage, Guid? Id)> CreateAsync(CreateBrandModel model,
+        CancellationToken cancellationToken = default)
     {
         try
         {
             var trimmedName = model.Name.Trim();
 
-            var exists = await _context.Brands.AnyAsync(b => b.Name.ToLower() == trimmedName.ToLower());
+            var exists = await _context.Brands.AnyAsync(b => b.Name == trimmedName, cancellationToken);
             if (exists)
             {
                 return (false, "برندی با این نام قبلاً ثبت شده است.", null);
@@ -82,14 +84,19 @@ public class BrandService : IBrandService
 
             var brand = new Brand(trimmedName, model.Country, model.Description);
 
-            await _context.Brands.AddAsync(brand);
-            await _context.SaveChangesAsync();
+            await _context.Brands.AddAsync(brand, cancellationToken);
+            await _context.SaveChangesAsync(cancellationToken);
 
             return (true, null, brand.Id);
         }
         catch (ArgumentException ex)
         {
             return (false, ex.Message, null);
+        }
+        catch (DbUpdateException ex)
+        {
+            _logger.LogError(ex, "خطای کلید تکراری در ثبت برند {BrandName}", model.Name);
+            return (false, "برندی با این مشخصات قبلاً ثبت شده است.", null);
         }
         catch (Exception ex)
         {
@@ -98,11 +105,12 @@ public class BrandService : IBrandService
         }
     }
 
-    public async Task<(bool Success, string? ErrorMessage)> UpdateAsync(UpdateBrandModel model)
+    public async Task<(bool Success, string? ErrorMessage)> UpdateAsync(UpdateBrandModel model,
+        CancellationToken cancellationToken = default)
     {
         try
         {
-            var brand = await _context.Brands.FindAsync(model.Id);
+            var brand = await _context.Brands.FindAsync(new object[] { model.Id }, cancellationToken);
             if (brand == null)
             {
                 return (false, "برند مورد نظر یافت نشد.");
@@ -110,20 +118,26 @@ public class BrandService : IBrandService
 
             var trimmedName = model.Name.Trim();
 
-            var exists = await _context.Brands.AnyAsync(b => b.Name.ToLower() == trimmedName.ToLower() && b.Id != model.Id);
+            var exists =
+                await _context.Brands.AnyAsync(b => b.Name == trimmedName && b.Id != model.Id, cancellationToken);
             if (exists)
             {
                 return (false, "برند دیگری با این نام وجود دارد.");
             }
 
             brand.UpdateDetails(trimmedName, model.Country, model.Description);
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(cancellationToken);
 
             return (true, null);
         }
         catch (ArgumentException ex)
         {
             return (false, ex.Message);
+        }
+        catch (DbUpdateException ex)
+        {
+            _logger.LogError(ex, "خطای یکتایی در ویرایش برند {BrandId}", model.Id);
+            return (false, "برند دیگری با این نام از قبل وجود دارد.");
         }
         catch (Exception ex)
         {
@@ -132,11 +146,12 @@ public class BrandService : IBrandService
         }
     }
 
-    public async Task<(bool Success, string? ErrorMessage)> ToggleStatusAsync(Guid id)
+    public async Task<(bool Success, string? ErrorMessage)> ToggleStatusAsync(Guid id,
+        CancellationToken cancellationToken = default)
     {
         try
         {
-            var brand = await _context.Brands.FindAsync(id);
+            var brand = await _context.Brands.FindAsync(new object[] { id }, cancellationToken);
             if (brand == null)
             {
                 return (false, "برند مورد نظر یافت نشد.");
@@ -151,7 +166,7 @@ public class BrandService : IBrandService
                 brand.Activate();
             }
 
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(cancellationToken);
             return (true, null);
         }
         catch (Exception ex)
@@ -161,4 +176,3 @@ public class BrandService : IBrandService
         }
     }
 }
-

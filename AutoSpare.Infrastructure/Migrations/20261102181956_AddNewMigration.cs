@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace AutoSpare.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class AddSettingsTable : Migration
+    public partial class AddNewMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

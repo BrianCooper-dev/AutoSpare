@@ -11,6 +11,8 @@ using AutoSpare.Infrastructure.Persistence;
 using AutoSpare.Infrastructure.Services;
 using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
+using Moq;
 
 namespace AutoSpare.Tests.Services;
 
@@ -18,19 +20,28 @@ public class PurchaseServiceTests : IDisposable
 {
     private readonly ApplicationDbContext _context;
     private readonly PurchaseService _service;
+    private readonly Mock<ILogger<PurchaseService>> _loggerMock;
 
     public PurchaseServiceTests()
     {
-        var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-            .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
-            .ConfigureWarnings(x =>
-                x.Ignore(
-                    Microsoft.EntityFrameworkCore.Diagnostics
-                        .InMemoryEventId.TransactionIgnoredWarning))
-            .Options;
+        var options =
+            new DbContextOptionsBuilder<ApplicationDbContext>()
+                .UseInMemoryDatabase(
+                    databaseName: Guid.NewGuid().ToString())
+                .ConfigureWarnings(x =>
+                    x.Ignore(
+                        Microsoft.EntityFrameworkCore.Diagnostics
+                            .InMemoryEventId.TransactionIgnoredWarning))
+                .Options;
 
         _context = new ApplicationDbContext(options);
-        _service = new PurchaseService(_context);
+
+        _loggerMock =
+            new Mock<ILogger<PurchaseService>>();
+
+        _service = new PurchaseService(
+            _context,
+            _loggerMock.Object);
     }
 
     private async Task<(
@@ -52,13 +63,21 @@ public class PurchaseServiceTests : IDisposable
             "انبار شماره دو",
             "کرج");
 
-        var category = new Category("قطعات موتوری");
-        var brand = new Brand("ایران خودرو");
+        var category = new Category(
+            "قطعات موتوری");
+
+        var brand = new Brand(
+            "ایران خودرو");
 
         await _context.Suppliers.AddAsync(supplier);
-        await _context.Warehouses.AddRangeAsync(warehouse, secondWarehouse);
+
+        await _context.Warehouses.AddRangeAsync(
+            warehouse,
+            secondWarehouse);
+
         await _context.Categories.AddAsync(category);
         await _context.Brands.AddAsync(brand);
+
         await _context.SaveChangesAsync();
 
         var product = new Product(
@@ -107,7 +126,8 @@ public class PurchaseServiceTests : IDisposable
         };
 
         // Act
-        var purchaseId = await _service.CreatePurchaseAsync(dto);
+        var purchaseId =
+            await _service.CreatePurchaseAsync(dto);
 
         // Assert
         purchaseId.Should().NotBeEmpty();
@@ -176,7 +196,8 @@ public class PurchaseServiceTests : IDisposable
         };
 
         // Act
-        var purchaseId = await _service.CreatePurchaseAsync(dto);
+        var purchaseId =
+            await _service.CreatePurchaseAsync(dto);
 
         // Assert
         var purchase = await _context.Purchases
@@ -243,7 +264,8 @@ public class PurchaseServiceTests : IDisposable
         };
 
         // Act
-        var purchaseId = await _service.CreatePurchaseAsync(dto);
+        var purchaseId =
+            await _service.CreatePurchaseAsync(dto);
 
         // Assert
         var purchase = await _context.Purchases
@@ -267,7 +289,7 @@ public class PurchaseServiceTests : IDisposable
     }
 
     [Fact]
-    public async Task CreatePurchase_WithoutItemWarehouse_ShouldUseHeaderWarehouse()
+    public async Task CreatePurchase_WithoutItemWarehouse_ShouldThrowArgumentException()
     {
         // Arrange
         var (supplierId, warehouseId, _, productId) =
@@ -275,7 +297,7 @@ public class PurchaseServiceTests : IDisposable
 
         var dto = new CreatePurchaseDto
         {
-            InvoiceNumber = "PUR-FALLBACK-001",
+            InvoiceNumber = "PUR-NO-ITEM-WAREHOUSE-001",
             SupplierId = supplierId,
             WarehouseId = warehouseId,
             FinalizeImmediately = true,
@@ -284,7 +306,10 @@ public class PurchaseServiceTests : IDisposable
                 new CreatePurchaseItemDto
                 {
                     ProductId = productId,
+
+                    // در ساختار جدید انبار ردیف اجباری است.
                     WarehouseId = null,
+
                     Quantity = 8,
                     UnitPrice = 155_000m
                 }
@@ -292,22 +317,62 @@ public class PurchaseServiceTests : IDisposable
         };
 
         // Act
-        var purchaseId = await _service.CreatePurchaseAsync(dto);
+        var act = async () =>
+            await _service.CreatePurchaseAsync(dto);
 
         // Assert
-        var purchase = await _context.Purchases
-            .Include(p => p.Items)
-            .SingleAsync(p => p.Id == purchaseId);
+        await act.Should()
+            .ThrowAsync<ArgumentException>()
+            .WithMessage(
+                "*انتخاب انبار مقصد برای تمامی اقلام فاکتور خرید الزامی است*");
 
-        purchase.Items.Should().ContainSingle();
-        purchase.Items.Single().WarehouseId.Should().Be(warehouseId);
+        var purchaseExists = await _context.Purchases
+            .AnyAsync(p =>
+                p.InvoiceNumber == "PUR-NO-ITEM-WAREHOUSE-001");
 
-        var inventory = await _context.Inventories
-            .SingleAsync(i =>
-                i.ProductId == productId &&
-                i.WarehouseId == warehouseId);
+        purchaseExists.Should().BeFalse();
 
-        inventory.Quantity.Should().Be(8);
+        var inventoryExists = await _context.Inventories
+            .AnyAsync(i =>
+                i.ProductId == productId);
+
+        inventoryExists.Should().BeFalse();
+    }
+
+    [Fact]
+    public async Task CreatePurchase_WithEmptyItemWarehouse_ShouldThrowArgumentException()
+    {
+        // Arrange
+        var (supplierId, warehouseId, _, productId) =
+            await SeedBaseDataAsync();
+
+        var dto = new CreatePurchaseDto
+        {
+            InvoiceNumber = "PUR-EMPTY-ITEM-WAREHOUSE-001",
+            SupplierId = supplierId,
+            WarehouseId = warehouseId,
+            FinalizeImmediately = false,
+            Items =
+            [
+                new CreatePurchaseItemDto
+                {
+                    ProductId = productId,
+                    WarehouseId = Guid.Empty,
+                    Quantity = 5,
+                    UnitPrice = 150_000m
+                }
+            ]
+        };
+
+        // Act
+        var act = async () =>
+            await _service.CreatePurchaseAsync(dto);
+
+        // Assert
+        await act.Should()
+            .ThrowAsync<ArgumentException>()
+            .WithMessage(
+                "*انتخاب انبار مقصد برای تمامی اقلام فاکتور خرید الزامی است*");
     }
 
     [Fact]
@@ -339,7 +404,8 @@ public class PurchaseServiceTests : IDisposable
         };
 
         // Act
-        var purchaseId = await _service.CreatePurchaseAsync(dto);
+        var purchaseId =
+            await _service.CreatePurchaseAsync(dto);
 
         // Assert
         var purchase = await _context.Purchases
@@ -347,11 +413,14 @@ public class PurchaseServiceTests : IDisposable
             .SingleAsync(p => p.Id == purchaseId);
 
         purchase.Status.Should().Be(PurchaseStatus.Draft);
-        purchase.Items.Single().WarehouseId.Should().Be(secondWarehouseId);
 
-        var inventoryExists = await _context.Inventories.AnyAsync(i =>
-            i.ProductId == productId &&
-            i.WarehouseId == secondWarehouseId);
+        purchase.Items.Single().WarehouseId
+            .Should().Be(secondWarehouseId);
+
+        var inventoryExists = await _context.Inventories
+            .AnyAsync(i =>
+                i.ProductId == productId &&
+                i.WarehouseId == secondWarehouseId);
 
         inventoryExists.Should().BeFalse();
     }
@@ -396,7 +465,8 @@ public class PurchaseServiceTests : IDisposable
         };
 
         // Act
-        var act = async () => await _service.CreatePurchaseAsync(dto);
+        var act = async () =>
+            await _service.CreatePurchaseAsync(dto);
 
         // Assert
         await act.Should()
@@ -429,7 +499,8 @@ public class PurchaseServiceTests : IDisposable
         };
 
         // Act
-        var act = async () => await _service.CreatePurchaseAsync(dto);
+        var act = async () =>
+            await _service.CreatePurchaseAsync(dto);
 
         // Assert
         await act.Should()
@@ -469,7 +540,9 @@ public class PurchaseServiceTests : IDisposable
             .Include(p => p.Items)
             .SingleAsync(p => p.Id == purchase.Id);
 
-        updatedPurchase.Status.Should().Be(PurchaseStatus.Completed);
+        updatedPurchase.Status
+            .Should().Be(PurchaseStatus.Completed);
+
         updatedPurchase.Items.Single().WarehouseId
             .Should().Be(secondWarehouseId);
 
@@ -517,11 +590,15 @@ public class PurchaseServiceTests : IDisposable
         var cancelledPurchase = await _context.Purchases
             .FindAsync(purchase.Id);
 
-        cancelledPurchase!.Status.Should().Be(PurchaseStatus.Cancelled);
+        cancelledPurchase.Should().NotBeNull();
 
-        var inventoryExists = await _context.Inventories.AnyAsync(i =>
-            i.ProductId == productId &&
-            i.WarehouseId == warehouseId);
+        cancelledPurchase!.Status
+            .Should().Be(PurchaseStatus.Cancelled);
+
+        var inventoryExists =
+            await _context.Inventories.AnyAsync(i =>
+                i.ProductId == productId &&
+                i.WarehouseId == warehouseId);
 
         inventoryExists.Should().BeFalse();
     }
@@ -561,7 +638,8 @@ public class PurchaseServiceTests : IDisposable
             ]
         };
 
-        var purchaseId = await _service.CreatePurchaseAsync(dto);
+        var purchaseId =
+            await _service.CreatePurchaseAsync(dto);
 
         // Act
         await _service.CancelPurchaseAsync(
@@ -603,6 +681,7 @@ public class PurchaseServiceTests : IDisposable
     {
         _context.Database.EnsureDeleted();
         _context.Dispose();
+
         GC.SuppressFinalize(this);
     }
 }

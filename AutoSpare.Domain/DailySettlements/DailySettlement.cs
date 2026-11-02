@@ -119,4 +119,3 @@ public class DailySettlement : BaseEntity
             throw new ArgumentException("مبلغ نمی‌تواند منفی باشد.", paramName);
     }
 }
-

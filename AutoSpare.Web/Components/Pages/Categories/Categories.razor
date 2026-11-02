@@ -4,9 +4,6 @@
 
 @using AutoSpare.Application.Categories
 @using AutoSpare.Application.Categories.DTOs
-@using AutoSpare.Application.Common.RightAligned
-@using AutoSpare.Web.Components.Common
-@using MudBlazor
 
 @inject ICategoryService CategoryService
 @inject IDialogService DialogService
@@ -21,7 +18,9 @@
                 <div class="d-flex align-center justify-space-between flex-wrap gap-2">
                     <div>
                         <MudText Typo="Typo.h5" Class="font-weight-bold">مدیریت دسته‌بندی‌ها</MudText>
-                        <MudText Typo="Typo.body2" Class="mud-text-secondary mt-1">ایجاد، ویرایش، جستجو و فعال/غیرفعال‌سازی دسته‌بندی کالاها</MudText>
+                        <MudText Typo="Typo.body2" Class="mud-text-secondary mt-1">ایجاد، ویرایش، جستجو و
+                            فعال/غیرفعال‌سازی دسته‌بندی کالاها
+                        </MudText>
                     </div>
                     <MudButton Variant="Variant.Filled"
                                Color="Color.Primary"
@@ -49,7 +48,7 @@
                               Immediate="false"
                               DebounceInterval="400"
                               OnDebounceIntervalElapsed="ReloadData"
-                              Class="flex-grow-1" />
+                              Class="flex-grow-1"/>
 
                 <MudSelect T="int"
                            Value="_selectedStatusFilter"
@@ -66,7 +65,7 @@
                 <MudIconButton Icon="@Icons.Material.Filled.Refresh"
                                Color="Color.Default"
                                OnClick="ReloadData"
-                               Title="بارگذاری مجدد" />
+                               Title="بارگذاری مجدد"/>
             </div>
 
             <!-- جدول دسته‌بندی‌ها -->
@@ -103,11 +102,13 @@
                     <MudTd DataLabel="وضعیت" Style="text-align: center;">
                         @if (context.IsActive)
                         {
-                            <MudChip T="string" Color="Color.Success" Size="Size.Small" Variant="Variant.Filled">فعال</MudChip>
+                            <MudChip T="string" Color="Color.Success" Size="Size.Small" Variant="Variant.Filled">فعال
+                            </MudChip>
                         }
                         else
                         {
-                            <MudChip T="string" Color="Color.Error" Size="Size.Small" Variant="Variant.Filled">غیرفعال</MudChip>
+                            <MudChip T="string" Color="Color.Error" Size="Size.Small" Variant="Variant.Filled">غیرفعال
+                            </MudChip>
                         }
                     </MudTd>
                     <MudTd DataLabel="تاریخ ایجاد" Style="text-align: center;">
@@ -121,21 +122,23 @@
                                 <MudIconButton Icon="@Icons.Material.Filled.Edit"
                                                Size="Size.Small"
                                                Color="Color.Primary"
-                                               OnClick="@(() => OpenEditDialog(context))" />
+                                               OnClick="@(() => OpenEditDialog(context))"/>
                             </MudTooltip>
 
                             <MudTooltip Text="@(context.IsActive ? "غیرفعال‌سازی" : "فعال‌سازی")">
-                                <MudIconButton Icon="@(context.IsActive ? Icons.Material.Filled.Block : Icons.Material.Filled.CheckCircleOutline)"
-                                               Size="Size.Small"
-                                               Color="@(context.IsActive ? Color.Warning : Color.Success)"
-                                               OnClick="@(() => ToggleCategoryStatus(context))" />
+                                <MudIconButton
+                                    Icon="@(context.IsActive ? Icons.Material.Filled.Block : Icons.Material.Filled.CheckCircleOutline)"
+                                    Size="Size.Small"
+                                    Color="@(context.IsActive ? Color.Warning : Color.Success)"
+                                    OnClick="@(() => ToggleCategoryStatus(context))"/>
                             </MudTooltip>
                         </div>
                     </MudTd>
                 </RowTemplate>
                 <NoRecordsContent>
                     <div class="pa-6 text-center">
-                        <MudIcon Icon="@Icons.Material.Filled.Category" Size="Size.Large" Class="mud-text-secondary mb-2" />
+                        <MudIcon Icon="@Icons.Material.Filled.Category" Size="Size.Large"
+                                 Class="mud-text-secondary mb-2"/>
                         <MudText Typo="Typo.body1" Class="mud-text-secondary">هیچ دسته‌بندی‌ای یافت نشد.</MudText>
                     </div>
                 </NoRecordsContent>
@@ -288,4 +291,5 @@
             }
         }
     }
+
 }

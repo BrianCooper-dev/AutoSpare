@@ -1,4 +1,5 @@
 @page "/sales/print/{Id:guid}"
+
 @using System.Globalization
 @using AutoSpare.Application.Sales
 @using AutoSpare.Application.Sales.DTOs
@@ -13,7 +14,8 @@
 
 <div class="print-root rtl">
     <!-- نوار ابزار بالا - در هنگام چاپ مخفی می‌شود -->
-    <div class="no-print d-flex align-center justify-space-between pa-4 mb-4" style="max-width: 210mm; margin: 0 auto; border-radius: 8px; background-color: #ffffff !important; border: 1px solid #ddd; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+    <div class="no-print d-flex align-center justify-space-between pa-4 mb-4"
+         style="max-width: 210mm; margin: 0 auto; border-radius: 8px; background-color: #ffffff !important; border: 1px solid #ddd; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
         <div class="d-flex align-center gap-2">
             <MudButton Variant="Variant.Filled"
                        Color="Color.Primary"
@@ -33,7 +35,7 @@
     @if (_isLoading)
     {
         <div class="d-flex justify-center align-center py-12">
-            <MudProgressCircular Color="Color.Primary" Indeterminate="true" Size="Size.Large" />
+            <MudProgressCircular Color="Color.Primary" Indeterminate="true" Size="Size.Large"/>
         </div>
     }
     else if (_sale == null)
@@ -47,59 +49,67 @@
         <div class="print-shell">
             <div class="invoice-a4">
                 <!-- سربرگ فاکتور -->
-                <div class="d-flex justify-space-between align-start border-bottom pb-4 mb-4" style="border-color: #ddd !important;">
+                <div class="d-flex justify-space-between align-start border-bottom pb-4 mb-4"
+                     style="border-color: #ddd !important;">
                     <div>
-                        <div style="font-size: 1.25rem; font-weight: bold; color: #000;" class="mb-1">@_store.StoreName</div>
+                        <div style="font-size: 1.25rem; font-weight: bold; color: #000;"
+                             class="mb-1">@_store.StoreName</div>
                         <div style="font-size: 0.85rem; color: #444;" class="mb-1">آدرس: @_store.Address</div>
                         <div style="font-size: 0.85rem; color: #444;">تلفن: @_store.Phone | همراه: @_store.Mobile</div>
                     </div>
                     <div class="text-start">
-                        <div class="invoice-meta-box pa-3 rounded-lg border" style="border-color: #ccc !important; background: #fff; color: #000;">
+                        <div class="invoice-meta-box pa-3 rounded-lg border"
+                             style="border-color: #ccc !important; background: #fff; color: #000;">
                             <div style="font-size: 0.85rem;"><strong>شماره فاکتور:</strong> @_sale.InvoiceNumber</div>
-                            <div style="font-size: 0.85rem;"><strong>تاریخ:</strong> @_sale.SaleDate.ToLocalTime().ToString("yyyy/MM/dd HH:mm", CultureInfo.InvariantCulture)</div>
-                            <div style="font-size: 0.85rem;"><strong>وضعیت:</strong> @GetPersianStatus(_sale.Status)</div>
+                            <div style="font-size: 0.85rem;">
+                                <strong>تاریخ:</strong> @_sale.SaleDate.ToLocalTime().ToString("yyyy/MM/dd HH:mm", CultureInfo.InvariantCulture)
+                            </div>
+                            <div style="font-size: 0.85rem;"><strong>وضعیت:</strong> @GetPersianStatus(_sale.Status)
+                            </div>
                         </div>
                     </div>
                 </div>
 
                 <!-- مشخصات خریدار -->
                 <div class="mb-4" style="color: #000;">
-                    <div style="font-size: 0.9rem;"><strong>نام خریدار:</strong> @(!string.IsNullOrWhiteSpace(_sale.CustomerName) ? _sale.CustomerName : "مشتری متفرقه")</div>
+                    <div style="font-size: 0.9rem;"><strong>نام
+                            خریدار:</strong> @(!string.IsNullOrWhiteSpace(_sale.CustomerName) ? _sale.CustomerName : "مشتری متفرقه")
+                    </div>
                 </div>
 
                 <!-- جدول اقلام -->
                 <table class="invoice-table mb-4">
                     <thead>
-                        <tr>
-                            <th style="width: 50px; text-align: center;">#</th>
-                            <th>شرح کالا</th>
-                            <th style="width: 90px; text-align: center;">تعداد</th>
-                            <th style="width: 130px; text-align: center;">قیمت واحد (تومان)</th>
-                            <th style="width: 140px; text-align: center;">مبلغ کل (تومان)</th>
-                        </tr>
+                    <tr>
+                        <th style="width: 50px; text-align: center;">#</th>
+                        <th>شرح کالا</th>
+                        <th style="width: 90px; text-align: center;">تعداد</th>
+                        <th style="width: 130px; text-align: center;">قیمت واحد (تومان)</th>
+                        <th style="width: 140px; text-align: center;">مبلغ کل (تومان)</th>
+                    </tr>
                     </thead>
                     <tbody>
-                        @if (_sale.Items != null)
+                    @if (_sale.Items != null)
+                    {
+                        int index = 1;
+                        foreach (var item in _sale.Items)
                         {
-                            int index = 1;
-                            foreach (var item in _sale.Items)
-                            {
-                                <tr>
-                                    <td style="text-align: center;">@index</td>
-                                    <td>
-                                        <div style="font-weight: bold; color: #000;">@item.ProductName</div>
-                                        @if (!string.IsNullOrWhiteSpace(item.ProductCode))
-                                        {
-                                            <div style="font-size: 0.8rem; color: #555;">کد: @item.ProductCode</div>
-                                        }
-                                    </td>
-                                    <td style="text-align: center;">@item.Quantity.ToString("N0")</td>
-                                    <td style="text-align: center;">@item.UnitPrice.ToString("N0")</td>
-                                    <td style="text-align: center;">@item.TotalPrice.ToString("N0")</td>
-                                </tr>
-                                index++;
-                            }
+                            <tr>
+                                <td style="text-align: center;">@index</td>
+                                <td>
+                                    <div style="font-weight: bold; color: #000;">@item.ProductName</div>
+                                    @if (!string.IsNullOrWhiteSpace(item.ProductCode))
+                                    {
+                                        <div style="font-size: 0.8rem; color: #555;">کد: @item.ProductCode</div>
+                                    }
+                                </td>
+                                <td style="text-align: center;">@item.Quantity.ToString("N0")</td>
+                                <td style="text-align: center;">@item.UnitPrice.ToString("N0")</td>
+                                <td style="text-align: center;">@item.TotalPrice.ToString("N0")</td>
+                            </tr>
+                            index++;
                         }
+                    }
                     </tbody>
                 </table>
 
@@ -108,16 +118,19 @@
                     <div style="flex: 1;" class="me-4">
                         @if (!string.IsNullOrWhiteSpace(_store.FooterNote))
                         {
-                            <div class="footer-note pa-3 rounded border" style="font-size: 0.85rem; background-color: #f9f9f9; border-color: #ddd !important; color: #333;">
-                                <strong>توضیحات / شرایط:</strong><br />
+                            <div class="footer-note pa-3 rounded border"
+                                 style="font-size: 0.85rem; background-color: #f9f9f9; border-color: #ddd !important; color: #333;">
+                                <strong>توضیحات / شرایط:</strong><br/>
                                 @_store.FooterNote
                             </div>
                         }
                     </div>
-                    <div style="width: 280px; border-color: #ccc !important; background: #fff; color: #000;" class="total-box pa-3 border rounded-lg text-start">
+                    <div style="width: 280px; border-color: #ccc !important; background: #fff; color: #000;"
+                         class="total-box pa-3 border rounded-lg text-start">
                         <div class="d-flex justify-space-between">
                             <span style="font-weight: bold;">مبلغ قابل پرداخت:</span>
-                            <span style="font-weight: bold; font-size: 1.1rem;">@_sale.TotalAmount.ToString("N0") تومان</span>
+                            <span
+                                style="font-weight: bold; font-size: 1.1rem;">@_sale.TotalAmount.ToString("N0") تومان</span>
                         </div>
                     </div>
                 </div>
@@ -162,7 +175,7 @@
         background: #ffffff !important;
         color: #000000 !important;
         padding: 15mm;
-        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         box-sizing: border-box;
     }
 
@@ -262,4 +275,5 @@
     {
         await Js.InvokeVoidAsync("window.close");
     }
+
 }

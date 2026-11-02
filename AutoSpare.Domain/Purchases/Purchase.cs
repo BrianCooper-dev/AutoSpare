@@ -21,12 +21,14 @@ public class Purchase : BaseEntity
     /// شناسه تأمین‌کننده
     /// </summary>
     public Guid SupplierId { get; private set; }
+
     public Supplier? Supplier { get; private set; }
 
     /// <summary>
     /// انبار پیش‌فرض فاکتور (برای ردیف‌هایی که انبار خاصی تعیین نکرده‌اند)
     /// </summary>
     public Guid WarehouseId { get; private set; }
+
     public Warehouse? Warehouse { get; private set; }
 
     /// <summary>
@@ -145,7 +147,8 @@ public class Purchase : BaseEntity
     /// <summary>
     /// ویرایش اطلاعات اصلی فاکتور
     /// </summary>
-    public void UpdateHeader(string invoiceNumber, Guid supplierId, Guid warehouseId, DateTime purchaseDate, string? notes)
+    public void UpdateHeader(string invoiceNumber, Guid supplierId, Guid warehouseId, DateTime purchaseDate,
+        string? notes)
     {
         EnsureIsDraft();
 

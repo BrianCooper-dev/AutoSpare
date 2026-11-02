@@ -426,3 +426,913 @@ Microsoft.Extensions.Hosting.HostAbortedException: The host was aborted.
 2026-11-02 13:03:54.013 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 0.7225 ms 
 2026-11-02 13:04:38.545 +03:30 [INF] HTTP GET /_blazor responded 101 in 51887.8114 ms 
 2026-11-02 13:04:39.558 +03:30 [INF] سرویس زمان‌بندی بکاپ متوقف شد. 
+2026-11-02 13:06:54.058 +03:30 [INF] Storage directories are ready. ImagesPath: D:\porograming\Rider\AutoSpare\AutoSpare.Web\wwwroot\Uploads\Images, BackupPath: D:\AutoSpareBackups 
+2026-11-02 13:06:54.109 +03:30 [INF] سرویس زمان‌بندی بکاپ پایگاه داده راه‌اندازی شد. 
+2026-11-02 13:06:54.130 +03:30 [INF] بکاپ بعدی در ساعت 2026/11/02 20:00:00 اجرا خواهد شد (مدت انتظار: "06:53:05.8735243"). 
+2026-11-02 13:06:54.587 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 52.2398 ms 
+2026-11-02 13:06:55.305 +03:30 [WRN] The query uses the 'First'/'FirstOrDefault' operator without 'OrderBy' and filter operators. This may lead to unpredictable results. 
+2026-11-02 13:06:55.632 +03:30 [WRN] The query uses the 'First'/'FirstOrDefault' operator without 'OrderBy' and filter operators. This may lead to unpredictable results. 
+2026-11-02 13:06:55.820 +03:30 [INF] HTTP GET /settings responded 200 in 1131.3952 ms 
+2026-11-02 13:06:55.856 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 4.6817 ms 
+2026-11-02 13:06:55.859 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 304 in 1.1930 ms 
+2026-11-02 13:06:55.867 +03:30 [INF] HTTP GET /_blazor responded 101 in 1263.5985 ms 
+2026-11-02 13:06:55.868 +03:30 [INF] HTTP GET /app.css responded 200 in 16.9325 ms 
+2026-11-02 13:06:55.875 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 24.3661 ms 
+2026-11-02 13:06:55.876 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 28.9414 ms 
+2026-11-02 13:06:55.905 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 1.0144 ms 
+2026-11-02 13:06:55.950 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 5.9818 ms 
+2026-11-02 13:06:55.976 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.9089 ms 
+2026-11-02 13:06:56.024 +03:30 [INF] HTTP GET / responded 200 in 1491.1717 ms 
+2026-11-02 13:06:56.039 +03:30 [INF] HTTP GET /app.css responded 200 in 2.2475 ms 
+2026-11-02 13:06:56.042 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 1.2464 ms 
+2026-11-02 13:06:56.042 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 304 in 0.4756 ms 
+2026-11-02 13:06:56.045 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 3.7920 ms 
+2026-11-02 13:06:56.154 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.5751 ms 
+2026-11-02 13:06:56.170 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 1.3310 ms 
+2026-11-02 13:06:56.201 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 2.3940 ms 
+2026-11-02 13:06:56.283 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 5.9784 ms 
+2026-11-02 13:06:56.324 +03:30 [INF] HTTP GET /_blazor responded 101 in 341.3351 ms 
+2026-11-02 13:07:03.929 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 1.0822 ms 
+2026-11-02 13:07:43.036 +03:30 [INF] HTTP GET /_blazor responded 101 in 46823.2049 ms 
+2026-11-02 13:07:43.080 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 49.6427 ms 
+2026-11-02 13:07:49.760 +03:30 [INF] سرویس زمان‌بندی بکاپ متوقف شد. 
+2026-11-02 19:03:31.461 +03:30 [INF] Pending migrations applied successfully. 
+2026-11-02 19:03:31.856 +03:30 [INF] Default Admin user created successfully. 
+2026-11-02 19:03:31.938 +03:30 [INF] Storage directories are ready. ImagesPath: D:\porograming\Rider\AutoSpare\AutoSpare.Web\wwwroot\Uploads\Images, BackupPath: D:\AutoSpareBackups 
+2026-11-02 19:03:31.973 +03:30 [INF] سرویس زمان‌بندی بکاپ پایگاه داده راه‌اندازی شد. 
+2026-11-02 19:03:32.023 +03:30 [INF] بکاپ بعدی در ساعت 2026/11/02 20:00:00 اجرا خواهد شد (مدت انتظار: "00:56:27.9813390"). 
+2026-11-02 19:03:32.244 +03:30 [INF] HTTP GET / responded 302 in 15.7900 ms 
+2026-11-02 19:03:32.592 +03:30 [INF] HTTP GET /login responded 200 in 332.7493 ms 
+2026-11-02 19:03:32.641 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 21.8651 ms 
+2026-11-02 19:03:32.641 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 200 in 21.9136 ms 
+2026-11-02 19:03:32.648 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 29.4554 ms 
+2026-11-02 19:03:32.664 +03:30 [INF] HTTP GET /app.css responded 200 in 45.7264 ms 
+2026-11-02 19:03:32.716 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.6287 ms 
+2026-11-02 19:03:32.744 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 13.8767 ms 
+2026-11-02 19:03:32.748 +03:30 [INF] HTTP GET /favicon.ico responded 404 in 0.4537 ms 
+2026-11-02 19:03:32.769 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 11.3287 ms 
+2026-11-02 19:03:32.804 +03:30 [INF] HTTP GET /not-found responded 302 in 1.6758 ms 
+2026-11-02 19:03:32.821 +03:30 [INF] HTTP GET /login responded 200 in 12.6649 ms 
+2026-11-02 19:03:34.390 +03:30 [INF] HTTP POST /api/auth/login responded 302 in 370.1899 ms 
+2026-11-02 19:03:34.894 +03:30 [INF] HTTP GET / responded 200 in 498.2678 ms 
+2026-11-02 19:03:34.911 +03:30 [INF] HTTP GET /app.css responded 200 in 1.6726 ms 
+2026-11-02 19:03:34.915 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 304 in 0.8291 ms 
+2026-11-02 19:03:34.920 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 1.2556 ms 
+2026-11-02 19:03:34.924 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 9.2964 ms 
+2026-11-02 19:03:34.927 +03:30 [INF] HTTP GET /_blazor responded 101 in 2150.2322 ms 
+2026-11-02 19:03:34.936 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 33.9396 ms 
+2026-11-02 19:03:34.976 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.5039 ms 
+2026-11-02 19:03:34.999 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 1.4442 ms 
+2026-11-02 19:03:35.006 +03:30 [INF] HTTP GET /favicon.ico responded 404 in 1.2103 ms 
+2026-11-02 19:03:35.009 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 1.0840 ms 
+2026-11-02 19:03:35.033 +03:30 [INF] HTTP GET /not-found responded 404 in 16.3209 ms 
+2026-11-02 19:03:39.933 +03:30 [WRN] The query uses the 'First'/'FirstOrDefault' operator without 'OrderBy' and filter operators. This may lead to unpredictable results. 
+2026-11-02 19:03:40.057 +03:30 [WRN] The query uses the 'First'/'FirstOrDefault' operator without 'OrderBy' and filter operators. This may lead to unpredictable results. 
+2026-11-02 19:03:41.588 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 1.0421 ms 
+2026-11-02 19:03:46.684 +03:30 [WRN] تهیه بکاپ ایمنی قبل از بازیابی دیتابیس AutoSpareDb. مسیر: D:\AutoSpareBackups\Safety 
+2026-11-02 19:03:46.686 +03:30 [INF] شروع فرآیند بکاپ‌گیری از دیتابیس AutoSpareDb در مسیر D:\AutoSpareBackups\Safety\AutoSpareDb_Backup_1405-08-11_190346.bak 
+2026-11-02 19:03:46.860 +03:30 [INF] بکاپ با موفقیت ایجاد شد: AutoSpareDb_Backup_1405-08-11_190346.bak به حجم 4050944 بایت 
+2026-11-02 19:03:46.866 +03:30 [INF] تعداد بکاپ‌های موجود (1) از سقف مجاز (30) بیشتر نیست. فایلی حذف نشد. 
+2026-11-02 19:03:46.867 +03:30 [INF] بکاپ ایمنی با موفقیت ایجاد شد: AutoSpareDb_Backup_1405-08-11_190346.bak | D:\AutoSpareBackups\Safety\AutoSpareDb_Backup_1405-08-11_190346.bak 
+2026-11-02 19:03:46.867 +03:30 [WRN] شروع عملیات بازیابی دیتابیس AutoSpareDb از مسیر D:\AutoSpareBackups\AutoSpareDb_Backup_1405-08-11_130314.bak 
+2026-11-02 19:03:50.376 +03:30 [INF] بازیابی پایگاه‌داده AutoSpareDb با موفقیت به پایان رسید. بکاپ ایمنی: AutoSpareDb_Backup_1405-08-11_190346.bak 
+2026-11-02 19:19:26.040 +03:30 [INF] HTTP GET /_blazor responded 101 in 951023.0955 ms 
+2026-11-02 19:22:37.536 +03:30 [INF] سرویس زمان‌بندی بکاپ متوقف شد. 
+2026-11-02 19:55:15.545 +03:30 [INF] Storage directories are ready. ImagesPath: D:\porograming\Rider\AutoSpare\AutoSpare.Web\wwwroot\Uploads\Images, BackupPath: D:\AutoSpareBackups 
+2026-11-02 19:55:15.577 +03:30 [INF] سرویس زمان‌بندی بکاپ پایگاه داده راه‌اندازی شد. 
+2026-11-02 19:55:15.594 +03:30 [INF] بکاپ بعدی در ساعت 2026/11/02 20:00:00 اجرا خواهد شد (مدت انتظار: "00:04:44.4078198"). 
+2026-11-02 19:55:16.434 +03:30 [INF] HTTP GET / responded 200 in 648.4183 ms 
+2026-11-02 19:55:16.462 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 304 in 6.3524 ms 
+2026-11-02 19:55:16.462 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 6.5769 ms 
+2026-11-02 19:55:16.476 +03:30 [INF] HTTP GET /app.css responded 200 in 20.7459 ms 
+2026-11-02 19:55:16.479 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 23.6192 ms 
+2026-11-02 19:55:16.568 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 4.0263 ms 
+2026-11-02 19:55:16.593 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 11.6498 ms 
+2026-11-02 19:55:16.617 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 8.8521 ms 
+2026-11-02 19:55:24.118 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 1.9443 ms 
+2026-11-02 19:55:43.579 +03:30 [ERR] An exception occurred while iterating over the results of a query for context type 'AutoSpare.Infrastructure.Persistence.ApplicationDbContext'.
+System.InvalidOperationException: A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync() 
+System.InvalidOperationException: A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+2026-11-02 19:55:43.596 +03:30 [ERR] An exception occurred while iterating over the results of a query for context type 'AutoSpare.Infrastructure.Persistence.ApplicationDbContext'.
+System.InvalidOperationException: A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync() 
+System.InvalidOperationException: A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+2026-11-02 19:56:01.674 +03:30 [INF] HTTP GET /customers responded 404 in 0.5766 ms 
+2026-11-02 19:56:01.711 +03:30 [INF] HTTP GET /not-found responded 404 in 18.6715 ms 
+2026-11-02 19:56:01.732 +03:30 [INF] HTTP GET /app.css responded 200 in 2.4634 ms 
+2026-11-02 19:56:01.736 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 1.2893 ms 
+2026-11-02 19:56:01.737 +03:30 [INF] HTTP GET /_blazor responded 101 in 45112.4028 ms 
+2026-11-02 19:56:01.738 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 304 in 0.7337 ms 
+2026-11-02 19:56:01.742 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 3.9486 ms 
+2026-11-02 19:56:01.758 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 38.5194 ms 
+2026-11-02 19:56:01.763 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 0.3605 ms 
+2026-11-02 19:56:01.763 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.3604 ms 
+2026-11-02 19:56:01.779 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 0.6790 ms 
+2026-11-02 19:56:01.786 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 1.9225 ms 
+2026-11-02 19:56:05.544 +03:30 [INF] HTTP GET /customers/create responded 404 in 0.7566 ms 
+2026-11-02 19:56:05.557 +03:30 [INF] HTTP GET /not-found responded 404 in 4.9503 ms 
+2026-11-02 19:56:05.565 +03:30 [INF] HTTP GET /_blazor responded 101 in 3770.4736 ms 
+2026-11-02 19:56:05.568 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 2.8598 ms 
+2026-11-02 19:56:05.573 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 304 in 0.4519 ms 
+2026-11-02 19:56:05.573 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 0.4535 ms 
+2026-11-02 19:56:05.574 +03:30 [INF] HTTP GET /app.css responded 200 in 1.3103 ms 
+2026-11-02 19:56:05.577 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 4.4291 ms 
+2026-11-02 19:56:05.595 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.3266 ms 
+2026-11-02 19:56:05.595 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 0.3266 ms 
+2026-11-02 19:56:05.598 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 0.3419 ms 
+2026-11-02 19:56:05.609 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.7297 ms 
+2026-11-02 19:56:20.538 +03:30 [WRN] The query uses the 'First'/'FirstOrDefault' operator without 'OrderBy' and filter operators. This may lead to unpredictable results. 
+2026-11-02 19:56:20.610 +03:30 [WRN] The query uses the 'First'/'FirstOrDefault' operator without 'OrderBy' and filter operators. This may lead to unpredictable results. 
+2026-11-02 19:56:29.797 +03:30 [ERR] An exception occurred while iterating over the results of a query for context type 'AutoSpare.Infrastructure.Persistence.ApplicationDbContext'.
+System.InvalidOperationException: A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync() 
+System.InvalidOperationException: A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+2026-11-02 19:56:29.798 +03:30 [ERR] An exception occurred while iterating over the results of a query for context type 'AutoSpare.Infrastructure.Persistence.ApplicationDbContext'.
+System.InvalidOperationException: A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync() 
+System.InvalidOperationException: A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+2026-11-02 19:56:29.799 +03:30 [ERR] An exception occurred while iterating over the results of a query for context type 'AutoSpare.Infrastructure.Persistence.ApplicationDbContext'.
+System.InvalidOperationException: A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync() 
+System.InvalidOperationException: A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+2026-11-02 19:57:28.165 +03:30 [INF] HTTP GET /_blazor responded 101 in 82535.4828 ms 
+2026-11-02 19:57:29.155 +03:30 [INF] سرویس زمان‌بندی بکاپ متوقف شد. 
+2026-11-02 19:57:39.734 +03:30 [INF] Storage directories are ready. ImagesPath: D:\porograming\Rider\AutoSpare\AutoSpare.Web\wwwroot\Uploads\Images, BackupPath: D:\AutoSpareBackups 
+2026-11-02 19:57:39.762 +03:30 [INF] سرویس زمان‌بندی بکاپ پایگاه داده راه‌اندازی شد. 
+2026-11-02 19:57:39.779 +03:30 [INF] بکاپ بعدی در ساعت 2026/11/02 20:00:00 اجرا خواهد شد (مدت انتظار: "00:02:20.2234867"). 
+2026-11-02 19:57:40.692 +03:30 [INF] HTTP GET / responded 200 in 635.7595 ms 
+2026-11-02 19:57:40.719 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 6.7273 ms 
+2026-11-02 19:57:40.719 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 304 in 6.7275 ms 
+2026-11-02 19:57:40.733 +03:30 [INF] HTTP GET /app.css responded 200 in 21.1321 ms 
+2026-11-02 19:57:40.735 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 23.0606 ms 
+2026-11-02 19:57:40.813 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 2.6181 ms 
+2026-11-02 19:57:40.832 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 6.0928 ms 
+2026-11-02 19:57:40.854 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 5.1486 ms 
+2026-11-02 19:57:42.608 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 1.1958 ms 
+2026-11-02 19:57:43.221 +03:30 [INF] HTTP GET /purchases/create responded 200 in 387.4097 ms 
+2026-11-02 19:57:43.237 +03:30 [INF] HTTP GET /_blazor responded 101 in 621.6557 ms 
+2026-11-02 19:57:43.241 +03:30 [INF] HTTP GET /app.css responded 200 in 1.7118 ms 
+2026-11-02 19:57:43.243 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 0.8267 ms 
+2026-11-02 19:57:43.248 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 304 in 1.1453 ms 
+2026-11-02 19:57:43.249 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 17.6127 ms 
+2026-11-02 19:57:43.250 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 5.1864 ms 
+2026-11-02 19:57:43.286 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 1.5657 ms 
+2026-11-02 19:57:43.288 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 0.4758 ms 
+2026-11-02 19:57:43.288 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.4757 ms 
+2026-11-02 19:57:43.305 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.9720 ms 
+2026-11-02 19:57:43.357 +03:30 [ERR] An exception occurred while iterating over the results of a query for context type 'AutoSpare.Infrastructure.Persistence.ApplicationDbContext'.
+System.InvalidOperationException: A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync() 
+System.InvalidOperationException: A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+2026-11-02 19:57:43.360 +03:30 [ERR] An exception occurred while iterating over the results of a query for context type 'AutoSpare.Infrastructure.Persistence.ApplicationDbContext'.
+System.InvalidOperationException: A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync() 
+System.InvalidOperationException: A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+2026-11-02 20:00:00.016 +03:30 [INF] شروع بکاپ خودکار دیتابیس. علت: Schedule | مسیر مقصد: D:/AutoSpareBackups 
+2026-11-02 20:00:00.023 +03:30 [INF] شروع فرآیند بکاپ‌گیری از دیتابیس AutoSpareDb در مسیر D:\AutoSpareBackups\AutoSpareDb_Backup_1405-08-11_200000.bak 
+2026-11-02 20:00:00.624 +03:30 [INF] بکاپ با موفقیت ایجاد شد: AutoSpareDb_Backup_1405-08-11_200000.bak به حجم 6344704 بایت 
+2026-11-02 20:00:00.628 +03:30 [INF] بکاپ زمان‌بندی‌شده با موفقیت ایجاد شد: AutoSpareDb_Backup_1405-08-11_200000.bak (6344704 بایت) 
+2026-11-02 20:00:05.640 +03:30 [INF] بکاپ بعدی در ساعت 2026/11/03 02:30:00 اجرا خواهد شد (مدت انتظار: "06:29:54.3606541"). 
+2026-11-02 20:02:37.551 +03:30 [INF] HTTP GET /_blazor responded 101 in 294235.3673 ms 
+2026-11-02 20:02:37.551 +03:30 [INF] HTTP GET /_blazor responded 101 in 296688.9896 ms 
+2026-11-02 20:02:38.558 +03:30 [INF] سرویس زمان‌بندی بکاپ متوقف شد. 
+2026-11-02 20:38:57.645 +03:30 [INF] Storage directories are ready. ImagesPath: D:\porograming\Rider\AutoSpare\AutoSpare.Web\wwwroot\Uploads\Images, BackupPath: D:\AutoSpareBackups 
+2026-11-02 20:38:57.674 +03:30 [INF] سرویس زمان‌بندی بکاپ پایگاه داده راه‌اندازی شد. 
+2026-11-02 20:38:57.695 +03:30 [INF] بکاپ بعدی در ساعت 2026/11/03 02:30:00 اجرا خواهد شد (مدت انتظار: "05:51:02.3079191"). 
+2026-11-02 20:38:59.254 +03:30 [INF] HTTP GET / responded 200 in 1195.9217 ms 
+2026-11-02 20:38:59.301 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 304 in 7.3795 ms 
+2026-11-02 20:38:59.302 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 8.0411 ms 
+2026-11-02 20:38:59.318 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 24.6249 ms 
+2026-11-02 20:38:59.324 +03:30 [INF] HTTP GET /app.css responded 200 in 30.0327 ms 
+2026-11-02 20:38:59.487 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 5.9319 ms 
+2026-11-02 20:38:59.550 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 6.9127 ms 
+2026-11-02 20:38:59.579 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 7.4407 ms 
+2026-11-02 20:39:24.860 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 0.5482 ms 
+2026-11-02 20:39:33.387 +03:30 [ERR] An exception occurred while iterating over the results of a query for context type 'AutoSpare.Infrastructure.Persistence.ApplicationDbContext'.
+System.InvalidOperationException: A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync() 
+System.InvalidOperationException: A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+2026-11-02 20:39:46.578 +03:30 [WRN] The query uses the 'First'/'FirstOrDefault' operator without 'OrderBy' and filter operators. This may lead to unpredictable results. 
+2026-11-02 20:39:46.691 +03:30 [WRN] The query uses the 'First'/'FirstOrDefault' operator without 'OrderBy' and filter operators. This may lead to unpredictable results. 
+2026-11-02 20:44:31.772 +03:30 [INF] HTTP GET /_blazor responded 101 in 332182.4160 ms 
+2026-11-02 21:19:54.574 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 4.6245 ms 
+2026-11-02 21:19:58.492 +03:30 [ERR] An exception occurred while iterating over the results of a query for context type 'AutoSpare.Infrastructure.Persistence.ApplicationDbContext'.
+System.InvalidOperationException: A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync() 
+System.InvalidOperationException: A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+2026-11-02 21:19:58.495 +03:30 [ERR] An exception occurred while iterating over the results of a query for context type 'AutoSpare.Infrastructure.Persistence.ApplicationDbContext'.
+System.InvalidOperationException: A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync() 
+System.InvalidOperationException: A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+2026-11-02 21:19:58.497 +03:30 [ERR] An exception occurred while iterating over the results of a query for context type 'AutoSpare.Infrastructure.Persistence.ApplicationDbContext'.
+System.InvalidOperationException: A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync() 
+System.InvalidOperationException: A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+2026-11-02 21:20:15.125 +03:30 [ERR] An exception occurred while iterating over the results of a query for context type 'AutoSpare.Infrastructure.Persistence.ApplicationDbContext'.
+System.InvalidOperationException: A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync() 
+System.InvalidOperationException: A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+2026-11-02 21:20:15.126 +03:30 [ERR] An exception occurred while iterating over the results of a query for context type 'AutoSpare.Infrastructure.Persistence.ApplicationDbContext'.
+System.InvalidOperationException: A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync() 
+System.InvalidOperationException: A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+2026-11-02 21:20:15.126 +03:30 [ERR] An exception occurred while iterating over the results of a query for context type 'AutoSpare.Infrastructure.Persistence.ApplicationDbContext'.
+System.InvalidOperationException: A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync() 
+System.InvalidOperationException: A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+2026-11-02 21:23:49.660 +03:30 [INF] HTTP GET /_blazor responded 101 in 235078.0660 ms 
+2026-11-02 21:23:50.653 +03:30 [INF] سرویس زمان‌بندی بکاپ متوقف شد. 
+2026-11-02 21:24:08.580 +03:30 [INF] Storage directories are ready. ImagesPath: D:\porograming\Rider\AutoSpare\AutoSpare.Web\wwwroot\Uploads\Images, BackupPath: D:\AutoSpareBackups 
+2026-11-02 21:24:08.676 +03:30 [INF] سرویس زمان‌بندی بکاپ پایگاه داده راه‌اندازی شد. 
+2026-11-02 21:24:08.703 +03:30 [INF] بکاپ بعدی در ساعت 2026/11/03 02:30:00 اجرا خواهد شد (مدت انتظار: "05:05:51.3057185"). 
+2026-11-02 21:24:10.246 +03:30 [INF] HTTP GET / responded 200 in 1041.3031 ms 
+2026-11-02 21:24:10.283 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 6.5189 ms 
+2026-11-02 21:24:10.285 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 304 in 4.0427 ms 
+2026-11-02 21:24:10.306 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 31.4493 ms 
+2026-11-02 21:24:10.449 +03:30 [INF] HTTP GET /app.css responded 200 in 174.3493 ms 
+2026-11-02 21:24:10.586 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 3.2886 ms 
+2026-11-02 21:24:10.593 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 10.1770 ms 
+2026-11-02 21:24:10.657 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 4.7304 ms 
+2026-11-02 21:24:10.657 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 8.4477 ms 
+2026-11-02 21:24:11.562 +03:30 [INF] HTTP GET /purchases/create responded 200 in 802.2363 ms 
+2026-11-02 21:24:11.594 +03:30 [INF] HTTP GET /_blazor responded 101 in 890.6185 ms 
+2026-11-02 21:24:11.598 +03:30 [INF] HTTP GET /app.css responded 200 in 1.9636 ms 
+2026-11-02 21:24:11.606 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 0.7124 ms 
+2026-11-02 21:24:11.606 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 32.3301 ms 
+2026-11-02 21:24:11.608 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 304 in 0.6682 ms 
+2026-11-02 21:24:11.612 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 4.3287 ms 
+2026-11-02 21:24:11.660 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.5325 ms 
+2026-11-02 21:24:11.660 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 0.5321 ms 
+2026-11-02 21:24:11.728 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 0.8832 ms 
+2026-11-02 21:24:11.756 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.6432 ms 
+2026-11-02 21:24:38.157 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 1.2156 ms 
+2026-11-02 21:28:19.891 +03:30 [INF] HTTP GET /_blazor responded 101 in 248127.0486 ms 
+2026-11-02 21:30:21.864 +03:30 [INF] HTTP GET /_blazor responded 101 in 371199.7284 ms 
+2026-11-02 21:43:12.873 +03:30 [INF] سرویس زمان‌بندی بکاپ متوقف شد. 
+2026-11-02 21:43:33.270 +03:30 [INF] Storage directories are ready. ImagesPath: D:\porograming\Rider\AutoSpare\AutoSpare.Web\wwwroot\Uploads\Images, BackupPath: D:\AutoSpareBackups 
+2026-11-02 21:43:33.310 +03:30 [INF] سرویس زمان‌بندی بکاپ پایگاه داده راه‌اندازی شد. 
+2026-11-02 21:43:33.335 +03:30 [INF] بکاپ بعدی در ساعت 2026/11/03 02:30:00 اجرا خواهد شد (مدت انتظار: "04:46:26.6689221"). 
+2026-11-02 21:43:33.711 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 31.9653 ms 
+2026-11-02 21:43:34.449 +03:30 [INF] HTTP GET / responded 200 in 771.7829 ms 
+2026-11-02 21:43:34.481 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 304 in 4.7264 ms 
+2026-11-02 21:43:34.485 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 0.7958 ms 
+2026-11-02 21:43:34.501 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 24.5971 ms 
+2026-11-02 21:43:34.507 +03:30 [INF] HTTP GET /app.css responded 200 in 31.2972 ms 
+2026-11-02 21:43:34.577 +03:30 [INF] HTTP GET /purchases/create responded 200 in 771.3637 ms 
+2026-11-02 21:43:34.607 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 14.6303 ms 
+2026-11-02 21:43:34.625 +03:30 [INF] HTTP GET /_blazor responded 101 in 892.6386 ms 
+2026-11-02 21:43:34.627 +03:30 [INF] HTTP GET /app.css responded 200 in 4.2668 ms 
+2026-11-02 21:43:34.642 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 0.6480 ms 
+2026-11-02 21:43:34.642 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 304 in 0.3631 ms 
+2026-11-02 21:43:34.646 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 3.1697 ms 
+2026-11-02 21:43:34.652 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 10.2584 ms 
+2026-11-02 21:43:34.682 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 7.1317 ms 
+2026-11-02 21:43:34.709 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 0.8667 ms 
+2026-11-02 21:43:34.709 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.8668 ms 
+2026-11-02 21:43:34.722 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 2.2464 ms 
+2026-11-02 21:43:34.782 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 1.0719 ms 
+2026-11-02 21:43:34.824 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 1.1925 ms 
+2026-11-02 21:43:44.922 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 2.4363 ms 
+2026-11-02 21:44:20.394 +03:30 [INF] HTTP GET /_blazor responded 101 in 45562.3043 ms 
+2026-11-02 21:44:22.855 +03:30 [INF] HTTP GET /_blazor responded 101 in 48123.1497 ms 
+2026-11-02 21:44:23.854 +03:30 [INF] سرویس زمان‌بندی بکاپ متوقف شد. 
+2026-11-02 21:45:18.966 +03:30 [INF] Storage directories are ready. ImagesPath: D:\porograming\Rider\AutoSpare\AutoSpare.Web\wwwroot\Uploads\Images, BackupPath: D:\AutoSpareBackups 
+2026-11-02 21:45:18.992 +03:30 [INF] سرویس زمان‌بندی بکاپ پایگاه داده راه‌اندازی شد. 
+2026-11-02 21:45:19.012 +03:30 [INF] بکاپ بعدی در ساعت 2026/11/03 02:30:00 اجرا خواهد شد (مدت انتظار: "04:44:40.9911719"). 
+2026-11-02 21:45:19.245 +03:30 [INF] HTTP GET / responded 302 in 11.3070 ms 
+2026-11-02 21:45:19.627 +03:30 [INF] HTTP GET /login responded 200 in 368.9085 ms 
+2026-11-02 21:45:19.656 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 304 in 6.4700 ms 
+2026-11-02 21:45:19.656 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 6.4701 ms 
+2026-11-02 21:45:19.669 +03:30 [INF] HTTP GET /app.css responded 200 in 19.9055 ms 
+2026-11-02 21:45:19.674 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 24.9362 ms 
+2026-11-02 21:45:19.733 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.7064 ms 
+2026-11-02 21:45:19.750 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 6.7223 ms 
+2026-11-02 21:45:19.760 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 3.2389 ms 
+2026-11-02 21:45:25.251 +03:30 [INF] HTTP POST /api/auth/login responded 302 in 441.5331 ms 
+2026-11-02 21:45:25.762 +03:30 [INF] HTTP GET / responded 200 in 504.3278 ms 
+2026-11-02 21:45:25.780 +03:30 [INF] HTTP GET /app.css responded 200 in 1.5625 ms 
+2026-11-02 21:45:25.786 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 304 in 0.5941 ms 
+2026-11-02 21:45:25.786 +03:30 [INF] HTTP GET /_blazor responded 101 in 6016.8523 ms 
+2026-11-02 21:45:25.786 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 0.5989 ms 
+2026-11-02 21:45:25.794 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 9.6501 ms 
+2026-11-02 21:45:25.797 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 25.2368 ms 
+2026-11-02 21:45:25.840 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.4680 ms 
+2026-11-02 21:45:25.862 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 2.6540 ms 
+2026-11-02 21:45:25.871 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 1.9531 ms 
+2026-11-02 21:45:59.600 +03:30 [INF] HTTP GET /_blazor responded 101 in 33719.0596 ms 
+2026-11-02 21:46:00.615 +03:30 [INF] سرویس زمان‌بندی بکاپ متوقف شد. 
+2026-11-02 21:47:01.260 +03:30 [FTL] AutoSpare Web Application terminated unexpectedly. 
+Microsoft.Extensions.Hosting.HostAbortedException: The host was aborted.
+   at Microsoft.Extensions.Hosting.HostFactoryResolver.HostingListener.ThrowHostAborted()
+   at Microsoft.Extensions.Hosting.HostFactoryResolver.HostingListener.OnNext(KeyValuePair`2 value)
+   at System.Diagnostics.DiagnosticListener.Write(String name, Object value)
+   at Microsoft.Extensions.Hosting.HostBuilder.ResolveHost(IServiceProvider serviceProvider, DiagnosticListener diagnosticListener)
+   at Microsoft.Extensions.Hosting.HostApplicationBuilder.Build()
+   at Microsoft.AspNetCore.Builder.WebApplicationBuilder.Build()
+   at Program.<Main>$(String[] args) in D:\porograming\Rider\AutoSpare\AutoSpare.Web\Program.cs:line 151
+2026-11-02 21:47:04.695 +03:30 [FTL] AutoSpare Web Application terminated unexpectedly. 
+Microsoft.Extensions.Hosting.HostAbortedException: The host was aborted.
+   at Microsoft.Extensions.Hosting.HostFactoryResolver.HostingListener.ThrowHostAborted()
+   at Microsoft.Extensions.Hosting.HostFactoryResolver.HostingListener.OnNext(KeyValuePair`2 value)
+   at System.Diagnostics.DiagnosticListener.Write(String name, Object value)
+   at Microsoft.Extensions.Hosting.HostBuilder.ResolveHost(IServiceProvider serviceProvider, DiagnosticListener diagnosticListener)
+   at Microsoft.Extensions.Hosting.HostApplicationBuilder.Build()
+   at Microsoft.AspNetCore.Builder.WebApplicationBuilder.Build()
+   at Program.<Main>$(String[] args) in D:\porograming\Rider\AutoSpare\AutoSpare.Web\Program.cs:line 151
+2026-11-02 21:49:54.931 +03:30 [FTL] AutoSpare Web Application terminated unexpectedly. 
+Microsoft.Extensions.Hosting.HostAbortedException: The host was aborted.
+   at Microsoft.Extensions.Hosting.HostFactoryResolver.HostingListener.ThrowHostAborted()
+   at Microsoft.Extensions.Hosting.HostFactoryResolver.HostingListener.OnNext(KeyValuePair`2 value)
+   at System.Diagnostics.DiagnosticListener.Write(String name, Object value)
+   at Microsoft.Extensions.Hosting.HostBuilder.ResolveHost(IServiceProvider serviceProvider, DiagnosticListener diagnosticListener)
+   at Microsoft.Extensions.Hosting.HostApplicationBuilder.Build()
+   at Microsoft.AspNetCore.Builder.WebApplicationBuilder.Build()
+   at Program.<Main>$(String[] args) in D:\porograming\Rider\AutoSpare\AutoSpare.Web\Program.cs:line 151
+2026-11-02 21:50:10.951 +03:30 [FTL] AutoSpare Web Application terminated unexpectedly. 
+Microsoft.Extensions.Hosting.HostAbortedException: The host was aborted.
+   at Microsoft.Extensions.Hosting.HostFactoryResolver.HostingListener.ThrowHostAborted()
+   at Microsoft.Extensions.Hosting.HostFactoryResolver.HostingListener.OnNext(KeyValuePair`2 value)
+   at System.Diagnostics.DiagnosticListener.Write(String name, Object value)
+   at Microsoft.Extensions.Hosting.HostBuilder.ResolveHost(IServiceProvider serviceProvider, DiagnosticListener diagnosticListener)
+   at Microsoft.Extensions.Hosting.HostApplicationBuilder.Build()
+   at Microsoft.AspNetCore.Builder.WebApplicationBuilder.Build()
+   at Program.<Main>$(String[] args) in D:\porograming\Rider\AutoSpare\AutoSpare.Web\Program.cs:line 151
+2026-11-02 21:50:20.649 +03:30 [INF] Default Admin user created successfully. 
+2026-11-02 21:50:20.698 +03:30 [INF] Storage directories are ready. ImagesPath: D:\porograming\Rider\AutoSpare\AutoSpare.Web\wwwroot\Uploads\Images, BackupPath: D:\AutoSpareBackups 
+2026-11-02 21:50:20.708 +03:30 [INF] سرویس زمان‌بندی بکاپ پایگاه داده راه‌اندازی شد. 
+2026-11-02 21:50:20.726 +03:30 [INF] بکاپ بعدی در ساعت 2026/11/03 02:30:00 اجرا خواهد شد (مدت انتظار: "04:39:39.2768479"). 
+2026-11-02 21:50:20.909 +03:30 [INF] HTTP GET / responded 302 in 10.3808 ms 
+2026-11-02 21:50:21.144 +03:30 [INF] HTTP GET /login responded 200 in 223.5726 ms 
+2026-11-02 21:50:21.174 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 7.5756 ms 
+2026-11-02 21:50:21.174 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 304 in 7.5755 ms 
+2026-11-02 21:50:21.184 +03:30 [INF] HTTP GET /app.css responded 200 in 17.0270 ms 
+2026-11-02 21:50:21.187 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 20.1905 ms 
+2026-11-02 21:50:21.228 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.4906 ms 
+2026-11-02 21:50:21.243 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 6.4081 ms 
+2026-11-02 21:50:21.265 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 8.7308 ms 
+2026-11-02 21:50:22.860 +03:30 [INF] HTTP POST /api/auth/login responded 302 in 208.4300 ms 
+2026-11-02 21:50:23.464 +03:30 [INF] HTTP GET / responded 200 in 596.3971 ms 
+2026-11-02 21:50:23.482 +03:30 [INF] HTTP GET /app.css responded 200 in 4.0210 ms 
+2026-11-02 21:50:23.484 +03:30 [INF] HTTP GET /_blazor responded 101 in 2211.3235 ms 
+2026-11-02 21:50:23.484 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 304 in 0.9717 ms 
+2026-11-02 21:50:23.484 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 1.0379 ms 
+2026-11-02 21:50:23.499 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 15.9255 ms 
+2026-11-02 21:50:23.503 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 31.9027 ms 
+2026-11-02 21:50:23.535 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.4918 ms 
+2026-11-02 21:50:23.567 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 1.6570 ms 
+2026-11-02 21:50:23.575 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.6491 ms 
+2026-11-02 21:54:30.852 +03:30 [WRN] The static asset '/uploads/products/aba5a5d005684f84a069742c0d83feed.png' was not found in the built time manifest. This file will not be available at runtime if it is not available at compile time during the publish process. If the file was not added to the project during development, and is created at runtime, use the StaticFiles middleware to serve it instead. 
+2026-11-02 21:54:30.863 +03:30 [INF] HTTP GET /uploads/products/aba5a5d005684f84a069742c0d83feed.png responded 200 in 17.7101 ms 
+2026-11-02 21:55:29.572 +03:30 [WRN] The static asset '/uploads/products/aba5a5d005684f84a069742c0d83feed.png' was not found in the built time manifest. This file will not be available at runtime if it is not available at compile time during the publish process. If the file was not added to the project during development, and is created at runtime, use the StaticFiles middleware to serve it instead. 
+2026-11-02 21:55:29.572 +03:30 [WRN] The static asset '/uploads/products/8c99d533744d495cad96035fe40976a6.png' was not found in the built time manifest. This file will not be available at runtime if it is not available at compile time during the publish process. If the file was not added to the project during development, and is created at runtime, use the StaticFiles middleware to serve it instead. 
+2026-11-02 21:55:29.578 +03:30 [INF] HTTP GET /uploads/products/8c99d533744d495cad96035fe40976a6.png responded 200 in 7.8070 ms 
+2026-11-02 21:55:29.578 +03:30 [INF] HTTP GET /uploads/products/aba5a5d005684f84a069742c0d83feed.png responded 200 in 7.8070 ms 
+2026-11-02 21:56:20.522 +03:30 [WRN] The static asset '/uploads/products/aba5a5d005684f84a069742c0d83feed.png' was not found in the built time manifest. This file will not be available at runtime if it is not available at compile time during the publish process. If the file was not added to the project during development, and is created at runtime, use the StaticFiles middleware to serve it instead. 
+2026-11-02 21:56:20.525 +03:30 [INF] HTTP GET /uploads/products/aba5a5d005684f84a069742c0d83feed.png responded 200 in 3.7253 ms 
+2026-11-02 21:59:49.118 +03:30 [INF] HTTP GET /_blazor responded 101 in 565535.6899 ms 
+2026-11-02 21:59:50.130 +03:30 [INF] سرویس زمان‌بندی بکاپ متوقف شد. 
+2026-11-02 22:00:01.124 +03:30 [INF] Storage directories are ready. ImagesPath: D:\porograming\Rider\AutoSpare\AutoSpare.Web\wwwroot\Uploads\Images, BackupPath: D:\AutoSpareBackups 
+2026-11-02 22:00:01.182 +03:30 [INF] سرویس زمان‌بندی بکاپ پایگاه داده راه‌اندازی شد. 
+2026-11-02 22:00:01.218 +03:30 [INF] بکاپ بعدی در ساعت 2026/11/03 02:30:00 اجرا خواهد شد (مدت انتظار: "04:29:58.7901900"). 
+2026-11-02 22:00:01.529 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 51.7513 ms 
+2026-11-02 22:00:02.549 +03:30 [INF] HTTP GET / responded 200 in 1074.4508 ms 
+2026-11-02 22:00:02.577 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 1.9384 ms 
+2026-11-02 22:00:02.589 +03:30 [INF] HTTP GET /app.css responded 200 in 19.0808 ms 
+2026-11-02 22:00:02.595 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 25.9828 ms 
+2026-11-02 22:00:02.600 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 304 in 0.7364 ms 
+2026-11-02 22:00:02.638 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.6692 ms 
+2026-11-02 22:00:02.651 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 7.3968 ms 
+2026-11-02 22:00:02.672 +03:30 [INF] HTTP GET /products responded 200 in 988.4923 ms 
+2026-11-02 22:00:02.709 +03:30 [INF] HTTP GET /app.css responded 200 in 7.9473 ms 
+2026-11-02 22:00:02.710 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 304 in 0.6036 ms 
+2026-11-02 22:00:02.714 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 12.2602 ms 
+2026-11-02 22:00:02.716 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 0.7527 ms 
+2026-11-02 22:00:02.719 +03:30 [INF] HTTP GET /uploads/products/8c99d533744d495cad96035fe40976a6.png responded 304 in 1.1494 ms 
+2026-11-02 22:00:02.722 +03:30 [INF] HTTP GET /_blazor responded 101 in 1157.7782 ms 
+2026-11-02 22:00:02.735 +03:30 [INF] HTTP GET /uploads/products/aba5a5d005684f84a069742c0d83feed.png responded 304 in 0.6912 ms 
+2026-11-02 22:00:02.745 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 52.0253 ms 
+2026-11-02 22:00:02.787 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 2.5320 ms 
+2026-11-02 22:00:02.802 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 1.7503 ms 
+2026-11-02 22:00:02.817 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 1.6241 ms 
+2026-11-02 22:00:02.860 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.6080 ms 
+2026-11-02 22:00:09.421 +03:30 [INF] HTTP GET /_blazor responded 101 in 6549.8693 ms 
+2026-11-02 22:00:09.432 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 13.4982 ms 
+2026-11-02 22:01:09.132 +03:30 [INF] HTTP GET /uploads/products/8c99d533744d495cad96035fe40976a6.png responded 304 in 0.6215 ms 
+2026-11-02 22:01:09.132 +03:30 [INF] HTTP GET /uploads/products/aba5a5d005684f84a069742c0d83feed.png responded 304 in 0.5975 ms 
+2026-11-02 22:01:28.796 +03:30 [INF] HTTP GET /uploads/products/aba5a5d005684f84a069742c0d83feed.png responded 304 in 0.4455 ms 
+2026-11-02 22:01:33.632 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 0.8192 ms 
+2026-11-02 22:01:41.323 +03:30 [INF] HTTP GET /uploads/products/8c99d533744d495cad96035fe40976a6.png responded 304 in 0.8196 ms 
+2026-11-02 22:01:41.323 +03:30 [INF] HTTP GET /uploads/products/aba5a5d005684f84a069742c0d83feed.png responded 304 in 0.8568 ms 
+2026-11-02 22:01:59.430 +03:30 [WRN] Savepoints are disabled because Multiple Active Result Sets (MARS) is enabled. If 'SaveChanges' fails, then the transaction cannot be automatically rolled back to a known clean state. Instead, the transaction should be rolled back by the application before retrying 'SaveChanges'. See https://go.microsoft.com/fwlink/?linkid=2149338 for more information and examples. To identify the code which triggers this warning, call 'ConfigureWarnings(w => w.Throw(SqlServerEventId.SavepointsDisabledBecauseOfMARS))'. 
+2026-11-02 22:02:08.170 +03:30 [INF] HTTP GET /uploads/products/aba5a5d005684f84a069742c0d83feed.png responded 304 in 1.8525 ms 
+2026-11-02 22:02:08.170 +03:30 [INF] HTTP GET /uploads/products/8c99d533744d495cad96035fe40976a6.png responded 304 in 1.5071 ms 
+2026-11-02 22:02:19.430 +03:30 [INF] HTTP GET /uploads/products/8c99d533744d495cad96035fe40976a6.png responded 304 in 1.3550 ms 
+2026-11-02 22:02:19.431 +03:30 [INF] HTTP GET /uploads/products/aba5a5d005684f84a069742c0d83feed.png responded 304 in 0.5149 ms 
+2026-11-02 22:02:44.630 +03:30 [WRN] Savepoints are disabled because Multiple Active Result Sets (MARS) is enabled. If 'SaveChanges' fails, then the transaction cannot be automatically rolled back to a known clean state. Instead, the transaction should be rolled back by the application before retrying 'SaveChanges'. See https://go.microsoft.com/fwlink/?linkid=2149338 for more information and examples. To identify the code which triggers this warning, call 'ConfigureWarnings(w => w.Throw(SqlServerEventId.SavepointsDisabledBecauseOfMARS))'. 
+2026-11-02 22:03:03.413 +03:30 [INF] HTTP GET /uploads/products/aba5a5d005684f84a069742c0d83feed.png responded 304 in 0.5246 ms 
+2026-11-02 22:03:03.413 +03:30 [INF] HTTP GET /uploads/products/8c99d533744d495cad96035fe40976a6.png responded 304 in 0.5244 ms 
+2026-11-02 22:03:15.112 +03:30 [INF] HTTP GET /uploads/products/8c99d533744d495cad96035fe40976a6.png responded 304 in 0.3669 ms 
+2026-11-02 22:03:15.112 +03:30 [INF] HTTP GET /uploads/products/aba5a5d005684f84a069742c0d83feed.png responded 304 in 0.3675 ms 
+2026-11-02 22:03:18.755 +03:30 [WRN] Savepoints are disabled because Multiple Active Result Sets (MARS) is enabled. If 'SaveChanges' fails, then the transaction cannot be automatically rolled back to a known clean state. Instead, the transaction should be rolled back by the application before retrying 'SaveChanges'. See https://go.microsoft.com/fwlink/?linkid=2149338 for more information and examples. To identify the code which triggers this warning, call 'ConfigureWarnings(w => w.Throw(SqlServerEventId.SavepointsDisabledBecauseOfMARS))'. 
+2026-11-02 22:03:29.196 +03:30 [INF] HTTP GET /uploads/products/aba5a5d005684f84a069742c0d83feed.png responded 304 in 0.3552 ms 
+2026-11-02 22:03:29.196 +03:30 [INF] HTTP GET /uploads/products/8c99d533744d495cad96035fe40976a6.png responded 304 in 0.3541 ms 
+2026-11-02 22:03:30.672 +03:30 [WRN] The query uses the 'First'/'FirstOrDefault' operator without 'OrderBy' and filter operators. This may lead to unpredictable results. 
+2026-11-02 22:03:30.731 +03:30 [INF] HTTP GET /sales/print/5fcb5297-818c-4063-819f-656e3e655e53 responded 200 in 75.7110 ms 
+2026-11-02 22:03:30.744 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 304 in 0.4433 ms 
+2026-11-02 22:03:30.744 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 0.4432 ms 
+2026-11-02 22:03:30.745 +03:30 [INF] HTTP GET /app.css responded 200 in 2.1022 ms 
+2026-11-02 22:03:30.751 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 7.8150 ms 
+2026-11-02 22:03:30.825 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 0.8692 ms 
+2026-11-02 22:03:30.825 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.8769 ms 
+2026-11-02 22:03:30.856 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 0.4958 ms 
+2026-11-02 22:03:30.864 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.4386 ms 
+2026-11-02 22:03:35.390 +03:30 [INF] HTTP GET /_blazor responded 101 in 4514.7789 ms 
+2026-11-02 22:03:36.130 +03:30 [INF] HTTP GET /sales/print-receipt/5fcb5297-818c-4063-819f-656e3e655e53 responded 200 in 26.8074 ms 
+2026-11-02 22:03:36.143 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 304 in 1.1307 ms 
+2026-11-02 22:03:36.143 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 1.0502 ms 
+2026-11-02 22:03:36.145 +03:30 [INF] HTTP GET /app.css responded 200 in 2.9477 ms 
+2026-11-02 22:03:36.147 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 4.3393 ms 
+2026-11-02 22:03:36.227 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 0.4657 ms 
+2026-11-02 22:03:36.227 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.4657 ms 
+2026-11-02 22:03:36.266 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 1.0200 ms 
+2026-11-02 22:03:36.273 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.4448 ms 
+2026-11-02 22:03:42.248 +03:30 [INF] HTTP GET /_blazor responded 101 in 5966.0456 ms 
+2026-11-02 22:04:11.941 +03:30 [INF] HTTP GET /uploads/products/aba5a5d005684f84a069742c0d83feed.png responded 304 in 0.8821 ms 
+2026-11-02 22:04:11.941 +03:30 [INF] HTTP GET /uploads/products/8c99d533744d495cad96035fe40976a6.png responded 304 in 0.8889 ms 
+2026-11-02 22:04:47.750 +03:30 [WRN] Savepoints are disabled because Multiple Active Result Sets (MARS) is enabled. If 'SaveChanges' fails, then the transaction cannot be automatically rolled back to a known clean state. Instead, the transaction should be rolled back by the application before retrying 'SaveChanges'. See https://go.microsoft.com/fwlink/?linkid=2149338 for more information and examples. To identify the code which triggers this warning, call 'ConfigureWarnings(w => w.Throw(SqlServerEventId.SavepointsDisabledBecauseOfMARS))'. 
+2026-11-02 22:05:03.980 +03:30 [INF] HTTP GET /uploads/products/8c99d533744d495cad96035fe40976a6.png responded 304 in 0.3326 ms 
+2026-11-02 22:05:03.980 +03:30 [INF] HTTP GET /uploads/products/aba5a5d005684f84a069742c0d83feed.png responded 304 in 0.3326 ms 
+2026-11-02 22:05:06.567 +03:30 [INF] HTTP GET /sales/print/5fcb5297-818c-4063-819f-656e3e655e53 responded 200 in 25.4839 ms 
+2026-11-02 22:05:06.579 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 0.2981 ms 
+2026-11-02 22:05:06.579 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 304 in 0.3392 ms 
+2026-11-02 22:05:06.580 +03:30 [INF] HTTP GET /app.css responded 200 in 1.1005 ms 
+2026-11-02 22:05:06.582 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 3.6248 ms 
+2026-11-02 22:05:06.653 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.7833 ms 
+2026-11-02 22:05:06.654 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 0.3206 ms 
+2026-11-02 22:05:06.692 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 0.8577 ms 
+2026-11-02 22:05:06.700 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.4902 ms 
+2026-11-02 22:05:10.358 +03:30 [INF] HTTP GET /_blazor responded 101 in 3648.6600 ms 
+2026-11-02 22:07:47.753 +03:30 [INF] HTTP GET /_blazor responded 101 in 464926.8351 ms 
+2026-11-02 22:07:48.757 +03:30 [INF] سرویس زمان‌بندی بکاپ متوقف شد. 
+2026-11-02 22:07:59.867 +03:30 [INF] Storage directories are ready. ImagesPath: D:\porograming\Rider\AutoSpare\AutoSpare.Web\wwwroot\Uploads\Images, BackupPath: D:\AutoSpareBackups 
+2026-11-02 22:07:59.894 +03:30 [INF] سرویس زمان‌بندی بکاپ پایگاه داده راه‌اندازی شد. 
+2026-11-02 22:07:59.911 +03:30 [INF] بکاپ بعدی در ساعت 2026/11/03 02:30:00 اجرا خواهد شد (مدت انتظار: "04:22:00.0916731"). 
+2026-11-02 22:08:00.863 +03:30 [INF] HTTP GET / responded 200 in 759.2717 ms 
+2026-11-02 22:08:00.908 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 6.2149 ms 
+2026-11-02 22:08:00.917 +03:30 [INF] HTTP GET /app.css responded 200 in 28.6863 ms 
+2026-11-02 22:08:00.918 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 304 in 8.0885 ms 
+2026-11-02 22:08:00.922 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 33.2119 ms 
+2026-11-02 22:08:01.030 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 5.8289 ms 
+2026-11-02 22:08:01.048 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 10.0836 ms 
+2026-11-02 22:08:01.080 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 15.6420 ms 
+2026-11-02 22:08:01.630 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 1.2831 ms 
+2026-11-02 22:08:01.635 +03:30 [INF] HTTP GET /_blazor responded 101 in 545.5638 ms 
+2026-11-02 22:08:01.646 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 28.9313 ms 
+2026-11-02 22:08:01.989 +03:30 [INF] HTTP GET /inventory/alerts responded 200 in 287.5080 ms 
+2026-11-02 22:08:02.001 +03:30 [INF] HTTP GET /_blazor responded 101 in 340.2900 ms 
+2026-11-02 22:08:02.006 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 1.4716 ms 
+2026-11-02 22:08:02.011 +03:30 [INF] HTTP GET /app.css responded 200 in 1.6521 ms 
+2026-11-02 22:08:02.011 +03:30 [INF] HTTP GET /uploads/products/aba5a5d005684f84a069742c0d83feed.png responded 304 in 0.5040 ms 
+2026-11-02 22:08:02.013 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 0.5661 ms 
+2026-11-02 22:08:02.021 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 304 in 0.7147 ms 
+2026-11-02 22:08:02.024 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 9.6284 ms 
+2026-11-02 22:08:02.049 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.4484 ms 
+2026-11-02 22:08:02.049 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 0.4485 ms 
+2026-11-02 22:08:02.080 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 1.4723 ms 
+2026-11-02 22:08:02.089 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 1.1979 ms 
+2026-11-02 22:08:25.166 +03:30 [INF] HTTP GET /uploads/products/8c99d533744d495cad96035fe40976a6.png responded 304 in 0.6023 ms 
+2026-11-02 22:08:33.242 +03:30 [INF] HTTP GET /uploads/products/8c99d533744d495cad96035fe40976a6.png responded 304 in 0.4681 ms 
+2026-11-02 22:25:39.291 +03:30 [INF] HTTP GET /uploads/products/aba5a5d005684f84a069742c0d83feed.png responded 304 in 0.3726 ms 
+2026-11-02 22:25:39.291 +03:30 [INF] HTTP GET /uploads/products/8c99d533744d495cad96035fe40976a6.png responded 304 in 0.3714 ms 
+2026-11-02 22:32:08.616 +03:30 [WRN] Unhandled exception rendering component: Object of type 'AutoSpare.Web.Components.Common.ConfirmDialog' does not have a property matching the name 'ButtonText'. 
+System.InvalidOperationException: Object of type 'AutoSpare.Web.Components.Common.ConfirmDialog' does not have a property matching the name 'ButtonText'.
+   at Microsoft.AspNetCore.Components.Reflection.ComponentProperties.ThrowForUnknownIncomingParameterName(Type targetType, String parameterName)
+   at Microsoft.AspNetCore.Components.Reflection.ComponentProperties.SetProperties(ParameterView& parameters, Object target)
+   at Microsoft.AspNetCore.Components.ComponentBase.SetParametersAsync(ParameterView parameters)
+   at Microsoft.AspNetCore.Components.Rendering.ComponentState.SupplyCombinedParameters(ParameterView directAndCascadingParameters)
+2026-11-02 22:32:08.641 +03:30 [ERR] Unhandled exception in circuit '0BiHk8BYk9UZahCmDr-9Vey6y426P1Ky43jrim6zybA'. 
+System.InvalidOperationException: Object of type 'AutoSpare.Web.Components.Common.ConfirmDialog' does not have a property matching the name 'ButtonText'.
+   at Microsoft.AspNetCore.Components.Reflection.ComponentProperties.ThrowForUnknownIncomingParameterName(Type targetType, String parameterName)
+   at Microsoft.AspNetCore.Components.Reflection.ComponentProperties.SetProperties(ParameterView& parameters, Object target)
+   at Microsoft.AspNetCore.Components.ComponentBase.SetParametersAsync(ParameterView parameters)
+   at Microsoft.AspNetCore.Components.Rendering.ComponentState.SupplyCombinedParameters(ParameterView directAndCascadingParameters)
+2026-11-02 22:32:08.648 +03:30 [WRN] Unhandled exception rendering component: Cannot access a disposed object. 
+System.ObjectDisposedException: Cannot access a disposed object.
+   at Microsoft.AspNetCore.Components.RenderTree.RenderTreeDiffBuilder.InsertNewFrame(DiffContext& diffContext, Int32 newFrameIndex)
+   at Microsoft.AspNetCore.Components.RenderTree.RenderTreeDiffBuilder.AppendDiffEntriesForRange(DiffContext& diffContext, Int32 oldStartIndex, Int32 oldEndIndexExcl, Int32 newStartIndex, Int32 newEndIndexExcl)
+   at Microsoft.AspNetCore.Components.Rendering.ComponentState.RenderIntoBatch(RenderBatchBuilder batchBuilder, RenderFragment renderFragment, Exception& renderFragmentException)
+   at Microsoft.AspNetCore.Components.RenderTree.Renderer.ProcessRenderQueue()
+2026-11-02 22:32:08.649 +03:30 [ERR] Unhandled exception in circuit '0BiHk8BYk9UZahCmDr-9Vey6y426P1Ky43jrim6zybA'. 
+System.ObjectDisposedException: Cannot access a disposed object.
+   at Microsoft.AspNetCore.Components.RenderTree.RenderTreeDiffBuilder.InsertNewFrame(DiffContext& diffContext, Int32 newFrameIndex)
+   at Microsoft.AspNetCore.Components.RenderTree.RenderTreeDiffBuilder.AppendDiffEntriesForRange(DiffContext& diffContext, Int32 oldStartIndex, Int32 oldEndIndexExcl, Int32 newStartIndex, Int32 newEndIndexExcl)
+   at Microsoft.AspNetCore.Components.Rendering.ComponentState.RenderIntoBatch(RenderBatchBuilder batchBuilder, RenderFragment renderFragment, Exception& renderFragmentException)
+   at Microsoft.AspNetCore.Components.RenderTree.Renderer.ProcessRenderQueue()
+2026-11-02 22:32:08.649 +03:30 [INF] HTTP GET /_blazor responded 101 in 1446549.1766 ms 
+2026-11-02 22:32:18.558 +03:30 [INF] HTTP GET /daily-settlements responded 200 in 23.3391 ms 
+2026-11-02 22:32:18.569 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 0.6481 ms 
+2026-11-02 22:32:18.574 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 304 in 0.5278 ms 
+2026-11-02 22:32:18.574 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 0.5281 ms 
+2026-11-02 22:32:18.575 +03:30 [INF] HTTP GET /app.css responded 200 in 1.5804 ms 
+2026-11-02 22:32:18.578 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 4.2014 ms 
+2026-11-02 22:32:18.597 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.5266 ms 
+2026-11-02 22:32:18.597 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 0.5265 ms 
+2026-11-02 22:32:18.610 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 0.4987 ms 
+2026-11-02 22:32:18.619 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.9403 ms 
+2026-11-02 22:32:25.209 +03:30 [INF] HTTP GET /daily-settlements responded 200 in 13.5249 ms 
+2026-11-02 22:32:25.217 +03:30 [INF] HTTP GET /_blazor responded 101 in 6587.5424 ms 
+2026-11-02 22:32:25.221 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 3.6458 ms 
+2026-11-02 22:32:25.223 +03:30 [INF] HTTP GET /app.css responded 200 in 1.0920 ms 
+2026-11-02 22:32:25.223 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 0.4733 ms 
+2026-11-02 22:32:25.223 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 304 in 0.5027 ms 
+2026-11-02 22:32:25.226 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 3.4288 ms 
+2026-11-02 22:32:25.247 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 0.3128 ms 
+2026-11-02 22:32:25.247 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.3075 ms 
+2026-11-02 22:32:25.255 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 0.5607 ms 
+2026-11-02 22:32:25.266 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.6823 ms 
+2026-11-02 22:32:30.459 +03:30 [WRN] The query uses the 'First'/'FirstOrDefault' operator without 'OrderBy' and filter operators. This may lead to unpredictable results. 
+2026-11-02 22:32:30.486 +03:30 [WRN] The query uses the 'First'/'FirstOrDefault' operator without 'OrderBy' and filter operators. This may lead to unpredictable results. 
+2026-11-02 22:33:36.900 +03:30 [WRN] Unhandled exception rendering component: Object of type 'AutoSpare.Web.Components.Common.ConfirmDialog' does not have a property matching the name 'ButtonText'. 
+System.InvalidOperationException: Object of type 'AutoSpare.Web.Components.Common.ConfirmDialog' does not have a property matching the name 'ButtonText'.
+   at Microsoft.AspNetCore.Components.Reflection.ComponentProperties.ThrowForUnknownIncomingParameterName(Type targetType, String parameterName)
+   at Microsoft.AspNetCore.Components.Reflection.ComponentProperties.SetProperties(ParameterView& parameters, Object target)
+   at Microsoft.AspNetCore.Components.ComponentBase.SetParametersAsync(ParameterView parameters)
+   at Microsoft.AspNetCore.Components.Rendering.ComponentState.SupplyCombinedParameters(ParameterView directAndCascadingParameters)
+2026-11-02 22:33:36.901 +03:30 [ERR] Unhandled exception in circuit 's5VkXZJE_MB3SBOqLGkZRETlnyTAbgAeRtAuabnpRWM'. 
+System.InvalidOperationException: Object of type 'AutoSpare.Web.Components.Common.ConfirmDialog' does not have a property matching the name 'ButtonText'.
+   at Microsoft.AspNetCore.Components.Reflection.ComponentProperties.ThrowForUnknownIncomingParameterName(Type targetType, String parameterName)
+   at Microsoft.AspNetCore.Components.Reflection.ComponentProperties.SetProperties(ParameterView& parameters, Object target)
+   at Microsoft.AspNetCore.Components.ComponentBase.SetParametersAsync(ParameterView parameters)
+   at Microsoft.AspNetCore.Components.Rendering.ComponentState.SupplyCombinedParameters(ParameterView directAndCascadingParameters)
+2026-11-02 22:33:36.906 +03:30 [WRN] Unhandled exception rendering component: Cannot access a disposed object. 
+System.ObjectDisposedException: Cannot access a disposed object.
+   at Microsoft.AspNetCore.Components.RenderTree.RenderTreeDiffBuilder.InsertNewFrame(DiffContext& diffContext, Int32 newFrameIndex)
+   at Microsoft.AspNetCore.Components.RenderTree.RenderTreeDiffBuilder.AppendDiffEntriesForRange(DiffContext& diffContext, Int32 oldStartIndex, Int32 oldEndIndexExcl, Int32 newStartIndex, Int32 newEndIndexExcl)
+   at Microsoft.AspNetCore.Components.Rendering.ComponentState.RenderIntoBatch(RenderBatchBuilder batchBuilder, RenderFragment renderFragment, Exception& renderFragmentException)
+   at Microsoft.AspNetCore.Components.RenderTree.Renderer.ProcessRenderQueue()
+2026-11-02 22:33:36.906 +03:30 [ERR] Unhandled exception in circuit 's5VkXZJE_MB3SBOqLGkZRETlnyTAbgAeRtAuabnpRWM'. 
+System.ObjectDisposedException: Cannot access a disposed object.
+   at Microsoft.AspNetCore.Components.RenderTree.RenderTreeDiffBuilder.InsertNewFrame(DiffContext& diffContext, Int32 newFrameIndex)
+   at Microsoft.AspNetCore.Components.RenderTree.RenderTreeDiffBuilder.AppendDiffEntriesForRange(DiffContext& diffContext, Int32 oldStartIndex, Int32 oldEndIndexExcl, Int32 newStartIndex, Int32 newEndIndexExcl)
+   at Microsoft.AspNetCore.Components.Rendering.ComponentState.RenderIntoBatch(RenderBatchBuilder batchBuilder, RenderFragment renderFragment, Exception& renderFragmentException)
+   at Microsoft.AspNetCore.Components.RenderTree.Renderer.ProcessRenderQueue()
+2026-11-02 22:33:36.907 +03:30 [INF] HTTP GET /_blazor responded 101 in 71632.6183 ms 
+2026-11-02 22:34:33.810 +03:30 [INF] سرویس زمان‌بندی بکاپ متوقف شد. 
+2026-11-02 22:34:50.348 +03:30 [INF] Storage directories are ready. ImagesPath: D:\porograming\Rider\AutoSpare\AutoSpare.Web\wwwroot\Uploads\Images, BackupPath: D:\AutoSpareBackups 
+2026-11-02 22:34:50.381 +03:30 [INF] سرویس زمان‌بندی بکاپ پایگاه داده راه‌اندازی شد. 
+2026-11-02 22:34:50.402 +03:30 [INF] بکاپ بعدی در ساعت 2026/11/03 02:30:00 اجرا خواهد شد (مدت انتظار: "03:55:09.6013588"). 
+2026-11-02 22:34:51.878 +03:30 [INF] HTTP GET / responded 200 in 1155.4317 ms 
+2026-11-02 22:34:51.911 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 3.1638 ms 
+2026-11-02 22:34:51.914 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 304 in 0.8758 ms 
+2026-11-02 22:34:51.933 +03:30 [INF] HTTP GET /app.css responded 200 in 30.2360 ms 
+2026-11-02 22:34:51.945 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 44.6300 ms 
+2026-11-02 22:34:52.135 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 6.5632 ms 
+2026-11-02 22:34:52.159 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 15.5134 ms 
+2026-11-02 22:34:52.214 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 43.6462 ms 
+2026-11-02 22:34:54.192 +03:30 [INF] HTTP GET /daily-settlements responded 200 in 357.2001 ms 
+2026-11-02 22:34:54.226 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 304 in 0.7521 ms 
+2026-11-02 22:34:54.228 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 0.4662 ms 
+2026-11-02 22:34:54.229 +03:30 [INF] HTTP GET /app.css responded 200 in 2.5238 ms 
+2026-11-02 22:34:54.232 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 5.8442 ms 
+2026-11-02 22:34:54.237 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 25.7042 ms 
+2026-11-02 22:34:54.281 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 0.9827 ms 
+2026-11-02 22:34:54.281 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 1.1440 ms 
+2026-11-02 22:34:54.285 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 1.1919 ms 
+2026-11-02 22:34:54.303 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 2.9415 ms 
+2026-11-02 22:35:09.535 +03:30 [INF] HTTP GET /uploads/products/8c99d533744d495cad96035fe40976a6.png responded 304 in 0.8627 ms 
+2026-11-02 22:35:09.535 +03:30 [INF] HTTP GET /uploads/products/aba5a5d005684f84a069742c0d83feed.png responded 304 in 0.8676 ms 
+2026-11-02 22:39:18.334 +03:30 [INF] HTTP GET /_blazor responded 101 in 264015.1979 ms 
+2026-11-02 22:39:18.334 +03:30 [INF] HTTP GET /_blazor responded 101 in 266112.7717 ms 
+2026-11-02 22:39:19.313 +03:30 [INF] سرویس زمان‌بندی بکاپ متوقف شد. 
+2026-11-02 22:39:28.204 +03:30 [INF] Storage directories are ready. ImagesPath: D:\porograming\Rider\AutoSpare\AutoSpare.Web\wwwroot\Uploads\Images, BackupPath: D:\AutoSpareBackups 
+2026-11-02 22:39:28.231 +03:30 [INF] سرویس زمان‌بندی بکاپ پایگاه داده راه‌اندازی شد. 
+2026-11-02 22:39:28.249 +03:30 [INF] بکاپ بعدی در ساعت 2026/11/03 02:30:00 اجرا خواهد شد (مدت انتظار: "03:50:31.7525508"). 
+2026-11-02 22:39:29.086 +03:30 [INF] HTTP GET / responded 200 in 644.5889 ms 
+2026-11-02 22:39:29.113 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 7.1225 ms 
+2026-11-02 22:39:29.113 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 304 in 5.0130 ms 
+2026-11-02 22:39:29.128 +03:30 [INF] HTTP GET /app.css responded 200 in 21.4570 ms 
+2026-11-02 22:39:29.132 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 25.3501 ms 
+2026-11-02 22:39:29.235 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 4.5575 ms 
+2026-11-02 22:39:29.254 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 9.1530 ms 
+2026-11-02 22:39:29.290 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 8.8437 ms 
+2026-11-02 22:39:32.172 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 1.0147 ms 
+2026-11-02 22:39:32.333 +03:30 [INF] HTTP GET / responded 200 in 99.7173 ms 
+2026-11-02 22:39:32.352 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 0.7109 ms 
+2026-11-02 22:39:32.354 +03:30 [INF] HTTP GET /_blazor responded 101 in 163.0820 ms 
+2026-11-02 22:39:32.356 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 304 in 0.7683 ms 
+2026-11-02 22:39:32.367 +03:30 [INF] HTTP GET /app.css responded 200 in 16.4253 ms 
+2026-11-02 22:39:32.374 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 19.5129 ms 
+2026-11-02 22:39:32.375 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 33.5755 ms 
+2026-11-02 22:39:32.439 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 2.4626 ms 
+2026-11-02 22:39:32.442 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.6297 ms 
+2026-11-02 22:39:32.467 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 3.5700 ms 
+2026-11-02 22:39:32.610 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 1.0247 ms 
+2026-11-02 22:39:33.083 +03:30 [INF] HTTP GET /purchases/create responded 200 in 420.8430 ms 
+2026-11-02 22:39:33.099 +03:30 [INF] HTTP GET /_blazor responded 101 in 471.9341 ms 
+2026-11-02 22:39:33.101 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 3.0194 ms 
+2026-11-02 22:39:33.106 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 0.5164 ms 
+2026-11-02 22:39:33.107 +03:30 [INF] HTTP GET /app.css responded 200 in 1.6545 ms 
+2026-11-02 22:39:33.110 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 4.9769 ms 
+2026-11-02 22:39:33.116 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 304 in 1.4387 ms 
+2026-11-02 22:39:33.149 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 0.4742 ms 
+2026-11-02 22:39:33.149 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.6819 ms 
+2026-11-02 22:39:33.181 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 0.7946 ms 
+2026-11-02 22:39:33.194 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 1.5943 ms 
+2026-11-02 22:39:36.092 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 1.3151 ms 
+2026-11-02 22:39:39.890 +03:30 [INF] HTTP GET /uploads/products/8c99d533744d495cad96035fe40976a6.png responded 304 in 0.5263 ms 
+2026-11-02 22:39:39.890 +03:30 [INF] HTTP GET /uploads/products/aba5a5d005684f84a069742c0d83feed.png responded 304 in 0.5263 ms 
+2026-11-02 22:40:07.403 +03:30 [WRN] Savepoints are disabled because Multiple Active Result Sets (MARS) is enabled. If 'SaveChanges' fails, then the transaction cannot be automatically rolled back to a known clean state. Instead, the transaction should be rolled back by the application before retrying 'SaveChanges'. See https://go.microsoft.com/fwlink/?linkid=2149338 for more information and examples. To identify the code which triggers this warning, call 'ConfigureWarnings(w => w.Throw(SqlServerEventId.SavepointsDisabledBecauseOfMARS))'. 
+2026-11-02 22:40:12.976 +03:30 [INF] HTTP GET /uploads/products/8c99d533744d495cad96035fe40976a6.png responded 304 in 0.7548 ms 
+2026-11-02 22:40:12.976 +03:30 [INF] HTTP GET /uploads/products/aba5a5d005684f84a069742c0d83feed.png responded 304 in 0.7551 ms 
+2026-11-02 22:40:30.280 +03:30 [INF] HTTP GET /uploads/products/aba5a5d005684f84a069742c0d83feed.png responded 304 in 0.7653 ms 
+2026-11-02 22:40:30.280 +03:30 [INF] HTTP GET /uploads/products/8c99d533744d495cad96035fe40976a6.png responded 304 in 0.7586 ms 
+2026-11-02 22:40:39.034 +03:30 [INF] HTTP GET /uploads/products/8c99d533744d495cad96035fe40976a6.png responded 304 in 1.0175 ms 
+2026-11-02 22:40:39.034 +03:30 [INF] HTTP GET /uploads/products/aba5a5d005684f84a069742c0d83feed.png responded 304 in 1.0166 ms 
+2026-11-02 22:41:08.272 +03:30 [INF] HTTP GET /_blazor responded 101 in 95067.8974 ms 
+2026-11-02 22:41:08.675 +03:30 [WRN] Savepoints are disabled because Multiple Active Result Sets (MARS) is enabled. If 'SaveChanges' fails, then the transaction cannot be automatically rolled back to a known clean state. Instead, the transaction should be rolled back by the application before retrying 'SaveChanges'. See https://go.microsoft.com/fwlink/?linkid=2149338 for more information and examples. To identify the code which triggers this warning, call 'ConfigureWarnings(w => w.Throw(SqlServerEventId.SavepointsDisabledBecauseOfMARS))'. 
+2026-11-02 22:41:16.111 +03:30 [INF] HTTP GET /uploads/products/aba5a5d005684f84a069742c0d83feed.png responded 304 in 0.5497 ms 
+2026-11-02 22:41:16.111 +03:30 [INF] HTTP GET /uploads/products/8c99d533744d495cad96035fe40976a6.png responded 304 in 0.5497 ms 
+2026-11-02 22:41:30.015 +03:30 [WRN] Savepoints are disabled because Multiple Active Result Sets (MARS) is enabled. If 'SaveChanges' fails, then the transaction cannot be automatically rolled back to a known clean state. Instead, the transaction should be rolled back by the application before retrying 'SaveChanges'. See https://go.microsoft.com/fwlink/?linkid=2149338 for more information and examples. To identify the code which triggers this warning, call 'ConfigureWarnings(w => w.Throw(SqlServerEventId.SavepointsDisabledBecauseOfMARS))'. 
+2026-11-02 22:41:35.201 +03:30 [INF] HTTP GET /uploads/products/8c99d533744d495cad96035fe40976a6.png responded 304 in 1.1006 ms 
+2026-11-02 22:41:35.201 +03:30 [INF] HTTP GET /uploads/products/aba5a5d005684f84a069742c0d83feed.png responded 304 in 1.1006 ms 
+2026-11-02 22:42:48.705 +03:30 [INF] HTTP GET /uploads/products/8c99d533744d495cad96035fe40976a6.png responded 304 in 0.2899 ms 
+2026-11-02 22:42:59.961 +03:30 [INF] HTTP GET /uploads/products/aba5a5d005684f84a069742c0d83feed.png responded 304 in 0.2691 ms 
+2026-11-02 22:43:07.231 +03:30 [INF] HTTP GET /uploads/products/aba5a5d005684f84a069742c0d83feed.png responded 304 in 0.2630 ms 
+2026-11-02 22:43:14.846 +03:30 [WRN] Savepoints are disabled because Multiple Active Result Sets (MARS) is enabled. If 'SaveChanges' fails, then the transaction cannot be automatically rolled back to a known clean state. Instead, the transaction should be rolled back by the application before retrying 'SaveChanges'. See https://go.microsoft.com/fwlink/?linkid=2149338 for more information and examples. To identify the code which triggers this warning, call 'ConfigureWarnings(w => w.Throw(SqlServerEventId.SavepointsDisabledBecauseOfMARS))'. 
+2026-11-02 22:43:19.405 +03:30 [INF] HTTP GET /uploads/products/8c99d533744d495cad96035fe40976a6.png responded 304 in 0.2826 ms 
+2026-11-02 22:43:31.685 +03:30 [INF] HTTP GET /uploads/products/aba5a5d005684f84a069742c0d83feed.png responded 304 in 0.3188 ms 
+2026-11-02 22:43:31.685 +03:30 [INF] HTTP GET /uploads/products/8c99d533744d495cad96035fe40976a6.png responded 304 in 0.3470 ms 
+2026-11-02 22:43:48.007 +03:30 [INF] HTTP GET /uploads/products/aba5a5d005684f84a069742c0d83feed.png responded 304 in 0.4213 ms 
+2026-11-02 22:43:48.007 +03:30 [INF] HTTP GET /uploads/products/8c99d533744d495cad96035fe40976a6.png responded 304 in 0.4215 ms 
+2026-11-02 22:43:57.362 +03:30 [INF] HTTP GET /uploads/products/8c99d533744d495cad96035fe40976a6.png responded 304 in 0.5163 ms 
+2026-11-02 22:43:57.362 +03:30 [INF] HTTP GET /uploads/products/aba5a5d005684f84a069742c0d83feed.png responded 304 in 0.5162 ms 
+2026-11-02 22:44:12.082 +03:30 [WRN] Savepoints are disabled because Multiple Active Result Sets (MARS) is enabled. If 'SaveChanges' fails, then the transaction cannot be automatically rolled back to a known clean state. Instead, the transaction should be rolled back by the application before retrying 'SaveChanges'. See https://go.microsoft.com/fwlink/?linkid=2149338 for more information and examples. To identify the code which triggers this warning, call 'ConfigureWarnings(w => w.Throw(SqlServerEventId.SavepointsDisabledBecauseOfMARS))'. 
+2026-11-02 22:44:15.375 +03:30 [INF] HTTP GET /uploads/products/aba5a5d005684f84a069742c0d83feed.png responded 304 in 0.2841 ms 
+2026-11-02 22:44:15.375 +03:30 [INF] HTTP GET /uploads/products/8c99d533744d495cad96035fe40976a6.png responded 304 in 0.2843 ms 
+2026-11-02 22:45:18.206 +03:30 [INF] HTTP GET /uploads/products/8c99d533744d495cad96035fe40976a6.png responded 304 in 0.2608 ms 
+2026-11-02 22:45:18.206 +03:30 [INF] HTTP GET /uploads/products/aba5a5d005684f84a069742c0d83feed.png responded 304 in 0.2609 ms 
+2026-11-02 22:49:20.277 +03:30 [INF] HTTP GET /_blazor responded 101 in 590980.9463 ms 
+2026-11-02 22:49:30.045 +03:30 [INF] HTTP GET /uploads/products/aba5a5d005684f84a069742c0d83feed.png responded 304 in 0.2380 ms 
+2026-11-02 22:49:30.045 +03:30 [INF] HTTP GET /uploads/products/8c99d533744d495cad96035fe40976a6.png responded 304 in 0.4487 ms 
+2026-11-02 22:49:47.089 +03:30 [INF] HTTP GET /uploads/products/aba5a5d005684f84a069742c0d83feed.png responded 304 in 0.5551 ms 
+2026-11-02 22:49:47.089 +03:30 [INF] HTTP GET /uploads/products/8c99d533744d495cad96035fe40976a6.png responded 304 in 0.5650 ms 
+2026-11-02 22:50:13.179 +03:30 [WRN] Savepoints are disabled because Multiple Active Result Sets (MARS) is enabled. If 'SaveChanges' fails, then the transaction cannot be automatically rolled back to a known clean state. Instead, the transaction should be rolled back by the application before retrying 'SaveChanges'. See https://go.microsoft.com/fwlink/?linkid=2149338 for more information and examples. To identify the code which triggers this warning, call 'ConfigureWarnings(w => w.Throw(SqlServerEventId.SavepointsDisabledBecauseOfMARS))'. 
+2026-11-02 22:51:15.814 +03:30 [INF] HTTP GET /_blazor responded 101 in 703334.0727 ms 
+2026-11-02 22:51:16.827 +03:30 [INF] سرویس زمان‌بندی بکاپ متوقف شد. 
+2026-11-02 22:51:34.176 +03:30 [INF] Storage directories are ready. ImagesPath: D:\porograming\Rider\AutoSpare\AutoSpare.Web\wwwroot\Uploads\Images, BackupPath: D:\AutoSpareBackups 
+2026-11-02 22:51:34.221 +03:30 [INF] سرویس زمان‌بندی بکاپ پایگاه داده راه‌اندازی شد. 
+2026-11-02 22:51:34.238 +03:30 [INF] بکاپ بعدی در ساعت 2026/11/03 02:30:00 اجرا خواهد شد (مدت انتظار: "03:38:25.7656379"). 
+2026-11-02 22:51:34.748 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 31.1496 ms 
+2026-11-02 22:51:35.379 +03:30 [INF] HTTP GET /products/report responded 200 in 559.7188 ms 
+2026-11-02 22:51:35.406 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 4.2600 ms 
+2026-11-02 22:51:35.412 +03:30 [INF] HTTP GET /_blazor responded 101 in 643.6854 ms 
+2026-11-02 22:51:35.413 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 24.6903 ms 
+2026-11-02 22:51:35.419 +03:30 [INF] HTTP GET /app.css responded 200 in 20.4503 ms 
+2026-11-02 22:51:35.422 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 304 in 1.3999 ms 
+2026-11-02 22:51:35.428 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 29.5557 ms 
+2026-11-02 22:51:35.463 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.5693 ms 
+2026-11-02 22:51:35.505 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 15.3353 ms 
+2026-11-02 22:51:35.528 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.9151 ms 
+2026-11-02 22:51:35.599 +03:30 [INF] HTTP GET / responded 200 in 883.6610 ms 
+2026-11-02 22:51:35.658 +03:30 [INF] HTTP GET /app.css responded 200 in 29.3477 ms 
+2026-11-02 22:51:35.662 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 1.3990 ms 
+2026-11-02 22:51:35.665 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 39.2603 ms 
+2026-11-02 22:51:35.666 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 304 in 2.0842 ms 
+2026-11-02 22:51:35.718 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 0.9084 ms 
+2026-11-02 22:51:35.721 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.6315 ms 
+2026-11-02 22:51:35.730 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 1.0474 ms 
+2026-11-02 22:52:19.802 +03:30 [INF] HTTP GET /uploads/products/8c99d533744d495cad96035fe40976a6.png responded 304 in 0.7625 ms 
+2026-11-02 22:52:19.815 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 1.8766 ms 
+2026-11-02 22:52:31.161 +03:30 [INF] HTTP GET /uploads/products/aba5a5d005684f84a069742c0d83feed.png responded 304 in 1.7941 ms 
+2026-11-02 22:52:31.161 +03:30 [INF] HTTP GET /uploads/products/8c99d533744d495cad96035fe40976a6.png responded 304 in 1.5609 ms 
+2026-11-02 22:52:54.846 +03:30 [WRN] Savepoints are disabled because Multiple Active Result Sets (MARS) is enabled. If 'SaveChanges' fails, then the transaction cannot be automatically rolled back to a known clean state. Instead, the transaction should be rolled back by the application before retrying 'SaveChanges'. See https://go.microsoft.com/fwlink/?linkid=2149338 for more information and examples. To identify the code which triggers this warning, call 'ConfigureWarnings(w => w.Throw(SqlServerEventId.SavepointsDisabledBecauseOfMARS))'. 
+2026-11-02 22:53:01.049 +03:30 [INF] HTTP GET /uploads/products/8c99d533744d495cad96035fe40976a6.png responded 304 in 0.6898 ms 
+2026-11-02 22:53:01.049 +03:30 [INF] HTTP GET /uploads/products/aba5a5d005684f84a069742c0d83feed.png responded 304 in 0.6965 ms 
+2026-11-02 22:53:08.495 +03:30 [INF] HTTP GET /uploads/products/aba5a5d005684f84a069742c0d83feed.png responded 304 in 0.4773 ms 
+2026-11-02 22:53:08.495 +03:30 [INF] HTTP GET /uploads/products/8c99d533744d495cad96035fe40976a6.png responded 304 in 0.4779 ms 
+2026-11-02 22:53:22.205 +03:30 [INF] HTTP GET /uploads/products/8c99d533744d495cad96035fe40976a6.png responded 304 in 1.1496 ms 
+2026-11-02 22:53:22.205 +03:30 [INF] HTTP GET /uploads/products/aba5a5d005684f84a069742c0d83feed.png responded 304 in 1.1503 ms 
+2026-11-02 22:53:32.886 +03:30 [WRN] Savepoints are disabled because Multiple Active Result Sets (MARS) is enabled. If 'SaveChanges' fails, then the transaction cannot be automatically rolled back to a known clean state. Instead, the transaction should be rolled back by the application before retrying 'SaveChanges'. See https://go.microsoft.com/fwlink/?linkid=2149338 for more information and examples. To identify the code which triggers this warning, call 'ConfigureWarnings(w => w.Throw(SqlServerEventId.SavepointsDisabledBecauseOfMARS))'. 
+2026-11-02 22:53:46.333 +03:30 [INF] HTTP GET /uploads/products/8c99d533744d495cad96035fe40976a6.png responded 304 in 0.9929 ms 
+2026-11-02 22:53:46.334 +03:30 [INF] HTTP GET /uploads/products/aba5a5d005684f84a069742c0d83feed.png responded 304 in 0.4527 ms 
+2026-11-02 22:53:57.786 +03:30 [WRN] Savepoints are disabled because Multiple Active Result Sets (MARS) is enabled. If 'SaveChanges' fails, then the transaction cannot be automatically rolled back to a known clean state. Instead, the transaction should be rolled back by the application before retrying 'SaveChanges'. See https://go.microsoft.com/fwlink/?linkid=2149338 for more information and examples. To identify the code which triggers this warning, call 'ConfigureWarnings(w => w.Throw(SqlServerEventId.SavepointsDisabledBecauseOfMARS))'. 
+2026-11-02 22:54:18.718 +03:30 [INF] HTTP GET /uploads/products/aba5a5d005684f84a069742c0d83feed.png responded 304 in 0.4430 ms 
+2026-11-02 22:54:18.718 +03:30 [INF] HTTP GET /uploads/products/8c99d533744d495cad96035fe40976a6.png responded 304 in 0.4432 ms 
+2026-11-02 22:54:25.384 +03:30 [INF] HTTP GET /_blazor responded 101 in 169844.8552 ms 
+2026-11-02 22:54:26.382 +03:30 [WRN] Savepoints are disabled because Multiple Active Result Sets (MARS) is enabled. If 'SaveChanges' fails, then the transaction cannot be automatically rolled back to a known clean state. Instead, the transaction should be rolled back by the application before retrying 'SaveChanges'. See https://go.microsoft.com/fwlink/?linkid=2149338 for more information and examples. To identify the code which triggers this warning, call 'ConfigureWarnings(w => w.Throw(SqlServerEventId.SavepointsDisabledBecauseOfMARS))'. 
+2026-11-02 22:54:34.213 +03:30 [WRN] Savepoints are disabled because Multiple Active Result Sets (MARS) is enabled. If 'SaveChanges' fails, then the transaction cannot be automatically rolled back to a known clean state. Instead, the transaction should be rolled back by the application before retrying 'SaveChanges'. See https://go.microsoft.com/fwlink/?linkid=2149338 for more information and examples. To identify the code which triggers this warning, call 'ConfigureWarnings(w => w.Throw(SqlServerEventId.SavepointsDisabledBecauseOfMARS))'. 
+2026-11-02 22:54:35.632 +03:30 [INF] HTTP GET /uploads/products/8c99d533744d495cad96035fe40976a6.png responded 304 in 0.3681 ms 
+2026-11-02 22:56:15.023 +03:30 [WRN] The query uses the 'First'/'FirstOrDefault' operator without 'OrderBy' and filter operators. This may lead to unpredictable results. 
+2026-11-02 22:56:15.056 +03:30 [WRN] The query uses the 'First'/'FirstOrDefault' operator without 'OrderBy' and filter operators. This may lead to unpredictable results. 
+2026-11-02 22:57:26.396 +03:30 [INF] HTTP GET /settings responded 200 in 27.3415 ms 
+2026-11-02 22:57:26.406 +03:30 [INF] HTTP GET /_blazor responded 101 in 350636.8177 ms 
+2026-11-02 22:57:26.413 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 0.4413 ms 
+2026-11-02 22:57:26.413 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 304 in 0.2562 ms 
+2026-11-02 22:57:26.414 +03:30 [INF] HTTP GET /app.css responded 200 in 1.2202 ms 
+2026-11-02 22:57:26.418 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 5.2974 ms 
+2026-11-02 22:57:26.423 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 17.1621 ms 
+2026-11-02 22:57:26.468 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.9185 ms 
+2026-11-02 22:57:26.474 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 0.4146 ms 
+2026-11-02 22:57:26.496 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.7402 ms 
+2026-11-02 22:57:30.492 +03:30 [INF] HTTP POST /api/auth/logout responded 302 in 11.6783 ms 
+2026-11-02 22:57:30.514 +03:30 [INF] HTTP GET /login responded 200 in 15.9163 ms 
+2026-11-02 22:57:30.525 +03:30 [INF] HTTP GET /_blazor responded 101 in 4018.1993 ms 
+2026-11-02 22:57:30.527 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 2.6247 ms 
+2026-11-02 22:57:30.532 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 304 in 0.3283 ms 
+2026-11-02 22:57:30.532 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 0.3804 ms 
+2026-11-02 22:57:30.533 +03:30 [INF] HTTP GET /app.css responded 200 in 1.1418 ms 
+2026-11-02 22:57:30.537 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 4.7812 ms 
+2026-11-02 22:57:30.544 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 0.3957 ms 
+2026-11-02 22:57:30.545 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.2970 ms 
+2026-11-02 22:57:30.559 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 0.3611 ms 
+2026-11-02 22:57:30.565 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.3079 ms 
+2026-11-02 22:57:34.615 +03:30 [INF] HTTP POST /api/auth/login responded 302 in 98.9256 ms 
+2026-11-02 22:57:34.688 +03:30 [INF] HTTP GET / responded 200 in 67.4274 ms 
+2026-11-02 22:57:34.698 +03:30 [INF] HTTP GET /_blazor responded 101 in 4119.8224 ms 
+2026-11-02 22:57:34.699 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 1.0541 ms 
+2026-11-02 22:57:34.704 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 0.3324 ms 
+2026-11-02 22:57:34.704 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 304 in 0.3080 ms 
+2026-11-02 22:57:34.705 +03:30 [INF] HTTP GET /app.css responded 200 in 1.0696 ms 
+2026-11-02 22:57:34.707 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 3.0578 ms 
+2026-11-02 22:57:34.712 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.2294 ms 
+2026-11-02 22:57:34.712 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 0.3885 ms 
+2026-11-02 22:57:34.743 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 0.3118 ms 
+2026-11-02 22:57:34.757 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.5873 ms 
+2026-11-02 22:57:43.293 +03:30 [INF] HTTP GET /uploads/products/aba5a5d005684f84a069742c0d83feed.png responded 304 in 0.3891 ms 
+2026-11-02 22:57:44.438 +03:30 [INF] HTTP GET /sales/print/3aa4a4a4-0a21-4e47-a11e-d5f254e0bebd responded 200 in 45.2183 ms 
+2026-11-02 22:57:44.451 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 0.2711 ms 
+2026-11-02 22:57:44.452 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 304 in 0.2190 ms 
+2026-11-02 22:57:44.453 +03:30 [INF] HTTP GET /app.css responded 200 in 1.7998 ms 
+2026-11-02 22:57:44.456 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 5.3309 ms 
+2026-11-02 22:57:44.528 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.2587 ms 
+2026-11-02 22:57:44.528 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 0.2591 ms 
+2026-11-02 22:57:44.558 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 0.4704 ms 
+2026-11-02 22:57:44.569 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.4084 ms 
+2026-11-02 22:57:53.764 +03:30 [INF] HTTP GET /_blazor responded 101 in 9189.3383 ms 
+2026-11-02 22:57:54.843 +03:30 [INF] HTTP GET /sales/print-receipt/3aa4a4a4-0a21-4e47-a11e-d5f254e0bebd responded 200 in 30.2975 ms 
+2026-11-02 22:57:54.855 +03:30 [INF] HTTP GET /app.css responded 200 in 0.9116 ms 
+2026-11-02 22:57:54.855 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 304 in 0.2148 ms 
+2026-11-02 22:57:54.855 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 0.3282 ms 
+2026-11-02 22:57:54.862 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 8.7035 ms 
+2026-11-02 22:57:54.941 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 0.4813 ms 
+2026-11-02 22:57:54.941 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.3922 ms 
+2026-11-02 22:57:54.986 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 0.4546 ms 
+2026-11-02 22:57:54.995 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.4622 ms 
+2026-11-02 22:58:02.810 +03:30 [INF] HTTP GET /_blazor responded 101 in 7807.3305 ms 
+2026-11-02 23:16:14.382 +03:30 [INF] HTTP GET /_blazor responded 101 in 1119613.5053 ms 
+2026-11-02 23:17:21.652 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.7849 ms 
+2026-11-02 23:18:05.418 +03:30 [INF] HTTP GET /_blazor responded 101 in 43734.5859 ms 
+2026-11-02 23:18:06.423 +03:30 [INF] سرویس زمان‌بندی بکاپ متوقف شد. 
+2026-11-02 23:36:42.638 +03:30 [INF] Storage directories are ready. ImagesPath: D:\porograming\Rider\AutoSpare\AutoSpare.Web\wwwroot\Uploads\Images, BackupPath: D:\AutoSpareBackups 
+2026-11-02 23:36:42.755 +03:30 [INF] سرویس زمان‌بندی بکاپ پایگاه داده راه‌اندازی شد. 
+2026-11-02 23:36:42.798 +03:30 [INF] بکاپ بعدی در ساعت 2026/11/03 02:30:00 اجرا خواهد شد (مدت انتظار: "02:53:17.2077134"). 
+2026-11-02 23:36:43.585 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 68.0014 ms 
+2026-11-02 23:36:44.549 +03:30 [INF] HTTP GET / responded 200 in 1033.3905 ms 
+2026-11-02 23:36:44.594 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 11.6975 ms 
+2026-11-02 23:36:44.594 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 304 in 11.6974 ms 
+2026-11-02 23:36:44.607 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 23.7232 ms 
+2026-11-02 23:36:44.655 +03:30 [INF] HTTP GET /app.css responded 200 in 72.7412 ms 
+2026-11-02 23:36:44.747 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.9753 ms 
+2026-11-02 23:36:44.787 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 8.0242 ms 
+2026-11-02 23:36:44.816 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 5.9837 ms 
+2026-11-02 23:36:48.236 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 0.9954 ms 
+2026-11-02 23:42:48.884 +03:30 [INF] HTTP GET /_blazor responded 101 in 364056.1222 ms 
+2026-11-02 23:43:25.056 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 1.3284 ms 
+2026-11-02 23:48:04.870 +03:30 [INF] HTTP GET /_blazor responded 101 in 279802.1858 ms 
+2026-11-02 23:48:09.764 +03:30 [INF] سرویس زمان‌بندی بکاپ متوقف شد. 
+2026-11-02 23:48:31.704 +03:30 [INF] Storage directories are ready. ImagesPath: D:\porograming\Rider\AutoSpare\AutoSpare.Web\wwwroot\Uploads\Images, BackupPath: D:\AutoSpareBackups 
+2026-11-02 23:48:31.759 +03:30 [INF] سرویس زمان‌بندی بکاپ پایگاه داده راه‌اندازی شد. 
+2026-11-02 23:48:31.782 +03:30 [INF] بکاپ بعدی در ساعت 2026/11/03 02:30:00 اجرا خواهد شد (مدت انتظار: "02:41:28.2210915"). 
+2026-11-02 23:48:32.212 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 44.5460 ms 
+2026-11-02 23:48:33.396 +03:30 [INF] HTTP GET / responded 200 in 1230.7562 ms 
+2026-11-02 23:48:33.396 +03:30 [INF] HTTP GET /purchases responded 200 in 1072.1059 ms 
+2026-11-02 23:48:33.435 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 5.3410 ms 
+2026-11-02 23:48:33.440 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 304 in 4.4163 ms 
+2026-11-02 23:48:33.457 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 19.5265 ms 
+2026-11-02 23:48:33.469 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 39.2771 ms 
+2026-11-02 23:48:33.470 +03:30 [INF] HTTP GET /_blazor responded 101 in 1225.6845 ms 
+2026-11-02 23:48:33.470 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 0.7643 ms 
+2026-11-02 23:48:33.481 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 304 in 0.6416 ms 
+2026-11-02 23:48:33.529 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 48.8517 ms 
+2026-11-02 23:48:33.544 +03:30 [INF] HTTP GET /app.css responded 200 in 114.6378 ms 
+2026-11-02 23:48:33.548 +03:30 [INF] HTTP GET /app.css responded 200 in 1.3708 ms 
+2026-11-02 23:48:33.586 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.5508 ms 
+2026-11-02 23:48:33.896 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 8.0651 ms 
+2026-11-02 23:48:33.899 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.7664 ms 
+2026-11-02 23:48:33.899 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 2.0315 ms 
+2026-11-02 23:48:33.914 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 1.1109 ms 
+2026-11-02 23:48:34.093 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 4.8373 ms 
+2026-11-02 23:48:38.363 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 1.0156 ms 
+2026-11-02 23:51:33.269 +03:30 [INF] HTTP GET /_blazor responded 101 in 179139.2614 ms 
+2026-11-02 23:51:33.269 +03:30 [INF] HTTP GET /_blazor responded 101 in 179319.7966 ms 
+2026-11-02 23:51:34.262 +03:30 [INF] سرویس زمان‌بندی بکاپ متوقف شد. 
+2026-11-02 23:51:47.399 +03:30 [INF] Storage directories are ready. ImagesPath: D:\porograming\Rider\AutoSpare\AutoSpare.Web\wwwroot\Uploads\Images, BackupPath: D:\AutoSpareBackups 
+2026-11-02 23:51:47.429 +03:30 [INF] سرویس زمان‌بندی بکاپ پایگاه داده راه‌اندازی شد. 
+2026-11-02 23:51:47.449 +03:30 [INF] بکاپ بعدی در ساعت 2026/11/03 02:30:00 اجرا خواهد شد (مدت انتظار: "02:38:12.5544810"). 
+2026-11-02 23:51:47.702 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 33.4741 ms 
+2026-11-02 23:51:47.702 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 33.4925 ms 
+2026-11-02 23:51:48.516 +03:30 [INF] HTTP GET /daily-settlements responded 200 in 728.0633 ms 
+2026-11-02 23:51:48.516 +03:30 [INF] HTTP GET /purchases responded 200 in 737.7602 ms 
+2026-11-02 23:51:48.541 +03:30 [INF] HTTP GET /_blazor responded 101 in 794.2224 ms 
+2026-11-02 23:51:48.550 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 11.3928 ms 
+2026-11-02 23:51:48.550 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 14.6143 ms 
+2026-11-02 23:51:48.551 +03:30 [INF] HTTP GET /_blazor responded 101 in 829.5889 ms 
+2026-11-02 23:51:48.552 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 5.9743 ms 
+2026-11-02 23:51:48.552 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 304 in 5.9916 ms 
+2026-11-02 23:51:48.563 +03:30 [INF] HTTP GET /app.css responded 200 in 17.7196 ms 
+2026-11-02 23:51:48.564 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 17.7102 ms 
+2026-11-02 23:51:48.570 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 304 in 0.8435 ms 
+2026-11-02 23:51:48.573 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 2.2134 ms 
+2026-11-02 23:51:48.573 +03:30 [INF] HTTP GET /app.css responded 200 in 4.5852 ms 
+2026-11-02 23:51:48.580 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 4.6742 ms 
+2026-11-02 23:51:48.601 +03:30 [INF] HTTP GET / responded 200 in 934.4174 ms 
+2026-11-02 23:51:48.609 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.7782 ms 
+2026-11-02 23:51:48.617 +03:30 [INF] HTTP GET /app.css responded 200 in 1.1916 ms 
+2026-11-02 23:51:48.683 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 7.9736 ms 
+2026-11-02 23:51:48.683 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 27.6199 ms 
+2026-11-02 23:51:48.683 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 304 in 27.6023 ms 
+2026-11-02 23:51:48.683 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 28.0000 ms 
+2026-11-02 23:51:48.686 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 70.3528 ms 
+2026-11-02 23:51:48.691 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 28.1915 ms 
+2026-11-02 23:51:48.694 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 1.0288 ms 
+2026-11-02 23:51:48.701 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.9539 ms 
+2026-11-02 23:51:48.757 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.6197 ms 
+2026-11-02 23:51:48.786 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 2.5603 ms 
+2026-11-02 23:51:48.835 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 0.5465 ms 
+2026-11-02 23:51:48.845 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.5505 ms 
+2026-11-02 23:51:52.173 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 1.1815 ms 
+2026-11-02 23:53:06.504 +03:30 [INF] HTTP GET /_blazor responded 101 in 77795.0172 ms 
+2026-11-02 23:53:56.508 +03:30 [INF] HTTP GET /_blazor responded 101 in 127738.0717 ms 
+2026-11-02 23:57:58.512 +03:30 [INF] HTTP GET /_blazor responded 101 in 369654.6200 ms 
+2026-11-02 23:58:51.114 +03:30 [INF] سرویس زمان‌بندی بکاپ متوقف شد. 
+2026-11-02 23:59:03.192 +03:30 [INF] Storage directories are ready. ImagesPath: D:\porograming\Rider\AutoSpare\AutoSpare.Web\wwwroot\Uploads\Images, BackupPath: D:\AutoSpareBackups 
+2026-11-02 23:59:03.254 +03:30 [INF] سرویس زمان‌بندی بکاپ پایگاه داده راه‌اندازی شد. 
+2026-11-02 23:59:03.305 +03:30 [INF] بکاپ بعدی در ساعت 2026/11/03 02:30:00 اجرا خواهد شد (مدت انتظار: "02:30:56.7090434"). 
+2026-11-02 23:59:03.706 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 29.7801 ms 
+2026-11-02 23:59:03.865 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 15.5172 ms 
+2026-11-02 23:59:04.498 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 2.2520 ms 
+2026-11-02 23:59:04.642 +03:30 [INF] HTTP GET / responded 200 in 967.4782 ms 
+2026-11-02 23:59:04.642 +03:30 [INF] HTTP GET /daily-settlements responded 200 in 861.3951 ms 
+2026-11-02 23:59:04.672 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 304 in 1.3962 ms 
+2026-11-02 23:59:04.674 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 0.6771 ms 
+2026-11-02 23:59:04.675 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 1.4647 ms 
+2026-11-02 23:59:04.682 +03:30 [INF] HTTP GET /app.css responded 200 in 16.8701 ms 
+2026-11-02 23:59:04.682 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 21.1565 ms 
+2026-11-02 23:59:04.689 +03:30 [INF] HTTP GET /_blazor responded 101 in 965.8244 ms 
+2026-11-02 23:59:04.690 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 0.5658 ms 
+2026-11-02 23:59:04.691 +03:30 [INF] HTTP GET /app.css responded 200 in 1.6183 ms 
+2026-11-02 23:59:04.695 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 304 in 0.6082 ms 
+2026-11-02 23:59:04.720 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 26.5021 ms 
+2026-11-02 23:59:04.763 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.4845 ms 
+2026-11-02 23:59:04.763 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 0.4851 ms 
+2026-11-02 23:59:04.808 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.7747 ms 
+2026-11-02 23:59:04.814 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 13.5632 ms 
+2026-11-02 23:59:04.816 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 1.0899 ms 
+2026-11-02 23:59:04.839 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.7914 ms 
+2026-11-02 23:59:04.842 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.6537 ms 
+2026-11-02 23:59:05.331 +03:30 [INF] HTTP GET /_blazor responded 101 in 458.0492 ms 
+2026-11-02 23:59:05.378 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 66.0290 ms 
+2026-11-02 23:59:08.320 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 1.7534 ms 

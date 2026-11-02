@@ -1,10 +1,10 @@
 @using AutoSpare.Application.Categories.DTOs
-@using MudBlazor
 
 <MudDialog>
     <TitleContent>
         <MudText Typo="Typo.h6">
-            <MudIcon Icon="@(IsEditMode ? Icons.Material.Filled.Edit : Icons.Material.Filled.AddCircle)" Class="mr-2 mb-n1" Color="Color.Primary" />
+            <MudIcon Icon="@(IsEditMode ? Icons.Material.Filled.Edit : Icons.Material.Filled.AddCircle)"
+                     Class="mr-2 mb-n1" Color="Color.Primary"/>
             @(IsEditMode ? "ویرایش دسته‌بندی" : "افزودن دسته‌بندی جدید")
         </MudText>
     </TitleContent>
@@ -20,7 +20,7 @@
                           Immediate="true"
                           Variant="Variant.Outlined"
                           Margin="Margin.Dense"
-                          Class="mb-3" />
+                          Class="mb-3"/>
 
             <MudTextField T="string"
                           Label="توضیحات (اختیاری)"
@@ -29,15 +29,16 @@
                           MaxLength="300"
                           Counter="300"
                           Variant="Variant.Outlined"
-                          Margin="Margin.Dense" />
+                          Margin="Margin.Dense"/>
         </MudForm>
     </DialogContent>
     <DialogActions>
         <MudButton OnClick="Cancel" Variant="Variant.Text" Color="Color.Default">انصراف</MudButton>
-        <MudButton OnClick="Submit" Variant="Variant.Filled" Color="Color.Primary" Disabled="@(!_isValid || _isSubmitting)">
+        <MudButton OnClick="Submit" Variant="Variant.Filled" Color="Color.Primary"
+                   Disabled="@(!_isValid || _isSubmitting)">
             @if (_isSubmitting)
             {
-                <MudProgressCircular Class="ms-n1" Size="Size.Small" Indeterminate="true" />
+                <MudProgressCircular Class="ms-n1" Size="Size.Small" Indeterminate="true"/>
                 <span class="ms-2">در حال ذخیره...</span>
             }
             else
@@ -49,11 +50,9 @@
 </MudDialog>
 
 @code {
-    [CascadingParameter]
-    private IMudDialogInstance MudDialog { get; set; } = default!;
+    [CascadingParameter] private IMudDialogInstance MudDialog { get; set; } = default!;
 
-    [Parameter]
-    public CategoryDto? ExistingCategory { get; set; }
+    [Parameter] public CategoryDto? ExistingCategory { get; set; }
 
     private MudForm _form = default!;
     private bool _isValid;
@@ -89,4 +88,5 @@
         public string Name { get; set; } = string.Empty;
         public string? Description { get; set; }
     }
+
 }

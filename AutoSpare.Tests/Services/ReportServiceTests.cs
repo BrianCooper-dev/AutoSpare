@@ -42,7 +42,8 @@ public class ReportServiceTests : IDisposable
         await _context.Brands.AddAsync(brand);
         await _context.SaveChangesAsync();
 
-        var product = new Product("واشر سر سیلندر", "GASKET-01", "TU5", 500_000m, 750_000m, category.Id, brand.Id, null, warehouse.Id);
+        var product = new Product("واشر سر سیلندر", "GASKET-01", "TU5", 500_000m, 750_000m, category.Id, brand.Id, null,
+            warehouse.Id);
         await _context.Products.AddAsync(product);
 
         var inventory = new Inventory(product.Id, warehouse.Id, 20);
@@ -57,7 +58,8 @@ public class ReportServiceTests : IDisposable
         await _context.Sales.AddAsync(sale);
 
         // اصلاح فراخوانی AddOrUpdateItem با احتساب warehouseId
-        var purchase = new Purchase("PUR-001", supplierId: Guid.NewGuid(), warehouseId: warehouse.Id, purchaseDate: saleDateUtc);
+        var purchase = new Purchase("PUR-001", supplierId: Guid.NewGuid(), warehouseId: warehouse.Id,
+            purchaseDate: saleDateUtc);
         purchase.AddOrUpdateItem(product.Id, warehouse.Id, quantity: 10, unitPrice: 500_000m);
         purchase.Complete();
         await _context.Purchases.AddAsync(purchase);
@@ -91,7 +93,8 @@ public class ReportServiceTests : IDisposable
         await _context.Brands.AddAsync(brand);
         await _context.SaveChangesAsync();
 
-        var product = new Product("فیلتر روغن", "FLT-01", "۲۰۶", 100_000m, 150_000m, category.Id, brand.Id, null, warehouse.Id);
+        var product = new Product("فیلتر روغن", "FLT-01", "۲۰۶", 100_000m, 150_000m, category.Id, brand.Id, null,
+            warehouse.Id);
         await _context.Products.AddAsync(product);
         await _context.SaveChangesAsync();
 
@@ -130,8 +133,10 @@ public class ReportServiceTests : IDisposable
         await _context.Brands.AddAsync(brand);
         await _context.SaveChangesAsync();
 
-        var p1 = new Product("لنت ترمز", "BRK-01", "پراید", 200_000m, 300_000m, category.Id, brand.Id, null, warehouse.Id);
-        var p2 = new Product("شمع موتور", "SPK-02", "پراید", 100_000m, 160_000m, category.Id, brand.Id, null, warehouse.Id);
+        var p1 = new Product("لنت ترمز", "BRK-01", "پراید", 200_000m, 300_000m, category.Id, brand.Id, null,
+            warehouse.Id);
+        var p2 = new Product("شمع موتور", "SPK-02", "پراید", 100_000m, 160_000m, category.Id, brand.Id, null,
+            warehouse.Id);
         await _context.Products.AddRangeAsync(p1, p2);
         await _context.SaveChangesAsync();
 

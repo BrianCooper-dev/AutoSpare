@@ -3,16 +3,19 @@ using AutoSpare.Application.Categories.DTOs;
 using AutoSpare.Domain.Categories;
 using AutoSpare.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 namespace AutoSpare.Infrastructure.Services;
 
 public class CategoryService : ICategoryService
 {
     private readonly ApplicationDbContext _dbContext;
+    private readonly ILogger<CategoryService> _logger;
 
-    public CategoryService(ApplicationDbContext dbContext)
+    public CategoryService(ApplicationDbContext dbContext, ILogger<CategoryService> logger)
     {
         _dbContext = dbContext;
+        _logger = logger;
     }
 
     public async Task<List<CategoryDto>> GetAllAsync(string? searchTerm = null, bool? activeOnly = null,
@@ -29,10 +32,11 @@ public class CategoryService : ICategoryService
 
         if (!string.IsNullOrWhiteSpace(searchTerm))
         {
-            var search = searchTerm.Trim().ToLower();
+            var search = searchTerm.Trim();
+            // اجتناب از ToLower روی فیلد پایگاه داده جهت استفاده بهینه از Index
             query = query.Where(c =>
-                c.Name.ToLower().Contains(search) ||
-                (c.Description != null && c.Description.ToLower().Contains(search)));
+                c.Name.Contains(search) ||
+                (c.Description != null && c.Description.Contains(search)));
         }
 
         return await query
@@ -78,7 +82,7 @@ public class CategoryService : ICategoryService
         }
 
         var isDuplicate = await _dbContext.Categories
-            .AnyAsync(c => c.Name.ToLower() == trimmedName.ToLower(), cancellationToken);
+            .AnyAsync(c => c.Name == trimmedName, cancellationToken);
 
         if (isDuplicate)
         {
@@ -93,9 +97,15 @@ public class CategoryService : ICategoryService
 
             return (true, null, category.Id);
         }
+        catch (DbUpdateException ex)
+        {
+            _logger.LogError(ex, "خطای پایگاه داده در ثبت دسته‌بندی با نام {CategoryName}", trimmedName);
+            return (false, "دسته‌بندی با این نام یا مشخصات قبلاً ثبت شده است.", null);
+        }
         catch (Exception ex)
         {
-            return (false, $"خطا در ثبت دسته‌بندی: {ex.Message}", null);
+            _logger.LogError(ex, "خطای سیستمی در ثبت دسته‌بندی با نام {CategoryName}", trimmedName);
+            return (false, "خطای غیرمنتظره در ثبت دسته‌بندی.", null);
         }
     }
 
@@ -117,7 +127,7 @@ public class CategoryService : ICategoryService
         }
 
         var isDuplicate = await _dbContext.Categories
-            .AnyAsync(c => c.Id != model.Id && c.Name.ToLower() == trimmedName.ToLower(), cancellationToken);
+            .AnyAsync(c => c.Id != model.Id && c.Name == trimmedName, cancellationToken);
 
         if (isDuplicate)
         {
@@ -131,9 +141,15 @@ public class CategoryService : ICategoryService
 
             return (true, null);
         }
+        catch (DbUpdateException ex)
+        {
+            _logger.LogError(ex, "خطای همزمانی یا یکتایی در ویرایش دسته‌بندی {CategoryId}", model.Id);
+            return (false, "دسته‌بندی دیگری با این نام وجود دارد.");
+        }
         catch (Exception ex)
         {
-            return (false, $"خطا در ویرایش دسته‌بندی: {ex.Message}");
+            _logger.LogError(ex, "خطا در ویرایش دسته‌بندی با شناسه {CategoryId}", model.Id);
+            return (false, "خطای سیستمی در ویرایش دسته‌بندی.");
         }
     }
 
@@ -164,7 +180,8 @@ public class CategoryService : ICategoryService
         }
         catch (Exception ex)
         {
-            return (false, $"خطا در تغییر وضعیت: {ex.Message}");
+            _logger.LogError(ex, "خطا در تغییر وضعیت دسته‌بندی با شناسه {CategoryId}", id);
+            return (false, "خطای سیستمی در تغییر وضعیت دسته‌بندی.");
         }
     }
 }

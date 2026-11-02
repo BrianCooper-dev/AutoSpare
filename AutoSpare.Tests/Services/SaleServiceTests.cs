@@ -9,6 +9,8 @@ using AutoSpare.Infrastructure.Persistence;
 using AutoSpare.Infrastructure.Services;
 using AutoSpare.Tests.Infrastructure;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
+using Moq;
 
 namespace AutoSpare.Tests.Services;
 
@@ -22,6 +24,8 @@ public class SaleServiceTests
                     Microsoft.EntityFrameworkCore.Diagnostics.InMemoryEventId
                         .TransactionIgnoredWarning))
             .Options;
+
+    private static Mock<ILogger<SaleService>> CreateMockLogger() => new();
 
     private static async Task<(Guid ProductId, Guid WarehouseId)> SeedBasicData(
         DbContextOptions<ApplicationDbContext> options,
@@ -73,6 +77,7 @@ public class SaleServiceTests
         // Arrange
         var options = CreateOptions();
         var (productId, warehouseId) = await SeedBasicData(options, 10);
+        var loggerMock = CreateMockLogger();
 
         var dto = new CreateSaleDto
         {
@@ -97,7 +102,7 @@ public class SaleServiceTests
 
         await using (var db = new TestApplicationDbContext(options))
         {
-            var service = new SaleService(db);
+            var service = new SaleService(db, loggerMock.Object);
             saleId = await service.CreateSaleAsync(dto);
         }
 
@@ -127,12 +132,13 @@ public class SaleServiceTests
         // Arrange
         var options = CreateOptions();
         var (productId, warehouseId) = await SeedBasicData(options, 10);
+        var loggerMock = CreateMockLogger();
 
         Guid saleId;
 
         await using (var db = new TestApplicationDbContext(options))
         {
-            var service = new SaleService(db);
+            var service = new SaleService(db, loggerMock.Object);
 
             saleId = await service.CreateSaleAsync(new CreateSaleDto
             {
@@ -168,7 +174,7 @@ public class SaleServiceTests
         // Act
         await using (var db = new TestApplicationDbContext(options))
         {
-            var service = new SaleService(db);
+            var service = new SaleService(db, loggerMock.Object);
             await service.CancelSaleAsync(saleId, "انصراف مشتری");
         }
 
@@ -198,12 +204,13 @@ public class SaleServiceTests
         // Arrange
         var options = CreateOptions();
         var (productId, warehouseId) = await SeedBasicData(options, 10);
+        var loggerMock = CreateMockLogger();
 
         Guid saleId;
 
         await using (var db = new TestApplicationDbContext(options))
         {
-            var service = new SaleService(db);
+            var service = new SaleService(db, loggerMock.Object);
 
             saleId = await service.CreateSaleAsync(new CreateSaleDto
             {
@@ -226,14 +233,14 @@ public class SaleServiceTests
 
         await using (var db = new TestApplicationDbContext(options))
         {
-            var service = new SaleService(db);
+            var service = new SaleService(db, loggerMock.Object);
             await service.CancelSaleAsync(saleId, "علت اول");
         }
 
         // Act & Assert
         await using (var db = new TestApplicationDbContext(options))
         {
-            var service = new SaleService(db);
+            var service = new SaleService(db, loggerMock.Object);
 
             await Assert.ThrowsAsync<InvalidOperationException>(() => service.CancelSaleAsync(saleId, "علت دوم"));
         }

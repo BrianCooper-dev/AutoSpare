@@ -5,15 +5,13 @@
 @using System.Security.Claims
 @using AutoSpare.Application.Purchases
 @using AutoSpare.Application.Purchases.DTOs
-@using Microsoft.AspNetCore.Components.Authorization
-@using MudBlazor
 
 @inject IPurchaseService PurchaseService
 @inject ISnackbar Snackbar
 @inject NavigationManager NavigationManager
 @inject AuthenticationStateProvider AuthenticationStateProvider
 
-<PageTitle>ثبت فاکتور خرید جدید</PageTitle>
+<PageTitle>ثبت فاکتور خرید جدید | AutoSpare</PageTitle>
 
 <MudContainer MaxWidth="MaxWidth.ExtraLarge" Class="mt-4 mb-8">
     <MudBreadcrumbs Items="_breadcrumbItems" Class="pa-0 mb-4"/>
@@ -64,7 +62,7 @@
                               Outlined="true"
                               Class="pa-4 rounded-lg mb-4 mud-theme-background-gray">
 
-                        <div class="d-flex justify-space-between align-center flex-wrap gap-2 mb-3">
+                        <div class="d-flex align-center gap-2 mb-3">
                             <MudText Typo="Typo.subtitle1"
                                      Class="fw-bold"
                                      Color="Color.Primary">
@@ -73,14 +71,6 @@
                                          Class="me-1"/>
                                 اطلاعات سربرگ فاکتور
                             </MudText>
-
-                            <MudChip T="string"
-                                     Size="Size.Small"
-                                     Color="Color.Info"
-                                     Variant="Variant.Outlined"
-                                     Icon="@Icons.Material.Filled.Warehouse">
-                                انبار سربرگ، انبار پیش‌فرض ردیف‌های جدید است
-                            </MudChip>
                         </div>
 
                         <MudGrid Spacing="3">
@@ -89,9 +79,9 @@
                                               Label="شماره فاکتور / سند *"
                                               Variant="Variant.Outlined"
                                               Margin="Margin.Dense"
-                                              Required="true"
-                                              RequiredError="شماره فاکتور الزامی است."
-                                              Disabled="_isSubmitting"/>
+                                              ReadOnly="true"
+                                              Adornment="Adornment.End"
+                                              AdornmentIcon="@Icons.Material.Filled.Receipt"/>
                             </MudItem>
 
                             <MudItem xs="12" sm="6" md="3">
@@ -121,33 +111,6 @@
                             </MudItem>
 
                             <MudItem xs="12" sm="6" md="3">
-                                <MudSelect T="Guid?"
-                                           Value="_model.WarehouseId"
-                                           ValueChanged="OnHeaderWarehouseChanged"
-                                           Label="انبار پیش‌فرض فاکتور *"
-                                           Variant="Variant.Outlined"
-                                           Margin="Margin.Dense"
-                                           Required="true"
-                                           RequiredError="انتخاب انبار پیش‌فرض الزامی است."
-                                           Disabled="_isSubmitting"
-                                           AnchorOrigin="Origin.BottomCenter">
-
-                                    <MudSelectItem T="Guid?"
-                                                   Value="@((Guid?)null)">
-                                        انتخاب انبار...
-                                    </MudSelectItem>
-
-                                    @foreach (var warehouse in _warehouses)
-                                    {
-                                        <MudSelectItem T="Guid?"
-                                                       Value="@((Guid?)warehouse.Id)">
-                                            @warehouse.Title
-                                        </MudSelectItem>
-                                    }
-                                </MudSelect>
-                            </MudItem>
-
-                            <MudItem xs="12" sm="6" md="3">
                                 <MudDatePicker Label="تاریخ فاکتور"
                                                @bind-Date="_model.PurchaseDate"
                                                Variant="Variant.Outlined"
@@ -155,22 +118,20 @@
                                                Disabled="_isSubmitting"/>
                             </MudItem>
 
-                            <MudItem xs="12" md="8">
+                            <MudItem xs="12" sm="6" md="3" Class="d-flex align-center">
+                                <MudSwitch @bind-Value="_model.FinalizeImmediately"
+                                           Color="Color.Success"
+                                           Disabled="_isSubmitting"
+                                           Label="نهایی‌سازی و افزایش فوری موجودی‌ها"/>
+                            </MudItem>
+
+                            <MudItem xs="12">
                                 <MudTextField @bind-Value="_model.Notes"
                                               Label="توضیحات و یادداشت فاکتور"
                                               Variant="Variant.Outlined"
                                               Margin="Margin.Dense"
                                               Lines="2"
                                               Disabled="_isSubmitting"/>
-                            </MudItem>
-
-                            <MudItem xs="12"
-                                     md="4"
-                                     Class="d-flex align-center">
-                                <MudSwitch @bind-Value="_model.FinalizeImmediately"
-                                           Color="Color.Success"
-                                           Disabled="_isSubmitting"
-                                           Label="نهایی‌سازی و افزایش فوری موجودی‌ها"/>
                             </MudItem>
                         </MudGrid>
                     </MudPaper>
@@ -193,7 +154,7 @@
 
                                 <MudText Typo="Typo.caption"
                                          Color="Color.Secondary">
-                                    برای هر کالا می‌توانید انبار مقصد متفاوتی تعیین کنید.
+                                    برای هر کالا می‌توانید انبار مقصد مجزایی تعیین کنید.
                                 </MudText>
                             </div>
 
@@ -218,10 +179,10 @@
                             <HeaderContent>
                                 <MudTh Style="width: 55px;">ردیف</MudTh>
                                 <MudTh Style="min-width: 300px;">انتخاب کالا</MudTh>
-                                <MudTh Style="min-width: 210px;">انبار مقصد</MudTh>
+                                <MudTh Style="min-width: 210px;">انبار مقصد *</MudTh>
                                 <MudTh Style="width: 125px;">تعداد</MudTh>
-                                <MudTh Style="width: 185px;">قیمت فی</MudTh>
-                                <MudTh Style="width: 180px;">جمع ردیف</MudTh>
+                                <MudTh Style="width: 185px;">قیمت فی (تومان)</MudTh>
+                                <MudTh Style="width: 180px;">جمع ردیف (تومان)</MudTh>
                                 <MudTh Style="width: 75px; text-align: center;">
                                     عملیات
                                 </MudTh>
@@ -507,37 +468,22 @@
         {
             _isLoading = true;
 
-            var suppliersTask =
-                PurchaseService.GetSuppliersLookupAsync();
+            var suppliersResult = await PurchaseService.GetSuppliersLookupAsync();
+            var warehousesResult = await PurchaseService.GetWarehousesLookupAsync();
+            var productsResult = await PurchaseService.GetProductsLookupAsync();
+            var invoiceNumberResult = await PurchaseService.GenerateInvoiceNumberAsync();
 
-            var warehousesTask =
-                PurchaseService.GetWarehousesLookupAsync();
-
-            var productsTask =
-                PurchaseService.GetProductsLookupAsync();
-
-            var invoiceNumberTask =
-                PurchaseService.GenerateInvoiceNumberAsync();
-
-            await Task.WhenAll(
-                suppliersTask,
-                warehousesTask,
-                productsTask,
-                invoiceNumberTask);
-
-            _suppliers = suppliersTask.Result
-                .Select(item =>
-                    new PurchaseLookupItem(item.Id, item.Title))
+            _suppliers = suppliersResult
+                .Select(item => new PurchaseLookupItem(item.Id, item.Title))
                 .ToList();
 
-            _warehouses = warehousesTask.Result
-                .Select(item =>
-                    new PurchaseLookupItem(item.Id, item.Title))
+            _warehouses = warehousesResult
+                .Select(item => new PurchaseLookupItem(item.Id, item.Title))
                 .ToList();
 
-            _products = productsTask.Result;
+            _products = productsResult;
 
-            _model.InvoiceNumber = invoiceNumberTask.Result;
+            _model.InvoiceNumber = invoiceNumberResult;
 
             if (!_model.Items.Any())
             {
@@ -561,7 +507,7 @@
         _model.Items.Add(new CreatePurchaseItemDto
         {
             Quantity = 1,
-            WarehouseId = GetValidHeaderWarehouseId()
+            WarehouseId = null // انبار هر ردیف به‌طور مستقل انتخاب می‌شود
         });
     }
 
@@ -573,26 +519,6 @@
         }
 
         _model.Items.Remove(item);
-    }
-
-    private Task OnHeaderWarehouseChanged(Guid? warehouseId)
-    {
-        _model.WarehouseId = IsValidWarehouse(warehouseId)
-            ? warehouseId
-            : null;
-
-        if (!_model.WarehouseId.HasValue)
-        {
-            return Task.CompletedTask;
-        }
-
-        foreach (var item in _model.Items.Where(item =>
-                     !IsValidWarehouse(item.WarehouseId)))
-        {
-            item.WarehouseId = _model.WarehouseId;
-        }
-
-        return Task.CompletedTask;
     }
 
     private ProductLookupItemDto? GetSelectedProduct(Guid? productId)
@@ -621,15 +547,10 @@
         item.ProductId = selectedProduct.Id;
         item.UnitPrice = selectedProduct.DefaultPurchasePrice;
 
+        // اگر کالا انبار پیش‌فرض داشت، روی ردیف اعمال کن
         if (IsValidWarehouse(selectedProduct.DefaultWarehouseId))
         {
-            item.WarehouseId =
-                selectedProduct.DefaultWarehouseId;
-        }
-        else if (!IsValidWarehouse(item.WarehouseId))
-        {
-            item.WarehouseId =
-                GetValidHeaderWarehouseId();
+            item.WarehouseId = selectedProduct.DefaultWarehouseId;
         }
     }
 
@@ -690,14 +611,6 @@
             return;
         }
 
-        if (!IsValidWarehouse(_model.WarehouseId))
-        {
-            Snackbar.Add(
-                "لطفاً انبار پیش‌فرض فاکتور را انتخاب کنید.",
-                Severity.Warning);
-            return;
-        }
-
         var validItems = _model.Items
             .Where(item =>
                 item.ProductId.HasValue &&
@@ -746,7 +659,7 @@
             return;
         }
 
-        // ردیف‌های خالی رابط کاربری به سرویس ارسال نمی‌شوند.
+        // ردیف‌های معتبر ارسال می‌شوند
         _model.Items = validItems;
 
         try
@@ -787,13 +700,6 @@
         }
     }
 
-    private Guid? GetValidHeaderWarehouseId()
-    {
-        return IsValidWarehouse(_model.WarehouseId)
-            ? _model.WarehouseId
-            : null;
-    }
-
     private bool IsValidWarehouse(Guid? warehouseId)
     {
         return warehouseId.HasValue &&
@@ -806,4 +712,5 @@
     {
         NavigationManager.NavigateTo("/purchases");
     }
+
 }

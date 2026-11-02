@@ -12,13 +12,11 @@ using AutoSpare.Infrastructure.Services;
 using AutoSpare.Tests.Infrastructure;
 using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
+using Moq;
 
 namespace AutoSpare.Tests.Services;
 
-/// <summary>
-/// تست جریان خرید، فروش، ابطال و گردش موجودی با دیتابیس InMemory.
-/// آزمون رفتار RowVersion واقعی باید جداگانه روی SQL Server اجرا شود.
-/// </summary>
 public class PurchaseSaleIntegrationTests
 {
     private readonly DbContextOptions<ApplicationDbContext> _options;
@@ -30,16 +28,18 @@ public class PurchaseSaleIntegrationTests
                 databaseName: $"IntegrationDb_{Guid.NewGuid()}")
             .ConfigureWarnings(x =>
                 x.Ignore(
-                    Microsoft.EntityFrameworkCore.Diagnostics.InMemoryEventId
-                        .TransactionIgnoredWarning))
+                    Microsoft.EntityFrameworkCore.Diagnostics
+                        .InMemoryEventId.TransactionIgnoredWarning))
             .Options;
     }
 
     private ApplicationDbContext CreateContext() =>
         new TestApplicationDbContext(_options);
 
-    private async Task<(Guid SupplierId, Guid WarehouseId, Guid ProductId)>
-        SeedMasterDataAsync()
+    private async Task<(
+        Guid SupplierId,
+        Guid WarehouseId,
+        Guid ProductId)> SeedMasterDataAsync()
     {
         await using var db = CreateContext();
 
@@ -50,10 +50,16 @@ public class PurchaseSaleIntegrationTests
 
         var warehouse = new Warehouse(
             "انبار پخش مرکزی",
-            "تهران، خیابان امیرکبیر");
+            "تهران، خیابان امیرکبیر",
+            "02100000000");
 
-        var category = new Category("سیستم ترمز و انتقال قدرت");
-        var brand = new Brand("ایساکو");
+        var category = new Category(
+            "سیستم ترمز و انتقال قدرت",
+            "Brake System");
+
+        var brand = new Brand(
+            "ایساکو",
+            "ISACCO");
 
         await db.Suppliers.AddAsync(supplier);
         await db.Warehouses.AddAsync(warehouse);
@@ -69,13 +75,16 @@ public class PurchaseSaleIntegrationTests
             salePrice: 550_000m,
             categoryId: category.Id,
             brandId: brand.Id,
-            defaultWarehouseId: warehouse.Id
-        );
+            imagePath: null,
+            defaultWarehouseId: warehouse.Id);
 
         await db.Products.AddAsync(product);
         await db.SaveChangesAsync();
 
-        return (supplier.Id, warehouse.Id, product.Id);
+        return (
+            supplier.Id,
+            warehouse.Id,
+            product.Id);
     }
 
     [Fact]
@@ -89,31 +98,49 @@ public class PurchaseSaleIntegrationTests
         {
             InvoiceNumber = "INT-PUR-001",
             SupplierId = supplierId,
+
+            // این مقدار صرفاً جهت سازگاری DTO نگه داشته شده است.
+            // منبع اصلی انبار، WarehouseId هر ردیف است.
             WarehouseId = warehouseId,
+
             FinalizeImmediately = true,
-            Items = new List<CreatePurchaseItemDto>
-            {
-                new()
+            Items =
+            [
+                new CreatePurchaseItemDto
                 {
                     ProductId = productId,
+
+                    // در ساختار جدید، انبار هر ردیف الزامی است.
+                    WarehouseId = warehouseId,
+
                     Quantity = 20,
                     UnitPrice = 420_000m
                 }
-            }
+            ]
         };
 
-        // گام ۱: ثبت و نهایی‌سازی خرید.
+        var purchaseLoggerMock =
+            new Mock<ILogger<PurchaseService>>();
+
+        var saleLoggerMock =
+            new Mock<ILogger<SaleService>>();
+
+        // Act: ثبت و نهایی‌سازی خرید
         await using (var db = CreateContext())
         {
-            var purchaseService = new PurchaseService(db);
+            var purchaseService = new PurchaseService(
+                db,
+                purchaseLoggerMock.Object);
 
-            var purchaseId = await purchaseService.CreatePurchaseAsync(
-                purchaseDto,
-                "مدیر خرید");
+            var purchaseId =
+                await purchaseService.CreatePurchaseAsync(
+                    purchaseDto,
+                    "مدیر خرید");
 
             purchaseId.Should().NotBeEmpty();
         }
 
+        // Assert: موجودی پس از خرید
         await using (var db = CreateContext())
         {
             var inventoryAfterPurchase = await db.Inventories
@@ -132,29 +159,33 @@ public class PurchaseSaleIntegrationTests
             CustomerName = "تعمیرگاه تخصصی کاردان",
             WarehouseId = warehouseId,
             FinalizeImmediately = true,
-            Items = new List<CreateSaleItemDto>
-            {
-                new()
+            Items =
+            [
+                new CreateSaleItemDto
                 {
                     ProductId = productId,
                     WarehouseId = warehouseId,
                     Quantity = 7,
                     UnitPrice = 550_000m
                 }
-            }
+            ]
         };
 
-        // گام ۲: فروش ۷ عدد.
         Guid saleId;
 
+        // Act: ثبت فروش
         await using (var db = CreateContext())
         {
-            var saleService = new SaleService(db);
+            var saleService = new SaleService(
+                db,
+                saleLoggerMock.Object);
+
             saleId = await saleService.CreateSaleAsync(saleDto);
 
             saleId.Should().NotBeEmpty();
         }
 
+        // Assert: موجودی پس از فروش
         await using (var db = CreateContext())
         {
             var inventoryAfterSale = await db.Inventories
@@ -167,14 +198,17 @@ public class PurchaseSaleIntegrationTests
             inventoryAfterSale!.Quantity.Should().Be(13);
         }
 
-        // گام ۳: ابطال فروش و بازگشت ۷ عدد.
+        // Act: ابطال فروش
         await using (var db = CreateContext())
         {
-            var saleService = new SaleService(db);
+            var saleService = new SaleService(
+                db,
+                saleLoggerMock.Object);
+
             await saleService.CancelSaleAsync(saleId);
         }
 
-        // Assert نهایی
+        // Assert: موجودی و گردش‌های نهایی
         await using (var db = CreateContext())
         {
             var finalInventory = await db.Inventories
@@ -188,6 +222,7 @@ public class PurchaseSaleIntegrationTests
             finalInventory!.Quantity.Should().Be(20);
 
             var movements = finalInventory.Movements.ToList();
+
             movements.Should().HaveCount(3);
 
             var purchaseMovement = movements.Single(m => m.Type == StockMovementType.Purchase);
@@ -223,31 +258,51 @@ public class PurchaseSaleIntegrationTests
             SupplierId = supplierId,
             WarehouseId = warehouseId,
             FinalizeImmediately = false,
-            Items = new List<CreatePurchaseItemDto>
-            {
-                new()
+            Items =
+            [
+                new CreatePurchaseItemDto
                 {
                     ProductId = productId,
+
+                    // در ساختار جدید، انبار ردیف باید مشخص باشد.
+                    WarehouseId = warehouseId,
+
                     Quantity = 10,
                     UnitPrice = 400_000m
                 }
-            }
+            ]
         };
 
         Guid purchaseId;
 
+        var purchaseLoggerMock =
+            new Mock<ILogger<PurchaseService>>();
+
+        var saleLoggerMock =
+            new Mock<ILogger<SaleService>>();
+
+        // Act: ایجاد فاکتور پیش‌نویس
         await using (var db = CreateContext())
         {
-            var purchaseService = new PurchaseService(db);
-            purchaseId = await purchaseService.CreatePurchaseAsync(purchaseDto);
+            var purchaseService = new PurchaseService(
+                db,
+                purchaseLoggerMock.Object);
+
+            purchaseId = await purchaseService.CreatePurchaseAsync(
+                purchaseDto);
         }
 
+        // Act: ابطال فاکتور پیش‌نویس
         await using (var db = CreateContext())
         {
-            var purchaseService = new PurchaseService(db);
+            var purchaseService = new PurchaseService(
+                db,
+                purchaseLoggerMock.Object);
+
             await purchaseService.CancelPurchaseAsync(purchaseId);
         }
 
+        // Assert: وضعیت خرید
         await using (var db = CreateContext())
         {
             var purchase = await db.Purchases
@@ -263,27 +318,31 @@ public class PurchaseSaleIntegrationTests
             CustomerName = "مشتری متفرقه",
             WarehouseId = warehouseId,
             FinalizeImmediately = true,
-            Items = new List<CreateSaleItemDto>
-            {
-                new()
+            Items =
+            [
+                new CreateSaleItemDto
                 {
                     ProductId = productId,
                     WarehouseId = warehouseId,
                     Quantity = 1,
                     UnitPrice = 500_000m
                 }
-            }
+            ]
         };
 
-        // فروش نباید بتواند روی موجودیِ حاصل‌نشده از خرید پیش‌نویس انجام شود.
+        // Act & Assert:
+        // چون خرید پیش‌نویس بوده، موجودی افزایش پیدا نکرده است.
         await using (var db = CreateContext())
         {
-            var saleService = new SaleService(db);
+            var saleService = new SaleService(
+                db,
+                saleLoggerMock.Object);
 
             var act = async () =>
                 await saleService.CreateSaleAsync(saleDto);
 
-            await act.Should().ThrowAsync<InvalidOperationException>();
+            await act.Should()
+                .ThrowAsync<InvalidOperationException>();
         }
     }
 }
