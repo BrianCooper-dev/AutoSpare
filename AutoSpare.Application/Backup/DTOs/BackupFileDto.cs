@@ -1,6 +1,5 @@
 namespace AutoSpare.Application.Backup.DTOs;
 
-
 public sealed record BackupFileDto
 {
     public string FileName { get; init; } = string.Empty;

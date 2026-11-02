@@ -1,6 +1,5 @@
 @using System.ComponentModel.DataAnnotations
 @using AutoSpare.Application.Brands.DTOs
-@using MudBlazor
 
 <MudDialog ContentClass="pa-4" Style="direction: rtl;">
     <DialogContent>
@@ -98,4 +97,5 @@
         [StringLength(300, ErrorMessage = "توضیحات نمی‌تواند بیش از ۳۰۰ کاراکتر باشد.")]
         public string? Description { get; set; }
     }
+
 }

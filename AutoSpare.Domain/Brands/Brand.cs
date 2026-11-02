@@ -68,4 +68,3 @@ public class Brand : BaseEntity
         return string.IsNullOrWhiteSpace(value) ? null : value.Trim();
     }
 }
-
