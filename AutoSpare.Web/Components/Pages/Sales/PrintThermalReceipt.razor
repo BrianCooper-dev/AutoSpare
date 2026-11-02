@@ -1,275 +1,194 @@
 @page "/sales/print-receipt/{Id:guid}"
-
-@using AutoSpare.Application.Common.Settings
+@using System.Globalization
 @using AutoSpare.Application.Sales
 @using AutoSpare.Application.Sales.DTOs
-@using Microsoft.Extensions.Options
+@using AutoSpare.Application.Settings
+@using AutoSpare.Application.Settings.DTOs
 
 @inject ISaleService SaleService
-@inject IOptions<StoreSettings> StoreSettingsOptions
+@inject ISettingService SettingService
 @inject IJSRuntime Js
 
-<PageTitle>چاپ فیش حرارتی @(_sale?.InvoiceNumber ?? string.Empty)</PageTitle>
+<PageTitle>چاپ فیش حرارتی @(_sale?.InvoiceNumber ?? "")</PageTitle>
 
-<MudContainer MaxWidth="MaxWidth.False" Class="thermal-root rtl">
+<div class="thermal-root rtl">
+    <!-- نوار دکمه‌ها - در هنگام چاپ مخفی می‌شود -->
+    <div class="no-print pa-3 mb-3 thermal-shell d-flex justify-space-between align-center rounded" style="background-color: #ffffff !important; border: 1px solid #ddd; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+        <MudButton Variant="Variant.Filled"
+                   Color="Color.Primary"
+                   Size="Size.Small"
+                   StartIcon="@Icons.Material.Filled.Print"
+                   OnClick="TriggerPrint">
+            چاپ فیش
+        </MudButton>
+        <MudButton Variant="Variant.Outlined"
+                   Size="Size.Small"
+                   Style="color: #333 !important; border-color: #ccc !important;"
+                   StartIcon="@Icons.Material.Filled.Close"
+                   OnClick="ClosePage">
+            بستن
+        </MudButton>
+    </div>
+
 
     @if (_isLoading)
     {
-        <MudPaper Elevation="1" Class="pa-6 d-flex flex-column align-center justify-center mt-6 thermal-shell">
-            <MudProgressCircular Indeterminate="true" Color="Color.Primary" Size="Size.Large" Class="mb-4"/>
-            <MudText Typo="Typo.body2">در حال بارگذاری اطلاعات فیش...</MudText>
-        </MudPaper>
+        <div class="d-flex justify-center align-center py-12">
+            <MudProgressCircular Color="Color.Primary" Indeterminate="true" Size="Size.Medium"/>
+        </div>
     }
-    else if (_sale is null)
+    else if (_sale == null)
     {
-        <MudPaper Elevation="1" Class="pa-6 mt-6 thermal-shell">
-            <MudAlert Severity="Severity.Error" Variant="Variant.Filled">
-                فاکتور مورد نظر یافت نشد.
-            </MudAlert>
-
-            <div class="mt-4 d-flex justify-center">
-                <MudButton Variant="Variant.Outlined"
-                           Color="Color.Default"
-                           StartIcon="@Icons.Material.Filled.Close"
-                           OnClick="ClosePage">
-                    بستن صفحه
-                </MudButton>
-            </div>
-        </MudPaper>
+        <div class="d-flex justify-center align-center py-12">
+            <MudAlert Severity="Severity.Error">فاکتور مورد نظر یافت نشد.</MudAlert>
+        </div>
     }
     else
     {
-        @* Action Bar (در چاپ مخفی می‌شود) *@
-        <MudPaper Elevation="1" Class="no-print pa-3 mb-3 thermal-shell">
-            <div class="d-flex flex-wrap gap-2 justify-center">
-                <MudButton Variant="Variant.Filled"
-                           Color="Color.Primary"
-                           StartIcon="@Icons.Material.Filled.Print"
-                           OnClick="TriggerPrint">
-                    چاپ فیش
-                </MudButton>
-
-                <MudButton Variant="Variant.Outlined"
-                           Color="Color.Default"
-                           StartIcon="@Icons.Material.Filled.Close"
-                           OnClick="ClosePage">
-                    بستن صفحه
-                </MudButton>
-            </div>
-        </MudPaper>
-
-        <div class="receipt-sheet">
-            <div class="text-center mb-2">
-                <h3 class="store-title">@_store.StoreName</h3>
-                @if (!string.IsNullOrWhiteSpace(_store.Address))
-                {
-                    <p class="store-info">@_store.Address</p>
-                }
-                @if (!string.IsNullOrWhiteSpace(_store.Phone))
-                {
-                    <p class="store-info">تلفن: @_store.Phone</p>
-                }
-            </div>
-
-            <div class="divider">--------------------------------------------------</div>
-
-            <div class="invoice-meta">
-                <div class="row-line">
-                    <span>شماره فاکتور:</span>
-                    <strong class="dir-ltr">@_sale.InvoiceNumber</strong>
+        <div class="thermal-shell">
+            <div class="receipt-sheet">
+                <!-- هدر فروشگاه -->
+                <div class="text-center mb-2" style="color: #000;">
+                    <div style="font-size: 13px; font-weight: bold;">@_store.StoreName</div>
+                    <div style="font-size: 10px; color: #333;">@_store.Address</div>
+                    <div style="font-size: 10px; color: #333;">تلفن: @_store.Phone | همراه: @_store.Mobile</div>
                 </div>
-                <div class="row-line">
-                    <span>تاریخ:</span>
-                    <span>@_sale.SaleDate.ToLocalTime().ToString("yyyy/MM/dd HH:mm")</span>
-                </div>
-                <div class="row-line">
-                    <span>مشتری:</span>
-                    <strong>
-                        @(string.IsNullOrWhiteSpace(_sale.CustomerName) ? "مشتری متفرقه" : _sale.CustomerName)
-                    </strong>
-                </div>
-                <div class="row-line">
-                    <span>وضعیت:</span>
-                    <span>@_sale.Status</span>
-                </div>
-            </div>
 
-            <div class="divider">--------------------------------------------------</div>
-
-            <table class="receipt-table">
-                <thead>
-                <tr>
-                    <th style="text-align:right;">شرح کالا</th>
-                    <th style="text-align:center; width:35px;">تعداد</th>
-                    <th style="text-align:left;">مبلغ کل</th>
-                </tr>
-                </thead>
-                <tbody>
-                @foreach (var item in _sale.Items)
-                {
-                    <tr>
-                        <td colspan="3" class="product-name">@item.ProductName</td>
-                    </tr>
-                    <tr>
-                        <td class="product-code">کد: @item.ProductCode</td>
-                        <td style="text-align:center;">@item.Quantity</td>
-                        <td style="text-align:left;" class="dir-ltr">@item.TotalPrice.ToString("N0")</td>
-                    </tr>
-                    <tr class="item-sep">
-                        <td colspan="3"></td>
-                    </tr>
-                }
-                </tbody>
-            </table>
-
-            <div class="divider">--------------------------------------------------</div>
-
-            <div class="financial-summary">
-                <div class="row-line total-row">
-                    <span>مبلغ قابل پرداخت:</span>
-                    <span class="dir-ltr"><strong>@_sale.TotalAmount.ToString("N0") تومان</strong></span>
-                </div>
-            </div>
-
-            @if (!string.IsNullOrWhiteSpace(_sale.Notes))
-            {
                 <div class="divider">--------------------------------------------------</div>
-                <div class="receipt-notes">
-                    <small><strong>یادداشت:</strong> @_sale.Notes</small>
+
+                <!-- متادیتای فاکتور -->
+                <div class="receipt-meta my-2" style="font-size: 11px; color: #000;">
+                    <div><strong>شماره:</strong> @_sale.InvoiceNumber</div>
+                    <div>
+                        <strong>تاریخ:</strong> @_sale.SaleDate.ToLocalTime().ToString("yyyy/MM/dd HH:mm", CultureInfo.InvariantCulture)
+                    </div>
+                    <div>
+                        <strong>وضعیت:</strong> @GetPersianStatus(_sale.Status)
+                    </div>
+                    <div>
+                        <strong>مشتری:</strong> @(!string.IsNullOrWhiteSpace(_sale.CustomerName) ? _sale.CustomerName : "مشتری متفرقه")
+                    </div>
                 </div>
-            }
 
-            <div class="divider">--------------------------------------------------</div>
+                <div class="divider">--------------------------------------------------</div>
 
-            <div class="text-center footer-text">
-                @if (!string.IsNullOrWhiteSpace(_store.FooterNote))
-                {
-                    <p>@_store.FooterNote</p>
-                }
-                else
-                {
-                    <p>اجناس فروخته شده در صورت باز نشدن پلمپ تا ۴۸ ساعت قابل تعویض می‌باشد.</p>
-                    <p class="mt-1">از خرید شما سپاسگزاریم</p>
-                }
+                <!-- اقلام فاکتور -->
+                <table class="receipt-table mb-2">
+                    <thead>
+                    <tr>
+                        <th style="text-align: right; color: #000;">شرح کالا</th>
+                        <th style="text-align: center; width: 35px; color: #000;">تعداد</th>
+                        <th style="text-align: left; width: 65px; color: #000;">مبلغ کل</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @if (_sale.Items != null)
+                    {
+                        foreach (var item in _sale.Items)
+                        {
+                            <tr>
+                                <td colspan="3"
+                                    style="padding-top: 4px; font-weight: bold; color: #000;">@item.ProductName</td>
+                            </tr>
+                            <tr class="item-sep">
+                                <td style="color: #333; font-size: 10px;">@item.UnitPrice.ToString("N0") ×</td>
+                                <td style="text-align: center; color: #000;">@item.Quantity.ToString("N0")</td>
+                                <td style="text-align: left; color: #000;">@item.TotalPrice.ToString("N0")</td>
+                            </tr>
+                        }
+                    }
+                    </tbody>
+                </table>
+
+                <div class="divider">--------------------------------------------------</div>
+
+                <!-- جمع کل -->
+                <div class="total-row d-flex justify-space-between my-2"
+                     style="font-size: 12px; font-weight: bold; color: #000;">
+                    <span>قابل پرداخت:</span>
+                    <span>@_sale.TotalAmount.ToString("N0") تومان</span>
+                </div>
+
+                <div class="divider">--------------------------------------------------</div>
+
+                <!-- فوتر و پاورقی -->
+                <div class="text-center mt-2" style="font-size: 10px; color: #000;">
+                    @if (!string.IsNullOrWhiteSpace(_store.FooterNote))
+                    {
+                        <div class="mb-1">@_store.FooterNote</div>
+                    }
+                    <div style="font-weight: bold;">از خرید شما سپاسگزاریم</div>
+                </div>
             </div>
         </div>
     }
-</MudContainer>
+</div>
 
 <style>
     .thermal-root {
+        background-color: #e5e5e5 !important;
         min-height: 100vh;
-        padding: 16px;
-        background-color: #eee;
-        font-family: Sahel, Vazirmatn, Tahoma, Arial, sans-serif;
-        direction: rtl;
         display: flex;
         flex-direction: column;
         align-items: center;
-        color: #000;
+        padding: 15px 0;
+        font-family: 'Tahoma', Arial, sans-serif;
+        color: #000 !important;
     }
 
     .thermal-shell {
         width: 80mm;
-        max-width: calc(100vw - 24px);
-        margin-left: auto;
-        margin-right: auto;
     }
 
     .receipt-sheet {
         width: 80mm;
-        max-width: calc(100vw - 24px);
-        background: #fff;
+        background: #ffffff !important;
+        color: #000000 !important;
         padding: 4mm;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.10);
+        box-sizing: border-box;
         font-size: 11px;
-        line-height: 1.4;
-    }
-
-    .store-title {
-        font-size: 14px;
-        font-weight: bold;
-        margin: 0 0 4px;
-    }
-
-    .store-info {
-        font-size: 10px;
-        margin: 2px 0;
-        color: #333;
-    }
-
-    .divider {
-        text-align: center;
-        font-family: monospace;
-        letter-spacing: -1px;
-        color: #666;
-        margin: 6px 0;
-        font-size: 10px;
-    }
-
-    .invoice-meta {
-        font-size: 11px;
-    }
-
-    .row-line {
-        display: flex;
-        justify-content: space-between;
-        gap: 10px;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
     }
 
     .receipt-table {
         width: 100%;
         border-collapse: collapse;
         font-size: 11px;
+        color: #000;
     }
 
     .receipt-table th {
-        font-size: 10px;
         border-bottom: 1px dashed #000;
         padding-bottom: 3px;
-    }
-
-    .product-name {
-        font-weight: bold;
-        padding-top: 4px;
-    }
-
-    .product-code {
-        font-size: 9px;
-        color: #555;
+        font-size: 11px;
+        color: #000;
     }
 
     .item-sep td {
-        border-bottom: 1px dotted #ddd;
-        height: 4px;
+        border-bottom: 1px dotted #aaa;
+        padding-bottom: 4px;
+        color: #000;
     }
 
-    .total-row {
-        font-size: 13px;
-        font-weight: bold;
-        margin: 6px 0;
-    }
-
-    .footer-text {
-        font-size: 9px;
-        color: #444;
-        margin-top: 8px;
-    }
-
-    .dir-ltr {
-        direction: ltr;
-        display: inline-block;
+    .divider {
+        font-family: monospace;
+        font-size: 10px;
+        text-align: center;
+        letter-spacing: -1px;
+        color: #333;
+        overflow: hidden;
+        white-space: nowrap;
     }
 
     @@media print {
-        body {
+        header, nav, aside, .mud-appbar, .mud-drawer, .no-print {
+            display: none !important;
+        }
+
+        body, html {
             background: none !important;
             margin: 0 !important;
             padding: 0 !important;
-        }
-
-        .no-print {
-            display: none !important;
         }
 
         .thermal-root {
@@ -280,31 +199,44 @@
         .receipt-sheet {
             width: 80mm !important;
             box-shadow: none !important;
-            margin: 0 !important;
             padding: 2mm !important;
+            margin: 0 !important;
         }
     }
 </style>
 
 @code {
     [Parameter] public Guid Id { get; set; }
-
     private SaleDetailsDto? _sale;
-    private StoreSettings _store = new();
+    private SettingDto _store = new();
     private bool _isLoading = true;
 
     protected override async Task OnInitializedAsync()
     {
-        _store = StoreSettingsOptions.Value;
-
         try
         {
+            _store = await SettingService.GetSettingsAsync();
             _sale = await SaleService.GetSaleDetailsAsync(Id);
+        }
+        catch (Exception)
+        {
+            // مدیریت خطا
         }
         finally
         {
             _isLoading = false;
         }
+    }
+
+    private string GetPersianStatus(string status)
+    {
+        return status?.Trim().ToLowerInvariant() switch
+        {
+            "completed" => "تکمیل شده",
+            "pending" => "در انتظار پرداخت",
+            "cancelled" => "لغو شده",
+            _ => status ?? "نامشخص"
+        };
     }
 
     private async Task TriggerPrint()
@@ -316,6 +248,4 @@
     {
         await Js.InvokeVoidAsync("window.close");
     }
-
 }
-

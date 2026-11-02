@@ -1,422 +1,256 @@
 @page "/sales/print/{Id:guid}"
-
-
-@using AutoSpare.Application.Common.Settings
+@using System.Globalization
 @using AutoSpare.Application.Sales
 @using AutoSpare.Application.Sales.DTOs
-@using Microsoft.Extensions.Options
+@using AutoSpare.Application.Settings
+@using AutoSpare.Application.Settings.DTOs
 
 @inject ISaleService SaleService
-@inject IOptions<StoreSettings> StoreSettingsOptions
+@inject ISettingService SettingService
 @inject IJSRuntime Js
 
 <PageTitle>چاپ فاکتور @(_sale?.InvoiceNumber ?? "")</PageTitle>
 
-<MudContainer MaxWidth="MaxWidth.False" Class="print-root rtl">
+<div class="print-root rtl">
+    <!-- نوار ابزار بالا - در هنگام چاپ مخفی می‌شود -->
+    <div class="no-print d-flex align-center justify-space-between pa-4 mb-4" style="max-width: 210mm; margin: 0 auto; border-radius: 8px; background-color: #ffffff !important; border: 1px solid #ddd; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+        <div class="d-flex align-center gap-2">
+            <MudButton Variant="Variant.Filled"
+                       Color="Color.Primary"
+                       StartIcon="@Icons.Material.Filled.Print"
+                       OnClick="PrintInvoice">
+                چاپ فاکتور
+            </MudButton>
+        </div>
+        <MudButton Variant="Variant.Outlined"
+                   Style="color: #333 !important; border-color: #ccc !important;"
+                   StartIcon="@Icons.Material.Filled.Close"
+                   OnClick="ClosePage">
+            بستن
+        </MudButton>
+    </div>
 
     @if (_isLoading)
     {
-        <MudPaper Elevation="1" Class="pa-8 d-flex flex-column align-center justify-center mx-auto mt-6 print-shell">
-            <MudProgressCircular Indeterminate="true" Color="Color.Primary" Size="Size.Large" Class="mb-4"/>
-            <MudText Typo="Typo.body1">در حال آماده‌سازی فاکتور برای چاپ...</MudText>
-        </MudPaper>
+        <div class="d-flex justify-center align-center py-12">
+            <MudProgressCircular Color="Color.Primary" Indeterminate="true" Size="Size.Large" />
+        </div>
     }
-    else if (_sale is null)
+    else if (_sale == null)
     {
-        <MudPaper Elevation="1" Class="pa-6 mx-auto mt-6 print-shell">
-            <MudAlert Severity="Severity.Error" Variant="Variant.Filled">
-                فاکتور مورد نظر یافت نشد.
-            </MudAlert>
-
-            <div class="mt-4 d-flex gap-2">
-                <MudButton Variant="Variant.Filled"
-                           Color="Color.Primary"
-                           StartIcon="@Icons.Material.Filled.ArrowBack"
-                           OnClick="ClosePage">
-                    بستن صفحه
-                </MudButton>
-            </div>
-        </MudPaper>
+        <div class="d-flex justify-center align-center py-12">
+            <MudAlert Severity="Severity.Error">فاکتور مورد نظر یافت نشد.</MudAlert>
+        </div>
     }
     else
     {
-        @* Action Bar (در چاپ مخفی می‌شود) *@
-        <MudPaper Elevation="1" Class="no-print pa-3 mb-3 mx-auto print-shell">
-            <div class="d-flex flex-wrap gap-2 justify-center">
-                <MudButton Variant="Variant.Filled"
-                           Color="Color.Primary"
-                           StartIcon="@Icons.Material.Filled.Print"
-                           OnClick="PrintInvoice">
-                    چاپ فاکتور
-                </MudButton>
-
-                <MudButton Variant="Variant.Outlined"
-                           Color="Color.Default"
-                           StartIcon="@Icons.Material.Filled.Close"
-                           OnClick="ClosePage">
-                    بستن صفحه
-                </MudButton>
-            </div>
-        </MudPaper>
-
-        <main class="invoice-a4">
-            <div class="invoice-header">
-                <section class="store-info">
-                    <h1 class="store-name">@_store.StoreName</h1>
-                    <p class="store-meta">آدرس: @_store.Address</p>
-                    <p class="store-meta">تلفن: @_store.Phone | همراه: @_store.Mobile</p>
-                </section>
-
-                <section class="invoice-meta">
-                    <div class="meta-row">
-                        <strong>شماره فاکتور:</strong>
-                        <span class="dir-ltr">@_sale.InvoiceNumber</span>
+        <div class="print-shell">
+            <div class="invoice-a4">
+                <!-- سربرگ فاکتور -->
+                <div class="d-flex justify-space-between align-start border-bottom pb-4 mb-4" style="border-color: #ddd !important;">
+                    <div>
+                        <div style="font-size: 1.25rem; font-weight: bold; color: #000;" class="mb-1">@_store.StoreName</div>
+                        <div style="font-size: 0.85rem; color: #444;" class="mb-1">آدرس: @_store.Address</div>
+                        <div style="font-size: 0.85rem; color: #444;">تلفن: @_store.Phone | همراه: @_store.Mobile</div>
                     </div>
-                    <div class="meta-row">
-                        <strong>تاریخ:</strong>
-                        <span>@_sale.SaleDate.ToString("yyyy/MM/dd HH:mm")</span>
-                    </div>
-                    <div class="meta-row">
-                        <strong>وضعیت:</strong>
-                        <span>@_sale.Status</span>
-                    </div>
-                </section>
-            </div>
-
-            <hr class="divider"/>
-
-            <section class="customer-section">
-                <strong>نام خریدار:</strong>
-                <span>
-                    @(string.IsNullOrWhiteSpace(_sale.CustomerName) ? "مشتری متفرقه" : _sale.CustomerName)
-                </span>
-            </section>
-
-            <table class="items-table">
-                <thead>
-                <tr>
-                    <th class="column-index">#</th>
-                    <th>شرح کالا</th>
-                    <th class="column-quantity">تعداد</th>
-                    <th class="column-price">قیمت واحد</th>
-                    <th class="column-total">مبلغ کل</th>
-                </tr>
-                </thead>
-                <tbody>
-                @{
-                    var index = 1;
-                }
-                @foreach (var item in _sale.Items)
-                {
-                    <tr>
-                        <td class="text-center">@index</td>
-                        <td>@item.ProductName</td>
-                        <td class="text-center">@item.Quantity</td>
-                        <td class="number-cell">@item.UnitPrice.ToString("N0")</td>
-                        <td class="number-cell">@((item.Quantity * item.UnitPrice).ToString("N0"))</td>
-                    </tr>
-
-                    index++;
-                }
-                </tbody>
-            </table>
-
-            <footer class="invoice-footer">
-                <div class="total-box">
-                    <div class="total-row">
-                        <span>مبلغ قابل پرداخت:</span>
-                        <span class="number-cell">@_sale.TotalAmount.ToString("N0")</span>
+                    <div class="text-start">
+                        <div class="invoice-meta-box pa-3 rounded-lg border" style="border-color: #ccc !important; background: #fff; color: #000;">
+                            <div style="font-size: 0.85rem;"><strong>شماره فاکتور:</strong> @_sale.InvoiceNumber</div>
+                            <div style="font-size: 0.85rem;"><strong>تاریخ:</strong> @_sale.SaleDate.ToLocalTime().ToString("yyyy/MM/dd HH:mm", CultureInfo.InvariantCulture)</div>
+                            <div style="font-size: 0.85rem;"><strong>وضعیت:</strong> @GetPersianStatus(_sale.Status)</div>
+                        </div>
                     </div>
                 </div>
 
-                @if (!string.IsNullOrWhiteSpace(_sale.Notes))
-                {
-                    <div class="notes-box">
-                        <strong>یادداشت:</strong>
-                        <span>@_sale.Notes</span>
-                    </div>
-                }
-
-                @if (!string.IsNullOrWhiteSpace(_store.FooterNote))
-                {
-                    <div class="footer-note">
-                        <p>@_store.FooterNote</p>
-                    </div>
-                }
-
-                <div class="signatures">
-                    <div class="signature-box">امضای فروشنده</div>
-                    <div class="signature-box">امضای خریدار</div>
+                <!-- مشخصات خریدار -->
+                <div class="mb-4" style="color: #000;">
+                    <div style="font-size: 0.9rem;"><strong>نام خریدار:</strong> @(!string.IsNullOrWhiteSpace(_sale.CustomerName) ? _sale.CustomerName : "مشتری متفرقه")</div>
                 </div>
-            </footer>
-        </main>
+
+                <!-- جدول اقلام -->
+                <table class="invoice-table mb-4">
+                    <thead>
+                        <tr>
+                            <th style="width: 50px; text-align: center;">#</th>
+                            <th>شرح کالا</th>
+                            <th style="width: 90px; text-align: center;">تعداد</th>
+                            <th style="width: 130px; text-align: center;">قیمت واحد (تومان)</th>
+                            <th style="width: 140px; text-align: center;">مبلغ کل (تومان)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (_sale.Items != null)
+                        {
+                            int index = 1;
+                            foreach (var item in _sale.Items)
+                            {
+                                <tr>
+                                    <td style="text-align: center;">@index</td>
+                                    <td>
+                                        <div style="font-weight: bold; color: #000;">@item.ProductName</div>
+                                        @if (!string.IsNullOrWhiteSpace(item.ProductCode))
+                                        {
+                                            <div style="font-size: 0.8rem; color: #555;">کد: @item.ProductCode</div>
+                                        }
+                                    </td>
+                                    <td style="text-align: center;">@item.Quantity.ToString("N0")</td>
+                                    <td style="text-align: center;">@item.UnitPrice.ToString("N0")</td>
+                                    <td style="text-align: center;">@item.TotalPrice.ToString("N0")</td>
+                                </tr>
+                                index++;
+                            }
+                        }
+                    </tbody>
+                </table>
+
+                <!-- جمع کل و پاورقی -->
+                <div class="d-flex justify-between align-start mt-4 pt-2">
+                    <div style="flex: 1;" class="me-4">
+                        @if (!string.IsNullOrWhiteSpace(_store.FooterNote))
+                        {
+                            <div class="footer-note pa-3 rounded border" style="font-size: 0.85rem; background-color: #f9f9f9; border-color: #ddd !important; color: #333;">
+                                <strong>توضیحات / شرایط:</strong><br />
+                                @_store.FooterNote
+                            </div>
+                        }
+                    </div>
+                    <div style="width: 280px; border-color: #ccc !important; background: #fff; color: #000;" class="total-box pa-3 border rounded-lg text-start">
+                        <div class="d-flex justify-space-between">
+                            <span style="font-weight: bold;">مبلغ قابل پرداخت:</span>
+                            <span style="font-weight: bold; font-size: 1.1rem;">@_sale.TotalAmount.ToString("N0") تومان</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- متن تشکر (یکپارچه با حرارتی) -->
+                <div class="text-center mt-6" style="font-size: 0.9rem; font-weight: bold; color: #000;">
+                    از خرید شما سپاسگزاریم
+                </div>
+
+                <!-- امضاها -->
+                <div class="d-flex justify-space-between mt-10 pt-6" style="page-break-inside: avoid; color: #000;">
+                    <div class="text-center" style="width: 200px;">
+                        <div class="mb-8" style="border-bottom: 1px dashed #777; height: 40px;"></div>
+                        <div style="font-size: 0.85rem;">امضای فروشنده</div>
+                    </div>
+                    <div class="text-center" style="width: 200px;">
+                        <div class="mb-8" style="border-bottom: 1px dashed #777; height: 40px;"></div>
+                        <div style="font-size: 0.85rem;">امضای خریدار</div>
+                    </div>
+                </div>
+            </div>
+        </div>
     }
-</MudContainer>
+</div>
 
 <style>
     .print-root {
+        background-color: #f0f2f5 !important;
         min-height: 100vh;
-        padding: 16px;
-        background: #f2f2f2;
-        color: #222;
-        font-family: Sahel, Vazirmatn, Tahoma, sans-serif;
-        direction: rtl;
+        color: #000 !important;
     }
 
     .print-shell {
-        max-width: 210mm;
-    }
-
-    .rtl {
-        direction: rtl;
-    }
-
-    .dir-ltr {
-        direction: ltr;
-        display: inline-block;
+        display: flex;
+        justify-content: center;
+        padding: 20px 0;
     }
 
     .invoice-a4 {
         width: 210mm;
         min-height: 297mm;
-        margin: 0 auto;
+        background: #ffffff !important;
+        color: #000000 !important;
         padding: 15mm;
-        background: #fff;
-        color: #222;
-        font-size: 13px;
-        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.12);
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        box-sizing: border-box;
     }
 
-    .invoice-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: flex-start;
-        gap: 20px;
-    }
-
-    .store-info {
-        flex: 1;
-    }
-
-    .store-name {
-        margin: 0 0 8px;
-        font-size: 20px;
-        font-weight: 700;
-    }
-
-    .store-meta {
-        margin: 4px 0;
-        color: #555;
-        font-size: 12px;
-    }
-
-    .invoice-meta {
-        min-width: 220px;
-        padding: 8px 12px;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        background: #fafafa;
-    }
-
-    .meta-row {
-        display: flex;
-        justify-content: space-between;
-        gap: 12px;
-        margin: 5px 0;
-    }
-
-    .divider {
-        margin: 15px 0;
-        border: 0;
-        border-top: 1px solid #222;
-    }
-
-    .customer-section {
-        margin-bottom: 15px;
-        padding: 8px 10px;
-        border-radius: 4px;
-        background: #f5f5f5;
-    }
-
-    .items-table {
+    .invoice-table {
         width: 100%;
-        margin-bottom: 20px;
         border-collapse: collapse;
+        color: #000;
     }
 
-    .items-table th, .items-table td {
-        padding: 8px;
-        border: 1px solid #bbb;
+    .invoice-table th, .invoice-table td {
+        border: 1px solid #ccc !important;
+        padding: 8px 10px;
+        font-size: 0.9rem;
+        color: #000 !important;
     }
 
-    .items-table th {
-        background: #eee;
-        font-weight: 700;
-        text-align: center;
-    }
-
-    .column-index {
-        width: 6%;
-    }
-
-    .column-quantity {
-        width: 12%;
-    }
-
-    .column-price, .column-total {
-        width: 20%;
-    }
-
-    .text-center {
-        text-align: center;
-    }
-
-    .number-cell {
-        direction: ltr;
-        text-align: left;
-        white-space: nowrap;
-    }
-
-    .invoice-footer {
-        margin-top: 25px;
-    }
-
-    .total-box {
-        width: 320px;
-        max-width: 100%;
-        margin-right: auto;
-        margin-bottom: 20px;
-        border: 1px solid #444;
-    }
-
-    .total-row {
-        display: flex;
-        justify-content: space-between;
-        gap: 12px;
-        padding: 10px 12px;
-        background: #f0f0f0;
-        font-size: 15px;
-        font-weight: 700;
-    }
-
-    .notes-box {
-        margin-bottom: 12px;
-        color: #444;
-        font-size: 12px;
-        overflow-wrap: anywhere;
-    }
-
-    .footer-note {
-        margin-bottom: 30px;
-        padding-top: 8px;
-        border-top: 1px dashed #ccc;
-        color: #666;
-        font-size: 11px;
-    }
-
-    .footer-note p {
-        margin: 0;
-    }
-
-    .signatures {
-        display: flex;
-        justify-content: space-around;
-        gap: 24px;
-        margin-top: 40px;
-    }
-
-    .signature-box {
-        width: 160px;
-        padding-top: 6px;
-        border-top: 1px dotted #888;
-        text-align: center;
-        font-size: 12px;
+    .invoice-table th {
+        background-color: #f8f9fa !important;
+        font-weight: bold;
+        color: #000 !important;
     }
 
     @@media print {
-        @@page {
-            size: A4 portrait;
-            margin: 10mm;
-        }
-
-        body {
-            margin: 0 !important;
-            padding: 0 !important;
-            background: #fff !important;
-        }
-
-        .print-root {
-            min-height: 0;
-            margin: 0;
-            padding: 0;
-            background: #fff;
-        }
-
-        .no-print {
+        header, nav, aside, .mud-appbar, .mud-drawer, .no-print {
             display: none !important;
         }
 
+        body, html {
+            background: none !important;
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+
+        .print-root {
+            background: none !important;
+        }
+
+        .print-shell {
+            padding: 0 !important;
+        }
+
         .invoice-a4 {
-            width: 100%;
-            min-height: 0;
-            margin: 0;
-            padding: 0;
-            box-shadow: none;
+            width: 100% !important;
+            min-height: auto !important;
+            box-shadow: none !important;
+            padding: 5mm !important;
+            margin: 0 !important;
         }
 
-        .items-table, .invoice-header, .invoice-footer {
-            break-inside: avoid;
-        }
-
-        .items-table tr {
-            break-inside: avoid;
-        }
-    }
-
-    @@media screen and (max-width: 800px) {
-        .invoice-a4 {
-            width: 100%;
-            min-height: 0;
-            padding: 20px;
-        }
-
-        .invoice-header {
-            flex-direction: column;
-        }
-
-        .invoice-meta {
-            width: 100%;
-        }
-
-        .items-table {
-            font-size: 11px;
-        }
-
-        .items-table th, .items-table td {
-            padding: 5px;
+        @@page {
+            size: A4 portrait;
+            margin: 10mm;
         }
     }
 </style>
 
 @code {
     [Parameter] public Guid Id { get; set; }
-
     private SaleDetailsDto? _sale;
-    private StoreSettings _store = new();
+    private SettingDto _store = new();
     private bool _isLoading = true;
 
     protected override async Task OnInitializedAsync()
     {
-        _store = StoreSettingsOptions.Value;
-
         try
         {
+            _store = await SettingService.GetSettingsAsync();
             _sale = await SaleService.GetSaleDetailsAsync(Id);
+        }
+        catch (Exception)
+        {
+            // مدیریت خطا
         }
         finally
         {
             _isLoading = false;
         }
+    }
+
+    private string GetPersianStatus(string status)
+    {
+        return status?.Trim().ToLowerInvariant() switch
+        {
+            "completed" => "تکمیل شده",
+            "pending" => "در انتظار پرداخت",
+            "cancelled" => "لغو شده",
+            _ => status ?? "نامشخص"
+        };
     }
 
     private async Task PrintInvoice()
@@ -429,4 +263,3 @@
         await Js.InvokeVoidAsync("window.close");
     }
 }
-
