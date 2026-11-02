@@ -46,24 +46,25 @@ public static class DbInitializer
 
         // 3. ایجاد حساب کاربری مدیر اولیه در صورت عدم وجود
         const string adminUsername = "admin";
-        var adminExists = await context.Users.AnyAsync(u => u.Username == adminUsername, cancellationToken);
+        // 3. ایجاد حساب کاربری مدیر اولیه در صورت عدم وجود هرگونه کاربر (سیستم تک‌کاربره)
+        var anyUserExists = await context.Users.AnyAsync(cancellationToken);
 
-        if (!adminExists)
+        if (!anyUserExists)
         {
-            // ✅ هش کردن با واسط IPasswordHasher (اجرای تمیز و قابل تست)
+            const string defaultUsername = "admin";
             const string defaultPassword = "Admin@123456";
             var hashedPassword = passwordHasher.HashPassword(defaultPassword);
 
             var adminUser = new AppUser(
                 fullName: "مدیر سیستم",
-                username: adminUsername,
+                username: defaultUsername,
                 passwordHash: hashedPassword,
                 quickPinHash: null
             );
 
             await context.Users.AddAsync(adminUser, cancellationToken);
             await context.SaveChangesAsync(cancellationToken);
-            logger.LogInformation("Default Admin user created successfully (Username: admin)");
+            logger.LogInformation("Default Admin user created successfully.");
         }
     }
 }
