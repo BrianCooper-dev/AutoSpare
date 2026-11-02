@@ -18,6 +18,7 @@ using AutoSpare.Application.Products;
 using AutoSpare.Application.Purchases;
 using AutoSpare.Application.Reports;
 using AutoSpare.Application.Sales;
+using AutoSpare.Application.Settings;
 using AutoSpare.Application.Suppliers;
 using AutoSpare.Infrastructure.Services;
 using Microsoft.AspNetCore.Localization;
@@ -82,14 +83,14 @@ try
 
     builder.Services.AddScoped<IReportService, ReportService>();
 
-    builder.Services.Configure<StoreSettings>(builder.Configuration.GetSection(StoreSettings.SectionName));
-
     builder.Services.AddScoped<IBackupService, BackupService>();
 
     builder.Services
         .AddOptions<BackupSchedulerSettings>()
         .Bind(builder.Configuration.GetRequiredSection(BackupSchedulerSettings.SectionName))
         .ValidateOnStart();
+
+    builder.Services.AddScoped<ISettingService, SettingService>();
 
     builder.Services.AddHostedService<AutoSpare.Infrastructure.Services.ScheduledBackupHostedService>();
 
@@ -142,7 +143,7 @@ try
         ?? throw new InvalidOperationException(
             "Connection string 'DefaultConnection' was not found.");
 
-    builder.Services.AddDbContext<ApplicationDbContext>(options =>
+    builder.Services.AddDbContextFactory<ApplicationDbContext>(options =>
         options.UseSqlServer(connectionString));
 
     builder.Services.AddDatabaseDeveloperPageExceptionFilter();

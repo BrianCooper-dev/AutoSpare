@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace AutoSpare.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class warehouse : Migration
+    public partial class AddSettingsTable : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -66,6 +66,24 @@ namespace AutoSpare.Infrastructure.Migrations
                     table.CheckConstraint("CK_DailySettlements_CashAmount_NonNegative", "[CashAmount] >= 0");
                     table.CheckConstraint("CK_DailySettlements_Pos1Amount_NonNegative", "[Pos1Amount] >= 0");
                     table.CheckConstraint("CK_DailySettlements_Pos2Amount_NonNegative", "[Pos2Amount] >= 0");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Settings",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    StoreName = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
+                    Phone = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Mobile = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Address = table.Column<string>(type: "nvarchar(400)", maxLength: 400, nullable: false),
+                    FooterNote = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    LastModifiedAt = table.Column<DateTime>(type: "datetime2", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Settings", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -593,6 +611,9 @@ namespace AutoSpare.Infrastructure.Migrations
 
             migrationBuilder.DropTable(
                 name: "SaleItems");
+
+            migrationBuilder.DropTable(
+                name: "Settings");
 
             migrationBuilder.DropTable(
                 name: "StockMovements");

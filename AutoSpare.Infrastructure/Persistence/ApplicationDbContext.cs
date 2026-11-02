@@ -6,6 +6,7 @@ using AutoSpare.Domain.Inventories;
 using AutoSpare.Domain.Products;
 using AutoSpare.Domain.Purchases;
 using AutoSpare.Domain.Sales;
+using AutoSpare.Domain.Settings;
 using AutoSpare.Domain.Suppliers;
 using AutoSpare.Domain.Users;
 using AutoSpare.Domain.Warehouses;
@@ -33,6 +34,7 @@ public class ApplicationDbContext : DbContext
     public DbSet<AppUser> Users => Set<AppUser>();
     public DbSet<Brand> Brands => Set<Brand>();
     public DbSet<Warehouse> Warehouses => Set<Warehouse>();
+    public DbSet<Setting> Settings => Set<Setting>();
 
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
