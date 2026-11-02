@@ -1,0 +1,15 @@
+2026-11-03 00:00:49.016 +03:30 [INF] HTTP GET /uploads/products/8c99d533744d495cad96035fe40976a6.png responded 304 in 0.8720 ms 
+2026-11-03 00:00:49.016 +03:30 [INF] HTTP GET /uploads/products/aba5a5d005684f84a069742c0d83feed.png responded 304 in 0.8612 ms 
+2026-11-03 00:00:56.924 +03:30 [WRN] Savepoints are disabled because Multiple Active Result Sets (MARS) is enabled. If 'SaveChanges' fails, then the transaction cannot be automatically rolled back to a known clean state. Instead, the transaction should be rolled back by the application before retrying 'SaveChanges'. See https://go.microsoft.com/fwlink/?linkid=2149338 for more information and examples. To identify the code which triggers this warning, call 'ConfigureWarnings(w => w.Throw(SqlServerEventId.SavepointsDisabledBecauseOfMARS))'. 
+2026-11-03 00:01:01.306 +03:30 [INF] HTTP GET /uploads/products/8c99d533744d495cad96035fe40976a6.png responded 304 in 0.6676 ms 
+2026-11-03 00:01:01.306 +03:30 [INF] HTTP GET /uploads/products/aba5a5d005684f84a069742c0d83feed.png responded 304 in 0.3602 ms 
+2026-11-03 00:01:11.365 +03:30 [WRN] Savepoints are disabled because Multiple Active Result Sets (MARS) is enabled. If 'SaveChanges' fails, then the transaction cannot be automatically rolled back to a known clean state. Instead, the transaction should be rolled back by the application before retrying 'SaveChanges'. See https://go.microsoft.com/fwlink/?linkid=2149338 for more information and examples. To identify the code which triggers this warning, call 'ConfigureWarnings(w => w.Throw(SqlServerEventId.SavepointsDisabledBecauseOfMARS))'. 
+2026-11-03 00:01:19.400 +03:30 [INF] HTTP GET /uploads/products/aba5a5d005684f84a069742c0d83feed.png responded 304 in 1.5578 ms 
+2026-11-03 00:01:19.400 +03:30 [INF] HTTP GET /uploads/products/8c99d533744d495cad96035fe40976a6.png responded 304 in 1.5576 ms 
+2026-11-03 00:01:47.875 +03:30 [WRN] Savepoints are disabled because Multiple Active Result Sets (MARS) is enabled. If 'SaveChanges' fails, then the transaction cannot be automatically rolled back to a known clean state. Instead, the transaction should be rolled back by the application before retrying 'SaveChanges'. See https://go.microsoft.com/fwlink/?linkid=2149338 for more information and examples. To identify the code which triggers this warning, call 'ConfigureWarnings(w => w.Throw(SqlServerEventId.SavepointsDisabledBecauseOfMARS))'. 
+2026-11-03 00:01:51.946 +03:30 [INF] HTTP GET /uploads/products/aba5a5d005684f84a069742c0d83feed.png responded 304 in 1.5114 ms 
+2026-11-03 00:01:51.946 +03:30 [INF] HTTP GET /uploads/products/8c99d533744d495cad96035fe40976a6.png responded 304 in 1.5110 ms 
+2026-11-03 00:02:25.255 +03:30 [INF] HTTP GET /uploads/products/8c99d533744d495cad96035fe40976a6.png responded 304 in 0.5583 ms 
+2026-11-03 00:03:30.520 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 5.1538 ms 
+2026-11-03 00:03:30.531 +03:30 [INF] HTTP GET /_blazor responded 101 in 265677.4269 ms 
+2026-11-03 00:03:45.646 +03:30 [INF] سرویس زمان‌بندی بکاپ متوقف شد. 
