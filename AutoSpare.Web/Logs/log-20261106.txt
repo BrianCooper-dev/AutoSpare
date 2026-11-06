@@ -1089,3 +1089,27 @@ System.InvalidOperationException: فاکتور خرید با شماره 'PUR-000
 2026-11-06 22:00:21.893 +03:30 [INF] HTTP GET /not-found responded 404 in 3.2669 ms 
 2026-11-06 22:00:26.097 +03:30 [INF] HTTP GET /_blazor responded 101 in 4254.0418 ms 
 2026-11-06 22:00:27.104 +03:30 [INF] سرویس زمان‌بندی بکاپ متوقف شد. 
+2026-11-06 22:03:49.252 +03:30 [INF] Storage directories are ready. ImagesPath: D:\porograming\Rider\AutoSpare\AutoSpare.Web\wwwroot\Uploads\Images, BackupPath: D:\AutoSpareBackups 
+2026-11-06 22:03:49.269 +03:30 [INF] SQLite database path: D:\porograming\Rider\AutoSpare\AutoSpare.Web\autospare.db 
+2026-11-06 22:04:00.415 +03:30 [INF] سرویس زمان‌بندی بکاپ پایگاه داده راه‌اندازی شد. 
+2026-11-06 22:04:00.430 +03:30 [INF] بکاپ بعدی در ساعت 2026/11/07 02:30:00 اجرا خواهد شد (مدت انتظار: "04:25:59.5724293"). 
+2026-11-06 22:04:00.649 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 28.5180 ms 
+2026-11-06 22:04:00.649 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 28.5081 ms 
+2026-11-06 22:04:01.158 +03:30 [INF] HTTP GET / responded 200 in 539.0019 ms 
+2026-11-06 22:04:01.185 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 304 in 6.3164 ms 
+2026-11-06 22:04:01.185 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 6.3439 ms 
+2026-11-06 22:04:01.198 +03:30 [INF] HTTP GET /app.css responded 200 in 19.1399 ms 
+2026-11-06 22:04:01.199 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 20.2933 ms 
+2026-11-06 22:04:01.264 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.5189 ms 
+2026-11-06 22:04:01.290 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 6.3986 ms 
+2026-11-06 22:04:01.313 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 3.2954 ms 
+2026-11-06 22:04:11.445 +03:30 [INF] HTTP GET /Uploads/Images/5d9a4002b66a4e6fbf61ce3e341ad2ae.png responded 404 in 0.6468 ms 
+2026-11-06 22:04:11.500 +03:30 [INF] HTTP GET /not-found responded 404 in 25.4717 ms 
+2026-11-06 22:04:20.941 +03:30 [INF] HTTP GET /Uploads/Images/5d9a4002b66a4e6fbf61ce3e341ad2ae.png responded 404 in 0.3442 ms 
+2026-11-06 22:04:20.956 +03:30 [WRN] The static asset '/Uploads/Images/22a0016dff7543f98d9d7853d0847536.png' was not found in the built time manifest. This file will not be available at runtime if it is not available at compile time during the publish process. If the file was not added to the project during development, and is created at runtime, use the StaticFiles middleware to serve it instead. 
+2026-11-06 22:04:20.959 +03:30 [INF] HTTP GET /not-found responded 404 in 12.0295 ms 
+2026-11-06 22:04:20.971 +03:30 [INF] HTTP GET /Uploads/Images/22a0016dff7543f98d9d7853d0847536.png responded 200 in 23.5666 ms 
+2026-11-06 22:04:31.912 +03:30 [INF] HTTP GET /Uploads/Images/5d9a4002b66a4e6fbf61ce3e341ad2ae.png responded 404 in 0.2245 ms 
+2026-11-06 22:04:31.916 +03:30 [INF] HTTP GET /not-found responded 404 in 4.0573 ms 
+2026-11-06 22:05:36.487 +03:30 [INF] HTTP GET /_blazor responded 101 in 95167.9307 ms 
+2026-11-06 22:05:37.495 +03:30 [INF] سرویس زمان‌بندی بکاپ متوقف شد. 
