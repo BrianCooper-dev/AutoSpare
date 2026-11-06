@@ -272,7 +272,7 @@
         {
             var result = _sales.AsEnumerable();
 
-            // فیلتر جستجوی متنی
+            // فیلترهای موجود (جستجو، مشتری، وضعیت، تاریخ)...
             if (!string.IsNullOrWhiteSpace(_searchQuery))
             {
                 var query = _searchQuery.Trim();
@@ -283,31 +283,31 @@
                 );
             }
 
-            // فیلتر نام مشتری
             if (!string.IsNullOrWhiteSpace(_selectedCustomerName))
             {
                 result = result.Where(s => s.CustomerName == _selectedCustomerName);
             }
 
-            // فیلتر وضعیت
             if (_selectedStatus.HasValue)
             {
                 result = result.Where(s => s.Status == _selectedStatus.Value);
             }
 
-            // فیلتر تاریخ از
             if (_fromDate.HasValue)
             {
                 result = result.Where(s => s.SaleDate.Date >= _fromDate.Value.Date);
             }
 
-            // فیلتر تاریخ تا
             if (_toDate.HasValue)
             {
                 result = result.Where(s => s.SaleDate.Date <= _toDate.Value.Date);
             }
 
-            return result.OrderByDescending(s => s.SaleDate).ToList();
+            // مرتب‌سازی پایدار: ابتدا بر اساس تاریخ نزولی، سپس شماره فاکتور/شناسه نزولی
+            return result
+                .OrderByDescending(s => s.SaleDate)
+                .ThenByDescending(s => s.InvoiceNumber)
+                .ToList();
         }
     }
 

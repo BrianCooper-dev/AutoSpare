@@ -15,12 +15,10 @@
 @inject ISettingService SettingService
 @inject IDbContextFactory<ApplicationDbContext> DbContextFactory
 @inject IPasswordHasher PasswordHasher
-@inject AuthenticationStateProvider AuthStateProvider
 @inject IOptions<StorageSettings> StorageOptions
 @inject ISnackbar Snackbar
 @inject IDialogService DialogService
 @inject NavigationManager NavigationManager
-
 
 <PageTitle>تنظیمات سامانه | AutoSpare</PageTitle>
 
@@ -32,23 +30,29 @@
                 <MudIcon Icon="@Icons.Material.Filled.Settings" Size="Size.Large"/>
             </MudAvatar>
             <div>
-                <MudText Typo="Typo.h5" Class="font-weight-bold">تنظیمات سامانه و مدیریت</MudText>
-                <MudText Typo="Typo.body2" Color="Color.Secondary">پیکربندی اطلاعات فروشگاه، چاپ فاکتور، حساب مدیر و
-                    پشتیبان‌گیری پایگاه‌داده
+                <MudText Typo="Typo.h5" Class="font-weight-bold">
+                    تنظیمات سامانه و مدیریت
+                </MudText>
+                <MudText Typo="Typo.body2" Color="Color.Secondary">
+                    پیکربندی اطلاعات فروشگاه، چاپ فاکتور، حساب مدیر و پشتیبان‌گیری پایگاه‌داده
                 </MudText>
             </div>
         </div>
     </div>
 
-    <!-- تب‌های تنظیمات -->
-    <MudTabs Elevation="2" Rounded="true" ApplyEffectsToContainer="true" PanelClass="pa-6 mt-2" Color="Color.Surface">
+    <MudTabs Elevation="2"
+             Rounded="true"
+             ApplyEffectsToContainer="true"
+             PanelClass="pa-6 mt-2"
+             Color="Color.Surface">
 
         <!-- تب ۱: مشخصات فروشگاه و چاپ فاکتور -->
         <MudTabPanel Text="مشخصات فروشگاه و فاکتور" Icon="@Icons.Material.Filled.Store">
             <MudCard Elevation="0" Class="pa-2">
                 <MudCardHeader Class="px-0 pt-0 pb-4">
                     <CardHeaderContent>
-                        <MudText Typo="Typo.h6" Class="font-weight-bold mb-1">اطلاعات فروشگاه و سربرگ/پاورقی فاکتور
+                        <MudText Typo="Typo.h6" Class="font-weight-bold mb-1">
+                            اطلاعات فروشگاه و سربرگ/پاورقی فاکتور
                         </MudText>
                         <MudText Typo="Typo.body2" Color="Color.Secondary">
                             این مشخصات به‌صورت پویا در سربرگ، پاورقی، فاکتورهای رسمی و حرارتی چاپ قرار می‌گیرند.
@@ -60,7 +64,9 @@
                     @if (_isLoadingSettings)
                     {
                         <div class="d-flex justify-center align-center py-12">
-                            <MudProgressCircular Color="Color.Primary" Indeterminate="true" Size="Size.Large"/>
+                            <MudProgressCircular Color="Color.Primary"
+                                                 Indeterminate="true"
+                                                 Size="Size.Large"/>
                         </div>
                     }
                     else
@@ -130,7 +136,9 @@
                                Class="px-6 py-2">
                         @if (_isSavingSettings)
                         {
-                            <MudProgressCircular Class="ms-n1 me-2" Size="Size.Small" Indeterminate="true"/>
+                            <MudProgressCircular Class="ms-n1 me-2"
+                                                 Size="Size.Small"
+                                                 Indeterminate="true"/>
                             <span>در حال ذخیره...</span>
                         }
                         else
@@ -147,10 +155,12 @@
             <MudCard Elevation="0" Class="pa-2">
                 <MudCardHeader Class="px-0 pt-0 pb-4">
                     <CardHeaderContent>
-                        <MudText Typo="Typo.h6" Class="font-weight-bold mb-1">ویرایش مشخصات و رمز عبور مدیر</MudText>
+                        <MudText Typo="Typo.h6" Class="font-weight-bold mb-1">
+                            ویرایش مشخصات و رمز عبور مدیر
+                        </MudText>
                         <MudText Typo="Typo.body2" Color="Color.Secondary">
-                            برای تغییر رمز عبور، وارد کردن رمز عبور فعلی الزامی است. رمزها با الگوریتم امن PBKDF2 در
-                            سیستم هش می‌شوند.
+                            برای تغییر رمز عبور، وارد کردن رمز عبور فعلی الزامی است.
+                            رمزها با الگوریتم امن PBKDF2 در سیستم هش می‌شوند.
                         </MudText>
                     </CardHeaderContent>
                 </MudCardHeader>
@@ -159,7 +169,9 @@
                     @if (_isLoadingAdmin)
                     {
                         <div class="d-flex justify-center align-center py-12">
-                            <MudProgressCircular Color="Color.Primary" Indeterminate="true" Size="Size.Large"/>
+                            <MudProgressCircular Color="Color.Primary"
+                                                 Indeterminate="true"
+                                                 Size="Size.Large"/>
                         </div>
                     }
                     else
@@ -190,7 +202,9 @@
 
                                 <MudItem xs="12">
                                     <MudDivider Class="my-3"/>
-                                    <MudText Typo="Typo.subtitle1" Color="Color.Primary" Class="font-weight-bold mb-2">
+                                    <MudText Typo="Typo.subtitle1"
+                                             Color="Color.Primary"
+                                             Class="font-weight-bold mb-2">
                                         تغییر رمز عبور (در صورت نیاز)
                                     </MudText>
                                 </MudItem>
@@ -239,7 +253,9 @@
                                Class="px-6 py-2">
                         @if (_isSavingAdmin)
                         {
-                            <MudProgressCircular Class="ms-n1 me-2" Size="Size.Small" Indeterminate="true"/>
+                            <MudProgressCircular Class="ms-n1 me-2"
+                                                 Size="Size.Small"
+                                                 Indeterminate="true"/>
                             <span>در حال ثبت...</span>
                         }
                         else
@@ -251,20 +267,24 @@
             </MudCard>
         </MudTabPanel>
 
-        <!-- تب ۳: پشتیبان‌گیری و نگهداری دیتابیس -->
+        <!-- تب ۳: پشتیبان‌گیری و نگهداری SQLite -->
         <MudTabPanel Text="پشتیبان‌گیری دیتابیس" Icon="@Icons.Material.Filled.Backup">
             <MudCard Elevation="0" Class="pa-2">
                 <MudCardHeader Class="px-0 pt-0 pb-4">
                     <CardHeaderContent>
                         <div class="d-flex align-center justify-space-between">
                             <div>
-                                <MudText Typo="Typo.h6" Class="font-weight-bold mb-1">عملیات تهیه و بازیابی فایل .bak
+                                <MudText Typo="Typo.h6" Class="font-weight-bold mb-1">
+                                    پشتیبان‌گیری و بازیابی پایگاه‌داده SQLite
                                 </MudText>
-                                <MudText Typo="Typo.body2" Color="Color.Secondary">مدیریت فایل‌های پشتیبان پایگاه‌داده و
-                                    بازیابی سریع نسخه‌های قبل
+                                <MudText Typo="Typo.body2" Color="Color.Secondary">
+                                    مدیریت نسخه‌های پشتیبان با فرمت .db
                                 </MudText>
                             </div>
-                            <MudChip T="string" Color="Color.Primary" Variant="Variant.Outlined" Size="Size.Medium">
+                            <MudChip T="string"
+                                     Color="Color.Primary"
+                                     Variant="Variant.Outlined"
+                                     Size="Size.Medium">
                                 نسخه‌های ثبت‌شده: @_backupList.Count
                             </MudChip>
                         </div>
@@ -278,18 +298,24 @@
                             <MudCard Elevation="1" Class="rounded-lg pa-4">
                                 <MudCardHeader Class="px-0 pt-0 pb-3">
                                     <CardHeaderAvatar>
-                                        <MudAvatar Color="Color.Primary" Variant="Variant.Outlined" Size="Size.Medium">
-                                            <MudIcon Icon="@Icons.Material.Filled.Backup" Size="Size.Medium"/>
+                                        <MudAvatar Color="Color.Primary"
+                                                   Variant="Variant.Outlined"
+                                                   Size="Size.Medium">
+                                            <MudIcon Icon="@Icons.Material.Filled.Backup"
+                                                     Size="Size.Medium"/>
                                         </MudAvatar>
                                     </CardHeaderAvatar>
                                     <CardHeaderContent>
-                                        <MudText Typo="Typo.subtitle1" Class="font-weight-bold">تهیه بکاپ جدید</MudText>
+                                        <MudText Typo="Typo.subtitle1" Class="font-weight-bold">
+                                            تهیه بکاپ جدید
+                                        </MudText>
                                     </CardHeaderContent>
                                 </MudCardHeader>
 
                                 <MudCardContent Class="px-0 py-2">
                                     <MudTextField @bind-Value="_backupPath"
-                                                  Label="مسیر ذخیره فایل (.bak)"
+                                                  Label="پوشه ذخیره فایل‌های پشتیبان (.db)"
+                                                  HelperText="مسیر روی دستگاهِ میزبان برنامه است، نه دستگاهِ مرورگر."
                                                   Variant="Variant.Outlined"
                                                   Margin="Margin.Normal"
                                                   Adornment="Adornment.Start"
@@ -297,8 +323,10 @@
                                                   Class="mb-3"/>
 
                                     <div class="d-flex flex-wrap gap-2 align-center mb-4">
-                                        <MudText Typo="Typo.caption" Color="Color.Secondary" Class="me-1">مسیرهای
-                                            سریع:
+                                        <MudText Typo="Typo.caption"
+                                                 Color="Color.Secondary"
+                                                 Class="me-1">
+                                            مسیرهای سریع:
                                         </MudText>
                                         <MudChip T="string"
                                                  Size="Size.Small"
@@ -319,10 +347,12 @@
                                     @if (_isProcessing)
                                     {
                                         <div class="d-flex align-center gap-2 py-3">
-                                            <MudProgressCircular Color="Color.Primary" Size="Size.Small"
+                                            <MudProgressCircular Color="Color.Primary"
+                                                                 Size="Size.Small"
                                                                  Indeterminate="true"/>
-                                            <MudText Typo="Typo.caption"
-                                                     Color="Color.Primary">@_processingStatusText</MudText>
+                                            <MudText Typo="Typo.caption" Color="Color.Primary">
+                                                @_processingStatusText
+                                            </MudText>
                                         </div>
                                     }
                                 </MudCardContent>
@@ -340,11 +370,14 @@
                                 </MudCardActions>
                             </MudCard>
 
-                            <MudAlert Severity="Severity.Warning" Variant="Variant.Outlined" Class="mt-4" Dense="false">
+                            <MudAlert Severity="Severity.Warning"
+                                      Variant="Variant.Outlined"
+                                      Class="mt-4"
+                                      Dense="false">
                                 <MudText Typo="Typo.caption">
                                     <strong>توجه امنیتی:</strong>
-                                    بازیابی نسخه پشتیبان باعث جایگزینی کامل اطلاعات فعلی پایگاه‌داده با فایل انتخابی
-                                    خواهد شد.
+                                    بازیابی نسخه پشتیبان، اطلاعات فعلی پایگاه‌داده را
+                                    با اطلاعات فایل انتخابی جایگزین می‌کند.
                                 </MudText>
                             </MudAlert>
                         </MudItem>
@@ -352,14 +385,18 @@
                         <!-- پنل تاریخچه بکاپ‌ها -->
                         <MudItem xs="12" md="7" lg="8">
                             <MudCard Elevation="1" Class="rounded-lg pa-2">
-                                <MudCardHeader class="pb-2">
+                                <MudCardHeader Class="pb-2">
                                     <CardHeaderAvatar>
-                                        <MudAvatar Color="Color.Info" Variant="Variant.Outlined" Size="Size.Medium">
-                                            <MudIcon Icon="@Icons.Material.Filled.History" Size="Size.Medium"/>
+                                        <MudAvatar Color="Color.Info"
+                                                   Variant="Variant.Outlined"
+                                                   Size="Size.Medium">
+                                            <MudIcon Icon="@Icons.Material.Filled.History"
+                                                     Size="Size.Medium"/>
                                         </MudAvatar>
                                     </CardHeaderAvatar>
                                     <CardHeaderContent>
-                                        <MudText Typo="Typo.subtitle1" Class="font-weight-bold">فایل‌های پشتیبان موجود
+                                        <MudText Typo="Typo.subtitle1" Class="font-weight-bold">
+                                            فایل‌های پشتیبان موجود
                                         </MudText>
                                     </CardHeaderContent>
                                     <CardHeaderActions>
@@ -379,7 +416,7 @@
                                               Elevation="0"
                                               Loading="@_isLoadingList"
                                               LoadingProgressColor="Color.Primary"
-                                              EmptyDataText="هیچ فایل پشتیبانی در این مسیر یافت نشد.">
+                                              EmptyDataText="هیچ فایل پشتیبانی در مسیر پیکربندی‌شده یافت نشد.">
                                         <HeaderContent>
                                             <MudTh>نام فایل</MudTh>
                                             <MudTh Style="width: 170px;">تاریخ ایجاد</MudTh>
@@ -399,10 +436,14 @@
                                                 </div>
                                             </MudTd>
                                             <MudTd DataLabel="تاریخ ایجاد">
-                                                <MudText Typo="Typo.body2">@context.PersianCreatedAt</MudText>
+                                                <MudText Typo="Typo.body2">
+                                                    @context.PersianCreatedAt
+                                                </MudText>
                                             </MudTd>
                                             <MudTd DataLabel="حجم" Style="text-align: center;">
-                                                <MudChip T="string" Size="Size.Small" Variant="Variant.Outlined"
+                                                <MudChip T="string"
+                                                         Size="Size.Small"
+                                                         Variant="Variant.Outlined"
                                                          Color="Color.Default">
                                                     @context.FileSizeFormatted
                                                 </MudChip>
@@ -430,7 +471,6 @@
                 </MudCardContent>
             </MudCard>
         </MudTabPanel>
-
     </MudTabs>
 </MudContainer>
 
@@ -492,8 +532,12 @@
         try
         {
             _isSavingSettings = true;
+
             await SettingService.UpdateSettingsAsync(_settingDto);
-            Snackbar.Add("مشخصات فروشگاه و تنظیمات چاپ با موفقیت به‌روزرسانی شد.", Severity.Success);
+
+            Snackbar.Add(
+                "مشخصات فروشگاه و تنظیمات چاپ با موفقیت به‌روزرسانی شد.",
+                Severity.Success);
         }
         catch (Exception ex)
         {
@@ -510,21 +554,21 @@
         try
         {
             _isLoadingAdmin = true;
-            using var db = await DbContextFactory.CreateDbContextAsync();
 
-            // در سیستم تک‌کاربره، مدیر همیشه همان تنها رکورد جدول Users است
+            await using var db = await DbContextFactory.CreateDbContextAsync();
+
+            // در ساختار تک‌کاربره فعلی، مدیر همان رکورد موجود در Users است.
             var adminUser = await db.Users.FirstOrDefaultAsync();
 
-            if (adminUser != null)
-            {
-                _adminUserId = adminUser.Id;
-                _adminFullName = adminUser.FullName;
-                _adminUsername = adminUser.Username;
-            }
-            else
+            if (adminUser is null)
             {
                 Snackbar.Add("کاربر مدیری در سیستم یافت نشد!", Severity.Error);
+                return;
             }
+
+            _adminUserId = adminUser.Id;
+            _adminFullName = adminUser.FullName;
+            _adminUsername = adminUser.Username;
         }
         catch (Exception ex)
         {
@@ -544,51 +588,65 @@
         try
         {
             _isSavingAdmin = true;
-            using var db = await DbContextFactory.CreateDbContextAsync();
+
+            await using var db = await DbContextFactory.CreateDbContextAsync();
 
             var adminUser = await db.Users.FindAsync(_adminUserId);
-            if (adminUser == null)
+            if (adminUser is null)
             {
                 Snackbar.Add("کاربر مدیر یافت نشد.", Severity.Error);
                 return;
             }
 
-            bool wantsToChangePassword = !string.IsNullOrWhiteSpace(_newPassword);
+            var wantsToChangePassword = !string.IsNullOrWhiteSpace(_newPassword);
 
             if (wantsToChangePassword)
             {
                 if (string.IsNullOrWhiteSpace(_currentPassword))
                 {
-                    Snackbar.Add("برای تغییر رمز عبور، وارد کردن «رمز عبور فعلی» الزامی است.", Severity.Warning);
+                    Snackbar.Add(
+                        "برای تغییر رمز عبور، وارد کردن «رمز عبور فعلی» الزامی است.",
+                        Severity.Warning);
                     return;
                 }
 
-                if (!PasswordHasher.VerifyPassword(_currentPassword, adminUser.PasswordHash))
+                if (!PasswordHasher.VerifyPassword(
+                        _currentPassword,
+                        adminUser.PasswordHash))
                 {
-                    Snackbar.Add("رمز عبور فعلی واردشده صحیح نمی‌باشد.", Severity.Error);
+                    Snackbar.Add(
+                        "رمز عبور فعلی واردشده صحیح نمی‌باشد.",
+                        Severity.Error);
                     return;
                 }
 
                 if (_newPassword.Length < 6)
                 {
-                    Snackbar.Add("رمز عبور جدید باید حداقل ۶ کاراکتر باشد.", Severity.Warning);
+                    Snackbar.Add(
+                        "رمز عبور جدید باید حداقل ۶ کاراکتر باشد.",
+                        Severity.Warning);
                     return;
                 }
 
                 if (_newPassword != _confirmNewPassword)
                 {
-                    Snackbar.Add("رمز عبور جدید با تکرار آن یکسان نیست.", Severity.Warning);
+                    Snackbar.Add(
+                        "رمز عبور جدید با تکرار آن یکسان نیست.",
+                        Severity.Warning);
                     return;
                 }
             }
 
             var normalizedUser = _adminUsername.Trim().ToLowerInvariant();
-            var isDuplicateUsername = await db.Users
-                .AnyAsync(u => u.Id != adminUser.Id && u.Username.ToLower() == normalizedUser);
+
+            var isDuplicateUsername = await db.Users.AnyAsync(u => u.Id != adminUser.Id &&
+                                                                   u.Username.ToLower() == normalizedUser);
 
             if (isDuplicateUsername)
             {
-                Snackbar.Add("این نام کاربری قبلاً توسط حساب دیگری انتخاب شده است.", Severity.Warning);
+                Snackbar.Add(
+                    "این نام کاربری قبلاً توسط حساب دیگری انتخاب شده است.",
+                    Severity.Warning);
                 return;
             }
 
@@ -607,14 +665,18 @@
             _newPassword = string.Empty;
             _confirmNewPassword = string.Empty;
 
-            Snackbar.Add("اطلاعات مدیر با موفقیت ذخیره شد. در حال به‌روزرسانی نشست...", Severity.Success);
+            Snackbar.Add(
+                "اطلاعات مدیر با موفقیت ذخیره شد. در حال به‌روزرسانی نشست...",
+                Severity.Success);
 
             await Task.Delay(800);
             NavigationManager.NavigateTo("/settings", forceLoad: true);
         }
         catch (Exception ex)
         {
-            Snackbar.Add($"خطا در به‌روزرسانی مشخصات مدیر: {ex.Message}", Severity.Error);
+            Snackbar.Add(
+                $"خطا در به‌روزرسانی مشخصات مدیر: {ex.Message}",
+                Severity.Error);
         }
         finally
         {
@@ -625,20 +687,24 @@
     private void SetPath(string path)
     {
         if (string.IsNullOrWhiteSpace(path)) return;
+
         _backupPath = path;
     }
 
     private async Task LoadBackupsAsync()
     {
-        _isLoadingList = true;
         try
         {
+            _isLoadingList = true;
+
             var files = await BackupService.GetBackupFilesAsync();
             _backupList = files.ToList();
         }
         catch (Exception ex)
         {
-            Snackbar.Add($"خطا در بارگذاری لیست بکاپ‌ها: {ex.Message}", Severity.Error);
+            Snackbar.Add(
+                $"خطا در بارگذاری لیست بکاپ‌ها: {ex.Message}",
+                Severity.Error);
         }
         finally
         {
@@ -648,15 +714,19 @@
 
     private async Task CreateBackupAsync()
     {
+        if (_isProcessing) return;
+
         if (string.IsNullOrWhiteSpace(_backupPath))
         {
-            Snackbar.Add("لطفاً مسیر ذخیره‌سازی را مشخص کنید.", Severity.Warning);
+            Snackbar.Add(
+                "لطفاً مسیر ذخیره‌سازی را مشخص کنید.",
+                Severity.Warning);
             return;
         }
 
         bool? confirm = await DialogService.ShowMessageBoxAsync(
             "تأیید نسخه پشتیبان",
-            "آیا از ایجاد نسخه پشتیبان جدید از دیتابیس اطمینان دارید؟",
+            "آیا از ایجاد نسخه پشتیبان جدید از پایگاه‌داده اطمینان دارید؟",
             yesText: "بله، ایجاد بکاپ",
             cancelText: "انصراف");
 
@@ -664,13 +734,17 @@
 
         _isProcessing = true;
         _processingStatusText = "در حال پشتیبان‌گیری از پایگاه‌داده...";
+
         try
         {
             var result = await BackupService.CreateBackupAsync(_backupPath.Trim());
 
             if (result.IsSuccess)
             {
-                Snackbar.Add($"{result.Message} ({result.FileName})", Severity.Success);
+                Snackbar.Add(
+                    $"{result.Message} ({result.FileName})",
+                    Severity.Success);
+
                 await LoadBackupsAsync();
             }
             else
@@ -680,7 +754,9 @@
         }
         catch (Exception ex)
         {
-            Snackbar.Add($"خطا در زمان بکاپ‌گیری: {ex.Message}", Severity.Error);
+            Snackbar.Add(
+                $"خطا در زمان بکاپ‌گیری: {ex.Message}",
+                Severity.Error);
         }
         finally
         {
@@ -690,13 +766,28 @@
 
     private async Task PromptRestoreAsync(BackupFileDto backup)
     {
-        var message = $"هشدار بحرانی: شما در حال بازیابی پایگاه‌داده از فایل «{backup.FileName}» هستید.\n" +
-                      "کلیه تغییرات ثبت‌شده پس از تاریخ این بکاپ بازنویسی خواهند شد و این عملیات غیرقابل بازگشت است.\n" +
-                      "پیش از شروع Restore، یک بکاپ ایمنی از وضعیت فعلی به‌صورت خودکار تهیه می‌شود.\n\n" +
-                      "آیا از انجام این عملیات اطمینان قطعی دارید؟";
+        if (_isProcessing) return;
+
+        var safetyBackupPath = string.IsNullOrWhiteSpace(_backupPath)
+            ? StorageOptions.Value.BackupPath
+            : _backupPath.Trim();
+
+        if (string.IsNullOrWhiteSpace(safetyBackupPath))
+        {
+            Snackbar.Add(
+                "برای تهیه بکاپ ایمنی، ابتدا مسیر ذخیره‌سازی را مشخص کنید.",
+                Severity.Warning);
+            return;
+        }
+
+        var message =
+            $"هشدار: شما در حال بازیابی پایگاه‌داده از فایل «{backup.FileName}» هستید.\n" +
+            "تغییرات ثبت‌شده پس از تاریخ این بکاپ با اطلاعات آن جایگزین خواهند شد.\n" +
+            "پیش از بازیابی، یک بکاپ ایمنی از وضعیت فعلی تهیه می‌شود.\n\n" +
+            "آیا از انجام این عملیات اطمینان دارید؟";
 
         bool? confirm = await DialogService.ShowMessageBoxAsync(
-            "⚠️ تأیید حساس بازیابی دیتابیس",
+            "⚠️ تأیید بازیابی پایگاه‌داده",
             message,
             yesText: "بله، بازیابی کن",
             cancelText: "انصراف");
@@ -705,38 +796,51 @@
 
         _isProcessing = true;
         _processingStatusText = "در حال اعتبارسنجی فایل پشتیبان...";
+        StateHasChanged();
 
         try
         {
-            var (isValid, valMsg) = await BackupService.ValidateBackupFileAsync(backup.FullPath);
+            var (isValid, validationMessage) =
+                await BackupService.ValidateBackupFileAsync(backup.FullPath);
+
             if (!isValid)
             {
-                Snackbar.Add(valMsg, Severity.Error);
+                Snackbar.Add(validationMessage, Severity.Error);
                 return;
             }
 
-            _processingStatusText = "در حال تهیه بکاپ ایمنی و بازگردانی پایگاه‌داده (لطفاً صبر کنید)...";
+            _processingStatusText =
+                "در حال تهیه بکاپ ایمنی و بازیابی پایگاه‌داده...";
             StateHasChanged();
 
-            var restoreResult = await BackupService.RestoreBackupAsync(backup.FullPath, _backupPath.Trim());
+            var result = await BackupService.RestoreBackupAsync(
+                backup.FullPath,
+                safetyBackupPath);
 
-            if (restoreResult.IsSuccess)
+            if (result.IsSuccess)
             {
-                Snackbar.Add(restoreResult.Message, Severity.Success);
+                Snackbar.Add(result.Message, Severity.Success);
+
+                // بازخوانی لیست بکاپ‌ها و اطلاعات جاری بدون رفرش ناگهانی صفحه
+                await LoadStoreSettingsAsync();
+                await LoadAdminUserAsync();
                 await LoadBackupsAsync();
             }
             else
             {
-                Snackbar.Add(restoreResult.Message, Severity.Error);
+                Snackbar.Add(result.Message, Severity.Error);
             }
         }
         catch (Exception ex)
         {
-            Snackbar.Add($"خطای غیرمنتظره در بازیابی: {ex.Message}", Severity.Error);
+            Snackbar.Add(
+                $"خطای غیرمنتظره در بازیابی: {ex.Message}",
+                Severity.Error);
         }
         finally
         {
             _isProcessing = false;
+            _processingStatusText = "در حال پردازش...";
             StateHasChanged();
         }
     }

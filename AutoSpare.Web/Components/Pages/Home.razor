@@ -213,9 +213,15 @@
                                    OnClick="@(() => NavigationManager.NavigateTo("/sales/create"))">
                             فاکتور فروش
                         </MudButton>
+                        <MudButton Variant="Variant.Outlined" Color="Color.Info" FullWidth="true"
+                                   StartIcon="@Icons.Material.Filled.Inventory2"
+                                   OnClick="@(() => NavigationManager.NavigateTo("/products"))">
+                            فهرست کالاها
+                        </MudButton>
                     </div>
                 </MudCard>
             </MudItem>
+
         </MudGrid>
     }
     else

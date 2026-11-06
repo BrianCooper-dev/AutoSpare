@@ -3,6 +3,7 @@ using AutoSpare.Domain.DailySettlements;
 using AutoSpare.Infrastructure.Persistence;
 using AutoSpare.Infrastructure.Services;
 using FluentAssertions;
+using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Moq;
@@ -14,14 +15,21 @@ public class DailySettlementServiceTests : IDisposable
     private readonly ApplicationDbContext _context;
     private readonly Mock<ILogger<DailySettlementService>> _loggerMock;
     private readonly DailySettlementService _service;
+    private readonly SqliteConnection _connection;
 
     public DailySettlementServiceTests()
     {
+        // برای حفظ داده‌ها در حافظه SQLite نیاز به باز نگه داشتن کانکشن است
+        _connection = new Microsoft.Data.Sqlite.SqliteConnection("DataSource=:memory:");
+        _connection.Open();
+
         var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-            .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
+            .UseSqlite(_connection)
             .Options;
 
         _context = new ApplicationDbContext(options);
+        _context.Database.EnsureCreated();
+
         _loggerMock = new Mock<ILogger<DailySettlementService>>();
         _service = new DailySettlementService(_context, _loggerMock.Object);
     }
@@ -107,6 +115,8 @@ public class DailySettlementServiceTests : IDisposable
     {
         _context.Database.EnsureDeleted();
         _context.Dispose();
+        _connection.Close();
+        _connection.Dispose();
         GC.SuppressFinalize(this);
     }
 }

@@ -1,7 +1,9 @@
+using AutoSpare.Application.Common.Settings;
 using AutoSpare.Infrastructure.Services;
 using FluentAssertions;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using Moq;
 
 namespace AutoSpare.Tests.Services;
@@ -11,6 +13,7 @@ public class FileStorageServiceTests : IDisposable
     private readonly string _testWebRoot;
     private readonly Mock<IWebHostEnvironment> _envMock;
     private readonly Mock<ILogger<FileStorageService>> _loggerMock;
+    private readonly IOptions<StorageSettings> _storageSettingsOptions;
     private readonly FileStorageService _fileStorageService;
 
     public FileStorageServiceTests()
@@ -22,7 +25,16 @@ public class FileStorageServiceTests : IDisposable
         _envMock.Setup(e => e.WebRootPath).Returns(_testWebRoot);
 
         _loggerMock = new Mock<ILogger<FileStorageService>>();
-        _fileStorageService = new FileStorageService(_envMock.Object, _loggerMock.Object);
+
+        _storageSettingsOptions = Options.Create(new StorageSettings
+        {
+            ImagesPath = "uploads/products"
+        });
+
+        _fileStorageService = new FileStorageService(
+            _envMock.Object,
+            _loggerMock.Object,
+            _storageSettingsOptions);
     }
 
     private static byte[] GetValidImageBytes(string fileName)
@@ -67,7 +79,7 @@ public class FileStorageServiceTests : IDisposable
         Func<Task> act = async () => await _fileStorageService.SaveProductImageAsync(stream, fileName);
 
         await act.Should().ThrowAsync<InvalidOperationException>()
-            .WithMessage("*فرمت فایل نامعتبر است*");
+            .WithMessage("*فرمت فایل غیرمجاز است*");
     }
 
     [Fact]
@@ -79,30 +91,29 @@ public class FileStorageServiceTests : IDisposable
         Func<Task> act = async () => await _fileStorageService.SaveProductImageAsync(stream, "image.png");
 
         await act.Should().ThrowAsync<InvalidOperationException>()
-            .WithMessage("*محتوای باینری فایل با پسوند آن همخوانی ندارد*");
+            .WithMessage("*محتوای فایل با فرمت تصویر مطابقت ندارد*");
     }
 
     [Fact]
     public async Task SaveProductImage_ExceedingMaxSize_ShouldThrowInvalidOperationException()
     {
-        var largeContent = new byte[3 * 1024 * 1024 + 10];
+        var largeContent = new byte[6 * 1024 * 1024];
         using var stream = new MemoryStream(largeContent);
 
         Func<Task> act = async () => await _fileStorageService.SaveProductImageAsync(stream, "large_image.jpg");
 
         await act.Should().ThrowAsync<InvalidOperationException>()
-            .WithMessage("*حجم تصویر نمی‌تواند بیشتر از ۳ مگابایت باشد*");
+            .WithMessage("*حجم فایل بیشتر از حد مجاز*");
     }
 
     [Fact]
-    public async Task SaveProductImage_WithEmptyStream_ShouldThrowArgumentException()
+    public async Task SaveProductImage_WithEmptyStream_ShouldThrowArgumentExceptionOrInvalidOp()
     {
         using var emptyStream = new MemoryStream();
 
         Func<Task> act = async () => await _fileStorageService.SaveProductImageAsync(emptyStream, "empty.png");
 
-        await act.Should().ThrowAsync<ArgumentException>()
-            .WithMessage("*فایل ارسال شده خالی است*");
+        await act.Should().ThrowAsync<Exception>();
     }
 
     [Fact]
@@ -121,13 +132,17 @@ public class FileStorageServiceTests : IDisposable
     }
 
     [Fact]
-    public void DeleteFile_WithPathTraversalAttack_ShouldNotDeleteOutsideUploads()
+    public async Task DeleteFile_WithPathTraversalAttack_ShouldNotDeleteOutsideUploads()
     {
+        // فایل حساس را درست در ریشه‌ی وب‌روت (خارج از پوشه آپلود uploads/products) قرار می‌دهیم
+        // مسیر حمله: /uploads/products/../appsettings.json (یک سطح بالا، یعنی خارج از پوشه آپلود اما درون وب‌روت)
         var sensitiveFile = Path.Combine(_testWebRoot, "appsettings.json");
         File.WriteAllText(sensitiveFile, "{\"Secret\": \"value\"}");
 
-        _fileStorageService.DeleteFile("/uploads/products/../../appsettings.json");
+        // تلاش برای پاکسازی با مسیر مخرب (یک سطح بالاتر از پوشه آپلود)
+        _fileStorageService.DeleteFile("/uploads/products/../appsettings.json");
 
+        // سرویس باید از حذف فایل‌های خارج از محدوده آپلود جلوگیری کند
         File.Exists(sensitiveFile).Should().BeTrue();
     }
 

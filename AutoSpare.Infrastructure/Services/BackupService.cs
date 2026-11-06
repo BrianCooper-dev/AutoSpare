@@ -3,7 +3,7 @@ using AutoSpare.Application.Backup;
 using AutoSpare.Application.Backup.DTOs;
 using AutoSpare.Application.Common.Settings;
 using AutoSpare.Infrastructure.Persistence;
-using Microsoft.Data.SqlClient;
+using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
@@ -40,6 +40,7 @@ public class BackupService : IBackupService
                 ? _storageSettings.BackupPath
                 : customPath.Trim();
 
+            // تضمین مطلق بودن مسیر برای جلوگیری از ذخیره در مسیرهای نامشخص
             targetDirectory = Path.GetFullPath(targetDirectory);
 
             if (!Directory.Exists(targetDirectory))
@@ -47,48 +48,71 @@ public class BackupService : IBackupService
                 Directory.CreateDirectory(targetDirectory);
             }
 
-            var dbName = GetCurrentDatabaseName();
-            if (string.IsNullOrWhiteSpace(dbName))
+            var (sourceDbPath, dbName) = GetCurrentDatabaseInfo();
+            if (string.IsNullOrWhiteSpace(sourceDbPath) || !File.Exists(sourceDbPath))
             {
-                return new CreateBackupResultDto(false, "امکان تشخیص نام پایگاه داده از رشته اتصال وجود ندارد.");
+                await _dbContext.Database.OpenConnectionAsync(cancellationToken);
+                (sourceDbPath, dbName) = GetCurrentDatabaseInfo();
+
+                if (string.IsNullOrWhiteSpace(sourceDbPath) || !File.Exists(sourceDbPath))
+                {
+                    return new CreateBackupResultDto(false, "امکان تشخیص یا دسترسی به فایل دیتابیس SQLite وجود ندارد.");
+                }
             }
 
             var now = DateTime.Now;
             var persianDateStr =
                 $"{Pc.GetYear(now):0000}-{Pc.GetMonth(now):00}-{Pc.GetDayOfMonth(now):00}_{now:HHmmss}";
-            var fileName = $"{dbName}_Backup_{persianDateStr}.bak";
+            var fileName = $"{dbName}_Backup_{persianDateStr}.db";
             var fullPath = Path.Combine(targetDirectory, fileName);
 
-            var safeDbName = dbName.Replace("]", "]]");
-            var sql =
-                $"BACKUP DATABASE [{safeDbName}] TO DISK = @backupPath WITH FORMAT, INIT, NAME = @backupName, SKIP, NOREWIND, NOUNLOAD, STATS = 10";
+            // اطمینان از مطلق بودن مسیر فایل نهایی
+            fullPath = Path.GetFullPath(fullPath);
 
-            var backupPathParam = new SqlParameter("@backupPath", fullPath);
-            var backupNameParam = new SqlParameter("@backupName", $"AutoSpare Full Backup - {persianDateStr}");
+            _logger.LogInformation("شروع فرآیند بکاپ‌گیری SQLite از {DbName} به مسیر {FullPath}", dbName, fullPath);
 
-            _logger.LogInformation("شروع فرآیند بکاپ‌گیری از دیتابیس {DbName} در مسیر {FullPath}", dbName, fullPath);
+            // استفاده از مسیر فایل فیزیکی مبدأ به‌جای رشته اتصال کلی برای پایداری بیشتر در Online Backup API
+            var sourceConnectionString = $"Data Source={sourceDbPath};Mode=ReadOnly;";
+            var destinationConnectionString = $"Data Source={fullPath}";
 
-            await _dbContext.Database.ExecuteSqlRawAsync(sql, [backupPathParam, backupNameParam], cancellationToken);
+            await using (var sourceConn = new SqliteConnection(sourceConnectionString))
+            await using (var destinationConn = new SqliteConnection(destinationConnectionString))
+            {
+                await sourceConn.OpenAsync(cancellationToken);
+                await destinationConn.OpenAsync(cancellationToken);
+
+                // اجرای Online Backup API رسمی SQLite
+                sourceConn.BackupDatabase(destinationConn);
+            }
+
+            // پاک‌سازی پولینگ جهت اطمینان از آزاد شدن قفل فایل و نوشتن کامل روی دیسک
+            SqliteConnection.ClearAllPools();
 
             var fileInfo = new FileInfo(fullPath);
-            var fileSize = fileInfo.Exists ? fileInfo.Length : 0;
+            if (!fileInfo.Exists || fileInfo.Length == 0)
+            {
+                return new CreateBackupResultDto(false,
+                    "فایل پشتیبان ایجاد شد اما حجم آن صفر است یا روی دیسک نوشته نشده است.");
+            }
+
+            var fileSize = fileInfo.Length;
 
             _logger.LogInformation("بکاپ با موفقیت ایجاد شد: {FileName} به حجم {Size} بایت", fileName, fileSize);
 
             CleanupOldBackups(targetDirectory, dbName, fullPath);
 
-            return new CreateBackupResultDto(true, "نسخه پشتیبان با موفقیت تهیه شد.", fileName, fullPath, fileSize);
+            return new CreateBackupResultDto(true, "نسخه پشتیبان SQLite با موفقیت تهیه شد.", fileName, fullPath,
+                fileSize);
         }
-        catch (SqlException ex)
+        catch (SqliteException ex)
         {
-            _logger.LogError(ex, "خطای SQL Server در زمان تهیه پشتیبان دیتابیس.");
-            return new CreateBackupResultDto(false, $"خطای پایگاه داده: {ex.Message}");
+            _logger.LogError(ex, "خطای SQLite در زمان تهیه پشتیبان دیتابیس.");
+            return new CreateBackupResultDto(false, $"خطای پایگاه داده SQLite: {ex.Message}");
         }
         catch (UnauthorizedAccessException ex)
         {
             _logger.LogError(ex, "عدم دسترسی کافی برای نوشتن فایل در مسیر پشتیبان.");
-            return new CreateBackupResultDto(false,
-                "سرویس SQL Server یا برنامه دسترسی نوشتن (Write) در پوشه تعیین شده را ندارد.");
+            return new CreateBackupResultDto(false, "برنامه دسترسی نوشتن (Write) در پوشه تعیین شده را ندارد.");
         }
         catch (Exception ex)
         {
@@ -96,6 +120,7 @@ public class BackupService : IBackupService
             return new CreateBackupResultDto(false, $"خطای سیستمی: {ex.Message}");
         }
     }
+
 
     public Task<IReadOnlyList<BackupFileDto>> GetBackupFilesAsync(CancellationToken cancellationToken = default)
     {
@@ -109,7 +134,10 @@ public class BackupService : IBackupService
             }
 
             var dirInfo = new DirectoryInfo(targetDirectory);
-            var files = dirInfo.GetFiles("*.bak", SearchOption.TopDirectoryOnly)
+            // پشتیبانی از فایل‌های .db و فایل‌های قدیمی .bak
+            var files = dirInfo.GetFiles("*.*", SearchOption.TopDirectoryOnly)
+                .Where(f => f.Extension.Equals(".db", StringComparison.OrdinalIgnoreCase) ||
+                            f.Extension.Equals(".bak", StringComparison.OrdinalIgnoreCase))
                 .OrderByDescending(f => f.CreationTimeUtc)
                 .Select(f =>
                 {
@@ -148,23 +176,33 @@ public class BackupService : IBackupService
                 return (false, "فایل پشتیبان انتخاب‌شده در مسیر مشخص‌شده وجود ندارد.");
             }
 
-            var masterConnString = GetMasterConnectionString();
-            await using var conn = new SqlConnection(masterConnString);
+            var normalizedPath = Path.GetFullPath(backupFilePath);
+            var connStr = new SqliteConnectionStringBuilder
+            {
+                DataSource = normalizedPath,
+                Mode = SqliteOpenMode.ReadOnly
+            }.ConnectionString;
+
+            await using var conn = new SqliteConnection(connStr);
             await conn.OpenAsync(cancellationToken);
 
-            var sql = "RESTORE VERIFYONLY FROM DISK = @backupPath";
-            await using var cmd = new SqlCommand(sql, conn);
-            cmd.CommandTimeout = 180;
-            cmd.Parameters.AddWithValue("@backupPath", Path.GetFullPath(backupFilePath));
+            // بررسی سلامت ساختار فایل SQLite
+            await using var cmd = conn.CreateCommand();
+            cmd.CommandText = "PRAGMA quick_check;";
 
-            await cmd.ExecuteNonQueryAsync(cancellationToken);
+            var result = (await cmd.ExecuteScalarAsync(cancellationToken))?.ToString();
 
-            return (true, "فایل پشتیبان معتبر و از نظر ساختار پایگاه داده سالم است.");
+            if (string.Equals(result, "ok", StringComparison.OrdinalIgnoreCase))
+            {
+                return (true, "فایل پشتیبان معتبر و از نظر ساختار پایگاه داده کاملاً سالم است.");
+            }
+
+            return (false, $"فایل بکاپ آسیب دیده یا نامعتبر است: {result}");
         }
-        catch (SqlException ex)
+        catch (SqliteException ex)
         {
             _logger.LogWarning(ex, "اعتبارسنجی فایل بکاپ ناموفق بود: {Path}", backupFilePath);
-            return (false, $"فایل بکاپ نامعتبر یا آسیب‌دیده است: {ex.Message}");
+            return (false, $"فایل بکاپ نامعتبر است: {ex.Message}");
         }
         catch (Exception ex)
         {
@@ -173,15 +211,103 @@ public class BackupService : IBackupService
         }
     }
 
-    public async Task<RestoreDatabaseResultDto> RestoreBackupAsync(
+   public async Task<RestoreDatabaseResultDto> RestoreBackupAsync(
+    string backupFilePath,
+    string? safetyBackupRootDirectory = null,
+    CancellationToken cancellationToken = default)
+{
+    var (sourceDbPath, targetDb) = GetCurrentDatabaseInfo();
+    if (string.IsNullOrWhiteSpace(sourceDbPath))
+    {
+        return new RestoreDatabaseResultDto(false, "امکان تشخیص مسیر پایگاه‌داده جاری جهت بازیابی وجود ندارد.");
+    }
+
+    try
+    {
+        var normalizedBackupPath = Path.GetFullPath(backupFilePath);
+        if (!File.Exists(normalizedBackupPath))
+        {
+            return new RestoreDatabaseResultDto(false, "فایل بکاپ انتخاب‌شده یافت نشد.");
+        }
+
+        var (isValid, validationMessage) = await ValidateBackupFileAsync(normalizedBackupPath, cancellationToken);
+        if (!isValid)
+        {
+            return new RestoreDatabaseResultDto(false, $"توقف عملیات: {validationMessage}");
+        }
+
+        var rootDir = string.IsNullOrWhiteSpace(safetyBackupRootDirectory)
+            ? _storageSettings.BackupPath
+            : safetyBackupRootDirectory.Trim();
+
+        rootDir = Path.GetFullPath(rootDir);
+        var safetyDir = Path.Combine(rootDir, "Safety");
+
+        _logger.LogWarning("تهیه بکاپ ایمنی قبل از بازیابی دیتابیس {DbName}. مسیر: {SafetyDir}", targetDb, safetyDir);
+
+        var safetyBackupResult = await CreateBackupAsync(safetyDir, cancellationToken);
+        if (!safetyBackupResult.IsSuccess)
+        {
+            _logger.LogError("تهیه بکاپ ایمنی ناموفق بود. عملیات بازیابی متوقف شد. دلیل: {Message}", safetyBackupResult.Message);
+            return new RestoreDatabaseResultDto(false, $"عملیات بازیابی متوقف شد: تهیه بکاپ ایمنی ناموفق بود. ({safetyBackupResult.Message})");
+        }
+
+        _logger.LogInformation("بکاپ ایمنی با موفقیت ایجاد شد: {SafetyFileName}", safetyBackupResult.FileName);
+        _logger.LogWarning("شروع عملیات بازیابی دیتابیس {DbName} از مسیر {FilePath}", targetDb, normalizedBackupPath);
+
+        // استفاده از Online Backup API معکوس (مبدأ: فایل بکاپ | مقصد: دیتابیس زنده)
+        // این روش مشکل قفل شدن فایلی File.Copy در ویندوز را ندارد
+        var sourceBackupConnStr = $"Data Source={normalizedBackupPath};Mode=ReadOnly;";
+        var destinationDbConnStr = _dbContext.Database.GetConnectionString();
+
+        await using (var backupConn = new SqliteConnection(sourceBackupConnStr))
+        await using (var currentConn = new SqliteConnection(destinationDbConnStr))
+        {
+            await backupConn.OpenAsync(cancellationToken);
+            await currentConn.OpenAsync(cancellationToken);
+
+            // کپی کامل ساختار و داده‌ها روی دیتابیس فعال
+            backupConn.BackupDatabase(currentConn);
+
+            // چک‌پوینت اجباری WAL برای ذخیره قطعی تغییرات در فایل اصلی دیسک
+            await using var walCheckpointCmd = currentConn.CreateCommand();
+            walCheckpointCmd.CommandText = "PRAGMA wal_checkpoint(TRUNCATE);";
+            await walCheckpointCmd.ExecuteNonQueryAsync(cancellationToken);
+        }
+
+        // پاک‌سازی پولینگ تا تغییرات برای تمام کانتکست‌های EF Core جدید ملموس باشد
+        SqliteConnection.ClearAllPools();
+
+        _logger.LogInformation("بازیابی دیتابیس {DbName} با موفقیت به پایان رسید.", targetDb);
+
+        return new RestoreDatabaseResultDto(
+            true,
+            $"پایگاه‌داده با موفقیت بازیابی شد. (بکاپ ایمنی قبلی: {safetyBackupResult.FileName})",
+            targetDb,
+            normalizedBackupPath);
+    }
+    catch (SqliteException ex)
+    {
+        _logger.LogError(ex, "خطای SQLite حین بازیابی پایگاه‌داده {DbName}", targetDb);
+        return new RestoreDatabaseResultDto(false, $"خطای پایگاه داده SQLite: {ex.Message}");
+    }
+    catch (Exception ex)
+    {
+        _logger.LogError(ex, "خطای ناشناخته حین بازیابی پایگاه‌داده {DbName}", targetDb);
+        return new RestoreDatabaseResultDto(false, $"خطای سیستمی: {ex.Message}");
+    }
+}
+
+
+
+    public async Task<RestoreDatabaseResultDto> RestoreToTestDatabaseAsync(
         string backupFilePath,
-        string? safetyBackupRootDirectory = null,
+        string targetDatabaseName,
         CancellationToken cancellationToken = default)
     {
-        var targetDb = GetCurrentDatabaseName();
-        if (string.IsNullOrWhiteSpace(targetDb))
+        if (string.IsNullOrWhiteSpace(targetDatabaseName))
         {
-            return new RestoreDatabaseResultDto(false, "امکان تشخیص نام پایگاه داده جاری جهت بازیابی وجود ندارد.");
+            return new RestoreDatabaseResultDto(false, "نام پایگاه‌داده آزمایشی نامعتبر است.");
         }
 
         try
@@ -195,122 +321,66 @@ public class BackupService : IBackupService
             var (isValid, validationMessage) = await ValidateBackupFileAsync(normalizedPath, cancellationToken);
             if (!isValid)
             {
-                return new RestoreDatabaseResultDto(false, $"توقف عملیات: {validationMessage}");
+                return new RestoreDatabaseResultDto(false, $"فایل بکاپ معتبر نیست: {validationMessage}");
             }
 
-            var rootDir = string.IsNullOrWhiteSpace(safetyBackupRootDirectory)
-                ? _storageSettings.BackupPath
-                : safetyBackupRootDirectory.Trim();
-
-            rootDir = Path.GetFullPath(rootDir);
-            var safetyDir = Path.Combine(rootDir, "Safety");
-
-            _logger.LogWarning(
-                "تهیه بکاپ ایمنی قبل از بازیابی دیتابیس {DbName}. مسیر: {SafetyDir}",
-                targetDb, safetyDir);
-
-            var safetyBackupResult = await CreateBackupAsync(safetyDir, cancellationToken);
-            if (!safetyBackupResult.IsSuccess)
+            var testDbFolder = Path.Combine(_storageSettings.BackupPath, "TestRestoreDb");
+            if (!Directory.Exists(testDbFolder))
             {
-                _logger.LogError(
-                    "تهیه بکاپ ایمنی ناموفق بود. عملیات بازیابی متوقف شد. دلیل: {Message}",
-                    safetyBackupResult.Message);
-
-                return new RestoreDatabaseResultDto(false,
-                    $"عملیات بازیابی متوقف شد: تهیه بکاپ ایمنی از وضعیت فعلی ناموفق بود. ({safetyBackupResult.Message})");
+                Directory.CreateDirectory(testDbFolder);
             }
 
-            _logger.LogInformation(
-                "بکاپ ایمنی با موفقیت ایجاد شد: {SafetyFileName} | {SafetyFullPath}",
-                safetyBackupResult.FileName, safetyBackupResult.FullPath);
+            var cleanTargetName = Path.GetFileNameWithoutExtension(targetDatabaseName);
+            var destDbPath = Path.Combine(testDbFolder, $"{cleanTargetName}.db");
 
-            _logger.LogWarning("شروع عملیات بازیابی دیتابیس {DbName} از مسیر {FilePath}", targetDb, normalizedPath);
-
-            var masterConnString = GetMasterConnectionString();
-            await using var connection = new SqlConnection(masterConnString);
-            await connection.OpenAsync(cancellationToken);
-
-            var safeDbName = targetDb.Replace("]", "]]");
-
-            var restoreScript = $@"
-                ALTER DATABASE [{safeDbName}] SET SINGLE_USER WITH ROLLBACK IMMEDIATE;
-                RESTORE DATABASE [{safeDbName}] FROM DISK = @backupPath WITH REPLACE;
-                ALTER DATABASE [{safeDbName}] SET MULTI_USER;
-            ";
-
-            await using var command = new SqlCommand(restoreScript, connection)
+            // اگر فایل قبلی بود، پاک می‌کنیم
+            if (File.Exists(destDbPath))
             {
-                CommandTimeout = 300
-            };
-            command.Parameters.AddWithValue("@backupPath", normalizedPath);
+                SqliteConnection.ClearAllPools();
+                File.Delete(destDbPath);
+            }
 
-            await command.ExecuteNonQueryAsync(cancellationToken);
+            // کپی آنلاین فایل بکاپ به مقصد آزمایشی
+            await using (var sourceConn = new SqliteConnection($"Data Source={normalizedPath};Mode=ReadOnly;"))
+            await using (var testConn = new SqliteConnection($"Data Source={destDbPath};"))
+            {
+                await sourceConn.OpenAsync(cancellationToken);
+                await testConn.OpenAsync(cancellationToken);
+                sourceConn.BackupDatabase(testConn);
+            }
 
-            _logger.LogInformation(
-                "بازیابی پایگاه‌داده {DbName} با موفقیت به پایان رسید. بکاپ ایمنی: {SafetyFileName}",
-                targetDb, safetyBackupResult.FileName);
+            _logger.LogInformation("بازیابی آزمایشی روی دیتابیس {TestDb} با موفقیت انجام شد.", destDbPath);
 
-            return new RestoreDatabaseResultDto(
-                true,
-                $"پایگاه‌داده با موفقیت بازیابی شد. بکاپ ایمنی وضعیت قبلی: {safetyBackupResult.FileName}",
-                targetDb,
-                normalizedPath);
-        }
-        catch (SqlException ex)
-        {
-            _logger.LogError(ex, "خطای SQL Server حین بازیابی پایگاه‌داده {DbName}", targetDb);
-            TryResetDatabaseToMultiUser(targetDb);
-            return new RestoreDatabaseResultDto(false, $"خطا در بازیابی پایگاه‌داده: {ex.Message}");
+            return new RestoreDatabaseResultDto(true, "بازیابی آزمایشی با موفقیت انجام شد.", cleanTargetName,
+                destDbPath);
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "خطای عمومی در فرآیند بازیابی پایگاه‌داده {DbName}", targetDb);
-            TryResetDatabaseToMultiUser(targetDb);
-            return new RestoreDatabaseResultDto(false, $"خطای سیستمی: {ex.Message}");
+            _logger.LogError(ex, "خطا در حین بازیابی آزمایشی روی {TestDb}", targetDatabaseName);
+            return new RestoreDatabaseResultDto(false, $"خطا در بازیابی آزمایشی: {ex.Message}");
         }
     }
 
-    private string GetCurrentDatabaseName()
+    private (string FullFilePath, string DatabaseName) GetCurrentDatabaseInfo()
     {
-        var connection = _dbContext.Database.GetDbConnection();
-        var dbName = connection.Database;
-
-        if (string.IsNullOrWhiteSpace(dbName))
+        var connStr = _dbContext.Database.GetConnectionString();
+        if (string.IsNullOrWhiteSpace(connStr))
         {
-            var builder = new SqlConnectionStringBuilder(connection.ConnectionString);
-            dbName = builder.InitialCatalog;
+            return (string.Empty, "autospare");
         }
 
-        return dbName;
-    }
+        var builder = new SqliteConnectionStringBuilder(connStr);
+        var dataSource = builder.DataSource;
 
-    private string GetMasterConnectionString()
-    {
-        var connection = _dbContext.Database.GetDbConnection();
-        var builder = new SqlConnectionStringBuilder(connection.ConnectionString)
+        if (string.IsNullOrWhiteSpace(dataSource))
         {
-            InitialCatalog = "master",
-            Pooling = false
-        };
-        return builder.ConnectionString;
-    }
+            return (string.Empty, "autospare");
+        }
 
-    private void TryResetDatabaseToMultiUser(string dbName)
-    {
-        try
-        {
-            var masterConnString = GetMasterConnectionString();
-            using var connection = new SqlConnection(masterConnString);
-            connection.Open();
-            var safeDbName = dbName.Replace("]", "]]");
-            using var cmd = new SqlCommand($"ALTER DATABASE [{safeDbName}] SET MULTI_USER WITH ROLLBACK IMMEDIATE;",
-                connection);
-            cmd.ExecuteNonQuery();
-        }
-        catch (Exception ex)
-        {
-            _logger.LogError(ex, "تلاش برای بازگردانی دیتابیس به وضعیت MULTI_USER با خطا مواجه شد.");
-        }
+        var fullPath = Path.GetFullPath(dataSource);
+        var dbName = Path.GetFileNameWithoutExtension(fullPath);
+
+        return (fullPath, string.IsNullOrWhiteSpace(dbName) ? "autospare" : dbName);
     }
 
     private void CleanupOldBackups(string targetDirectory, string dbName, string currentBackupPath)
@@ -318,33 +388,25 @@ public class BackupService : IBackupService
         try
         {
             var maxBackupCount = _schedulerOptions.CurrentValue.MaxBackupCount;
-
-            if (maxBackupCount <= 0)
-            {
-                return;
-            }
+            if (maxBackupCount <= 0) return;
 
             var backupPrefix = $"{dbName}_Backup_";
             var currentBackupFullPath = Path.GetFullPath(currentBackupPath);
 
             var backupFiles = new DirectoryInfo(targetDirectory)
-                .GetFiles("*.bak", SearchOption.TopDirectoryOnly)
-                .Where(file => file.Name.StartsWith(backupPrefix, StringComparison.OrdinalIgnoreCase))
+                .GetFiles("*.*", SearchOption.TopDirectoryOnly)
+                .Where(file => (file.Extension.Equals(".db", StringComparison.OrdinalIgnoreCase) ||
+                                file.Extension.Equals(".bak", StringComparison.OrdinalIgnoreCase)) &&
+                               file.Name.StartsWith(backupPrefix, StringComparison.OrdinalIgnoreCase))
                 .OrderByDescending(file => string.Equals(Path.GetFullPath(file.FullName), currentBackupFullPath,
                     StringComparison.OrdinalIgnoreCase))
                 .ThenByDescending(file => file.LastWriteTimeUtc)
                 .ThenByDescending(file => file.CreationTimeUtc)
                 .ToList();
 
-            if (backupFiles.Count <= maxBackupCount)
-            {
-                return;
-            }
+            if (backupFiles.Count <= maxBackupCount) return;
 
-            var filesToDelete = backupFiles
-                .Skip(maxBackupCount)
-                .ToList();
-
+            var filesToDelete = backupFiles.Skip(maxBackupCount).ToList();
             foreach (var file in filesToDelete)
             {
                 try
@@ -372,111 +434,5 @@ public class BackupService : IBackupService
             >= 1024 => $"{(double)bytes / 1024:0.##} KB",
             _ => $"{bytes} B"
         };
-    }
-
-    public async Task<RestoreDatabaseResultDto> RestoreToTestDatabaseAsync(
-        string backupFilePath,
-        string targetDatabaseName,
-        CancellationToken cancellationToken = default)
-    {
-        if (string.IsNullOrWhiteSpace(targetDatabaseName))
-        {
-            return new RestoreDatabaseResultDto(false, "نام پایگاه‌داده آزمایشی نامعتبر است.");
-        }
-
-        try
-        {
-            var normalizedPath = Path.GetFullPath(backupFilePath);
-            if (!File.Exists(normalizedPath))
-            {
-                return new RestoreDatabaseResultDto(false, "فایل بکاپ انتخاب‌شده یافت نشد.");
-            }
-
-            var (isValid, validationMessage) = await ValidateBackupFileAsync(normalizedPath, cancellationToken);
-            if (!isValid)
-            {
-                return new RestoreDatabaseResultDto(false, $"فایل بکاپ معتبر نیست: {validationMessage}");
-            }
-
-            var masterConnString = GetMasterConnectionString();
-            await using var connection = new SqlConnection(masterConnString);
-            await connection.OpenAsync(cancellationToken);
-
-            var fileListQuery = "RESTORE FILELISTONLY FROM DISK = @backupPath";
-            string? logicalDataName = null;
-            string? logicalLogName = null;
-
-            await using (var fileCmd = new SqlCommand(fileListQuery, connection))
-            {
-                fileCmd.Parameters.AddWithValue("@backupPath", normalizedPath);
-                await using var reader = await fileCmd.ExecuteReaderAsync(cancellationToken);
-                while (await reader.ReadAsync(cancellationToken))
-                {
-                    var logicalName = reader["LogicalName"].ToString();
-                    var type = reader["Type"].ToString();
-                    if (type == "D" && logicalDataName is null)
-                        logicalDataName = logicalName;
-                    else if (type == "L" && logicalLogName is null)
-                        logicalLogName = logicalName;
-                }
-            }
-
-            if (string.IsNullOrWhiteSpace(logicalDataName) || string.IsNullOrWhiteSpace(logicalLogName))
-            {
-                return new RestoreDatabaseResultDto(false, "امکان خواندن ساختار فایل‌های منطقی درون بکاپ وجود ندارد.");
-            }
-
-            var testDbFolder = Path.Combine(_storageSettings.BackupPath, "TestRestoreDb");
-            if (!Directory.Exists(testDbFolder))
-            {
-                Directory.CreateDirectory(testDbFolder);
-            }
-
-            var destMdf = Path.Combine(testDbFolder, $"{targetDatabaseName}.mdf");
-            var destLdf = Path.Combine(testDbFolder, $"{targetDatabaseName}_log.ldf");
-
-            var safeTargetDb = targetDatabaseName.Replace("]", "]]");
-
-            // اصلاح اصلی: جایگذاری امن نام‌های منطقی به‌جای استفاده از SQL Parameters
-            var safeLogicalData = logicalDataName.Replace("'", "''");
-            var safeLogicalLog = logicalLogName.Replace("'", "''");
-
-            var restoreSql = $@"
-                IF EXISTS (SELECT name FROM sys.databases WHERE name = @targetDb)
-                BEGIN
-                    ALTER DATABASE [{safeTargetDb}] SET SINGLE_USER WITH ROLLBACK IMMEDIATE;
-                    DROP DATABASE [{safeTargetDb}];
-                END
-
-                RESTORE DATABASE [{safeTargetDb}]
-                FROM DISK = @backupPath
-                WITH MOVE N'{safeLogicalData}' TO @destMdf,
-                     MOVE N'{safeLogicalLog}' TO @destLdf,
-                     REPLACE, STATS = 10;
-
-                ALTER DATABASE [{safeTargetDb}] SET MULTI_USER;
-            ";
-
-            await using var restoreCmd = new SqlCommand(restoreSql, connection)
-            {
-                CommandTimeout = 300
-            };
-            restoreCmd.Parameters.AddWithValue("@targetDb", targetDatabaseName);
-            restoreCmd.Parameters.AddWithValue("@backupPath", normalizedPath);
-            restoreCmd.Parameters.AddWithValue("@destMdf", destMdf);
-            restoreCmd.Parameters.AddWithValue("@destLdf", destLdf);
-
-            _logger.LogInformation("شروع بازیابی آزمایشی بر روی دیتابیس {TestDb}...", targetDatabaseName);
-            await restoreCmd.ExecuteNonQueryAsync(cancellationToken);
-            _logger.LogInformation("بازیابی آزمایشی روی دیتابیس {TestDb} با موفقیت انجام شد.", targetDatabaseName);
-
-            return new RestoreDatabaseResultDto(true, "بازیابی آزمایشی با موفقیت انجام شد.", targetDatabaseName,
-                normalizedPath);
-        }
-        catch (Exception ex)
-        {
-            _logger.LogError(ex, "خطا در حین بازیابی آزمایشی روی {TestDb}", targetDatabaseName);
-            return new RestoreDatabaseResultDto(false, $"خطا در بازیابی آزمایشی: {ex.Message}");
-        }
     }
 }

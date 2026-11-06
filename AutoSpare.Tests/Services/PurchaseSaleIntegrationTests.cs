@@ -9,32 +9,36 @@ using AutoSpare.Domain.Suppliers;
 using AutoSpare.Domain.Warehouses;
 using AutoSpare.Infrastructure.Persistence;
 using AutoSpare.Infrastructure.Services;
-using AutoSpare.Tests.Infrastructure;
 using FluentAssertions;
+using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Moq;
 
 namespace AutoSpare.Tests.Services;
 
-public class PurchaseSaleIntegrationTests
+public class PurchaseSaleIntegrationTests : IDisposable
 {
+    private readonly SqliteConnection _connection;
     private readonly DbContextOptions<ApplicationDbContext> _options;
 
     public PurchaseSaleIntegrationTests()
     {
+        // دیتابیس مستقل برای هر نمونه تست؛ از cache=shared استفاده نمی‌کنیم
+        // تا داده‌های تست‌های دیگر (برند/تأمین‌کننده با نام تکراری) باقی نمانند.
+        _connection = new SqliteConnection("Data Source=:memory:");
+        _connection.Open();
+
         _options = new DbContextOptionsBuilder<ApplicationDbContext>()
-            .UseInMemoryDatabase(
-                databaseName: $"IntegrationDb_{Guid.NewGuid()}")
-            .ConfigureWarnings(x =>
-                x.Ignore(
-                    Microsoft.EntityFrameworkCore.Diagnostics
-                        .InMemoryEventId.TransactionIgnoredWarning))
+            .UseSqlite(_connection)
             .Options;
+
+        using var db = new ApplicationDbContext(_options);
+        db.Database.EnsureCreated();
     }
 
     private ApplicationDbContext CreateContext() =>
-        new TestApplicationDbContext(_options);
+        new ApplicationDbContext(_options);
 
     private async Task<(
         Guid SupplierId,
@@ -98,21 +102,14 @@ public class PurchaseSaleIntegrationTests
         {
             InvoiceNumber = "INT-PUR-001",
             SupplierId = supplierId,
-
-            // این مقدار صرفاً جهت سازگاری DTO نگه داشته شده است.
-            // منبع اصلی انبار، WarehouseId هر ردیف است.
             WarehouseId = warehouseId,
-
             FinalizeImmediately = true,
             Items =
             [
                 new CreatePurchaseItemDto
                 {
                     ProductId = productId,
-
-                    // در ساختار جدید، انبار هر ردیف الزامی است.
                     WarehouseId = warehouseId,
-
                     Quantity = 20,
                     UnitPrice = 420_000m
                 }
@@ -263,10 +260,7 @@ public class PurchaseSaleIntegrationTests
                 new CreatePurchaseItemDto
                 {
                     ProductId = productId,
-
-                    // در ساختار جدید، انبار ردیف باید مشخص باشد.
                     WarehouseId = warehouseId,
-
                     Quantity = 10,
                     UnitPrice = 400_000m
                 }
@@ -344,5 +338,12 @@ public class PurchaseSaleIntegrationTests
             await act.Should()
                 .ThrowAsync<InvalidOperationException>();
         }
+    }
+
+    public void Dispose()
+    {
+        _connection.Close();
+        _connection.Dispose();
+        GC.SuppressFinalize(this);
     }
 }

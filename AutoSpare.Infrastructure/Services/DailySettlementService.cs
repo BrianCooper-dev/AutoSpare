@@ -1,7 +1,6 @@
 using AutoSpare.Application.DailySettlements;
 using AutoSpare.Application.DailySettlements.DTOs;
 using AutoSpare.Domain.DailySettlements;
-using AutoSpare.Domain.DailySettlements.Enums;
 using AutoSpare.Domain.Sales;
 using AutoSpare.Domain.Sales.Enums;
 using AutoSpare.Infrastructure.Persistence;
@@ -15,47 +14,54 @@ public class DailySettlementService : IDailySettlementService
     private readonly ApplicationDbContext _context;
     private readonly ILogger<DailySettlementService> _logger;
 
-    public DailySettlementService(ApplicationDbContext context, ILogger<DailySettlementService> logger)
+    public DailySettlementService(
+        ApplicationDbContext context,
+        ILogger<DailySettlementService> logger)
     {
         _context = context;
         _logger = logger;
     }
 
-    public async Task<List<DailySettlementDto>> GetAllAsync(CancellationToken cancellationToken = default)
+    public async Task<List<DailySettlementDto>> GetAllAsync(
+        CancellationToken cancellationToken = default)
     {
         var settlements = await _context.DailySettlements
             .AsNoTracking()
             .OrderByDescending(d => d.SettlementDate)
             .ToListAsync(cancellationToken);
 
-        if (!settlements.Any())
+        if (settlements.Count == 0)
             return new List<DailySettlementDto>();
 
-        var minDate = settlements.Min(s => s.SettlementDate).Date;
-        var maxDate = settlements.Max(s => s.SettlementDate).Date.AddDays(1);
+        var minDate = settlements.Min(d => d.SettlementDate).Date;
+        var maxDate = settlements.Max(d => d.SettlementDate).Date.AddDays(1);
 
-        // واکشی بهینه فروش‌ها با استفاده از ایندکس SaleDate
-        var sales = await _context.Set<Sale>()
+        // فقط داده‌های لازم را از دیتابیس می‌گیریم؛ جمع decimal در حافظه محاسبه می‌شود.
+        var saleItems = await _context.Set<Sale>()
             .AsNoTracking()
-            .Where(s => s.Status == SaleStatus.Completed &&
-                        s.SaleDate >= minDate &&
-                        s.SaleDate < maxDate)
-            .Select(s => new
-            {
-                s.SaleDate,
-                Total = s.Items.Sum(i => i.Quantity * i.UnitPrice)
-            })
+            .Where(s =>
+                s.Status == SaleStatus.Completed &&
+                s.SaleDate >= minDate &&
+                s.SaleDate < maxDate)
+            .SelectMany(
+                s => s.Items,
+                (sale, item) => new
+                {
+                    sale.SaleDate,
+                    item.Quantity,
+                    item.UnitPrice
+                })
             .ToListAsync(cancellationToken);
 
-        // تجمیع در حافظه برای جلوگیری از پردازش سنگین در SQL
-        var salesByDate = sales
-            .GroupBy(s => s.SaleDate.Date)
-            .ToDictionary(g => g.Key, g => g.Sum(x => x.Total));
+        var salesDict = saleItems
+            .GroupBy(x => x.SaleDate.Date)
+            .ToDictionary(
+                g => g.Key,
+                g => g.Sum(x => x.Quantity * x.UnitPrice));
 
         return settlements.Select(d =>
         {
-            var date = d.SettlementDate.Date;
-            salesByDate.TryGetValue(date, out var systemTotal);
+            salesDict.TryGetValue(d.SettlementDate.Date, out var systemSales);
 
             return new DailySettlementDto
             {
@@ -64,14 +70,16 @@ public class DailySettlementService : IDailySettlementService
                 Pos1Amount = d.Pos1Amount,
                 Pos2Amount = d.Pos2Amount,
                 CashAmount = d.CashAmount,
-                SystemSalesAmount = systemTotal,
+                SystemSalesAmount = systemSales,
                 Status = (int)d.Status,
                 Notes = d.Notes
             };
         }).ToList();
     }
 
-    public async Task<DailySettlementDto?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
+    public async Task<DailySettlementDto?> GetByIdAsync(
+        Guid id,
+        CancellationToken cancellationToken = default)
     {
         var settlement = await _context.DailySettlements
             .AsNoTracking()
@@ -80,7 +88,9 @@ public class DailySettlementService : IDailySettlementService
         if (settlement == null)
             return null;
 
-        var systemSales = await GetSystemSalesTotalAsync(settlement.SettlementDate, cancellationToken);
+        var systemSales = await GetSystemSalesTotalAsync(
+            settlement.SettlementDate,
+            cancellationToken);
 
         return new DailySettlementDto
         {
@@ -95,19 +105,26 @@ public class DailySettlementService : IDailySettlementService
         };
     }
 
-    public async Task<DailySettlementDto?> GetByDateAsync(DateTime date, CancellationToken cancellationToken = default)
+    public async Task<DailySettlementDto?> GetByDateAsync(
+        DateTime date,
+        CancellationToken cancellationToken = default)
     {
         var targetDate = date.Date;
         var nextDate = targetDate.AddDays(1);
 
         var settlement = await _context.DailySettlements
             .AsNoTracking()
-            .FirstOrDefaultAsync(d => d.SettlementDate >= targetDate && d.SettlementDate < nextDate, cancellationToken);
+            .FirstOrDefaultAsync(
+                d => d.SettlementDate >= targetDate &&
+                     d.SettlementDate < nextDate,
+                cancellationToken);
 
         if (settlement == null)
             return null;
 
-        var systemSales = await GetSystemSalesTotalAsync(targetDate, cancellationToken);
+        var systemSales = await GetSystemSalesTotalAsync(
+            targetDate,
+            cancellationToken);
 
         return new DailySettlementDto
         {
@@ -122,106 +139,234 @@ public class DailySettlementService : IDailySettlementService
         };
     }
 
-    public async Task<decimal> GetSystemSalesTotalAsync(DateTime date, CancellationToken cancellationToken = default)
+    public async Task<decimal> GetSystemSalesTotalAsync(
+        DateTime date,
+        CancellationToken cancellationToken = default)
     {
         var targetDate = date.Date;
         var nextDate = targetDate.AddDays(1);
 
-        return await _context.Set<Sale>()
+        var saleItems = await _context.Set<Sale>()
             .AsNoTracking()
-            .Where(s => s.Status == SaleStatus.Completed &&
-                        s.SaleDate >= targetDate &&
-                        s.SaleDate < nextDate)
+            .Where(s =>
+                s.Status == SaleStatus.Completed &&
+                s.SaleDate >= targetDate &&
+                s.SaleDate < nextDate)
             .SelectMany(s => s.Items)
-            .SumAsync(i => (decimal?)i.Quantity * i.UnitPrice, cancellationToken) ?? 0m;
+            .Select(i => new
+            {
+                i.Quantity,
+                i.UnitPrice
+            })
+            .ToListAsync(cancellationToken);
+
+        return saleItems.Sum(i => i.Quantity * i.UnitPrice);
     }
 
-    public async Task<Guid> UpsertAsync(UpsertDailySettlementDto dto, CancellationToken cancellationToken = default)
+    public async Task<Guid> UpsertAsync(
+        UpsertDailySettlementDto dto,
+        CancellationToken cancellationToken = default)
     {
-        if (!dto.SettlementDate.HasValue || dto.SettlementDate.Value == default)
-            throw new InvalidOperationException("تاریخ تسویه الزامی است.");
+        ArgumentNullException.ThrowIfNull(dto);
+
+        if (!dto.SettlementDate.HasValue)
+            throw new ArgumentException(
+                "تاریخ تسویه نامعتبر است.",
+                nameof(dto));
 
         var targetDate = dto.SettlementDate.Value.Date;
         var nextDate = targetDate.AddDays(1);
 
-        try
+        if (dto.Id.HasValue && dto.Id.Value != Guid.Empty)
         {
-            if (dto.Id.HasValue && dto.Id.Value != Guid.Empty)
+            var existing = await _context.DailySettlements.FindAsync(
+                new object[] { dto.Id.Value },
+                cancellationToken);
+
+            if (existing == null)
+                throw new KeyNotFoundException(
+                    "رکورد تسویه مورد نظر یافت نشد.");
+
+            if (existing.SettlementDate.Date != targetDate)
+                throw new InvalidOperationException(
+                    "امکان تغییر تاریخ تسویه وجود ندارد.");
+
+            var duplicateExists = await _context.DailySettlements
+                .AnyAsync(
+                    d => d.SettlementDate >= targetDate &&
+                         d.SettlementDate < nextDate &&
+                         d.Id != dto.Id.Value,
+                    cancellationToken);
+
+            if (duplicateExists)
+                throw new InvalidOperationException(
+                    "برای این تاریخ قبلاً تسویه ثبت شده است.");
+
+            try
             {
-                var existing =
-                    await _context.DailySettlements.FindAsync(new object[] { dto.Id.Value }, cancellationToken);
-                if (existing == null)
-                    throw new InvalidOperationException("تسویه مورد نظر یافت نشد.");
+                existing.UpdateAmounts(
+                    dto.Pos1Amount,
+                    dto.Pos2Amount,
+                    dto.CashAmount,
+                    dto.Notes?.Trim());
 
-                var duplicateDate = await _context.DailySettlements
-                    .AnyAsync(
-                        d => d.SettlementDate >= targetDate && d.SettlementDate < nextDate && d.Id != dto.Id.Value,
-                        cancellationToken);
-
-                if (duplicateDate)
-                    throw new InvalidOperationException("برای این تاریخ قبلاً تسویه ثبت شده است.");
-
-                if (existing.SettlementDate.Date != targetDate)
-                    throw new InvalidOperationException("تغییر تاریخ تسویه پس از ثبت امکان‌پذیر نیست.");
-
-                existing.UpdateAmounts(dto.Pos1Amount, dto.Pos2Amount, dto.CashAmount, dto.Notes);
                 await _context.SaveChangesAsync(cancellationToken);
                 return existing.Id;
             }
+            catch (OperationCanceledException)
+                when (cancellationToken.IsCancellationRequested)
+            {
+                throw;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(
+                    ex,
+                    "خطا در به‌روزرسانی تسویه روزانه {Id}",
+                    existing.Id);
 
-            var isDuplicate = await _context.DailySettlements
-                .AnyAsync(d => d.SettlementDate >= targetDate && d.SettlementDate < nextDate, cancellationToken);
+                throw;
+            }
+        }
 
-            if (isDuplicate)
-                throw new InvalidOperationException("برای این تاریخ قبلاً تسویه ثبت شده است.");
+        var exists = await _context.DailySettlements
+            .AnyAsync(
+                d => d.SettlementDate >= targetDate &&
+                     d.SettlementDate < nextDate,
+                cancellationToken);
 
-            var newSettlement = new DailySettlement(
+        if (exists)
+            throw new InvalidOperationException(
+                "برای این تاریخ قبلاً تسویه ثبت شده است.");
+
+        try
+        {
+            var settlement = new DailySettlement(
                 targetDate,
                 dto.Pos1Amount,
                 dto.Pos2Amount,
                 dto.CashAmount,
-                dto.Notes
-            );
+                dto.Notes?.Trim());
 
-            await _context.DailySettlements.AddAsync(newSettlement, cancellationToken);
+            await _context.DailySettlements.AddAsync(
+                settlement,
+                cancellationToken);
+
             await _context.SaveChangesAsync(cancellationToken);
-            return newSettlement.Id;
+            return settlement.Id;
         }
-        catch (DbUpdateException ex)
+        catch (OperationCanceledException)
+            when (cancellationToken.IsCancellationRequested)
         {
-            _logger.LogError(ex, "خطای پایگاه داده در تسویه روزانه برای تاریخ {SettlementDate}", targetDate);
-            throw new InvalidOperationException(
-                "خطا در ذخیره‌سازی اطلاعات تسویه. ممکن است تسویه همزمانی برای این تاریخ ثبت شده باشد.", ex);
+            throw;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(
+                ex,
+                "خطا در ثبت تسویه روزانه جدید برای تاریخ {Date}",
+                targetDate);
+
+            throw;
         }
     }
 
-    public async Task CloseAsync(Guid id, CancellationToken cancellationToken = default)
+    public async Task CloseAsync(
+        Guid id,
+        CancellationToken cancellationToken = default)
     {
-        var entity = await _context.DailySettlements.FindAsync(new object[] { id }, cancellationToken);
-        if (entity == null)
-            throw new InvalidOperationException("تسویه مورد نظر یافت نشد.");
+        var entity = await _context.DailySettlements.FindAsync(
+            new object[] { id },
+            cancellationToken);
 
-        entity.CloseSettlement();
-        await _context.SaveChangesAsync(cancellationToken);
+        if (entity == null)
+            throw new KeyNotFoundException(
+                "رکورد تسویه یافت نشد.");
+
+        try
+        {
+            entity.CloseSettlement();
+            await _context.SaveChangesAsync(cancellationToken);
+        }
+        catch (OperationCanceledException)
+            when (cancellationToken.IsCancellationRequested)
+        {
+            throw;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(
+                ex,
+                "خطا در بستن تسویه {Id}",
+                id);
+
+            throw;
+        }
     }
 
-    public async Task ReopenAsync(Guid id, CancellationToken cancellationToken = default)
+    public async Task ReopenAsync(
+        Guid id,
+        CancellationToken cancellationToken = default)
     {
-        var entity = await _context.DailySettlements.FindAsync(new object[] { id }, cancellationToken);
-        if (entity == null)
-            throw new InvalidOperationException("تسویه مورد نظر یافت نشد.");
+        var entity = await _context.DailySettlements.FindAsync(
+            new object[] { id },
+            cancellationToken);
 
-        entity.ReopenSettlement();
-        await _context.SaveChangesAsync(cancellationToken);
+        if (entity == null)
+            throw new KeyNotFoundException(
+                "رکورد تسویه یافت نشد.");
+
+        try
+        {
+            entity.ReopenSettlement();
+            await _context.SaveChangesAsync(cancellationToken);
+        }
+        catch (OperationCanceledException)
+            when (cancellationToken.IsCancellationRequested)
+        {
+            throw;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(
+                ex,
+                "خطا در باز کردن مجدد تسویه {Id}",
+                id);
+
+            throw;
+        }
     }
 
-    public async Task DeleteAsync(Guid id, CancellationToken cancellationToken = default)
+    public async Task DeleteAsync(
+        Guid id,
+        CancellationToken cancellationToken = default)
     {
-        var entity = await _context.DailySettlements.FindAsync(new object[] { id }, cancellationToken);
-        if (entity == null)
-            throw new InvalidOperationException("تسویه مورد نظر یافت نشد.");
+        var entity = await _context.DailySettlements.FindAsync(
+            new object[] { id },
+            cancellationToken);
 
-        _context.DailySettlements.Remove(entity);
-        await _context.SaveChangesAsync(cancellationToken);
+        if (entity == null)
+            throw new KeyNotFoundException(
+                "رکورد تسویه یافت نشد.");
+
+        try
+        {
+            _context.DailySettlements.Remove(entity);
+            await _context.SaveChangesAsync(cancellationToken);
+        }
+        catch (OperationCanceledException)
+            when (cancellationToken.IsCancellationRequested)
+        {
+            throw;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(
+                ex,
+                "خطا در حذف تسویه {Id}",
+                id);
+
+            throw;
+        }
     }
 }

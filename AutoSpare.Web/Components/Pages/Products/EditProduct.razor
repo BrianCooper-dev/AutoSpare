@@ -337,6 +337,8 @@
     private string? _previewImageUrl;
     private string? _newUploadedImagePath;
     private bool _imageRemoved;
+    private string? _originalImagePath;
+
 
     private const long MaxFileSize = 3 * 1024 * 1024;
 
@@ -368,6 +370,7 @@
             }
 
             _model = product;
+            _originalImagePath = _model.ImagePath; //  دقیقاً اینجا مقداردهی شود
         }
         catch (Exception ex)
         {
@@ -507,8 +510,7 @@
                 return;
             }
 
-            var previousImagePath = _model.ImagePath;
-
+            // ۱. آپلود تصویر جدید در صورت انتخاب
             if (_selectedImageFile is not null)
             {
                 await using var imageStream = _selectedImageFile.OpenReadStream(MaxFileSize);
@@ -520,16 +522,19 @@
                 _model.ImagePath = null;
             }
 
+            // ۲. ذخیره تغییرات در دیتابیس
             await ProductService.UpdateProductAsync(_model);
 
-            if ((_selectedImageFile is not null || _imageRemoved) && !string.IsNullOrWhiteSpace(previousImagePath))
+            // ۳. حذف فیزیکی فایل قبلی از دیسک (اگر عکس تغییر کرده یا حذف شده باشد)
+            if ((_selectedImageFile is not null || _imageRemoved) && !string.IsNullOrWhiteSpace(_originalImagePath))
             {
                 try
                 {
-                    FileStorageService.DeleteFile(previousImagePath);
+                    FileStorageService.DeleteFile(_originalImagePath);
                 }
                 catch
                 {
+                    // در صورت بروز خطا در حذف فایل فیزیکی، مانع عملکرد موفق سیستم نشود
                 }
             }
 
@@ -538,6 +543,7 @@
         }
         catch (Exception ex)
         {
+            // عملیات جبرانی: اگر دیتابیس خطا داد، تصویر آپلود شده جدید پاک شود
             if (!string.IsNullOrWhiteSpace(_newUploadedImagePath))
             {
                 try
