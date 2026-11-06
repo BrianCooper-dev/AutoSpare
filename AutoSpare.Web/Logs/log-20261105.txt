@@ -1,0 +1,280 @@
+2026-11-05 14:39:18.244 +03:30 [INF] Storage directories are ready. ImagesPath: D:\porograming\Rider\AutoSpare\AutoSpare.Web\wwwroot\Uploads\Images, BackupPath: D:\AutoSpareBackups 
+2026-11-05 14:39:18.365 +03:30 [INF] سرویس زمان‌بندی بکاپ پایگاه داده راه‌اندازی شد. 
+2026-11-05 14:39:18.506 +03:30 [WRN] آخرین بکاپ (2026/11/03 06:28:59) قدیمی‌تر از شروع روز گذشته است. در حال اجرای بکاپ جبرانی... 
+2026-11-05 14:39:18.511 +03:30 [WRN] فقدان بکاپ برای روزهای اخیر شناسایی شد. در حال اجرای بکاپ جبرانی... 
+2026-11-05 14:39:18.518 +03:30 [INF] شروع بکاپ خودکار دیتابیس. علت: Startup Check - MissingBackup | مسیر مقصد: D:/AutoSpareBackups 
+2026-11-05 14:39:18.607 +03:30 [INF] شروع فرآیند بکاپ‌گیری از دیتابیس AutoSpareDb در مسیر D:\AutoSpareBackups\AutoSpareDb_Backup_1405-08-14_143918.bak 
+2026-11-05 14:39:19.315 +03:30 [INF] بکاپ با موفقیت ایجاد شد: AutoSpareDb_Backup_1405-08-14_143918.bak به حجم 10604544 بایت 
+2026-11-05 14:39:19.335 +03:30 [INF] بکاپ زمان‌بندی‌شده با موفقیت ایجاد شد: AutoSpareDb_Backup_1405-08-14_143918.bak (10604544 بایت) 
+2026-11-05 14:39:19.356 +03:30 [INF] بکاپ بعدی در ساعت 2026/11/05 20:00:00 اجرا خواهد شد (مدت انتظار: "05:20:40.6550121"). 
+2026-11-05 14:39:19.635 +03:30 [INF] HTTP GET / responded 302 in 49.5221 ms 
+2026-11-05 14:39:20.878 +03:30 [INF] HTTP GET /login responded 200 in 1184.6807 ms 
+2026-11-05 14:39:20.960 +03:30 [INF] HTTP GET /app.css responded 200 in 29.8534 ms 
+2026-11-05 14:39:20.997 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 66.3102 ms 
+2026-11-05 14:39:21.093 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 162.2565 ms 
+2026-11-05 14:39:21.101 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 200 in 169.5671 ms 
+2026-11-05 14:39:21.763 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 200 in 5.7338 ms 
+2026-11-05 14:39:21.802 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 31.6085 ms 
+2026-11-05 14:39:21.823 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 8.8561 ms 
+2026-11-05 14:39:22.403 +03:30 [INF] HTTP GET /favicon.ico responded 404 in 1.0741 ms 
+2026-11-05 14:39:22.570 +03:30 [INF] HTTP GET /not-found responded 302 in 6.9583 ms 
+2026-11-05 14:39:22.645 +03:30 [INF] HTTP GET /login responded 200 in 69.6936 ms 
+2026-11-05 14:43:20.041 +03:30 [INF] HTTP POST /api/auth/login responded 302 in 664.7441 ms 
+2026-11-05 14:43:20.089 +03:30 [INF] HTTP GET /login responded 200 in 35.7345 ms 
+2026-11-05 14:43:20.130 +03:30 [INF] HTTP GET /app.css responded 200 in 7.2340 ms 
+2026-11-05 14:43:20.139 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 1.0551 ms 
+2026-11-05 14:43:20.141 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 304 in 1.9520 ms 
+2026-11-05 14:43:20.148 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 9.6079 ms 
+2026-11-05 14:43:20.150 +03:30 [INF] HTTP GET /_blazor responded 101 in 238306.3802 ms 
+2026-11-05 14:43:20.161 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 56.0002 ms 
+2026-11-05 14:43:20.206 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.4861 ms 
+2026-11-05 14:43:20.217 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 0.6490 ms 
+2026-11-05 14:43:20.224 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 1.0106 ms 
+2026-11-05 14:43:20.692 +03:30 [INF] HTTP GET /favicon.ico responded 404 in 0.8625 ms 
+2026-11-05 14:43:20.710 +03:30 [INF] HTTP GET /not-found responded 302 in 0.8512 ms 
+2026-11-05 14:43:20.728 +03:30 [INF] HTTP GET /login responded 200 in 14.4390 ms 
+2026-11-05 14:43:27.302 +03:30 [INF] HTTP POST /api/auth/login responded 302 in 735.2147 ms 
+2026-11-05 14:43:28.820 +03:30 [INF] HTTP GET / responded 200 in 1508.4906 ms 
+2026-11-05 14:43:28.837 +03:30 [INF] HTTP GET /_blazor responded 101 in 8602.0243 ms 
+2026-11-05 14:43:28.840 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 3.6405 ms 
+2026-11-05 14:43:28.852 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 1.3175 ms 
+2026-11-05 14:43:28.853 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 304 in 0.8033 ms 
+2026-11-05 14:43:28.862 +03:30 [INF] HTTP GET /app.css responded 200 in 9.9652 ms 
+2026-11-05 14:43:28.867 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 15.6251 ms 
+2026-11-05 14:43:28.916 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 1.1333 ms 
+2026-11-05 14:43:28.950 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 0.9107 ms 
+2026-11-05 14:43:28.956 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.8347 ms 
+2026-11-05 14:43:28.957 +03:30 [INF] HTTP GET /favicon.ico responded 404 in 0.7593 ms 
+2026-11-05 14:43:28.976 +03:30 [INF] HTTP GET /not-found responded 404 in 17.4824 ms 
+2026-11-05 14:45:05.820 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 200 in 5.6632 ms 
+2026-11-05 14:45:19.427 +03:30 [INF] HTTP GET /uploads/products/aba5a5d005684f84a069742c0d83feed.png responded 404 in 0.4496 ms 
+2026-11-05 14:45:19.427 +03:30 [INF] HTTP GET /uploads/products/8c99d533744d495cad96035fe40976a6.png responded 404 in 0.3899 ms 
+2026-11-05 14:45:19.512 +03:30 [INF] HTTP GET /not-found responded 404 in 84.5860 ms 
+2026-11-05 14:45:19.512 +03:30 [INF] HTTP GET /not-found responded 404 in 84.6185 ms 
+2026-11-05 14:45:41.469 +03:30 [INF] HTTP GET /uploads/products/aba5a5d005684f84a069742c0d83feed.png responded 404 in 1.4172 ms 
+2026-11-05 14:45:41.476 +03:30 [INF] HTTP GET /uploads/products/8c99d533744d495cad96035fe40976a6.png responded 404 in 9.2358 ms 
+2026-11-05 14:45:41.493 +03:30 [INF] HTTP GET /not-found responded 404 in 15.3261 ms 
+2026-11-05 14:45:41.493 +03:30 [INF] HTTP GET /not-found responded 404 in 22.8115 ms 
+2026-11-05 14:46:18.952 +03:30 [WRN] Savepoints are disabled because Multiple Active Result Sets (MARS) is enabled. If 'SaveChanges' fails, then the transaction cannot be automatically rolled back to a known clean state. Instead, the transaction should be rolled back by the application before retrying 'SaveChanges'. See https://go.microsoft.com/fwlink/?linkid=2149338 for more information and examples. To identify the code which triggers this warning, call 'ConfigureWarnings(w => w.Throw(SqlServerEventId.SavepointsDisabledBecauseOfMARS))'. 
+2026-11-05 14:46:25.489 +03:30 [INF] HTTP GET /uploads/products/aba5a5d005684f84a069742c0d83feed.png responded 404 in 1.0082 ms 
+2026-11-05 14:46:25.498 +03:30 [INF] HTTP GET /not-found responded 404 in 7.7102 ms 
+2026-11-05 14:46:32.413 +03:30 [INF] HTTP GET /uploads/products/aba5a5d005684f84a069742c0d83feed.png responded 404 in 0.5532 ms 
+2026-11-05 14:46:32.413 +03:30 [INF] HTTP GET /uploads/products/8c99d533744d495cad96035fe40976a6.png responded 404 in 0.5403 ms 
+2026-11-05 14:46:32.427 +03:30 [INF] HTTP GET /not-found responded 404 in 13.1214 ms 
+2026-11-05 14:46:32.427 +03:30 [INF] HTTP GET /not-found responded 404 in 13.3230 ms 
+2026-11-05 14:46:39.073 +03:30 [INF] HTTP GET /uploads/products/aba5a5d005684f84a069742c0d83feed.png responded 404 in 0.5283 ms 
+2026-11-05 14:46:39.083 +03:30 [INF] HTTP GET /not-found responded 404 in 9.7590 ms 
+2026-11-05 14:46:42.472 +03:30 [INF] HTTP GET /uploads/products/aba5a5d005684f84a069742c0d83feed.png responded 404 in 1.1938 ms 
+2026-11-05 14:46:42.485 +03:30 [INF] HTTP GET /not-found responded 404 in 12.5459 ms 
+2026-11-05 14:46:47.377 +03:30 [WRN] Savepoints are disabled because Multiple Active Result Sets (MARS) is enabled. If 'SaveChanges' fails, then the transaction cannot be automatically rolled back to a known clean state. Instead, the transaction should be rolled back by the application before retrying 'SaveChanges'. See https://go.microsoft.com/fwlink/?linkid=2149338 for more information and examples. To identify the code which triggers this warning, call 'ConfigureWarnings(w => w.Throw(SqlServerEventId.SavepointsDisabledBecauseOfMARS))'. 
+2026-11-05 14:46:47.462 +03:30 [INF] HTTP GET /uploads/products/aba5a5d005684f84a069742c0d83feed.png responded 404 in 0.4955 ms 
+2026-11-05 14:46:47.471 +03:30 [INF] HTTP GET /not-found responded 404 in 8.9010 ms 
+2026-11-05 14:46:49.785 +03:30 [INF] HTTP GET /uploads/products/8c99d533744d495cad96035fe40976a6.png responded 404 in 0.3711 ms 
+2026-11-05 14:46:49.786 +03:30 [INF] HTTP GET /uploads/products/aba5a5d005684f84a069742c0d83feed.png responded 404 in 0.4665 ms 
+2026-11-05 14:46:49.801 +03:30 [INF] HTTP GET /not-found responded 404 in 15.3116 ms 
+2026-11-05 14:46:49.803 +03:30 [INF] HTTP GET /not-found responded 404 in 17.4654 ms 
+2026-11-05 14:47:09.532 +03:30 [INF] HTTP GET /uploads/products/aba5a5d005684f84a069742c0d83feed.png responded 404 in 0.6216 ms 
+2026-11-05 14:47:09.541 +03:30 [INF] HTTP GET /not-found responded 404 in 8.8466 ms 
+2026-11-05 14:51:03.226 +03:30 [INF] HTTP GET /_blazor responded 101 in 454259.9850 ms 
+2026-11-05 14:51:03.283 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 52.4216 ms 
+2026-11-05 16:55:14.287 +03:30 [INF] Storage directories are ready. ImagesPath: D:\porograming\Rider\AutoSpare\AutoSpare.Web\wwwroot\Uploads\Images, BackupPath: D:\AutoSpareBackups 
+2026-11-05 16:55:14.309 +03:30 [INF] SQLite database path: D:\porograming\Rider\AutoSpare\AutoSpare.Web\autospare.db 
+2026-11-05 16:55:17.567 +03:30 [ERR] An error occurred during SQLite migration or seeding. 
+System.InvalidOperationException: An error was generated for warning 'Microsoft.EntityFrameworkCore.Migrations.PendingModelChangesWarning': The model for context 'ApplicationDbContext' has pending changes. Add a new migration before updating the database. See https://aka.ms/efcore-docs-pending-changes. This exception can be suppressed or logged by passing event ID 'RelationalEventId.PendingModelChangesWarning' to the 'ConfigureWarnings' method in 'DbContext.OnConfiguring' or 'AddDbContext'.
+   at Microsoft.EntityFrameworkCore.Diagnostics.EventDefinition`1.Log[TLoggerCategory](IDiagnosticsLogger`1 logger, TParam arg)
+   at Microsoft.EntityFrameworkCore.Diagnostics.RelationalLoggerExtensions.PendingModelChangesWarning(IDiagnosticsLogger`1 diagnostics, Type contextType)
+   at Microsoft.EntityFrameworkCore.Migrations.Internal.Migrator.ValidateMigrations(Boolean useTransaction, String targetMigration)
+   at Microsoft.EntityFrameworkCore.Migrations.Internal.Migrator.MigrateAsync(String targetMigration, CancellationToken cancellationToken)
+   at Program.<Main>$(String[] args) in D:\porograming\Rider\AutoSpare\AutoSpare.Web\Program.cs:line 247
+2026-11-05 16:55:17.596 +03:30 [FTL] AutoSpare Web Application terminated unexpectedly. 
+System.InvalidOperationException: An error was generated for warning 'Microsoft.EntityFrameworkCore.Migrations.PendingModelChangesWarning': The model for context 'ApplicationDbContext' has pending changes. Add a new migration before updating the database. See https://aka.ms/efcore-docs-pending-changes. This exception can be suppressed or logged by passing event ID 'RelationalEventId.PendingModelChangesWarning' to the 'ConfigureWarnings' method in 'DbContext.OnConfiguring' or 'AddDbContext'.
+   at Microsoft.EntityFrameworkCore.Diagnostics.EventDefinition`1.Log[TLoggerCategory](IDiagnosticsLogger`1 logger, TParam arg)
+   at Microsoft.EntityFrameworkCore.Diagnostics.RelationalLoggerExtensions.PendingModelChangesWarning(IDiagnosticsLogger`1 diagnostics, Type contextType)
+   at Microsoft.EntityFrameworkCore.Migrations.Internal.Migrator.ValidateMigrations(Boolean useTransaction, String targetMigration)
+   at Microsoft.EntityFrameworkCore.Migrations.Internal.Migrator.MigrateAsync(String targetMigration, CancellationToken cancellationToken)
+   at Program.<Main>$(String[] args) in D:\porograming\Rider\AutoSpare\AutoSpare.Web\Program.cs:line 247
+2026-11-05 16:59:43.425 +03:30 [FTL] AutoSpare Web Application terminated unexpectedly. 
+Microsoft.Extensions.Hosting.HostAbortedException: The host was aborted.
+   at Microsoft.Extensions.Hosting.HostFactoryResolver.HostingListener.ThrowHostAborted()
+   at Microsoft.Extensions.Hosting.HostFactoryResolver.HostingListener.OnNext(KeyValuePair`2 value)
+   at System.Diagnostics.DiagnosticListener.Write(String name, Object value)
+   at Microsoft.Extensions.Hosting.HostBuilder.ResolveHost(IServiceProvider serviceProvider, DiagnosticListener diagnosticListener)
+   at Microsoft.Extensions.Hosting.HostApplicationBuilder.Build()
+   at Microsoft.AspNetCore.Builder.WebApplicationBuilder.Build()
+   at Program.<Main>$(String[] args) in D:\porograming\Rider\AutoSpare\AutoSpare.Web\Program.cs:line 191
+2026-11-05 17:00:09.598 +03:30 [INF] Storage directories are ready. ImagesPath: D:\porograming\Rider\AutoSpare\AutoSpare.Web\wwwroot\Uploads\Images, BackupPath: D:\AutoSpareBackups 
+2026-11-05 17:00:09.614 +03:30 [INF] SQLite database path: D:\porograming\Rider\AutoSpare\AutoSpare.Web\autospare.db 
+2026-11-05 17:00:11.305 +03:30 [INF] Default Admin user created successfully. 
+2026-11-05 17:00:11.429 +03:30 [INF] سرویس زمان‌بندی بکاپ پایگاه داده راه‌اندازی شد. 
+2026-11-05 17:00:11.448 +03:30 [INF] بکاپ بعدی در ساعت 2026/11/05 20:00:00 اجرا خواهد شد (مدت انتظار: "02:59:48.5574533"). 
+2026-11-05 17:00:11.714 +03:30 [INF] HTTP GET / responded 302 in 12.7088 ms 
+2026-11-05 17:00:11.973 +03:30 [INF] HTTP GET /login responded 200 in 241.9008 ms 
+2026-11-05 17:00:12.001 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 304 in 5.9470 ms 
+2026-11-05 17:00:12.001 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 5.9470 ms 
+2026-11-05 17:00:12.039 +03:30 [INF] HTTP GET /app.css responded 200 in 43.8281 ms 
+2026-11-05 17:00:12.042 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 46.6870 ms 
+2026-11-05 17:00:12.087 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.4584 ms 
+2026-11-05 17:00:12.107 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 10.1496 ms 
+2026-11-05 17:00:12.128 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 5.4553 ms 
+2026-11-05 17:00:46.411 +03:30 [INF] HTTP POST /api/auth/login responded 302 in 651.1867 ms 
+2026-11-05 17:00:46.768 +03:30 [INF] HTTP GET / responded 200 in 352.9971 ms 
+2026-11-05 17:00:46.790 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 304 in 0.4297 ms 
+2026-11-05 17:00:46.791 +03:30 [INF] HTTP GET /app.css responded 200 in 3.2923 ms 
+2026-11-05 17:00:46.793 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 4.2823 ms 
+2026-11-05 17:00:46.803 +03:30 [INF] HTTP GET /_blazor responded 101 in 34663.7959 ms 
+2026-11-05 17:00:46.804 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 2.5232 ms 
+2026-11-05 17:00:46.810 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 32.4075 ms 
+2026-11-05 17:00:46.854 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 1.3329 ms 
+2026-11-05 17:00:46.883 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 3.4579 ms 
+2026-11-05 17:00:46.894 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 1.5097 ms 
+2026-11-05 17:01:03.531 +03:30 [INF] HTTP GET / responded 200 in 27.2374 ms 
+2026-11-05 17:01:03.539 +03:30 [INF] HTTP GET /_blazor responded 101 in 16634.4680 ms 
+2026-11-05 17:01:03.546 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 304 in 0.7802 ms 
+2026-11-05 17:01:03.548 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 1.5864 ms 
+2026-11-05 17:01:03.558 +03:30 [INF] HTTP GET /app.css responded 200 in 12.3849 ms 
+2026-11-05 17:01:03.561 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 13.3966 ms 
+2026-11-05 17:01:03.570 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 31.3656 ms 
+2026-11-05 17:01:03.586 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.7035 ms 
+2026-11-05 17:01:03.609 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 1.8691 ms 
+2026-11-05 17:01:03.618 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 1.8015 ms 
+2026-11-05 17:02:33.718 +03:30 [INF] HTTP GET / responded 200 in 10.9512 ms 
+2026-11-05 17:02:33.725 +03:30 [INF] HTTP GET /_blazor responded 101 in 90095.8090 ms 
+2026-11-05 17:02:33.750 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 0.8331 ms 
+2026-11-05 17:02:33.750 +03:30 [INF] HTTP GET /app.css responded 200 in 20.6816 ms 
+2026-11-05 17:02:33.751 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 304 in 0.3499 ms 
+2026-11-05 17:02:33.753 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 23.1565 ms 
+2026-11-05 17:02:33.758 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 33.3403 ms 
+2026-11-05 17:02:33.769 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.2181 ms 
+2026-11-05 17:02:33.784 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 0.4444 ms 
+2026-11-05 17:02:33.793 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.3270 ms 
+2026-11-05 17:02:50.901 +03:30 [INF] HTTP GET / responded 200 in 11.2596 ms 
+2026-11-05 17:02:50.909 +03:30 [INF] HTTP GET /_blazor responded 101 in 17103.8801 ms 
+2026-11-05 17:02:50.910 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 1.2059 ms 
+2026-11-05 17:02:50.915 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 304 in 0.3416 ms 
+2026-11-05 17:02:50.915 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 0.3175 ms 
+2026-11-05 17:02:50.915 +03:30 [INF] HTTP GET /app.css responded 200 in 1.1181 ms 
+2026-11-05 17:02:50.918 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 4.0539 ms 
+2026-11-05 17:02:50.940 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.2696 ms 
+2026-11-05 17:02:50.949 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 0.3017 ms 
+2026-11-05 17:02:50.960 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.2891 ms 
+2026-11-05 17:05:10.315 +03:30 [INF] HTTP GET /_blazor responded 101 in 139347.2737 ms 
+2026-11-05 17:05:11.321 +03:30 [INF] سرویس زمان‌بندی بکاپ متوقف شد. 
+2026-11-05 17:07:17.191 +03:30 [INF] Storage directories are ready. ImagesPath: D:\porograming\Rider\AutoSpare\AutoSpare.Web\wwwroot\Uploads\Images, BackupPath: D:\AutoSpareBackups 
+2026-11-05 17:07:17.212 +03:30 [INF] SQLite database path: D:\porograming\Rider\AutoSpare\AutoSpare.Web\autospare.db 
+2026-11-05 17:07:18.416 +03:30 [INF] سرویس زمان‌بندی بکاپ پایگاه داده راه‌اندازی شد. 
+2026-11-05 17:07:18.432 +03:30 [INF] بکاپ بعدی در ساعت 2026/11/05 20:00:00 اجرا خواهد شد (مدت انتظار: "02:52:41.5707899"). 
+2026-11-05 17:07:19.057 +03:30 [INF] HTTP GET / responded 200 in 461.1496 ms 
+2026-11-05 17:07:19.080 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 5.8926 ms 
+2026-11-05 17:07:19.080 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 304 in 5.8925 ms 
+2026-11-05 17:07:19.099 +03:30 [INF] HTTP GET /app.css responded 200 in 23.8816 ms 
+2026-11-05 17:07:19.100 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 25.4963 ms 
+2026-11-05 17:07:19.179 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 3.8354 ms 
+2026-11-05 17:07:19.193 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 6.1580 ms 
+2026-11-05 17:07:19.222 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 3.7440 ms 
+2026-11-05 17:07:38.905 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 1.3273 ms 
+2026-11-05 17:07:38.953 +03:30 [INF] HTTP GET / responded 200 in 19.9653 ms 
+2026-11-05 17:07:38.966 +03:30 [INF] HTTP GET /app.css responded 200 in 1.6447 ms 
+2026-11-05 17:07:38.968 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 1.0422 ms 
+2026-11-05 17:07:38.969 +03:30 [INF] HTTP GET /_blazor responded 101 in 57.4622 ms 
+2026-11-05 17:07:38.970 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 304 in 0.4751 ms 
+2026-11-05 17:07:38.974 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 15.4380 ms 
+2026-11-05 17:07:38.975 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 5.1948 ms 
+2026-11-05 17:07:38.998 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 0.4647 ms 
+2026-11-05 17:07:39.004 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 1.2691 ms 
+2026-11-05 17:07:39.006 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.6095 ms 
+2026-11-05 17:07:48.915 +03:30 [WRN] The query uses the 'First'/'FirstOrDefault' operator without 'OrderBy' and filter operators. This may lead to unpredictable results. 
+2026-11-05 17:07:49.171 +03:30 [WRN] The query uses the 'First'/'FirstOrDefault' operator without 'OrderBy' and filter operators. This may lead to unpredictable results. 
+2026-11-05 17:07:52.424 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 0.6670 ms 
+2026-11-05 17:07:56.588 +03:30 [INF] شروع فرآیند بکاپ‌گیری SQLite از autospare به مسیر D:\AutoSpareBackups\autospare_Backup_1405-08-14_170756.db 
+2026-11-05 17:07:56.829 +03:30 [INF] بکاپ با موفقیت ایجاد شد: autospare_Backup_1405-08-14_170756.db به حجم 290816 بایت 
+2026-11-05 17:09:02.182 +03:30 [ERR] Failed executing DbCommand (2ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (DbType = DateTime), @p2='?' (DbType = DateTime), @p3='?' (DbType = Guid), @p4='?' (DbType = Int32), @p5='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Inventories" ("Id", "CreatedAt", "LastModifiedAt", "ProductId", "Quantity", "WarehouseId")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5)
+RETURNING "RowVersion"; 
+2026-11-05 17:09:02.198 +03:30 [ERR] An exception occurred in the database while saving changes for context type 'AutoSpare.Infrastructure.Persistence.ApplicationDbContext'.
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Microsoft.Data.Sqlite.SqliteException (0x80004005): SQLite Error 19: 'NOT NULL constraint failed: Inventories.RowVersion'.
+   at Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(Int32 rc, sqlite3 db)
+   at Microsoft.Data.Sqlite.SqliteDataReader.NextResult()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteDbDataReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalDatabase.SaveChangesAsync(IList`1 entries, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken) 
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Microsoft.Data.Sqlite.SqliteException (0x80004005): SQLite Error 19: 'NOT NULL constraint failed: Inventories.RowVersion'.
+   at Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(Int32 rc, sqlite3 db)
+   at Microsoft.Data.Sqlite.SqliteDataReader.NextResult()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteDbDataReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalDatabase.SaveChangesAsync(IList`1 entries, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+2026-11-05 17:09:27.890 +03:30 [ERR] Failed executing DbCommand (0ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (DbType = Guid), @p2='?' (DbType = Guid), @p3='?' (DbType = DateTime), @p4='?' (DbType = Guid), @p5='?', @p6='?' (Size = 4), @p7='?' (DbType = Boolean), @p8='?' (DbType = DateTime), @p9='?' (DbType = Int32), @p10='?' (Size = 3), @p11='?' (Size = 5), @p12='?' (DbType = Decimal), @p13='?' (DbType = Decimal), @p14='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Products" ("Id", "BrandId", "CategoryId", "CreatedAt", "DefaultWarehouseId", "ImagePath", "InternalCode", "IsLowStockAlertEnabled", "LastModifiedAt", "MinStockThreshold", "Model", "Name", "PurchasePrice", "SalePrice", "Status")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11, @p12, @p13, @p14); 
+2026-11-05 17:09:27.891 +03:30 [ERR] An exception occurred in the database while saving changes for context type 'AutoSpare.Infrastructure.Persistence.ApplicationDbContext'.
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Microsoft.Data.Sqlite.SqliteException (0x80004005): SQLite Error 19: 'UNIQUE constraint failed: Products.InternalCode'.
+   at Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(Int32 rc, sqlite3 db)
+   at Microsoft.Data.Sqlite.SqliteDataReader.NextResult()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteDbDataReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalDatabase.SaveChangesAsync(IList`1 entries, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken) 
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Microsoft.Data.Sqlite.SqliteException (0x80004005): SQLite Error 19: 'UNIQUE constraint failed: Products.InternalCode'.
+   at Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(Int32 rc, sqlite3 db)
+   at Microsoft.Data.Sqlite.SqliteDataReader.NextResult()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteDbDataReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalDatabase.SaveChangesAsync(IList`1 entries, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+2026-11-05 17:11:35.563 +03:30 [INF] HTTP GET /_blazor responded 101 in 236539.6713 ms 
+2026-11-05 17:11:35.563 +03:30 [INF] HTTP GET /_blazor responded 101 in 256335.2790 ms 
+2026-11-05 20:21:26.223 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 7.5837 ms 
+2026-11-05 20:21:26.234 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 17.7972 ms 
+2026-11-05 20:21:26.235 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.9582 ms 
+2026-11-05 20:21:26.246 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.5501 ms 
