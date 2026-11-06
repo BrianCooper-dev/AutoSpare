@@ -1017,3 +1017,75 @@ System.InvalidOperationException: فاکتور خرید با شماره 'PUR-000
 2026-11-06 21:32:18.205 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 5.0949 ms 
 2026-11-06 21:32:23.768 +03:30 [INF] HTTP GET /_blazor responded 101 in 94594.8213 ms 
 2026-11-06 21:32:24.782 +03:30 [INF] سرویس زمان‌بندی بکاپ متوقف شد. 
+2026-11-06 21:45:48.756 +03:30 [INF] Storage directories are ready. ImagesPath: D:\porograming\Rider\AutoSpare\AutoSpare.Web\wwwroot\Uploads\Images, BackupPath: D:\AutoSpareBackups 
+2026-11-06 21:45:48.806 +03:30 [INF] SQLite database path: D:\porograming\Rider\AutoSpare\AutoSpare.Web\autospare.db 
+2026-11-06 21:45:54.084 +03:30 [INF] سرویس زمان‌بندی بکاپ پایگاه داده راه‌اندازی شد. 
+2026-11-06 21:45:54.107 +03:30 [INF] بکاپ بعدی در ساعت 2026/11/07 02:30:00 اجرا خواهد شد (مدت انتظار: "04:44:05.8965104"). 
+2026-11-06 21:45:54.407 +03:30 [INF] HTTP GET / responded 302 in 19.0190 ms 
+2026-11-06 21:45:54.717 +03:30 [INF] HTTP GET /login responded 200 in 286.0396 ms 
+2026-11-06 21:45:54.743 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 4.6582 ms 
+2026-11-06 21:45:54.743 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 304 in 4.6582 ms 
+2026-11-06 21:45:54.760 +03:30 [INF] HTTP GET /app.css responded 200 in 21.8953 ms 
+2026-11-06 21:45:54.762 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 24.4929 ms 
+2026-11-06 21:45:54.801 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.3647 ms 
+2026-11-06 21:45:54.817 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 10.0729 ms 
+2026-11-06 21:45:54.833 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 5.4252 ms 
+2026-11-06 21:45:57.790 +03:30 [INF] HTTP POST /api/auth/login responded 302 in 696.3753 ms 
+2026-11-06 21:45:58.343 +03:30 [INF] HTTP GET / responded 200 in 548.5924 ms 
+2026-11-06 21:45:58.369 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 304 in 0.4521 ms 
+2026-11-06 21:45:58.370 +03:30 [INF] HTTP GET /app.css responded 200 in 2.0950 ms 
+2026-11-06 21:45:58.370 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 0.7611 ms 
+2026-11-06 21:45:58.374 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 4.6737 ms 
+2026-11-06 21:45:58.379 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 23.6676 ms 
+2026-11-06 21:45:58.380 +03:30 [INF] HTTP GET /_blazor responded 101 in 3538.4148 ms 
+2026-11-06 21:45:58.437 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.5868 ms 
+2026-11-06 21:45:58.468 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 2.3985 ms 
+2026-11-06 21:45:58.478 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.7992 ms 
+2026-11-06 21:46:00.020 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 1.2938 ms 
+2026-11-06 21:46:41.696 +03:30 [INF] HTTP GET /Uploads/Images/5d9a4002b66a4e6fbf61ce3e341ad2ae.png responded 404 in 0.2915 ms 
+2026-11-06 21:46:41.740 +03:30 [INF] HTTP GET /not-found responded 404 in 13.5473 ms 
+2026-11-06 21:51:58.159 +03:30 [INF] HTTP GET /_blazor responded 101 in 359664.3893 ms 
+2026-11-06 21:58:56.280 +03:30 [INF] سرویس زمان‌بندی بکاپ متوقف شد. 
+2026-11-06 21:59:13.623 +03:30 [INF] Storage directories are ready. ImagesPath: D:\porograming\Rider\AutoSpare\AutoSpare.Web\wwwroot\Uploads\Images, BackupPath: D:\AutoSpareBackups 
+2026-11-06 21:59:13.647 +03:30 [INF] SQLite database path: D:\porograming\Rider\AutoSpare\AutoSpare.Web\autospare.db 
+2026-11-06 21:59:15.483 +03:30 [INF] سرویس زمان‌بندی بکاپ پایگاه داده راه‌اندازی شد. 
+2026-11-06 21:59:15.503 +03:30 [INF] بکاپ بعدی در ساعت 2026/11/07 02:30:00 اجرا خواهد شد (مدت انتظار: "04:30:44.4996638"). 
+2026-11-06 21:59:16.060 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 26.3864 ms 
+2026-11-06 21:59:16.688 +03:30 [INF] HTTP GET / responded 200 in 655.9709 ms 
+2026-11-06 21:59:16.718 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 8.1213 ms 
+2026-11-06 21:59:16.718 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 304 in 8.2369 ms 
+2026-11-06 21:59:16.733 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 23.3860 ms 
+2026-11-06 21:59:16.831 +03:30 [INF] HTTP GET /app.css responded 200 in 121.7232 ms 
+2026-11-06 21:59:16.889 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.5038 ms 
+2026-11-06 21:59:16.918 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 9.4982 ms 
+2026-11-06 21:59:16.933 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.7028 ms 
+2026-11-06 21:59:22.112 +03:30 [INF] HTTP GET /Uploads/Images/5d9a4002b66a4e6fbf61ce3e341ad2ae.png responded 404 in 0.4748 ms 
+2026-11-06 21:59:22.176 +03:30 [INF] HTTP GET /not-found responded 404 in 30.4890 ms 
+2026-11-06 21:59:35.866 +03:30 [INF] HTTP GET /Uploads/Images/5d9a4002b66a4e6fbf61ce3e341ad2ae.png responded 404 in 0.2406 ms 
+2026-11-06 21:59:35.880 +03:30 [WRN] The static asset '/Uploads/Images/205ee73d730d4cc0b2dfa8bf0bbc9497.png' was not found in the built time manifest. This file will not be available at runtime if it is not available at compile time during the publish process. If the file was not added to the project during development, and is created at runtime, use the StaticFiles middleware to serve it instead. 
+2026-11-06 21:59:35.885 +03:30 [INF] HTTP GET /not-found responded 404 in 10.8360 ms 
+2026-11-06 21:59:35.894 +03:30 [INF] HTTP GET /Uploads/Images/205ee73d730d4cc0b2dfa8bf0bbc9497.png responded 200 in 23.1057 ms 
+2026-11-06 21:59:45.930 +03:30 [INF] HTTP GET /Uploads/Images/5d9a4002b66a4e6fbf61ce3e341ad2ae.png responded 404 in 0.2491 ms 
+2026-11-06 21:59:45.931 +03:30 [WRN] The static asset '/Uploads/Images/3ad8affc93454bf4a553370408a2465b.png' was not found in the built time manifest. This file will not be available at runtime if it is not available at compile time during the publish process. If the file was not added to the project during development, and is created at runtime, use the StaticFiles middleware to serve it instead. 
+2026-11-06 21:59:45.935 +03:30 [INF] HTTP GET /Uploads/Images/3ad8affc93454bf4a553370408a2465b.png responded 200 in 4.4426 ms 
+2026-11-06 21:59:45.936 +03:30 [INF] HTTP GET /not-found responded 404 in 5.6750 ms 
+2026-11-06 22:00:01.345 +03:30 [INF] HTTP GET /Uploads/Images/5d9a4002b66a4e6fbf61ce3e341ad2ae.png responded 404 in 0.1504 ms 
+2026-11-06 22:00:01.351 +03:30 [INF] HTTP GET /not-found responded 404 in 5.7694 ms 
+2026-11-06 22:00:20.360 +03:30 [INF] HTTP GET /Uploads/Images/5d9a4002b66a4e6fbf61ce3e341ad2ae.png responded 404 in 0.2618 ms 
+2026-11-06 22:00:20.365 +03:30 [INF] HTTP GET /not-found responded 404 in 4.4229 ms 
+2026-11-06 22:00:21.709 +03:30 [INF] HTTP GET /products responded 200 in 18.5680 ms 
+2026-11-06 22:00:21.730 +03:30 [INF] HTTP GET /app.css responded 200 in 3.2093 ms 
+2026-11-06 22:00:21.731 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 304 in 0.5529 ms 
+2026-11-06 22:00:21.743 +03:30 [INF] HTTP GET /Uploads/Images/5d9a4002b66a4e6fbf61ce3e341ad2ae.png responded 404 in 0.2270 ms 
+2026-11-06 22:00:21.743 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 0.4190 ms 
+2026-11-06 22:00:21.743 +03:30 [INF] HTTP GET /_blazor responded 101 in 64799.8476 ms 
+2026-11-06 22:00:21.753 +03:30 [INF] HTTP GET /not-found responded 404 in 9.7502 ms 
+2026-11-06 22:00:21.758 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 26.1244 ms 
+2026-11-06 22:00:21.773 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 54.3249 ms 
+2026-11-06 22:00:21.801 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.3766 ms 
+2026-11-06 22:00:21.825 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 1.2892 ms 
+2026-11-06 22:00:21.832 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.7989 ms 
+2026-11-06 22:00:21.889 +03:30 [INF] HTTP GET /Uploads/Images/5d9a4002b66a4e6fbf61ce3e341ad2ae.png responded 404 in 0.2307 ms 
+2026-11-06 22:00:21.893 +03:30 [INF] HTTP GET /not-found responded 404 in 3.2669 ms 
+2026-11-06 22:00:26.097 +03:30 [INF] HTTP GET /_blazor responded 101 in 4254.0418 ms 
+2026-11-06 22:00:27.104 +03:30 [INF] سرویس زمان‌بندی بکاپ متوقف شد. 
