@@ -5,7 +5,7 @@ namespace AutoSpare.Application.Backup;
 public interface IBackupService
 {
     /// <summary>
-    /// ایجاد نسخه پشتیبان کامل از دیتابیس به همراه امکان مشخص کردن مسیر سفارشی (اختیاری)
+    /// ایجاد نسخه پشتیبان کامل از دیتابیس SQLite با استفاده از Online Backup API به همراه امکان مشخص کردن مسیر سفارشی
     /// </summary>
     Task<CreateBackupResultDto> CreateBackupAsync(
         string? customPath = null,
@@ -18,14 +18,14 @@ public interface IBackupService
         CancellationToken cancellationToken = default);
 
     /// <summary>
-    /// اعتبارسنجی و سلامت‌سنجی فایل پشتیبان با استفاده از RESTORE VERIFYONLY
+    /// اعتبارسنجی و سلامت‌سنجی فایل پشتیبان با استفاده از PRAGMA quick_check
     /// </summary>
     Task<(bool IsValid, string Message)> ValidateBackupFileAsync(
         string backupFilePath,
         CancellationToken cancellationToken = default);
 
     /// <summary>
-    /// بازیابی کامل دیتابیس از روی فایل مشخص‌شده با انتقال کانکشن به master و بستن سشن‌های فعال
+    /// بازیابی کامل دیتابیس SQLite از روی فایل مشخص‌شده با استفاده از Online Backup API.
     /// قبل از Restore یک بکاپ ایمنی (Safety Backup) از وضعیت فعلی گرفته می‌شود.
     /// </summary>
     Task<RestoreDatabaseResultDto> RestoreBackupAsync(
@@ -34,7 +34,7 @@ public interface IBackupService
         CancellationToken cancellationToken = default);
 
     /// <summary>
-    /// بازیابی نسخه پشتیبان روی یک دیتابیس مشخص (آزمایشی) جهت تست و اعتبارسنجی داده‌ها
+    /// بازیابی نسخه پشتیبان روی یک فایل دیتابیس مجزا (آزمایشی) جهت تست و اعتبارسنجی داده‌ها
     /// </summary>
     Task<RestoreDatabaseResultDto> RestoreToTestDatabaseAsync(
         string backupFilePath,

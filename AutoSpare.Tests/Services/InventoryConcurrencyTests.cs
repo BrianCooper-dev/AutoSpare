@@ -1,22 +1,36 @@
 using AutoSpare.Application.Sales.DTOs;
+using AutoSpare.Domain.Brands;
+using AutoSpare.Domain.Categories;
 using AutoSpare.Domain.Inventories;
 using AutoSpare.Domain.Inventories.Enums;
 using AutoSpare.Domain.Products;
+using AutoSpare.Domain.Warehouses;
 using AutoSpare.Infrastructure.Persistence;
 using AutoSpare.Infrastructure.Services;
+using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Moq;
 
 namespace AutoSpare.Tests.Services;
 
-public class InventoryConcurrencyTests
+public class InventoryConcurrencyTests : IDisposable
 {
-    private static DbContextOptions<ApplicationDbContext> CreateInMemoryOptions()
+    private readonly SqliteConnection _connection;
+    private readonly DbContextOptions<ApplicationDbContext> _options;
+
+    public InventoryConcurrencyTests()
     {
-        return new DbContextOptionsBuilder<ApplicationDbContext>()
-            .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
+        // استفاده از دیتابیس اشتراکی در حافظه با فعال‌سازی Timeout برای مدیریت همزمانی
+        _connection = new SqliteConnection("DataSource=file:memdb1?mode=memory&cache=shared;Default Timeout=30;");
+        _connection.Open();
+
+        _options = new DbContextOptionsBuilder<ApplicationDbContext>()
+            .UseSqlite(_connection)
             .Options;
+
+        using var context = new ApplicationDbContext(_options);
+        context.Database.EnsureCreated();
     }
 
     [Fact]
@@ -56,14 +70,26 @@ public class InventoryConcurrencyTests
     [Fact]
     public async Task SaleService_ConcurrentSales_StockShouldRemainValid()
     {
-        var options = CreateInMemoryOptions();
         var productId = Guid.NewGuid();
         var warehouseId = Guid.NewGuid();
         var categoryId = Guid.NewGuid();
         var brandId = Guid.NewGuid();
 
-        await using (var seedContext = new ApplicationDbContext(options))
+        await using (var seedContext = new ApplicationDbContext(_options))
         {
+            // ایجاد دسته‌بندی و برند برای رعایت محدودیت‌های کلید خارجی (Foreign Key)
+            var category = new Category("دسته‌بندی تستی", "CatTest");
+            typeof(Category).GetProperty(nameof(Category.Id))?.SetValue(category, categoryId);
+            await seedContext.Categories.AddAsync(category);
+
+            var brand = new Brand("برند تستی", "BrandTest");
+            typeof(Brand).GetProperty(nameof(Brand.Id))?.SetValue(brand, brandId);
+            await seedContext.Brands.AddAsync(brand);
+
+            var warehouse = new Warehouse("انبار تستی", "تهران");
+            typeof(Warehouse).GetProperty(nameof(Warehouse.Id))?.SetValue(warehouse, warehouseId);
+            await seedContext.Warehouses.AddAsync(warehouse);
+
             var product = new Product(
                 name: "قطعه تستی",
                 internalCode: "PRD-TEST-001",
@@ -86,7 +112,7 @@ public class InventoryConcurrencyTests
 
         var runSale = async (string invoiceNum) =>
         {
-            await using var context = new ApplicationDbContext(options);
+            await using var context = new ApplicationDbContext(_options);
             var loggerMock = new Mock<ILogger<SaleService>>();
             var service = new SaleService(context, loggerMock.Object);
 
@@ -124,7 +150,7 @@ public class InventoryConcurrencyTests
 
         var results = await Task.WhenAll(task1, task2);
 
-        await using (var verifyContext = new ApplicationDbContext(options))
+        await using (var verifyContext = new ApplicationDbContext(_options))
         {
             var finalInventory = await verifyContext.Inventories.FirstAsync(i => i.ProductId == productId);
 
@@ -134,5 +160,12 @@ public class InventoryConcurrencyTests
             var successCount = results.Count(s => s);
             Assert.True(successCount <= 1, $"حداکثر یک فاکتور می‌تواند نهایی شود اما {successCount} فاکتور ثبت شد.");
         }
+    }
+
+    public void Dispose()
+    {
+        _connection.Close();
+        _connection.Dispose();
+        GC.SuppressFinalize(this);
     }
 }

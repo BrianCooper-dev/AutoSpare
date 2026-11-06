@@ -18,7 +18,8 @@
     <div class="d-flex flex-column flex-sm-row justify-space-between align-start align-sm-center gap-3 mb-4">
         <div>
             <MudText Typo="Typo.h5" Class="fw-bold">
-                <MudIcon Icon="@Icons.Material.Filled.ReceiptLong" Color="Color.Primary" Class="me-2" Size="Size.Large"/>
+                <MudIcon Icon="@Icons.Material.Filled.ReceiptLong" Color="Color.Primary" Class="me-2"
+                         Size="Size.Large"/>
                 فهرست فاکتورهای خرید
             </MudText>
             <MudText Typo="Typo.body2" Color="Color.Secondary">مشاهده، فیلتر و مدیریت خریدهای ثبت‌شده در سیستم</MudText>
@@ -184,13 +185,16 @@
                 @switch (purchase.Status)
                 {
                     case PurchaseStatus.Completed:
-                        <MudChip T="string" Color="Color.Success" Size="Size.Small" Variant="Variant.Filled">نهایی‌شده</MudChip>
+                        <MudChip T="string" Color="Color.Success" Size="Size.Small" Variant="Variant.Filled">نهایی‌شده
+                        </MudChip>
                         break;
                     case PurchaseStatus.Draft:
-                        <MudChip T="string" Color="Color.Warning" Size="Size.Small" Variant="Variant.Filled">پیش‌نویس</MudChip>
+                        <MudChip T="string" Color="Color.Warning" Size="Size.Small" Variant="Variant.Filled">پیش‌نویس
+                        </MudChip>
                         break;
                     case PurchaseStatus.Cancelled:
-                        <MudChip T="string" Color="Color.Error" Size="Size.Small" Variant="Variant.Filled">لغو شده</MudChip>
+                        <MudChip T="string" Color="Color.Error" Size="Size.Small" Variant="Variant.Filled">لغو شده
+                        </MudChip>
                         break;
                 }
             </MudTd>
@@ -206,8 +210,10 @@
 
         <NoRecordsContent>
             <div class="d-flex flex-column align-center justify-center pa-6">
-                <MudIcon Icon="@Icons.Material.Filled.HourglassEmpty" Size="Size.Large" Color="Color.Secondary" Class="mb-2"/>
-                <MudText Typo="Typo.subtitle1" Color="Color.Secondary">هیچ فاکتور خریدی با شرایط مشخص‌شده یافت نشد.</MudText>
+                <MudIcon Icon="@Icons.Material.Filled.HourglassEmpty" Size="Size.Large" Color="Color.Secondary"
+                         Class="mb-2"/>
+                <MudText Typo="Typo.subtitle1" Color="Color.Secondary">هیچ فاکتور خریدی با شرایط مشخص‌شده یافت نشد.
+                </MudText>
             </div>
         </NoRecordsContent>
 
@@ -272,7 +278,7 @@
         {
             var result = _purchases.AsEnumerable();
 
-            // فیلتر جستجوی متنی
+            // فیلترهای موجود...
             if (!string.IsNullOrWhiteSpace(_searchQuery))
             {
                 var query = _searchQuery.Trim();
@@ -283,31 +289,31 @@
                 );
             }
 
-            // فیلتر تأمین‌کننده
             if (!string.IsNullOrWhiteSpace(_selectedSupplierName))
             {
                 result = result.Where(p => p.SupplierName == _selectedSupplierName);
             }
 
-            // فیلتر وضعیت
             if (_selectedStatus.HasValue)
             {
                 result = result.Where(p => p.Status == _selectedStatus.Value);
             }
 
-            // فیلتر تاریخ از
             if (_fromDate.HasValue)
             {
                 result = result.Where(p => p.PurchaseDate.Date >= _fromDate.Value.Date);
             }
 
-            // فیلتر تاریخ تا
             if (_toDate.HasValue)
             {
                 result = result.Where(p => p.PurchaseDate.Date <= _toDate.Value.Date);
             }
 
-            return result.OrderByDescending(p => p.PurchaseDate).ToList();
+            // مرتب‌سازی پایدار: تاریخ نزولی و سپس شماره فاکتور نزولی
+            return result
+                .OrderByDescending(p => p.PurchaseDate)
+                .ThenByDescending(p => p.InvoiceNumber)
+                .ToList();
         }
     }
 
@@ -316,4 +322,5 @@
         if (dateTime == default) return "-";
         return $"{_persianCalendar.GetYear(dateTime):0000}/{_persianCalendar.GetMonth(dateTime):00}/{_persianCalendar.GetDayOfMonth(dateTime):00}";
     }
+
 }

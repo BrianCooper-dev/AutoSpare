@@ -1,5 +1,5 @@
-using AutoSpare.Application.Brands;
 using AutoSpare.Application.Brands.DTOs;
+using AutoSpare.Application.Brands;
 using AutoSpare.Domain.Brands;
 using AutoSpare.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
@@ -18,10 +18,11 @@ public class BrandService : IBrandService
         _logger = logger;
     }
 
-    public async Task<List<BrandDto>> GetAllAsync(string? searchTerm = null, bool? isActive = null,
-        CancellationToken cancellationToken = default)
+    public async Task<List<BrandDto>> GetAllAsync(string? searchTerm = null, bool? isActive = null, CancellationToken cancellationToken = default)
     {
-        var query = _context.Brands.AsNoTracking().AsQueryable();
+        var query = _context.Brands
+            .AsNoTracking()
+            .AsQueryable();
 
         if (isActive.HasValue)
         {
@@ -31,9 +32,10 @@ public class BrandService : IBrandService
         if (!string.IsNullOrWhiteSpace(searchTerm))
         {
             var term = searchTerm.Trim();
-            query = query.Where(b => b.Name.Contains(term) ||
-                                     (b.Country != null && b.Country.Contains(term)) ||
-                                     (b.Description != null && b.Description.Contains(term)));
+            query = query.Where(b =>
+                b.Name.Contains(term) ||
+                (b.Country != null && b.Country.Contains(term)) ||
+                (b.Description != null && b.Description.Contains(term)));
         }
 
         return await query
@@ -69,94 +71,77 @@ public class BrandService : IBrandService
             .FirstOrDefaultAsync(cancellationToken);
     }
 
-    public async Task<(bool Success, string? ErrorMessage, Guid? Id)> CreateAsync(CreateBrandModel model,
-        CancellationToken cancellationToken = default)
+    public async Task<(bool Success, string? ErrorMessage, Guid? Id)> CreateAsync(CreateBrandModel model, CancellationToken cancellationToken = default)
     {
+        if (model == null || string.IsNullOrWhiteSpace(model.Name))
+        {
+            return (false, "نام برند الزامی است.", null);
+        }
+
+        var trimmedName = model.Name.Trim();
+
         try
         {
-            var trimmedName = model.Name.Trim();
-
-            var exists = await _context.Brands.AnyAsync(b => b.Name == trimmedName, cancellationToken);
-            if (exists)
-            {
-                return (false, "برندی با این نام قبلاً ثبت شده است.", null);
-            }
-
-            var brand = new Brand(trimmedName, model.Country, model.Description);
-
+            var brand = new Brand(trimmedName, model.Country?.Trim(), model.Description?.Trim());
             await _context.Brands.AddAsync(brand, cancellationToken);
             await _context.SaveChangesAsync(cancellationToken);
 
             return (true, null, brand.Id);
         }
-        catch (ArgumentException ex)
+        catch (DbUpdateException)
         {
-            return (false, ex.Message, null);
-        }
-        catch (DbUpdateException ex)
-        {
-            _logger.LogError(ex, "خطای کلید تکراری در ثبت برند {BrandName}", model.Name);
-            return (false, "برندی با این مشخصات قبلاً ثبت شده است.", null);
+            return (false, "برندی با این نام از قبل وجود دارد.", null);
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "خطا در ثبت برند جدید");
-            return (false, "خطای سیستمی در ثبت اطلاعات برند.", null);
+            _logger.LogError(ex, "خطا در ایجاد برند جدید");
+            return (false, "خطای سیستمی هنگام ثبت برند رخ داد.", null);
         }
     }
 
-    public async Task<(bool Success, string? ErrorMessage)> UpdateAsync(UpdateBrandModel model,
-        CancellationToken cancellationToken = default)
+    public async Task<(bool Success, string? ErrorMessage)> UpdateAsync(UpdateBrandModel model, CancellationToken cancellationToken = default)
     {
+        if (model == null || string.IsNullOrWhiteSpace(model.Name))
+        {
+            return (false, "نام برند الزامی است.");
+        }
+
+        var brand = await _context.Brands.FirstOrDefaultAsync(b => b.Id == model.Id, cancellationToken);
+        if (brand == null)
+        {
+            return (false, "برند مورد نظر یافت نشد.");
+        }
+
+        var trimmedName = model.Name.Trim();
+
         try
         {
-            var brand = await _context.Brands.FindAsync(new object[] { model.Id }, cancellationToken);
-            if (brand == null)
-            {
-                return (false, "برند مورد نظر یافت نشد.");
-            }
-
-            var trimmedName = model.Name.Trim();
-
-            var exists =
-                await _context.Brands.AnyAsync(b => b.Name == trimmedName && b.Id != model.Id, cancellationToken);
-            if (exists)
-            {
-                return (false, "برند دیگری با این نام وجود دارد.");
-            }
-
-            brand.UpdateDetails(trimmedName, model.Country, model.Description);
+            brand.UpdateDetails(trimmedName, model.Country?.Trim(), model.Description?.Trim());
             await _context.SaveChangesAsync(cancellationToken);
 
             return (true, null);
         }
-        catch (ArgumentException ex)
+        catch (DbUpdateException)
         {
-            return (false, ex.Message);
-        }
-        catch (DbUpdateException ex)
-        {
-            _logger.LogError(ex, "خطای یکتایی در ویرایش برند {BrandId}", model.Id);
             return (false, "برند دیگری با این نام از قبل وجود دارد.");
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "خطا در ویرایش برند با شناسه {BrandId}", model.Id);
-            return (false, "خطای سیستمی در ویرایش برند.");
+            _logger.LogError(ex, "خطا در به‌روزرسانی برند {BrandId}", model.Id);
+            return (false, "خطای سیستمی هنگام ویرایش برند رخ داد.");
         }
     }
 
-    public async Task<(bool Success, string? ErrorMessage)> ToggleStatusAsync(Guid id,
-        CancellationToken cancellationToken = default)
+    public async Task<(bool Success, string? ErrorMessage)> ToggleStatusAsync(Guid id, CancellationToken cancellationToken = default)
     {
+        var brand = await _context.Brands.FirstOrDefaultAsync(b => b.Id == id, cancellationToken);
+        if (brand == null)
+        {
+            return (false, "برند مورد نظر یافت نشد.");
+        }
+
         try
         {
-            var brand = await _context.Brands.FindAsync(new object[] { id }, cancellationToken);
-            if (brand == null)
-            {
-                return (false, "برند مورد نظر یافت نشد.");
-            }
-
             if (brand.IsActive)
             {
                 brand.Deactivate();
@@ -171,8 +156,8 @@ public class BrandService : IBrandService
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "خطا در تغییر وضعیت برند با شناسه {BrandId}", id);
-            return (false, "خطای سیستمی در تغییر وضعیت برند.");
+            _logger.LogError(ex, "خطا در تغییر وضعیت برند {BrandId}", id);
+            return (false, "خطای سیستمی هنگام تغییر وضعیت برند رخ داد.");
         }
     }
 }

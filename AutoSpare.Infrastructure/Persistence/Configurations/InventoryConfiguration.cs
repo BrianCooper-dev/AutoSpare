@@ -45,8 +45,12 @@ public class InventoryConfiguration : IEntityTypeConfiguration<Inventory>
         builder.HasIndex(i => new { i.ProductId, i.WarehouseId })
             .IsUnique();
 
+        // اصلاح اصلی اینجاست:
+        // برای SQLite مقدار پیش‌فرض باینری خالی قرار می‌دهیم تا خطای NOT NULL ندهد
         builder.Property(i => i.RowVersion)
-            .IsRowVersion();
+            .IsRowVersion()
+            .IsRequired()
+            .HasDefaultValueSql("X'00'"); // مقدار اولیه برای جلوگیری از خطای SQLite
 
         // ایندکس جهت لیست کردن سریع موجودی‌های یک انبار خاص
         builder.HasIndex(i => i.WarehouseId);

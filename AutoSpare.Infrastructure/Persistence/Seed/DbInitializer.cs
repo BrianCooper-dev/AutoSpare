@@ -8,21 +8,15 @@ namespace AutoSpare.Infrastructure.Persistence.Seed;
 
 public static class DbInitializer
 {
-    // پارامتر جدید: IPasswordHasher
     public static async Task SeedAsync(
         ApplicationDbContext context,
         ILogger logger,
         IPasswordHasher passwordHasher,
         CancellationToken cancellationToken = default)
     {
-        // 1. اطمینان از اعمال کامل مایگریشن‌ها
-        if ((await context.Database.GetPendingMigrationsAsync(cancellationToken)).Any())
-        {
-            await context.Database.MigrateAsync(cancellationToken);
-            logger.LogInformation("Pending migrations applied successfully.");
-        }
+        // مایگریشن در Program.cs و پیش از فراخوانی SeedAsync اجرا می‌شود.
 
-        // 2. ایجاد انبارهای اولیه در صورت عدم وجود
+        // ایجاد انبارهای اولیه در صورت نبود انبار
         if (!await context.Warehouses.AnyAsync(cancellationToken))
         {
             var shopWarehouse = new Warehouse(
@@ -39,21 +33,24 @@ public static class DbInitializer
                 address: "انبار پشتیبان"
             );
 
-            await context.Warehouses.AddRangeAsync(new[] { shopWarehouse, homeWarehouse }, cancellationToken);
+            await context.Warehouses.AddRangeAsync(
+                new[] { shopWarehouse, homeWarehouse },
+                cancellationToken);
+
             await context.SaveChangesAsync(cancellationToken);
-            logger.LogInformation("Default warehouses seeded successfully.");
+
+            logger.LogInformation(
+                "Default warehouses seeded successfully.");
         }
 
-        // 3. ایجاد حساب کاربری مدیر اولیه در صورت عدم وجود
-        const string adminUsername = "admin";
-        // 3. ایجاد حساب کاربری مدیر اولیه در صورت عدم وجود هرگونه کاربر (سیستم تک‌کاربره)
-        var anyUserExists = await context.Users.AnyAsync(cancellationToken);
-
-        if (!anyUserExists)
+        // سیستم تک‌کاربره: فقط وقتی هیچ کاربری وجود ندارد، مدیر اولیه ساخته شود.
+        if (!await context.Users.AnyAsync(cancellationToken))
         {
             const string defaultUsername = "admin";
             const string defaultPassword = "Admin@123456";
-            var hashedPassword = passwordHasher.HashPassword(defaultPassword);
+
+            var hashedPassword =
+                passwordHasher.HashPassword(defaultPassword);
 
             var adminUser = new AppUser(
                 fullName: "مدیر سیستم",
@@ -62,9 +59,14 @@ public static class DbInitializer
                 quickPinHash: null
             );
 
-            await context.Users.AddAsync(adminUser, cancellationToken);
+            await context.Users.AddAsync(
+                adminUser,
+                cancellationToken);
+
             await context.SaveChangesAsync(cancellationToken);
-            logger.LogInformation("Default Admin user created successfully.");
+
+            logger.LogInformation(
+                "Default Admin user created successfully.");
         }
     }
 }

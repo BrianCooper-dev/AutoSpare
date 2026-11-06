@@ -8,34 +8,55 @@ using AutoSpare.Domain.Warehouses;
 using AutoSpare.Infrastructure.Persistence;
 using AutoSpare.Infrastructure.Services;
 using FluentAssertions;
+using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 
 namespace AutoSpare.Tests.Services;
 
 public class ProductServiceTests : IDisposable
 {
+    private readonly SqliteConnection _connection;
     private readonly ApplicationDbContext _context;
     private readonly ProductService _service;
+    private readonly Guid _categoryId;
+    private readonly Guid _brandId;
 
     public ProductServiceTests()
     {
+        // هر نمونه از کلاس تست، دیتابیس مستقل خودش را دارد.
+        _connection = new SqliteConnection("Data Source=:memory:");
+        _connection.Open();
+
         var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-            .UseInMemoryDatabase(Guid.NewGuid().ToString())
+            .UseSqlite(_connection)
             .Options;
 
         _context = new ApplicationDbContext(options);
+        _context.Database.EnsureCreated();
+
+        // محصول بدون دسته‌بندی و برندِ موجود، کلید خارجی معتبر ندارد.
+        var category = new Category("Default test category");
+        var brand = new Brand("Default test brand");
+
+        _context.Categories.Add(category);
+        _context.Brands.Add(brand);
+        _context.SaveChanges();
+
+        _categoryId = category.Id;
+        _brandId = brand.Id;
+
         _service = new ProductService(_context);
     }
 
-    private static CreateProductDto ValidCreateDto() => new()
+    private CreateProductDto ValidCreateDto() => new()
     {
         Name = "Test product",
         InternalCode = "TEST-001",
         Model = "TU5",
         PurchasePrice = 100_000m,
         SalePrice = 150_000m,
-        CategoryId = Guid.NewGuid(),
-        BrandId = Guid.NewGuid()
+        CategoryId = _categoryId,
+        BrandId = _brandId
     };
 
     private static UpdateProductDto ValidUpdateDto(Product product) => new()
@@ -65,11 +86,12 @@ public class ProductServiceTests : IDisposable
             "TU5",
             purchasePrice,
             salePrice,
-            Guid.NewGuid(),
-            Guid.NewGuid());
+            _categoryId,
+            _brandId);
 
         await _context.Products.AddAsync(product);
         await _context.SaveChangesAsync();
+
         return product;
     }
 
@@ -96,6 +118,7 @@ public class ProductServiceTests : IDisposable
 
         id.Should().NotBeEmpty();
         _context.ChangeTracker.Clear();
+
         var saved = await _context.Products.FindAsync(id);
         saved.Should().NotBeNull();
         saved!.InternalCode.Should().Be(dto.InternalCode);
@@ -132,7 +155,9 @@ public class ProductServiceTests : IDisposable
         var id = await _service.CreateProductAsync(dto);
 
         _context.ChangeTracker.Clear();
-        var inventory = await _context.Inventories.SingleAsync(i => i.ProductId == id && i.WarehouseId == warehouse.Id);
+
+        var inventory = await _context.Inventories.SingleAsync(
+            i => i.ProductId == id && i.WarehouseId == warehouse.Id);
 
         inventory.Quantity.Should().Be(15);
     }
@@ -196,7 +221,8 @@ public class ProductServiceTests : IDisposable
     private static void SetProperty(object dto, string property, object? value)
     {
         var info = dto.GetType().GetProperty(property)
-                   ?? throw new InvalidOperationException($"Unknown property: {property}");
+                   ?? throw new InvalidOperationException(
+                       $"Unknown property: {property}");
 
         info.SetValue(dto, value);
     }
@@ -240,7 +266,8 @@ public class ProductServiceTests : IDisposable
         await _context.SaveChangesAsync();
         _context.ChangeTracker.Clear();
 
-        var saved = await _context.Products.SingleAsync();
+        var saved = await _context.Products.SingleAsync(p => p.Id == product.Id);
+
         saved.Name.Should().Be("Test product");
         saved.InternalCode.Should().Be("TEST-001");
         saved.Model.Should().Be("TU5");
@@ -248,9 +275,7 @@ public class ProductServiceTests : IDisposable
         saved.PurchasePrice.Should().Be(100_000m);
         saved.SalePrice.Should().Be(150_000m);
         saved.MinStockThreshold.Should().Be(0);
-        saved.CategoryId.Should().Be(dto.CategoryId == product.CategoryId
-            ? dto.CategoryId!.Value
-            : product.CategoryId);
+        saved.CategoryId.Should().Be(product.CategoryId);
         saved.BrandId.Should().Be(product.BrandId);
     }
 
@@ -281,6 +306,7 @@ public class ProductServiceTests : IDisposable
         var id = await _service.CreateProductAsync(dto);
 
         _context.ChangeTracker.Clear();
+
         var saved = await _context.Products.SingleAsync(p => p.Id == id);
         saved.Name.Should().HaveLength(200);
         saved.InternalCode.Should().HaveLength(50);
@@ -300,7 +326,8 @@ public class ProductServiceTests : IDisposable
 
         id.Should().NotBeEmpty();
         _context.ChangeTracker.Clear();
-        var saved = await _context.Products.SingleAsync();
+
+        var saved = await _context.Products.SingleAsync(p => p.Id == id);
         saved.PurchasePrice.Should().Be(0);
         saved.SalePrice.Should().Be(0);
         (await _context.Inventories.CountAsync()).Should().Be(0);
@@ -321,7 +348,8 @@ public class ProductServiceTests : IDisposable
         await _service.UpdateProductAsync(dto);
 
         _context.ChangeTracker.Clear();
-        var saved = await _context.Products.SingleAsync();
+
+        var saved = await _context.Products.SingleAsync(p => p.Id == product.Id);
         saved.Name.Should().Be(dto.Name);
         saved.Model.Should().Be(dto.Model);
         saved.PurchasePrice.Should().Be(120_000m);
@@ -339,7 +367,9 @@ public class ProductServiceTests : IDisposable
         await _service.UpdateProductAsync(dto);
 
         _context.ChangeTracker.Clear();
-        (await _context.Products.SingleAsync()).InternalCode.Should().Be("TEST-001");
+
+        (await _context.Products.SingleAsync(p => p.Id == product.Id))
+            .InternalCode.Should().Be("TEST-001");
     }
 
     [Fact]
@@ -356,6 +386,7 @@ public class ProductServiceTests : IDisposable
             .WithMessage("*قبلاً برای کالای دیگری ثبت شده است*");
 
         _context.ChangeTracker.Clear();
+
         var saved = await _context.Products.SingleAsync(p => p.Id == second.Id);
         saved.InternalCode.Should().Be("SECOND");
     }
@@ -398,6 +429,7 @@ public class ProductServiceTests : IDisposable
             minStockThreshold: 5);
 
         await _context.Products.AddRangeAsync(lowStock, normalStock);
+
         await _context.Inventories.AddRangeAsync(
             new Inventory(lowStock.Id, warehouse.Id, initialQuantity: 8),
             new Inventory(normalStock.Id, warehouse.Id, initialQuantity: 20));
@@ -411,6 +443,7 @@ public class ProductServiceTests : IDisposable
         await SeedStockProductsAsync();
 
         var result = await _service.GetProductsAsync(new ProductFilterDto());
+
         var item = result.Items
             .Should()
             .ContainSingle(p => p.InternalCode == "LOW")
@@ -438,22 +471,27 @@ public class ProductServiceTests : IDisposable
             .Which.InternalCode.Should().Be("LOW");
     }
 
-
     [Fact]
     public async Task AdjustProductsPriceAsync_IncreasePrice_ShouldUpdateSalePriceAndRecordHistory()
     {
         var product = await SeedProductAsync();
+
         var dto = PriceRequest(
-            product.Id, 180_000m,
-            PriceChangeType.BatchPercentage, "Increase by 20 percent");
+            product.Id,
+            180_000m,
+            PriceChangeType.BatchPercentage,
+            "Increase by 20 percent");
 
         await _service.AdjustProductsPriceAsync(dto);
 
         _context.ChangeTracker.Clear();
-        (await _context.Products.SingleAsync()).SalePrice.Should().Be(180_000m);
 
-        var history = await _context.PriceChangeHistories.SingleAsync();
-        history.ProductId.Should().Be(product.Id);
+        (await _context.Products.SingleAsync(p => p.Id == product.Id))
+            .SalePrice.Should().Be(180_000m);
+
+        var history = await _context.PriceChangeHistories.SingleAsync(
+            h => h.ProductId == product.Id);
+
         history.OldPurchasePrice.Should().Be(100_000m);
         history.NewPurchasePrice.Should().Be(100_000m);
         history.OldSalePrice.Should().Be(150_000m);
@@ -471,8 +509,13 @@ public class ProductServiceTests : IDisposable
             PriceRequest(product.Id, 160_000m));
 
         _context.ChangeTracker.Clear();
-        (await _context.Products.SingleAsync()).SalePrice.Should().Be(160_000m);
-        var history = await _context.PriceChangeHistories.SingleAsync();
+
+        (await _context.Products.SingleAsync(p => p.Id == product.Id))
+            .SalePrice.Should().Be(160_000m);
+
+        var history = await _context.PriceChangeHistories.SingleAsync(
+            h => h.ProductId == product.Id);
+
         history.OldSalePrice.Should().Be(200_000m);
         history.NewSalePrice.Should().Be(160_000m);
     }
@@ -481,15 +524,22 @@ public class ProductServiceTests : IDisposable
     public async Task AdjustProductsPriceAsync_WithPreRoundedPrice_ShouldSaveSuppliedPrice()
     {
         var product = await SeedProductAsync(
-            purchasePrice: 80_000m, salePrice: 123_450m);
+            purchasePrice: 80_000m,
+            salePrice: 123_450m);
 
-        var roundedPrice = Math.Ceiling(123_450m * 1.10m / 1_000m) * 1_000m;
+        var roundedPrice =
+            Math.Ceiling(123_450m * 1.10m / 1_000m) * 1_000m;
 
         await _service.AdjustProductsPriceAsync(
-            PriceRequest(product.Id, roundedPrice, PriceChangeType.BatchPercentage));
+            PriceRequest(
+                product.Id,
+                roundedPrice,
+                PriceChangeType.BatchPercentage));
 
         _context.ChangeTracker.Clear();
-        (await _context.Products.SingleAsync()).SalePrice.Should().Be(136_000m);
+
+        (await _context.Products.SingleAsync(p => p.Id == product.Id))
+            .SalePrice.Should().Be(136_000m);
     }
 
     [Theory]
@@ -507,7 +557,10 @@ public class ProductServiceTests : IDisposable
             .WithMessage("*نمی‌تواند کمتر از قیمت خرید*");
 
         _context.ChangeTracker.Clear();
-        (await _context.Products.SingleAsync()).SalePrice.Should().Be(150_000m);
+
+        (await _context.Products.SingleAsync(p => p.Id == product.Id))
+            .SalePrice.Should().Be(150_000m);
+
         (await _context.PriceChangeHistories.CountAsync()).Should().Be(0);
     }
 
@@ -520,15 +573,21 @@ public class ProductServiceTests : IDisposable
             PriceRequest(product.Id, product.SalePrice));
 
         _context.ChangeTracker.Clear();
-        (await _context.Products.SingleAsync()).SalePrice.Should().Be(150_000m);
+
+        (await _context.Products.SingleAsync(p => p.Id == product.Id))
+            .SalePrice.Should().Be(150_000m);
+
         (await _context.PriceChangeHistories.CountAsync()).Should().Be(0);
     }
 
     [Fact]
     public async Task AdjustProductsPriceAsync_WithMultipleProducts_ShouldUpdateAllCorrectly()
     {
-        var first = await SeedProductAsync("FIRST", 100_000m, 120_000m);
-        var second = await SeedProductAsync("SECOND", 200_000m, 240_000m);
+        var first = await SeedProductAsync(
+            "FIRST", 100_000m, 120_000m);
+
+        var second = await SeedProductAsync(
+            "SECOND", 200_000m, 240_000m);
 
         var dto = new BatchPriceAdjustmentDto
         {
@@ -536,16 +595,29 @@ public class ProductServiceTests : IDisposable
             Reason = "Batch adjustment",
             Items = new List<PriceAdjustmentItemUpdateDto>
             {
-                new() { ProductId = first.Id, NewSalePrice = 140_000m },
-                new() { ProductId = second.Id, NewSalePrice = 280_000m }
+                new()
+                {
+                    ProductId = first.Id,
+                    NewSalePrice = 140_000m
+                },
+                new()
+                {
+                    ProductId = second.Id,
+                    NewSalePrice = 280_000m
+                }
             }
         };
 
         await _service.AdjustProductsPriceAsync(dto);
 
         _context.ChangeTracker.Clear();
-        var savedFirst = await _context.Products.SingleAsync(p => p.Id == first.Id);
-        var savedSecond = await _context.Products.SingleAsync(p => p.Id == second.Id);
+
+        var savedFirst = await _context.Products.SingleAsync(
+            p => p.Id == first.Id);
+
+        var savedSecond = await _context.Products.SingleAsync(
+            p => p.Id == second.Id);
+
         savedFirst.SalePrice.Should().Be(140_000m);
         savedSecond.SalePrice.Should().Be(280_000m);
         (await _context.PriceChangeHistories.CountAsync()).Should().Be(2);
@@ -577,8 +649,8 @@ public class ProductServiceTests : IDisposable
 
     public void Dispose()
     {
-        _context.Database.EnsureDeleted();
         _context.Dispose();
+        _connection.Dispose();
         GC.SuppressFinalize(this);
     }
 }
