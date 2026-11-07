@@ -201,6 +201,12 @@ public class ProductService : IProductService
             query = query.Where(p => p.BrandId == filter.BrandId.Value);
         }
 
+        // فیلتر بر اساس وضعیت کالا (فعال / غیرفعال)
+        if (filter.Status.HasValue)
+        {
+            query = query.Where(p => p.Status == filter.Status.Value);
+        }
+
         if (hasWarehouseFilter)
         {
             query = query.Where(p =>

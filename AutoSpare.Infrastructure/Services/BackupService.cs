@@ -211,93 +211,96 @@ public class BackupService : IBackupService
         }
     }
 
-   public async Task<RestoreDatabaseResultDto> RestoreBackupAsync(
-    string backupFilePath,
-    string? safetyBackupRootDirectory = null,
-    CancellationToken cancellationToken = default)
-{
-    var (sourceDbPath, targetDb) = GetCurrentDatabaseInfo();
-    if (string.IsNullOrWhiteSpace(sourceDbPath))
+    public async Task<RestoreDatabaseResultDto> RestoreBackupAsync(
+        string backupFilePath,
+        string? safetyBackupRootDirectory = null,
+        CancellationToken cancellationToken = default)
     {
-        return new RestoreDatabaseResultDto(false, "امکان تشخیص مسیر پایگاه‌داده جاری جهت بازیابی وجود ندارد.");
-    }
-
-    try
-    {
-        var normalizedBackupPath = Path.GetFullPath(backupFilePath);
-        if (!File.Exists(normalizedBackupPath))
+        var (sourceDbPath, targetDb) = GetCurrentDatabaseInfo();
+        if (string.IsNullOrWhiteSpace(sourceDbPath))
         {
-            return new RestoreDatabaseResultDto(false, "فایل بکاپ انتخاب‌شده یافت نشد.");
+            return new RestoreDatabaseResultDto(false, "امکان تشخیص مسیر پایگاه‌داده جاری جهت بازیابی وجود ندارد.");
         }
 
-        var (isValid, validationMessage) = await ValidateBackupFileAsync(normalizedBackupPath, cancellationToken);
-        if (!isValid)
+        try
         {
-            return new RestoreDatabaseResultDto(false, $"توقف عملیات: {validationMessage}");
+            var normalizedBackupPath = Path.GetFullPath(backupFilePath);
+            if (!File.Exists(normalizedBackupPath))
+            {
+                return new RestoreDatabaseResultDto(false, "فایل بکاپ انتخاب‌شده یافت نشد.");
+            }
+
+            var (isValid, validationMessage) = await ValidateBackupFileAsync(normalizedBackupPath, cancellationToken);
+            if (!isValid)
+            {
+                return new RestoreDatabaseResultDto(false, $"توقف عملیات: {validationMessage}");
+            }
+
+            var rootDir = string.IsNullOrWhiteSpace(safetyBackupRootDirectory)
+                ? _storageSettings.BackupPath
+                : safetyBackupRootDirectory.Trim();
+
+            rootDir = Path.GetFullPath(rootDir);
+            var safetyDir = Path.Combine(rootDir, "Safety");
+
+            _logger.LogWarning("تهیه بکاپ ایمنی قبل از بازیابی دیتابیس {DbName}. مسیر: {SafetyDir}", targetDb,
+                safetyDir);
+
+            var safetyBackupResult = await CreateBackupAsync(safetyDir, cancellationToken);
+            if (!safetyBackupResult.IsSuccess)
+            {
+                _logger.LogError("تهیه بکاپ ایمنی ناموفق بود. عملیات بازیابی متوقف شد. دلیل: {Message}",
+                    safetyBackupResult.Message);
+                return new RestoreDatabaseResultDto(false,
+                    $"عملیات بازیابی متوقف شد: تهیه بکاپ ایمنی ناموفق بود. ({safetyBackupResult.Message})");
+            }
+
+            _logger.LogInformation("بکاپ ایمنی با موفقیت ایجاد شد: {SafetyFileName}", safetyBackupResult.FileName);
+            _logger.LogWarning("شروع عملیات بازیابی دیتابیس {DbName} از مسیر {FilePath}", targetDb,
+                normalizedBackupPath);
+
+            // استفاده از Online Backup API معکوس (مبدأ: فایل بکاپ | مقصد: دیتابیس زنده)
+            // این روش مشکل قفل شدن فایلی File.Copy در ویندوز را ندارد
+            var sourceBackupConnStr = $"Data Source={normalizedBackupPath};Mode=ReadOnly;";
+            var destinationDbConnStr = _dbContext.Database.GetConnectionString();
+
+            await using (var backupConn = new SqliteConnection(sourceBackupConnStr))
+            await using (var currentConn = new SqliteConnection(destinationDbConnStr))
+            {
+                await backupConn.OpenAsync(cancellationToken);
+                await currentConn.OpenAsync(cancellationToken);
+
+                // کپی کامل ساختار و داده‌ها روی دیتابیس فعال
+                backupConn.BackupDatabase(currentConn);
+
+                // چک‌پوینت اجباری WAL برای ذخیره قطعی تغییرات در فایل اصلی دیسک
+                await using var walCheckpointCmd = currentConn.CreateCommand();
+                walCheckpointCmd.CommandText = "PRAGMA wal_checkpoint(TRUNCATE);";
+                await walCheckpointCmd.ExecuteNonQueryAsync(cancellationToken);
+            }
+
+            // پاک‌سازی پولینگ تا تغییرات برای تمام کانتکست‌های EF Core جدید ملموس باشد
+            SqliteConnection.ClearAllPools();
+
+            _logger.LogInformation("بازیابی دیتابیس {DbName} با موفقیت به پایان رسید.", targetDb);
+
+            return new RestoreDatabaseResultDto(
+                true,
+                $"پایگاه‌داده با موفقیت بازیابی شد. (بکاپ ایمنی قبلی: {safetyBackupResult.FileName})",
+                targetDb,
+                normalizedBackupPath);
         }
-
-        var rootDir = string.IsNullOrWhiteSpace(safetyBackupRootDirectory)
-            ? _storageSettings.BackupPath
-            : safetyBackupRootDirectory.Trim();
-
-        rootDir = Path.GetFullPath(rootDir);
-        var safetyDir = Path.Combine(rootDir, "Safety");
-
-        _logger.LogWarning("تهیه بکاپ ایمنی قبل از بازیابی دیتابیس {DbName}. مسیر: {SafetyDir}", targetDb, safetyDir);
-
-        var safetyBackupResult = await CreateBackupAsync(safetyDir, cancellationToken);
-        if (!safetyBackupResult.IsSuccess)
+        catch (SqliteException ex)
         {
-            _logger.LogError("تهیه بکاپ ایمنی ناموفق بود. عملیات بازیابی متوقف شد. دلیل: {Message}", safetyBackupResult.Message);
-            return new RestoreDatabaseResultDto(false, $"عملیات بازیابی متوقف شد: تهیه بکاپ ایمنی ناموفق بود. ({safetyBackupResult.Message})");
+            _logger.LogError(ex, "خطای SQLite حین بازیابی پایگاه‌داده {DbName}", targetDb);
+            return new RestoreDatabaseResultDto(false, $"خطای پایگاه داده SQLite: {ex.Message}");
         }
-
-        _logger.LogInformation("بکاپ ایمنی با موفقیت ایجاد شد: {SafetyFileName}", safetyBackupResult.FileName);
-        _logger.LogWarning("شروع عملیات بازیابی دیتابیس {DbName} از مسیر {FilePath}", targetDb, normalizedBackupPath);
-
-        // استفاده از Online Backup API معکوس (مبدأ: فایل بکاپ | مقصد: دیتابیس زنده)
-        // این روش مشکل قفل شدن فایلی File.Copy در ویندوز را ندارد
-        var sourceBackupConnStr = $"Data Source={normalizedBackupPath};Mode=ReadOnly;";
-        var destinationDbConnStr = _dbContext.Database.GetConnectionString();
-
-        await using (var backupConn = new SqliteConnection(sourceBackupConnStr))
-        await using (var currentConn = new SqliteConnection(destinationDbConnStr))
+        catch (Exception ex)
         {
-            await backupConn.OpenAsync(cancellationToken);
-            await currentConn.OpenAsync(cancellationToken);
-
-            // کپی کامل ساختار و داده‌ها روی دیتابیس فعال
-            backupConn.BackupDatabase(currentConn);
-
-            // چک‌پوینت اجباری WAL برای ذخیره قطعی تغییرات در فایل اصلی دیسک
-            await using var walCheckpointCmd = currentConn.CreateCommand();
-            walCheckpointCmd.CommandText = "PRAGMA wal_checkpoint(TRUNCATE);";
-            await walCheckpointCmd.ExecuteNonQueryAsync(cancellationToken);
+            _logger.LogError(ex, "خطای ناشناخته حین بازیابی پایگاه‌داده {DbName}", targetDb);
+            return new RestoreDatabaseResultDto(false, $"خطای سیستمی: {ex.Message}");
         }
-
-        // پاک‌سازی پولینگ تا تغییرات برای تمام کانتکست‌های EF Core جدید ملموس باشد
-        SqliteConnection.ClearAllPools();
-
-        _logger.LogInformation("بازیابی دیتابیس {DbName} با موفقیت به پایان رسید.", targetDb);
-
-        return new RestoreDatabaseResultDto(
-            true,
-            $"پایگاه‌داده با موفقیت بازیابی شد. (بکاپ ایمنی قبلی: {safetyBackupResult.FileName})",
-            targetDb,
-            normalizedBackupPath);
     }
-    catch (SqliteException ex)
-    {
-        _logger.LogError(ex, "خطای SQLite حین بازیابی پایگاه‌داده {DbName}", targetDb);
-        return new RestoreDatabaseResultDto(false, $"خطای پایگاه داده SQLite: {ex.Message}");
-    }
-    catch (Exception ex)
-    {
-        _logger.LogError(ex, "خطای ناشناخته حین بازیابی پایگاه‌داده {DbName}", targetDb);
-        return new RestoreDatabaseResultDto(false, $"خطای سیستمی: {ex.Message}");
-    }
-}
-
 
 
     public async Task<RestoreDatabaseResultDto> RestoreToTestDatabaseAsync(

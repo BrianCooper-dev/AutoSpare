@@ -156,8 +156,7 @@ public class ProductServiceTests : IDisposable
 
         _context.ChangeTracker.Clear();
 
-        var inventory = await _context.Inventories.SingleAsync(
-            i => i.ProductId == id && i.WarehouseId == warehouse.Id);
+        var inventory = await _context.Inventories.SingleAsync(i => i.ProductId == id && i.WarehouseId == warehouse.Id);
 
         inventory.Quantity.Should().Be(15);
     }
@@ -489,8 +488,7 @@ public class ProductServiceTests : IDisposable
         (await _context.Products.SingleAsync(p => p.Id == product.Id))
             .SalePrice.Should().Be(180_000m);
 
-        var history = await _context.PriceChangeHistories.SingleAsync(
-            h => h.ProductId == product.Id);
+        var history = await _context.PriceChangeHistories.SingleAsync(h => h.ProductId == product.Id);
 
         history.OldPurchasePrice.Should().Be(100_000m);
         history.NewPurchasePrice.Should().Be(100_000m);
@@ -513,8 +511,7 @@ public class ProductServiceTests : IDisposable
         (await _context.Products.SingleAsync(p => p.Id == product.Id))
             .SalePrice.Should().Be(160_000m);
 
-        var history = await _context.PriceChangeHistories.SingleAsync(
-            h => h.ProductId == product.Id);
+        var history = await _context.PriceChangeHistories.SingleAsync(h => h.ProductId == product.Id);
 
         history.OldSalePrice.Should().Be(200_000m);
         history.NewSalePrice.Should().Be(160_000m);
@@ -612,11 +609,9 @@ public class ProductServiceTests : IDisposable
 
         _context.ChangeTracker.Clear();
 
-        var savedFirst = await _context.Products.SingleAsync(
-            p => p.Id == first.Id);
+        var savedFirst = await _context.Products.SingleAsync(p => p.Id == first.Id);
 
-        var savedSecond = await _context.Products.SingleAsync(
-            p => p.Id == second.Id);
+        var savedSecond = await _context.Products.SingleAsync(p => p.Id == second.Id);
 
         savedFirst.SalePrice.Should().Be(140_000m);
         savedSecond.SalePrice.Should().Be(280_000m);

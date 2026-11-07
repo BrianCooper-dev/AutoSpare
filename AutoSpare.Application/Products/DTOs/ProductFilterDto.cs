@@ -1,3 +1,5 @@
+using AutoSpare.Domain.Products.Enums;
+
 namespace AutoSpare.Application.Products.DTOs;
 
 public enum StockStatusFilter
@@ -13,6 +15,7 @@ public class ProductFilterDto
     public string? SearchTerm { get; set; }
     public Guid? CategoryId { get; set; }
     public Guid? BrandId { get; set; }
+    public ProductStatus? Status { get; set; }
     public Guid? WarehouseId { get; set; }
     public StockStatusFilter StockStatus { get; set; } = StockStatusFilter.All;
     public int PageNumber { get; set; } = 1;

@@ -29,7 +29,8 @@ public class FileStorageService : IFileStorageService
         _storageSettings = storageSettings.Value;
     }
 
-    public async Task<string> SaveProductImageAsync(Stream fileStream, string originalFileName, CancellationToken cancellationToken = default)
+    public async Task<string> SaveProductImageAsync(Stream fileStream, string originalFileName,
+        CancellationToken cancellationToken = default)
     {
         if (fileStream == null || !fileStream.CanRead)
         {
@@ -53,7 +54,8 @@ public class FileStorageService : IFileStorageService
 
         if (memoryStream.Length > MaxFileSizeInBytes)
         {
-            throw new InvalidOperationException($"حجم فایل بیشتر از حد مجاز ({StorageSettings.SectionName} / ۵ مگابایت) است.");
+            throw new InvalidOperationException(
+                $"حجم فایل بیشتر از حد مجاز ({StorageSettings.SectionName} / ۵ مگابایت) است.");
         }
 
         if (!IsValidImageSignature(memoryStream))
@@ -67,7 +69,9 @@ public class FileStorageService : IFileStorageService
             ? "uploads/products"
             : _storageSettings.ImagesPath.TrimStart('/', '\\');
 
-        var uploadsFolder = Path.Combine(_environment.WebRootPath ?? Path.Combine(Directory.GetCurrentDirectory(), "wwwroot"), relativeImagesPath);
+        var uploadsFolder =
+            Path.Combine(_environment.WebRootPath ?? Path.Combine(Directory.GetCurrentDirectory(), "wwwroot"),
+                relativeImagesPath);
 
         if (!Directory.Exists(uploadsFolder))
         {
@@ -77,7 +81,8 @@ public class FileStorageService : IFileStorageService
         var uniqueFileName = $"{Guid.NewGuid():N}{extension.ToLowerInvariant()}";
         var filePath = Path.Combine(uploadsFolder, uniqueFileName);
 
-        await using (var fileWriter = new FileStream(filePath, FileMode.Create, FileAccess.Write, FileShare.None, 4096, useAsync: true))
+        await using (var fileWriter = new FileStream(filePath, FileMode.Create, FileAccess.Write, FileShare.None, 4096,
+                         useAsync: true))
         {
             await memoryStream.CopyToAsync(fileWriter, cancellationToken);
             await fileWriter.FlushAsync(cancellationToken);

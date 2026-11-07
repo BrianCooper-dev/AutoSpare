@@ -63,14 +63,16 @@ public class ReportService : IReportService
 
         var todayPurchasesData = await _context.Purchases
             .AsNoTracking()
-            .Where(p => p.Status == PurchaseStatus.Completed && p.PurchaseDate >= todayStartUtc && p.PurchaseDate < todayEndUtc)
+            .Where(p => p.Status == PurchaseStatus.Completed && p.PurchaseDate >= todayStartUtc &&
+                        p.PurchaseDate < todayEndUtc)
             .Include(p => p.Items)
             .Select(p => p.Items.Sum(i => i.Quantity * i.UnitPrice))
             .ToListAsync(cancellationToken);
 
         var monthPurchasesData = await _context.Purchases
             .AsNoTracking()
-            .Where(p => p.Status == PurchaseStatus.Completed && p.PurchaseDate >= monthStartUtc && p.PurchaseDate < monthEndUtc)
+            .Where(p => p.Status == PurchaseStatus.Completed && p.PurchaseDate >= monthStartUtc &&
+                        p.PurchaseDate < monthEndUtc)
             .Include(p => p.Items)
             .Select(p => p.Items.Sum(i => i.Quantity * i.UnitPrice))
             .ToListAsync(cancellationToken);
@@ -254,10 +256,12 @@ public class ReportService : IReportService
         if (filter != null)
         {
             if (filter.FromDate.HasValue)
-                itemsQuery = itemsQuery.Where(item => _context.Sales.Any(s => s.Id == item.SaleId && s.SaleDate >= filter.FromDate.Value));
+                itemsQuery = itemsQuery.Where(item =>
+                    _context.Sales.Any(s => s.Id == item.SaleId && s.SaleDate >= filter.FromDate.Value));
 
             if (filter.ToDate.HasValue)
-                itemsQuery = itemsQuery.Where(item => _context.Sales.Any(s => s.Id == item.SaleId && s.SaleDate <= filter.ToDate.Value));
+                itemsQuery = itemsQuery.Where(item =>
+                    _context.Sales.Any(s => s.Id == item.SaleId && s.SaleDate <= filter.ToDate.Value));
 
             if (filter.WarehouseId.HasValue)
                 itemsQuery = itemsQuery.Where(item => item.WarehouseId == filter.WarehouseId.Value);
@@ -327,10 +331,12 @@ public class ReportService : IReportService
             .Where(item => _context.Sales.Any(s => s.Id == item.SaleId && s.Status == SaleStatus.Completed));
 
         if (filter.FromDate.HasValue)
-            itemsQuery = itemsQuery.Where(item => _context.Sales.Any(s => s.Id == item.SaleId && s.SaleDate >= filter.FromDate.Value));
+            itemsQuery = itemsQuery.Where(item =>
+                _context.Sales.Any(s => s.Id == item.SaleId && s.SaleDate >= filter.FromDate.Value));
 
         if (filter.ToDate.HasValue)
-            itemsQuery = itemsQuery.Where(item => _context.Sales.Any(s => s.Id == item.SaleId && s.SaleDate <= filter.ToDate.Value));
+            itemsQuery = itemsQuery.Where(item =>
+                _context.Sales.Any(s => s.Id == item.SaleId && s.SaleDate <= filter.ToDate.Value));
 
         if (filter.WarehouseId.HasValue)
         {
@@ -358,23 +364,22 @@ public class ReportService : IReportService
             .ToListAsync(cancellationToken);
 
         return list.Select(x =>
-        {
-            salesDict.TryGetValue(x.SaleId, out var sale);
-            return new ProfitItemReportDto
             {
-                SaleId = x.SaleId,
-                InvoiceNumber = sale?.InvoiceNumber ?? string.Empty,
-                SaleDate = sale?.SaleDate ?? DateTime.MinValue,
-                ProductName = x.ProductName,
-                ProductCode = x.ProductCode,
-                WarehouseName = x.WarehouseName,
-                Quantity = x.Quantity,
-                UnitCost = x.UnitCost,
-                UnitPrice = x.UnitPrice
-            };
-        })
-        .OrderByDescending(x => x.SaleDate)
-        .ToList();
+                salesDict.TryGetValue(x.SaleId, out var sale);
+                return new ProfitItemReportDto
+                {
+                    SaleId = x.SaleId,
+                    InvoiceNumber = sale?.InvoiceNumber ?? string.Empty,
+                    SaleDate = sale?.SaleDate ?? DateTime.MinValue,
+                    ProductName = x.ProductName,
+                    ProductCode = x.ProductCode,
+                    WarehouseName = x.WarehouseName,
+                    Quantity = x.Quantity,
+                    UnitCost = x.UnitCost,
+                    UnitPrice = x.UnitPrice
+                };
+            })
+            .OrderByDescending(x => x.SaleDate)
+            .ToList();
     }
 }
-

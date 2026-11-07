@@ -18,7 +18,8 @@ public class BrandService : IBrandService
         _logger = logger;
     }
 
-    public async Task<List<BrandDto>> GetAllAsync(string? searchTerm = null, bool? isActive = null, CancellationToken cancellationToken = default)
+    public async Task<List<BrandDto>> GetAllAsync(string? searchTerm = null, bool? isActive = null,
+        CancellationToken cancellationToken = default)
     {
         var query = _context.Brands
             .AsNoTracking()
@@ -71,7 +72,8 @@ public class BrandService : IBrandService
             .FirstOrDefaultAsync(cancellationToken);
     }
 
-    public async Task<(bool Success, string? ErrorMessage, Guid? Id)> CreateAsync(CreateBrandModel model, CancellationToken cancellationToken = default)
+    public async Task<(bool Success, string? ErrorMessage, Guid? Id)> CreateAsync(CreateBrandModel model,
+        CancellationToken cancellationToken = default)
     {
         if (model == null || string.IsNullOrWhiteSpace(model.Name))
         {
@@ -99,7 +101,8 @@ public class BrandService : IBrandService
         }
     }
 
-    public async Task<(bool Success, string? ErrorMessage)> UpdateAsync(UpdateBrandModel model, CancellationToken cancellationToken = default)
+    public async Task<(bool Success, string? ErrorMessage)> UpdateAsync(UpdateBrandModel model,
+        CancellationToken cancellationToken = default)
     {
         if (model == null || string.IsNullOrWhiteSpace(model.Name))
         {
@@ -132,7 +135,8 @@ public class BrandService : IBrandService
         }
     }
 
-    public async Task<(bool Success, string? ErrorMessage)> ToggleStatusAsync(Guid id, CancellationToken cancellationToken = default)
+    public async Task<(bool Success, string? ErrorMessage)> ToggleStatusAsync(Guid id,
+        CancellationToken cancellationToken = default)
     {
         var brand = await _context.Brands.FirstOrDefaultAsync(b => b.Id == id, cancellationToken);
         if (brand == null)

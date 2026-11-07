@@ -235,16 +235,18 @@ try
 
         try
         {
-            var dbContext =
-                services.GetRequiredService<ApplicationDbContext>();
+            var dbContext = services.GetRequiredService<ApplicationDbContext>();
 
-            var seederLogger =
-                services.GetRequiredService<ILogger<Program>>();
-
-            var passwordHasher =
-                services.GetRequiredService<IPasswordHasher>();
-
+            // ۱. اعمال مایگریشن‌ها
             await dbContext.Database.MigrateAsync();
+
+            // ۲. فعال‌سازی حالت WAL (اینجا اضافه کنید)
+            await dbContext.Database.ExecuteSqlRawAsync("PRAGMA journal_mode = 'wal';");
+            await dbContext.Database.ExecuteSqlRawAsync("PRAGMA synchronous = NORMAL;");
+
+            // ۳. سید کردن داده‌های اولیه
+            var seederLogger = services.GetRequiredService<ILogger<Program>>();
+            var passwordHasher = services.GetRequiredService<IPasswordHasher>();
 
             await DbInitializer.SeedAsync(
                 dbContext,
@@ -253,13 +255,11 @@ try
         }
         catch (Exception ex)
         {
-            Log.Error(
-                ex,
-                "An error occurred during SQLite migration or seeding.");
-
+            Log.Error(ex, "An error occurred during SQLite migration or seeding.");
             throw;
         }
     }
+
 
     // -------------------------------------------------------
     // HTTP pipeline
@@ -314,8 +314,7 @@ try
     // Auth Endpoints (Login / Logout)
     // -------------------------------------------------------
     app.MapPost("/api/auth/login", async (
-        [Microsoft.AspNetCore.Mvc.FromForm]
-            AutoSpare.Application.Models.LoginModel model,
+        [Microsoft.AspNetCore.Mvc.FromForm] AutoSpare.Application.Models.LoginModel model,
         ApplicationDbContext dbContext,
         IPasswordHasher passwordHasher,
         HttpContext httpContext) =>

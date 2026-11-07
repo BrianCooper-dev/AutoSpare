@@ -136,23 +136,21 @@
                         </MudSelect>
                     </MudItem>
 
-                    <!-- وضعیت موجودی -->
+                    <!-- وضعیت و موجودی (ادغام‌شده بدون خطوط اضافی) -->
                     <MudItem xs="12" sm="6" md="2">
-                        <MudSelect T="StockStatusFilter"
-                                   Label="وضعیت موجودی"
-                                   Value="@_filter.StockStatus"
-                                   ValueChanged="@(async (StockStatusFilter val) =>
-                                                 {
-                                                     _filter.StockStatus = val;
-                                                     await LoadProductsAsync();
-                                                 })"
+                        <MudSelect T="string"
+                                   Label="وضعیت و موجودی"
+                                   Value="@_combinedStatusFilter"
+                                   ValueChanged="@OnCombinedFilterChangedAsync"
                                    AnchorOrigin="Origin.BottomCenter"
                                    Variant="Variant.Outlined"
                                    Margin="Margin.Dense">
-                            <MudSelectItem Value="StockStatusFilter.All">همه</MudSelectItem>
-                            <MudSelectItem Value="StockStatusFilter.InStock">موجود</MudSelectItem>
-                            <MudSelectItem Value="StockStatusFilter.OutOfStock">ناموجود</MudSelectItem>
-                            <MudSelectItem Value="StockStatusFilter.LowStock">کم‌موجودی / هشدار</MudSelectItem>
+                            <MudSelectItem Value="@("all")">همه موارد</MudSelectItem>
+                            <MudSelectItem Value="@("active")">فقط فعال</MudSelectItem>
+                            <MudSelectItem Value="@("inactive")">فقط غیرفعال</MudSelectItem>
+                            <MudSelectItem Value="@("in_stock")">موجود</MudSelectItem>
+                            <MudSelectItem Value="@("out_of_stock")">ناموجود</MudSelectItem>
+                            <MudSelectItem Value="@("low_stock")">کم‌موجودی</MudSelectItem>
                         </MudSelect>
                     </MudItem>
 
@@ -329,6 +327,7 @@
     private List<ProductListItemDto> _products = new();
     private ProductFilterDto _filter = new();
     private bool _isLoading = true;
+    private string _combinedStatusFilter = "all";
 
     private List<DropdownItemDto> _categories = new();
     private List<DropdownItemDto> _brands = new();
@@ -339,7 +338,7 @@
         _filter.CategoryId.HasValue ||
         _filter.BrandId.HasValue ||
         _filter.WarehouseId.HasValue ||
-        _filter.StockStatus != StockStatusFilter.All;
+        _combinedStatusFilter != "all";
 
     protected override async Task OnInitializedAsync()
     {
@@ -360,6 +359,26 @@
         {
             _isLoading = false;
         }
+    }
+
+    private async Task OnCombinedFilterChangedAsync(string val)
+    {
+        _combinedStatusFilter = val;
+
+        // Reset old filter values
+        _filter.Status = null;
+        _filter.StockStatus = StockStatusFilter.All;
+
+        switch (val)
+        {
+            case "active": _filter.Status = ProductStatus.Active; break;
+            case "inactive": _filter.Status = ProductStatus.Inactive; break;
+            case "in_stock": _filter.StockStatus = StockStatusFilter.InStock; break;
+            case "out_of_stock": _filter.StockStatus = StockStatusFilter.OutOfStock; break;
+            case "low_stock": _filter.StockStatus = StockStatusFilter.LowStock; break;
+        }
+
+        await LoadProductsAsync();
     }
 
     private async Task LoadProductsAsync()
@@ -421,8 +440,8 @@
 
     private async Task ResetFiltersAsync()
     {
+        _combinedStatusFilter = "all";
         _filter = new ProductFilterDto();
         await LoadProductsAsync();
     }
 }
-
