@@ -11,7 +11,7 @@
 @inject NavigationManager NavigationManager
 @inject AuthenticationStateProvider AuthenticationStateProvider
 
-<PageTitle>ثبت فاکتور خرید جدید | AutoSpare</PageTitle>
+<PageTitle>ثبت فاکتور خرید جدید</PageTitle>
 
 <MudContainer MaxWidth="MaxWidth.ExtraLarge" Class="mt-4 mb-8">
     <MudBreadcrumbs Items="_breadcrumbItems" Class="pa-0 mb-4"/>
@@ -86,29 +86,25 @@
                             </MudItem>
 
                             <MudItem xs="12" sm="6" md="3">
-                                <MudSelect T="Guid?"
-                                           @bind-Value="_model.SupplierId"
-                                           Label="تأمین‌کننده *"
-                                           Variant="Variant.Outlined"
-                                           Margin="Margin.Dense"
-                                           Required="true"
-                                           RequiredError="انتخاب تأمین‌کننده الزامی است."
-                                           Disabled="_isSubmitting"
-                                           AnchorOrigin="Origin.BottomCenter">
-
-                                    <MudSelectItem T="Guid?"
-                                                   Value="@((Guid?)null)">
-                                        انتخاب تأمین‌کننده...
-                                    </MudSelectItem>
-
-                                    @foreach (var supplier in _suppliers)
-                                    {
-                                        <MudSelectItem T="Guid?"
-                                                       Value="@((Guid?)supplier.Id)">
-                                            @supplier.Title
-                                        </MudSelectItem>
-                                    }
-                                </MudSelect>
+                                <MudAutocomplete T="PurchaseLookupItem"
+                                                 Value="@GetSelectedSupplier()"
+                                                 ValueChanged="OnSupplierChanged"
+                                                 SearchFunc="SearchSuppliersAsync"
+                                                 ToStringFunc="@(s => s?.Title ?? string.Empty)"
+                                                 Label="تأمین‌کننده *"
+                                                 Placeholder="جستجو و انتخاب تأمین‌کننده..."
+                                                 Variant="Variant.Outlined"
+                                                 Margin="Margin.Dense"
+                                                 Dense="true"
+                                                 Clearable="true"
+                                                 ResetValueOnEmptyText="true"
+                                                 CoerceText="true"
+                                                 Strict="false"
+                                                 MaxItems="30"
+                                                 Disabled="_isSubmitting"
+                                                 Adornment="Adornment.End"
+                                                 AdornmentIcon="@Icons.Material.Filled.Search"
+                                                 AdornmentColor="Color.Primary"/>
                             </MudItem>
 
                             <MudItem xs="12" sm="6" md="3">
@@ -506,12 +502,45 @@
         }
     }
 
+    private PurchaseLookupItem? GetSelectedSupplier()
+    {
+        if (!_model.SupplierId.HasValue || _model.SupplierId.Value == Guid.Empty)
+        {
+            return null;
+        }
+
+        return _suppliers.FirstOrDefault(s => s.Id == _model.SupplierId.Value);
+    }
+
+    private void OnSupplierChanged(PurchaseLookupItem? supplier)
+    {
+        _model.SupplierId = supplier?.Id;
+    }
+
+    private Task<IEnumerable<PurchaseLookupItem>> SearchSuppliersAsync(
+        string value,
+        CancellationToken cancellationToken)
+    {
+        cancellationToken.ThrowIfCancellationRequested();
+
+        if (string.IsNullOrWhiteSpace(value))
+        {
+            return Task.FromResult<IEnumerable<PurchaseLookupItem>>(_suppliers);
+        }
+
+        var query = value.Trim();
+        var result = _suppliers.Where(s =>
+            s.Title.Contains(query, StringComparison.OrdinalIgnoreCase));
+
+        return Task.FromResult(result);
+    }
+
     private void AddNewItemRow()
     {
         _model.Items.Add(new CreatePurchaseItemDto
         {
             Quantity = 1,
-            WarehouseId = null // انبار هر ردیف به‌طور مستقل انتخاب می‌شود
+            WarehouseId = null
         });
     }
 
@@ -551,7 +580,6 @@
         item.ProductId = selectedProduct.Id;
         item.UnitPrice = selectedProduct.DefaultPurchasePrice;
 
-        // اگر کالا انبار پیش‌فرض داشت، روی ردیف اعمال کن
         if (IsValidWarehouse(selectedProduct.DefaultWarehouseId))
         {
             item.WarehouseId = selectedProduct.DefaultWarehouseId;
@@ -663,7 +691,6 @@
             return;
         }
 
-        // ردیف‌های معتبر ارسال می‌شوند
         _model.Items = validItems;
 
         try
@@ -716,4 +743,5 @@
     {
         NavigationManager.NavigateTo("/purchases");
     }
+
 }

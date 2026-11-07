@@ -89,21 +89,22 @@
                               Immediate="true"/>
             </MudItem>
 
-            <!-- فیلتر تأمین‌کننده -->
+            <!-- فیلتر تأمین‌کننده با قابلیت جستجو -->
             <MudItem xs="12" sm="6" md="3">
-                <MudSelect T="string"
-                           @bind-Value="_selectedSupplierName"
-                           Label="تأمین‌کننده"
-                           Variant="Variant.Outlined"
-                           Margin="Margin.Dense"
-                           Clearable="true"
-                           AnchorOrigin="Origin.BottomCenter">
-                    <MudSelectItem T="string" Value="@((string?)null)">همه تأمین‌کنندگان</MudSelectItem>
-                    @foreach (var supplier in _supplierFilterList)
-                    {
-                        <MudSelectItem T="string" Value="@supplier">@supplier</MudSelectItem>
-                    }
-                </MudSelect>
+                <MudAutocomplete T="string"
+                                 @bind-Value="_selectedSupplierName"
+                                 Label="تأمین‌کننده"
+                                 SearchFunc="SearchSuppliers"
+                                 ResetValueOnEmptyText="true"
+                                 CoerceText="true"
+                                 CoerceValue="true"
+                                 Clearable="true"
+                                 Variant="Variant.Outlined"
+                                 Margin="Margin.Dense"
+                                 Adornment="Adornment.End"
+                                 AdornmentIcon="@Icons.Material.Filled.ArrowDropDown"
+                                 MaxItems="50"
+                                 Placeholder="همه تأمین‌کنندگان"/>
             </MudItem>
 
             <!-- فیلتر وضعیت -->
@@ -272,13 +273,25 @@
         }
     }
 
+    private Task<IEnumerable<string>> SearchSuppliers(string? value, CancellationToken cancellationToken)
+    {
+        if (string.IsNullOrWhiteSpace(value))
+        {
+            return Task.FromResult<IEnumerable<string>>(_supplierFilterList);
+        }
+
+        var filtered = _supplierFilterList
+            .Where(s => s.Contains(value.Trim(), StringComparison.OrdinalIgnoreCase));
+
+        return Task.FromResult<IEnumerable<string>>(filtered);
+    }
+
     private List<PurchaseListDto> FilteredPurchases
     {
         get
         {
             var result = _purchases.AsEnumerable();
 
-            // فیلترهای موجود...
             if (!string.IsNullOrWhiteSpace(_searchQuery))
             {
                 var query = _searchQuery.Trim();
@@ -309,7 +322,6 @@
                 result = result.Where(p => p.PurchaseDate.Date <= _toDate.Value.Date);
             }
 
-            // مرتب‌سازی پایدار: تاریخ نزولی و سپس شماره فاکتور نزولی
             return result
                 .OrderByDescending(p => p.PurchaseDate)
                 .ThenByDescending(p => p.InvoiceNumber)

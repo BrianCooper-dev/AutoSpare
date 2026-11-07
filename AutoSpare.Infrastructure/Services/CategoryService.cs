@@ -18,15 +18,17 @@ public class CategoryService : ICategoryService
         _logger = logger;
     }
 
-    public async Task<List<CategoryDto>> GetAllAsync(string? searchTerm = null, bool? activeOnly = null, CancellationToken cancellationToken = default)
+    public async Task<List<CategoryDto>> GetAllAsync(string? searchTerm = null, bool? activeOnly = null,
+        CancellationToken cancellationToken = default)
     {
         var query = _dbContext.Categories
             .AsNoTracking()
             .AsQueryable();
 
-        if (activeOnly.HasValue && activeOnly.Value)
+        // اصلاح این بخش: اگر مقداری داشت، دقیقاً همان مقدار را اعمال کن (چه true چه false)
+        if (activeOnly.HasValue)
         {
-            query = query.Where(c => c.IsActive);
+            query = query.Where(c => c.IsActive == activeOnly.Value);
         }
 
         if (!string.IsNullOrWhiteSpace(searchTerm))
@@ -70,7 +72,8 @@ public class CategoryService : ICategoryService
             .FirstOrDefaultAsync(cancellationToken);
     }
 
-    public async Task<(bool Success, string? ErrorMessage, Guid? Id)> CreateAsync(CreateCategoryModel model, CancellationToken cancellationToken = default)
+    public async Task<(bool Success, string? ErrorMessage, Guid? Id)> CreateAsync(CreateCategoryModel model,
+        CancellationToken cancellationToken = default)
     {
         if (model == null || string.IsNullOrWhiteSpace(model.Name))
         {
@@ -98,7 +101,8 @@ public class CategoryService : ICategoryService
         }
     }
 
-    public async Task<(bool Success, string? ErrorMessage)> UpdateAsync(UpdateCategoryModel model, CancellationToken cancellationToken = default)
+    public async Task<(bool Success, string? ErrorMessage)> UpdateAsync(UpdateCategoryModel model,
+        CancellationToken cancellationToken = default)
     {
         if (model == null || string.IsNullOrWhiteSpace(model.Name))
         {
@@ -131,7 +135,8 @@ public class CategoryService : ICategoryService
         }
     }
 
-    public async Task<(bool Success, string? ErrorMessage)> ToggleStatusAsync(Guid id, CancellationToken cancellationToken = default)
+    public async Task<(bool Success, string? ErrorMessage)> ToggleStatusAsync(Guid id,
+        CancellationToken cancellationToken = default)
     {
         var category = await _dbContext.Categories.FirstOrDefaultAsync(c => c.Id == id, cancellationToken);
         if (category == null)

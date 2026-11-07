@@ -204,8 +204,7 @@ public class SaleService : ISaleService
                         : dto.InvoiceNumber.Trim();
 
                     var isDuplicateInvoice =
-                        await _context.Sales.AnyAsync(
-                            s => s.InvoiceNumber == invoiceTrimmed);
+                        await _context.Sales.AnyAsync(s => s.InvoiceNumber == invoiceTrimmed);
 
                     if (isDuplicateInvoice)
                     {
@@ -290,8 +289,7 @@ public class SaleService : ISaleService
                                 i.WarehouseId) &&
                             distinctProductIds.Contains(
                                 i.ProductId))
-                        .ToDictionaryAsync(
-                            i => (i.ProductId, i.WarehouseId));
+                        .ToDictionaryAsync(i => (i.ProductId, i.WarehouseId));
 
                     // این بررسی برای پیش‌نویس و فاکتور نهایی انجام می‌شود.
                     // جمع‌زدن اقلام هم‌کالا در یک انبار مانع دور زدن
@@ -356,10 +354,10 @@ public class SaleService : ISaleService
                                 amount: item.Quantity,
                                 type: StockMovementType.Sale,
                                 reason:
-                                    $"فروش طی فاکتور {sale.InvoiceNumber}",
+                                $"فروش طی فاکتور {sale.InvoiceNumber}",
                                 reference: sale.InvoiceNumber,
                                 performedBy:
-                                    currentUserName ?? "سیستم");
+                                currentUserName ?? "سیستم");
 
                             MarkLatestMovementAsAdded(inventory);
                         }
@@ -642,7 +640,7 @@ public class SaleService : ISaleService
                         amount: item.Quantity,
                         type: StockMovementType.Sale,
                         reason:
-                            $"فروش طی فاکتور {sale.InvoiceNumber}",
+                        $"فروش طی فاکتور {sale.InvoiceNumber}",
                         reference: sale.InvoiceNumber,
                         performedBy: "سیستم");
 
@@ -733,11 +731,10 @@ public class SaleService : ISaleService
                                     i.ProductId) &&
                                 warehouseIds.Contains(
                                     i.WarehouseId))
-                            .ToDictionaryAsync(
-                                i => (
-                                    i.ProductId,
-                                    i.WarehouseId
-                                ));
+                            .ToDictionaryAsync(i => (
+                                i.ProductId,
+                                i.WarehouseId
+                            ));
 
                     foreach (var item in sale.Items)
                     {
@@ -755,9 +752,9 @@ public class SaleService : ISaleService
                         inventory.IncreaseQuantity(
                             amount: item.Quantity,
                             type:
-                                StockMovementType.CustomerReturn,
+                            StockMovementType.CustomerReturn,
                             reason:
-                                $"ابطال فاکتور فروش {sale.InvoiceNumber} - دلیل: {effectiveReason}",
+                            $"ابطال فاکتور فروش {sale.InvoiceNumber} - دلیل: {effectiveReason}",
                             reference: sale.InvoiceNumber,
                             performedBy: "سیستم");
 

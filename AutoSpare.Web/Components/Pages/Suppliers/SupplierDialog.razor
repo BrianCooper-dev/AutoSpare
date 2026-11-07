@@ -77,16 +77,6 @@
                 </MudItem>
 
                 <MudItem xs="12">
-                    <MudNumericField T="decimal"
-                                     Label="سقف اعتبار (تومان)"
-                                     @bind-Value="_model.CreditLimit"
-                                     Min="0"
-                                     Format="N0"
-                                     Variant="Variant.Outlined"
-                                     Margin="Margin.Dense"/>
-                </MudItem>
-
-                <MudItem xs="12">
                     <MudTextField T="string"
                                   Label="آدرس (اختیاری)"
                                   @bind-Value="_model.Address"
@@ -141,8 +131,7 @@
                 Phone = ExistingSupplier.Phone,
                 Email = ExistingSupplier.Email,
                 Address = ExistingSupplier.Address,
-                EconomicCode = ExistingSupplier.EconomicCode,
-                CreditLimit = ExistingSupplier.CreditLimit
+                EconomicCode = ExistingSupplier.EconomicCode
             };
         }
     }
@@ -170,7 +159,7 @@
                     Email = _model.Email,
                     Address = _model.Address,
                     EconomicCode = _model.EconomicCode,
-                    CreditLimit = _model.CreditLimit
+                    CreditLimit = 0
                 });
                 Snackbar.Add("تأمین‌کننده با موفقیت ویرایش شد.", Severity.Success);
             }
@@ -185,7 +174,7 @@
                     Email = _model.Email,
                     Address = _model.Address,
                     EconomicCode = _model.EconomicCode,
-                    CreditLimit = _model.CreditLimit
+                    CreditLimit = 0
                 });
                 Snackbar.Add("تأمین‌کننده با موفقیت ثبت شد.", Severity.Success);
             }
@@ -212,7 +201,6 @@
         public string? Email { get; set; }
         public string? Address { get; set; }
         public string? EconomicCode { get; set; }
-        public decimal CreditLimit { get; set; }
     }
 
 }

@@ -209,35 +209,42 @@
                                     </MudText>
                                 </MudItem>
 
+                                <!-- رمز عبور فعلی -->
                                 <MudItem xs="12" md="4">
                                     <MudTextField @bind-Value="_currentPassword"
                                                   Label="رمز عبور فعلی"
-                                                  InputType="InputType.Password"
+                                                  InputType="@(_isShowCurrentPassword ? InputType.Text : InputType.Password)"
                                                   Variant="Variant.Outlined"
                                                   Margin="Margin.Normal"
-                                                  Adornment="Adornment.Start"
-                                                  AdornmentIcon="@Icons.Material.Filled.Lock"/>
+                                                  Adornment="Adornment.End"
+                                                  AdornmentIcon="@(_isShowCurrentPassword ? Icons.Material.Filled.VisibilityOff : Icons.Material.Filled.Visibility)"
+                                                  OnAdornmentClick="@(() => _isShowCurrentPassword = !_isShowCurrentPassword)"/>
                                 </MudItem>
 
+                                <!-- رمز عبور جدید -->
                                 <MudItem xs="12" sm="6" md="4">
                                     <MudTextField @bind-Value="_newPassword"
                                                   Label="رمز عبور جدید"
-                                                  InputType="InputType.Password"
+                                                  InputType="@(_isShowNewPassword ? InputType.Text : InputType.Password)"
                                                   Variant="Variant.Outlined"
                                                   Margin="Margin.Normal"
-                                                  Adornment="Adornment.Start"
-                                                  AdornmentIcon="@Icons.Material.Filled.VpnKey"/>
+                                                  Adornment="Adornment.End"
+                                                  AdornmentIcon="@(_isShowNewPassword ? Icons.Material.Filled.VisibilityOff : Icons.Material.Filled.Visibility)"
+                                                  OnAdornmentClick="@(() => _isShowNewPassword = !_isShowNewPassword)"/>
                                 </MudItem>
 
+                                <!-- تکرار رمز عبور جدید -->
                                 <MudItem xs="12" sm="6" md="4">
                                     <MudTextField @bind-Value="_confirmNewPassword"
                                                   Label="تکرار رمز عبور جدید"
-                                                  InputType="InputType.Password"
+                                                  InputType="@(_isShowConfirmPassword ? InputType.Text : InputType.Password)"
                                                   Variant="Variant.Outlined"
                                                   Margin="Margin.Normal"
-                                                  Adornment="Adornment.Start"
-                                                  AdornmentIcon="@Icons.Material.Filled.LockReset"/>
+                                                  Adornment="Adornment.End"
+                                                  AdornmentIcon="@(_isShowConfirmPassword ? Icons.Material.Filled.VisibilityOff : Icons.Material.Filled.Visibility)"
+                                                  OnAdornmentClick="@(() => _isShowConfirmPassword = !_isShowConfirmPassword)"/>
                                 </MudItem>
+
                             </MudGrid>
                         </MudForm>
                     }
@@ -491,6 +498,10 @@
     private string _confirmNewPassword = string.Empty;
     private bool _isLoadingAdmin = true;
     private bool _isSavingAdmin;
+    private bool _isShowCurrentPassword;
+    private bool _isShowNewPassword;
+    private bool _isShowConfirmPassword;
+
 
     private string _backupPath = string.Empty;
     private bool _isProcessing;

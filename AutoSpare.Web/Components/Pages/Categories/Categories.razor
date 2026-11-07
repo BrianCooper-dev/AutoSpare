@@ -9,7 +9,7 @@
 @inject IDialogService DialogService
 @inject ISnackbar Snackbar
 
-<PageTitle>مدیریت دسته‌بندی‌ها - اتواسپیر</PageTitle>
+<PageTitle>مدیریت دسته‌بندی‌ها</PageTitle>
 
 <MudContainer MaxWidth="MaxWidth.ExtraLarge" Class="mt-4 mb-8">
     <MudCard Elevation="2" Class="pa-4">
@@ -174,7 +174,7 @@
         }
         catch (Exception ex)
         {
-            Snackbar.ShowError($"خطا در بارگذاری اطلاعات: {ex.Message}");
+            Snackbar.Add($"خطا در بارگذاری اطلاعات: {ex.Message}", Severity.Error);
         }
         finally
         {
@@ -210,12 +210,12 @@
             var (success, error, _) = await CategoryService.CreateAsync(createModel);
             if (success)
             {
-                Snackbar.ShowSuccess("دسته‌بندی با موفقیت ایجاد شد.");
+                Snackbar.Add("دسته‌بندی با موفقیت ایجاد شد.", Severity.Success);
                 await LoadCategoriesAsync();
             }
             else
             {
-                Snackbar.ShowError(error ?? "خطا در ثبت اطلاعات.");
+                Snackbar.Add(error ?? "خطا در ثبت اطلاعات.", Severity.Error);
             }
         }
     }
@@ -243,12 +243,12 @@
             var (success, error) = await CategoryService.UpdateAsync(updateModel);
             if (success)
             {
-                Snackbar.ShowSuccess("دسته‌بندی با موفقیت ویرایش شد.");
+                Snackbar.Add("دسته‌بندی با موفقیت ویرایش شد.", Severity.Success);
                 await LoadCategoriesAsync();
             }
             else
             {
-                Snackbar.ShowError(error ?? "خطا در ویرایش اطلاعات.");
+                Snackbar.Add(error ?? "خطا در ویرایش اطلاعات.", Severity.Error);
             }
         }
     }
@@ -282,14 +282,13 @@
             var (success, error) = await CategoryService.ToggleStatusAsync(category.Id);
             if (success)
             {
-                Snackbar.ShowSuccess($"دسته‌بندی با موفقیت {actionText} شد.");
+                Snackbar.Add($"دسته‌بندی با موفقیت {actionText} شد.", Severity.Success);
                 await LoadCategoriesAsync();
             }
             else
             {
-                Snackbar.ShowError(error ?? $"خطا در {actionText} کردن دسته‌بندی.");
+                Snackbar.Add(error ?? $"خطا در {actionText} کردن دسته‌بندی.", Severity.Error);
             }
         }
     }
-
 }

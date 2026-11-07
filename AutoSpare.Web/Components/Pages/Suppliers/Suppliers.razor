@@ -9,7 +9,7 @@
 @inject IDialogService DialogService
 @inject ISnackbar Snackbar
 
-<PageTitle>مدیریت تأمین‌کنندگان - اتواسپیر</PageTitle>
+<PageTitle>مدیریت تأمین‌کنندگان</PageTitle>
 
 <MudContainer MaxWidth="MaxWidth.ExtraLarge" Class="mt-4 mb-8">
     <MudCard Elevation="2" Class="pa-4">
@@ -18,8 +18,8 @@
                 <div class="d-flex align-center justify-space-between flex-wrap gap-2">
                     <div>
                         <MudText Typo="Typo.h5" Class="font-weight-bold">مدیریت تأمین‌کنندگان</MudText>
-                        <MudText Typo="Typo.body2" Class="mud-text-secondary mt-1">فهرست، اطلاعات تماس، سقف اعتبار و
-                            فعال/غیرفعال‌سازی تأمین‌کنندگان قطعات
+                        <MudText Typo="Typo.body2" Class="mud-text-secondary mt-1">
+                            فهرست، اطلاعات تماس و فعال/غیرفعال‌سازی تأمین‌کنندگان قطعات
                         </MudText>
                     </div>
                     <MudButton Variant="Variant.Filled"
@@ -33,7 +33,7 @@
         </MudCardHeader>
 
         <MudCardContent>
-            <!-- بخش فیلترها و جستجو (دقیقاً هماهنگ با بخش دسته‌بندی‌ها) -->
+            <!-- فیلترها و جستجو -->
             <div class="d-flex flex-wrap gap-4 align-center mb-4">
                 <MudTextField T="string"
                               @bind-Value="_searchTerm"
@@ -82,7 +82,6 @@
                     <MudTh>شخص رابط</MudTh>
                     <MudTh Style="text-align: center;">شماره همراه</MudTh>
                     <MudTh Style="text-align: center;">تلفن ثابت</MudTh>
-                    <MudTh Style="text-align: center;">سقف اعتبار</MudTh>
                     <MudTh Style="text-align: center;">وضعیت</MudTh>
                     <MudTh Style="text-align: center;">عملیات</MudTh>
                 </HeaderContent>
@@ -107,10 +106,6 @@
                     <MudTd DataLabel="تلفن ثابت" Style="text-align: center;">
                         <MudText
                             Typo="Typo.body2">@(string.IsNullOrWhiteSpace(context.Phone) ? "—" : context.Phone)</MudText>
-                    </MudTd>
-                    <MudTd DataLabel="سقف اعتبار" Style="text-align: center;">
-                        <MudText Typo="Typo.body2" Class="font-weight-bold">@context.CreditLimit.ToString("N0") تومان
-                        </MudText>
                     </MudTd>
                     <MudTd DataLabel="وضعیت" Style="text-align: center;">
                         @if (context.IsActive)
@@ -190,10 +185,7 @@
         }
     }
 
-    private async Task ReloadData()
-    {
-        await LoadSuppliersAsync();
-    }
+    private async Task ReloadData() => await LoadSuppliersAsync();
 
     private async Task OnStatusFilterChanged(int value)
     {
@@ -243,14 +235,7 @@
             { x => x.Icon, supplier.IsActive ? Icons.Material.Filled.Block : Icons.Material.Filled.CheckCircle }
         };
 
-        var options = new DialogOptions
-        {
-            CloseButton = false,
-            CloseOnEscapeKey = true,
-            MaxWidth = MaxWidth.ExtraSmall,
-            FullWidth = true
-        };
-
+        var options = new DialogOptions { CloseOnEscapeKey = true, MaxWidth = MaxWidth.ExtraSmall, FullWidth = true };
         var dialog = await DialogService.ShowAsync<ConfirmDialog>("تأیید عملیات", parameters, options);
         var result = await dialog.Result;
 
