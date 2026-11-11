@@ -1,0 +1,234 @@
+2026-11-11 15:47:24.767 +03:30 [INF] Storage directories are ready. ImagesPath: D:\porograming\Rider\AutoSpare\AutoSpare.Web\wwwroot\Uploads\Images, BackupPath: D:\porograming\Rider\AutoSpare\AutoSpare.Web\Backups 
+2026-11-11 15:47:24.794 +03:30 [INF] SQLite database path: D:\porograming\Rider\AutoSpare\AutoSpare.Web\App_Data\autospare.db 
+2026-11-11 15:47:28.134 +03:30 [INF] سرویس زمان‌بندی بکاپ پایگاه داده راه‌اندازی شد. 
+2026-11-11 15:47:28.147 +03:30 [WRN] آخرین بکاپ (2026/11/07 12:42:41) قدیمی‌تر از شروع روز گذشته است. در حال اجرای بکاپ جبرانی... 
+2026-11-11 15:47:28.148 +03:30 [WRN] فقدان بکاپ برای روزهای اخیر شناسایی شد. در حال اجرای بکاپ جبرانی... 
+2026-11-11 15:47:28.150 +03:30 [INF] شروع بکاپ خودکار دیتابیس. علت: Startup Check - MissingBackup | مسیر مقصد: Backups 
+2026-11-11 15:47:28.177 +03:30 [INF] شروع فرآیند بکاپ‌گیری SQLite از autospare به مسیر D:\porograming\Rider\AutoSpare\AutoSpare.Web\Backups\autospare_Backup_1405-08-20_154728.db 
+2026-11-11 15:47:28.333 +03:30 [INF] بکاپ با موفقیت ایجاد شد: autospare_Backup_1405-08-20_154728.db به حجم 290816 بایت 
+2026-11-11 15:47:28.338 +03:30 [INF] بکاپ زمان‌بندی‌شده با موفقیت ایجاد شد: autospare_Backup_1405-08-20_154728.db (290816 بایت) 
+2026-11-11 15:47:28.343 +03:30 [INF] بکاپ بعدی در ساعت 2026/11/11 20:00:00 اجرا خواهد شد (مدت انتظار: "04:12:31.6588057"). 
+2026-11-11 15:47:28.545 +03:30 [INF] HTTP GET / responded 302 in 149.4195 ms 
+2026-11-11 15:47:28.807 +03:30 [INF] HTTP GET /login responded 200 in 235.1184 ms 
+2026-11-11 15:47:28.856 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 21.6817 ms 
+2026-11-11 15:47:28.856 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 200 in 21.6875 ms 
+2026-11-11 15:47:28.876 +03:30 [INF] HTTP GET /app.css responded 200 in 42.0543 ms 
+2026-11-11 15:47:28.879 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 45.1810 ms 
+2026-11-11 15:47:29.281 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 200 in 3.1925 ms 
+2026-11-11 15:47:29.292 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 8.7376 ms 
+2026-11-11 15:47:29.304 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 3.3695 ms 
+2026-11-11 15:47:33.295 +03:30 [INF] HTTP GET /favicon.ico responded 404 in 0.2276 ms 
+2026-11-11 15:47:33.355 +03:30 [INF] HTTP GET /not-found responded 302 in 1.8363 ms 
+2026-11-11 15:47:33.374 +03:30 [INF] HTTP GET /login responded 200 in 16.9193 ms 
+2026-11-11 15:47:37.188 +03:30 [INF] HTTP POST /api/auth/login responded 302 in 373.3073 ms 
+2026-11-11 15:47:37.500 +03:30 [INF] HTTP GET / responded 200 in 307.1848 ms 
+2026-11-11 15:47:37.516 +03:30 [INF] HTTP GET /app.css responded 200 in 1.9026 ms 
+2026-11-11 15:47:37.519 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 1.3200 ms 
+2026-11-11 15:47:37.523 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 304 in 1.2255 ms 
+2026-11-11 15:47:37.523 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 5.3402 ms 
+2026-11-11 15:47:37.529 +03:30 [INF] HTTP GET /_blazor responded 101 in 8217.8976 ms 
+2026-11-11 15:47:37.535 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 28.0030 ms 
+2026-11-11 15:47:37.575 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.3894 ms 
+2026-11-11 15:47:37.595 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 0.4890 ms 
+2026-11-11 15:47:37.604 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.6075 ms 
+2026-11-11 15:47:37.925 +03:30 [INF] HTTP GET /favicon.ico responded 404 in 0.2368 ms 
+2026-11-11 15:47:37.956 +03:30 [INF] HTTP GET /not-found responded 404 in 19.1196 ms 
+2026-11-11 16:06:17.199 +03:30 [INF] HTTP GET /_blazor responded 101 in 1119589.5797 ms 
+2026-11-11 16:15:25.505 +03:30 [INF] سرویس زمان‌بندی بکاپ متوقف شد. 
+2026-11-11 16:15:43.182 +03:30 [INF] Storage directories are ready. ImagesPath: D:\porograming\Rider\AutoSpare\AutoSpare.Web\wwwroot\Uploads\Images, BackupPath: D:\porograming\Rider\AutoSpare\AutoSpare.Web\Backups 
+2026-11-11 16:15:43.205 +03:30 [INF] SQLite database path: D:\porograming\Rider\AutoSpare\AutoSpare.Web\App_Data\autospare.db 
+2026-11-11 16:15:44.582 +03:30 [INF] سرویس زمان‌بندی بکاپ پایگاه داده راه‌اندازی شد. 
+2026-11-11 16:15:44.599 +03:30 [INF] بکاپ بعدی در ساعت 2026/11/11 20:00:00 اجرا خواهد شد (مدت انتظار: "03:44:15.4039123"). 
+2026-11-11 16:15:44.818 +03:30 [INF] HTTP GET / responded 302 in 16.2040 ms 
+2026-11-11 16:15:45.087 +03:30 [INF] HTTP GET /login responded 200 in 252.9780 ms 
+2026-11-11 16:15:45.117 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 4.8389 ms 
+2026-11-11 16:15:45.117 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 304 in 4.8471 ms 
+2026-11-11 16:15:45.135 +03:30 [INF] HTTP GET /app.css responded 200 in 22.9800 ms 
+2026-11-11 16:15:45.138 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 25.5951 ms 
+2026-11-11 16:15:45.184 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.4348 ms 
+2026-11-11 16:15:45.199 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 6.3077 ms 
+2026-11-11 16:15:45.219 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 5.5304 ms 
+2026-11-11 16:15:49.466 +03:30 [INF] HTTP POST /api/auth/login responded 302 in 267.0337 ms 
+2026-11-11 16:15:49.876 +03:30 [INF] HTTP GET / responded 200 in 406.0175 ms 
+2026-11-11 16:15:49.893 +03:30 [INF] HTTP GET /app.css responded 200 in 1.7052 ms 
+2026-11-11 16:15:49.897 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 304 in 0.9858 ms 
+2026-11-11 16:15:49.899 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 2.6217 ms 
+2026-11-11 16:15:49.900 +03:30 [INF] HTTP GET /_blazor responded 101 in 4673.5317 ms 
+2026-11-11 16:15:49.901 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 5.0375 ms 
+2026-11-11 16:15:49.914 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 29.9874 ms 
+2026-11-11 16:15:49.932 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.3557 ms 
+2026-11-11 16:15:49.945 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 0.6154 ms 
+2026-11-11 16:15:49.966 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.8275 ms 
+2026-11-11 16:15:57.346 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 200 in 32.4565 ms 
+2026-11-11 16:19:48.145 +03:30 [INF] HTTP GET /_blazor responded 101 in 238169.4925 ms 
+2026-11-11 16:19:49.156 +03:30 [INF] سرویس زمان‌بندی بکاپ متوقف شد. 
+2026-11-11 16:20:03.858 +03:30 [INF] Storage directories are ready. ImagesPath: D:\porograming\Rider\AutoSpare\AutoSpare.Web\wwwroot\Uploads\Images, BackupPath: D:\porograming\Rider\AutoSpare\AutoSpare.Web\Backups 
+2026-11-11 16:20:03.884 +03:30 [INF] SQLite database path: D:\porograming\Rider\AutoSpare\AutoSpare.Web\App_Data\autospare.db 
+2026-11-11 16:20:05.458 +03:30 [INF] سرویس زمان‌بندی بکاپ پایگاه داده راه‌اندازی شد. 
+2026-11-11 16:20:05.477 +03:30 [INF] بکاپ بعدی در ساعت 2026/11/11 20:00:00 اجرا خواهد شد (مدت انتظار: "03:39:54.5273433"). 
+2026-11-11 16:20:05.717 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 30.9673 ms 
+2026-11-11 16:20:06.467 +03:30 [INF] HTTP GET /purchases/913ef04c-f407-4ac8-98df-68ca86ae66af responded 200 in 661.9013 ms 
+2026-11-11 16:20:06.467 +03:30 [INF] HTTP GET / responded 200 in 783.2252 ms 
+2026-11-11 16:20:06.496 +03:30 [INF] HTTP GET /_blazor responded 101 in 758.0405 ms 
+2026-11-11 16:20:06.500 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 4.8368 ms 
+2026-11-11 16:20:06.504 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 304 in 1.3220 ms 
+2026-11-11 16:20:06.513 +03:30 [INF] HTTP GET /app.css responded 200 in 19.3687 ms 
+2026-11-11 16:20:06.523 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 25.3232 ms 
+2026-11-11 16:20:06.525 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 0.7258 ms 
+2026-11-11 16:20:06.529 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 304 in 3.4996 ms 
+2026-11-11 16:20:06.535 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 42.3992 ms 
+2026-11-11 16:20:06.538 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 6.0158 ms 
+2026-11-11 16:20:06.540 +03:30 [INF] HTTP GET /app.css responded 200 in 8.0999 ms 
+2026-11-11 16:20:06.580 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 3.3411 ms 
+2026-11-11 16:20:06.581 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 1.2892 ms 
+2026-11-11 16:20:06.643 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 11.4820 ms 
+2026-11-11 16:20:06.660 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.5487 ms 
+2026-11-11 16:20:06.713 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 1.0544 ms 
+2026-11-11 16:20:06.740 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 1.3255 ms 
+2026-11-11 16:20:06.775 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.8691 ms 
+2026-11-11 16:20:26.613 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 0.4669 ms 
+2026-11-11 16:28:28.086 +03:30 [INF] HTTP GET /_blazor responded 101 in 501298.8931 ms 
+2026-11-11 16:28:28.086 +03:30 [INF] HTTP GET /_blazor responded 101 in 501414.3879 ms 
+2026-11-11 16:28:29.094 +03:30 [INF] سرویس زمان‌بندی بکاپ متوقف شد. 
+2026-11-11 16:28:40.910 +03:30 [INF] Storage directories are ready. ImagesPath: D:\porograming\Rider\AutoSpare\AutoSpare.Web\wwwroot\Uploads\Images, BackupPath: D:\porograming\Rider\AutoSpare\AutoSpare.Web\Backups 
+2026-11-11 16:28:40.928 +03:30 [INF] SQLite database path: D:\porograming\Rider\AutoSpare\AutoSpare.Web\App_Data\autospare.db 
+2026-11-11 16:28:42.171 +03:30 [INF] سرویس زمان‌بندی بکاپ پایگاه داده راه‌اندازی شد. 
+2026-11-11 16:28:42.189 +03:30 [INF] بکاپ بعدی در ساعت 2026/11/11 20:00:00 اجرا خواهد شد (مدت انتظار: "03:31:17.8147495"). 
+2026-11-11 16:28:42.952 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 14.0249 ms 
+2026-11-11 16:28:42.952 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 13.9314 ms 
+2026-11-11 16:28:43.145 +03:30 [INF] HTTP GET / responded 200 in 774.9165 ms 
+2026-11-11 16:28:43.166 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 5.3511 ms 
+2026-11-11 16:28:43.167 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 304 in 5.2605 ms 
+2026-11-11 16:28:43.186 +03:30 [INF] HTTP GET /app.css responded 200 in 24.1324 ms 
+2026-11-11 16:28:43.188 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 26.9410 ms 
+2026-11-11 16:28:43.270 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.5618 ms 
+2026-11-11 16:28:43.319 +03:30 [INF] HTTP GET /purchases/913ef04c-f407-4ac8-98df-68ca86ae66af responded 200 in 297.5784 ms 
+2026-11-11 16:28:43.323 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 6.1869 ms 
+2026-11-11 16:28:43.330 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.9485 ms 
+2026-11-11 16:28:43.338 +03:30 [INF] HTTP GET /app.css responded 200 in 2.2529 ms 
+2026-11-11 16:28:43.339 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 0.4737 ms 
+2026-11-11 16:28:43.339 +03:30 [INF] HTTP GET /_blazor responded 101 in 372.7079 ms 
+2026-11-11 16:28:43.343 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 304 in 0.4078 ms 
+2026-11-11 16:28:43.352 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 8.7343 ms 
+2026-11-11 16:28:43.356 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 28.2708 ms 
+2026-11-11 16:28:43.389 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 0.4140 ms 
+2026-11-11 16:28:43.390 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.3536 ms 
+2026-11-11 16:28:43.393 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 0.8991 ms 
+2026-11-11 16:28:43.401 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.4727 ms 
+2026-11-11 16:28:43.519 +03:30 [INF] HTTP GET /purchases responded 200 in 463.5831 ms 
+2026-11-11 16:28:43.530 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 1.0712 ms 
+2026-11-11 16:28:43.531 +03:30 [INF] HTTP GET /_blazor responded 101 in 538.2486 ms 
+2026-11-11 16:28:43.539 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 0.4034 ms 
+2026-11-11 16:28:43.540 +03:30 [INF] HTTP GET /app.css responded 200 in 1.4761 ms 
+2026-11-11 16:28:43.545 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 304 in 0.4333 ms 
+2026-11-11 16:28:43.548 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 9.4353 ms 
+2026-11-11 16:28:43.588 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.2573 ms 
+2026-11-11 16:28:43.631 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 0.7279 ms 
+2026-11-11 16:28:43.658 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.3961 ms 
+2026-11-11 16:28:59.868 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 0.5282 ms 
+2026-11-11 16:30:32.432 +03:30 [INF] HTTP GET /_blazor responded 101 in 108760.9648 ms 
+2026-11-11 16:30:32.432 +03:30 [INF] HTTP GET /_blazor responded 101 in 109079.3687 ms 
+2026-11-11 16:30:32.432 +03:30 [INF] HTTP GET /_blazor responded 101 in 109019.6304 ms 
+2026-11-11 16:30:33.435 +03:30 [INF] سرویس زمان‌بندی بکاپ متوقف شد. 
+2026-11-11 16:30:43.529 +03:30 [INF] Storage directories are ready. ImagesPath: D:\porograming\Rider\AutoSpare\AutoSpare.Web\wwwroot\Uploads\Images, BackupPath: D:\porograming\Rider\AutoSpare\AutoSpare.Web\Backups 
+2026-11-11 16:30:43.545 +03:30 [INF] SQLite database path: D:\porograming\Rider\AutoSpare\AutoSpare.Web\App_Data\autospare.db 
+2026-11-11 16:30:44.804 +03:30 [INF] سرویس زمان‌بندی بکاپ پایگاه داده راه‌اندازی شد. 
+2026-11-11 16:30:44.821 +03:30 [INF] بکاپ بعدی در ساعت 2026/11/11 20:00:00 اجرا خواهد شد (مدت انتظار: "03:29:15.1806884"). 
+2026-11-11 16:30:45.024 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 19.9295 ms 
+2026-11-11 16:30:45.485 +03:30 [INF] HTTP GET / responded 200 in 482.4773 ms 
+2026-11-11 16:30:45.505 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 4.1840 ms 
+2026-11-11 16:30:45.505 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 304 in 4.2870 ms 
+2026-11-11 16:30:45.521 +03:30 [INF] HTTP GET /app.css responded 200 in 20.7402 ms 
+2026-11-11 16:30:45.522 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 22.3174 ms 
+2026-11-11 16:30:45.581 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.5531 ms 
+2026-11-11 16:30:45.587 +03:30 [INF] HTTP GET /sales responded 200 in 500.0447 ms 
+2026-11-11 16:30:45.619 +03:30 [INF] HTTP GET /app.css responded 200 in 1.4449 ms 
+2026-11-11 16:30:45.622 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 14.6828 ms 
+2026-11-11 16:30:45.623 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 0.5798 ms 
+2026-11-11 16:30:45.624 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 24.3309 ms 
+2026-11-11 16:30:45.628 +03:30 [INF] HTTP GET /_blazor responded 101 in 591.8458 ms 
+2026-11-11 16:30:45.630 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 304 in 0.8280 ms 
+2026-11-11 16:30:45.640 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.7771 ms 
+2026-11-11 16:30:45.642 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 12.5382 ms 
+2026-11-11 16:30:45.677 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.2395 ms 
+2026-11-11 16:30:45.697 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 0.5234 ms 
+2026-11-11 16:30:45.706 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.4077 ms 
+2026-11-11 16:30:45.942 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.6342 ms 
+2026-11-11 16:30:45.942 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.6253 ms 
+2026-11-11 16:30:46.311 +03:30 [INF] HTTP GET /purchases responded 200 in 314.0799 ms 
+2026-11-11 16:30:46.334 +03:30 [INF] HTTP GET /_blazor responded 101 in 381.7402 ms 
+2026-11-11 16:30:46.334 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 0.7657 ms 
+2026-11-11 16:30:46.334 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 0.3062 ms 
+2026-11-11 16:30:46.335 +03:30 [INF] HTTP GET /app.css responded 200 in 0.9473 ms 
+2026-11-11 16:30:46.339 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 4.1420 ms 
+2026-11-11 16:30:46.340 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 304 in 0.8676 ms 
+2026-11-11 16:30:46.374 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.3902 ms 
+2026-11-11 16:30:46.392 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 0.6147 ms 
+2026-11-11 16:30:46.433 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 35.2304 ms 
+2026-11-11 16:30:46.469 +03:30 [INF] HTTP GET /purchases/913ef04c-f407-4ac8-98df-68ca86ae66af responded 200 in 465.5485 ms 
+2026-11-11 16:30:46.479 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 1.8550 ms 
+2026-11-11 16:30:46.480 +03:30 [INF] HTTP GET /_blazor responded 101 in 509.8731 ms 
+2026-11-11 16:30:46.485 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 0.2910 ms 
+2026-11-11 16:30:46.486 +03:30 [INF] HTTP GET /app.css responded 200 in 1.1369 ms 
+2026-11-11 16:30:46.491 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 6.4409 ms 
+2026-11-11 16:30:46.493 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 304 in 1.5234 ms 
+2026-11-11 16:30:46.518 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.3902 ms 
+2026-11-11 16:30:46.519 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 0.1987 ms 
+2026-11-11 16:30:46.533 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 0.9842 ms 
+2026-11-11 16:30:46.540 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.3403 ms 
+2026-11-11 16:30:57.422 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 0.6511 ms 
+2026-11-11 16:33:31.060 +03:30 [WRN] The query uses the 'First'/'FirstOrDefault' operator without 'OrderBy' and filter operators. This may lead to unpredictable results. 
+2026-11-11 16:33:31.128 +03:30 [INF] HTTP GET /sales/print/4c0dc220-c25d-4e03-9e4e-19799d879af5 responded 200 in 81.0075 ms 
+2026-11-11 16:33:31.141 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 0.3838 ms 
+2026-11-11 16:33:31.142 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 304 in 0.4843 ms 
+2026-11-11 16:33:31.143 +03:30 [INF] HTTP GET /app.css responded 200 in 1.8258 ms 
+2026-11-11 16:33:31.147 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 4.8687 ms 
+2026-11-11 16:33:31.218 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.3457 ms 
+2026-11-11 16:33:31.218 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 0.3491 ms 
+2026-11-11 16:33:31.254 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 1.1085 ms 
+2026-11-11 16:33:31.264 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 1.8699 ms 
+2026-11-11 16:33:33.672 +03:30 [INF] HTTP GET /_blazor responded 101 in 2401.7746 ms 
+2026-11-11 16:33:34.995 +03:30 [INF] HTTP GET /sales/print-receipt/4c0dc220-c25d-4e03-9e4e-19799d879af5 responded 200 in 17.0491 ms 
+2026-11-11 16:33:35.005 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 304 in 0.4485 ms 
+2026-11-11 16:33:35.005 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 0.4475 ms 
+2026-11-11 16:33:35.007 +03:30 [INF] HTTP GET /app.css responded 200 in 1.9257 ms 
+2026-11-11 16:33:35.010 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 4.6800 ms 
+2026-11-11 16:33:35.071 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.3999 ms 
+2026-11-11 16:33:35.071 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 0.4008 ms 
+2026-11-11 16:33:35.105 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 2.1675 ms 
+2026-11-11 16:33:35.114 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.3164 ms 
+2026-11-11 16:33:38.637 +03:30 [INF] HTTP GET /_blazor responded 101 in 3516.3376 ms 
+2026-11-11 16:36:51.861 +03:30 [INF] HTTP GET /_blazor responded 101 in 365309.8273 ms 
+2026-11-11 16:38:27.857 +03:30 [INF] HTTP GET /_blazor responded 101 in 461418.7963 ms 
+2026-11-11 16:41:39.910 +03:30 [INF] HTTP GET /_blazor responded 101 in 654192.5626 ms 
+2026-11-11 16:41:39.910 +03:30 [INF] HTTP GET /_blazor responded 101 in 654256.5757 ms 
+2026-11-11 16:41:40.918 +03:30 [INF] سرویس زمان‌بندی بکاپ متوقف شد. 
+2026-11-11 16:43:24.590 +03:30 [INF] Storage directories are ready. ImagesPath: D:\porograming\Rider\AutoSpare\AutoSpare.Web\wwwroot\Uploads\Images, BackupPath: D:\porograming\Rider\AutoSpare\AutoSpare.Web\Backups 
+2026-11-11 16:43:24.607 +03:30 [INF] SQLite database path: D:\porograming\Rider\AutoSpare\AutoSpare.Web\App_Data\autospare.db 
+2026-11-11 16:43:25.831 +03:30 [INF] سرویس زمان‌بندی بکاپ پایگاه داده راه‌اندازی شد. 
+2026-11-11 16:43:25.843 +03:30 [INF] بکاپ بعدی در ساعت 2026/11/11 20:00:00 اجرا خواهد شد (مدت انتظار: "03:16:34.1588396"). 
+2026-11-11 16:43:26.574 +03:30 [INF] HTTP GET / responded 200 in 556.9805 ms 
+2026-11-11 16:43:26.595 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 304 in 6.0536 ms 
+2026-11-11 16:43:26.595 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 6.0049 ms 
+2026-11-11 16:43:26.609 +03:30 [INF] HTTP GET /app.css responded 200 in 20.4215 ms 
+2026-11-11 16:43:26.611 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 22.0678 ms 
+2026-11-11 16:43:26.683 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 3.3379 ms 
+2026-11-11 16:43:26.699 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 6.6228 ms 
+2026-11-11 16:43:26.720 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 2.7834 ms 
+2026-11-11 16:43:32.537 +03:30 [WRN] The query uses the 'First'/'FirstOrDefault' operator without 'OrderBy' and filter operators. This may lead to unpredictable results. 
+2026-11-11 16:43:32.621 +03:30 [WRN] The query uses the 'First'/'FirstOrDefault' operator without 'OrderBy' and filter operators. This may lead to unpredictable results. 
+2026-11-11 16:44:19.933 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 1.2130 ms 
+2026-11-11 16:44:19.987 +03:30 [INF] HTTP GET /products/price-adjustment responded 200 in 22.2319 ms 
+2026-11-11 16:44:20.005 +03:30 [INF] HTTP GET /app.css responded 200 in 1.4524 ms 
+2026-11-11 16:44:20.008 +03:30 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 0.6346 ms 
+2026-11-11 16:44:20.008 +03:30 [INF] HTTP GET /_blazor responded 101 in 68.3053 ms 
+2026-11-11 16:44:20.014 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 304 in 0.5700 ms 
+2026-11-11 16:44:20.017 +03:30 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 3.8064 ms 
+2026-11-11 16:44:20.019 +03:30 [INF] HTTP POST /_blazor/disconnect responded 200 in 21.9836 ms 
+2026-11-11 16:44:20.048 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Regular.woff2 responded 304 in 0.4322 ms 
+2026-11-11 16:44:20.073 +03:30 [INF] HTTP GET /_blazor/initializers responded 200 in 0.8051 ms 
+2026-11-11 16:44:20.079 +03:30 [INF] HTTP POST /_blazor/negotiate responded 200 in 0.3688 ms 
+2026-11-11 16:45:55.515 +03:30 [INF] HTTP GET /fonts/vazirmatn/Vazirmatn-Bold.woff2 responded 304 in 0.5045 ms 
+2026-11-11 16:52:19.883 +03:30 [INF] HTTP GET /_blazor responded 101 in 479792.9203 ms 
+2026-11-11 16:52:40.764 +03:30 [INF] HTTP GET /_blazor responded 101 in 554036.1383 ms 
+2026-11-11 16:52:41.774 +03:30 [INF] سرویس زمان‌بندی بکاپ متوقف شد. 
