@@ -232,12 +232,16 @@
 
     private string GetPersianStatus(string status)
     {
-        return status?.Trim().ToLowerInvariant() switch
+        if (string.IsNullOrWhiteSpace(status))
+            return "نامشخص";
+
+        return status.Trim().ToLowerInvariant() switch
         {
+            "draft" => "پیش‌نویس",
             "completed" => "تکمیل شده",
             "pending" => "در انتظار پرداخت",
             "cancelled" => "لغو شده",
-            _ => status ?? "نامشخص"
+            _ => status
         };
     }
 

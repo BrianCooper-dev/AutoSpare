@@ -61,9 +61,9 @@
         <MudItem xs="12" sm="12" md="4">
             <MudPaper Elevation="2" Class="pa-4 rounded-lg d-flex align-center justify-space-between">
                 <div>
-                    <MudText Typo="Typo.caption" Color="Color.Secondary">مجموع کل خریدها</MudText>
+                    <MudText Typo="Typo.caption" Color="Color.Secondary">مجموع خریدهای نهایی‌شده</MudText>
                     <MudText Typo="Typo.h6" Class="fw-bold" Color="Color.Info">
-                        @_purchases.Sum(p => p.TotalAmount).ToString("N0") تومان
+                        @_purchases.Where(p => p.Status == PurchaseStatus.Completed).Sum(p => p.TotalAmount).ToString("N0") تومان
                     </MudText>
                 </div>
                 <MudAvatar Color="Color.Info" Variant="Variant.Filled" Size="Size.Medium">

@@ -209,13 +209,16 @@
                         <MudTh Style="width: 50px;">ردیف</MudTh>
                         <MudTh>نام و مشخصات کالا</MudTh>
                         <MudTh>کد فنی</MudTh>
+                        <MudTh>انبار</MudTh>
                         <MudTh Style="text-align: center;">تعداد</MudTh>
                         <MudTh>قیمت واحد فروش (تومان)</MudTh>
                         <MudTh>قیمت کل فروش (تومان)</MudTh>
                         <MudTh Style="text-align: end;">سود سطر</MudTh>
                     </HeaderContent>
+
                     <RowTemplate Context="item">
                         <MudTd>@(_sale.Items.IndexOf(item) + 1)</MudTd>
+
                         <MudTd>
                             <div class="d-flex align-center gap-2">
                                 <MudAvatar Size="Size.Medium" Rounded="true" Variant="Variant.Outlined"
@@ -226,35 +229,59 @@
                                     }
                                     else
                                     {
-                                        <MudIcon Icon="@Icons.Material.Filled.PrecisionManufacturing" Size="Size.Small"
+                                        <MudIcon Icon="@Icons.Material.Filled.PrecisionManufacturing"
+                                                 Size="Size.Small"
                                                  Color="Color.Primary"/>
                                     }
                                 </MudAvatar>
                                 <MudText Typo="Typo.body2" Class="fw-bold">@item.ProductName</MudText>
                             </div>
                         </MudTd>
+
                         <MudTd>
-                            <MudChip T="string" Size="Size.Small" Variant="Variant.Outlined">@item.ProductCode</MudChip>
+                            <MudChip T="string" Size="Size.Small" Variant="Variant.Outlined">
+                                @item.ProductCode
+                            </MudChip>
                         </MudTd>
+
+                        <MudTd>
+                            <MudChip T="string" Size="Size.Small" Variant="Variant.Outlined">
+                                @(string.IsNullOrWhiteSpace(item.WarehouseName) ? "نامشخص" : item.WarehouseName)
+                            </MudChip>
+                        </MudTd>
+
                         <MudTd Style="text-align: center;">
                             <MudBadge Content="@item.Quantity" Color="Color.Primary" Overlap="false"/>
                         </MudTd>
+
                         <MudTd>@item.UnitPrice.ToString("N0")</MudTd>
+
                         <MudTd>
-                            <MudText Typo="Typo.body2" Class="fw-bold"
-                                     Color="Color.Success">@item.TotalPrice.ToString("N0")</MudText>
+                            <MudText Typo="Typo.body2" Class="fw-bold" Color="Color.Success">
+                                @item.TotalPrice.ToString("N0")
+                            </MudText>
                         </MudTd>
+
                         <MudTd Style="text-align: end;">
                             <MudText Typo="Typo.body2"
-                                     Color="@(item.Profit >= 0 ? Color.Success : Color.Error)">@item.Profit.ToString("N0")</MudText>
+                                     Color="@(item.Profit >= 0 ? Color.Success : Color.Error)">
+                                @item.Profit.ToString("N0")
+                            </MudText>
                         </MudTd>
                     </RowTemplate>
+
                     <FooterContent>
-                        <MudTd ColSpan="3" Class="fw-bold text-end">جمع کل:</MudTd>
-                        <MudTd Style="text-align: center;" Class="fw-bold">@_sale.Items.Sum(i => i.Quantity)</MudTd>
+                        <MudTd ColSpan="4" Class="fw-bold text-end">جمع کل:</MudTd>
+                        <MudTd Style="text-align: center;" Class="fw-bold">
+                            @_sale.Items.Sum(i => i.Quantity)
+                        </MudTd>
                         <MudTd Class="fw-bold text-end">مبلغ کل:</MudTd>
-                        <MudTd Class="fw-bold" Color="Color.Success">@_sale.TotalAmount.ToString("N0")</MudTd>
-                        <MudTd Style="text-align: end;" Class="fw-bold">@_sale.TotalProfit.ToString("N0")</MudTd>
+                        <MudTd Class="fw-bold" Color="Color.Success">
+                            @_sale.TotalAmount.ToString("N0")
+                        </MudTd>
+                        <MudTd Style="text-align: end;" Class="fw-bold">
+                            @_sale.TotalProfit.ToString("N0")
+                        </MudTd>
                     </FooterContent>
                 </MudTable>
             </MudCardContent>

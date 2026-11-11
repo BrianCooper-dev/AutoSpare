@@ -164,6 +164,7 @@
                         <MudTh>نام و مشخصات کالا</MudTh>
                         <MudTh>کد فنی / کاتالوگ</MudTh>
                         <MudTh>برند / مدل</MudTh>
+                        <MudTh>انبار</MudTh>
                         <MudTh Style="text-align: center;">تعداد</MudTh>
                         <MudTh>قیمت واحد (تومان)</MudTh>
                         <MudTh Style="text-align: end;">قیمت کل (تومان)</MudTh>
@@ -202,6 +203,11 @@
                                 }
                             </MudText>
                         </MudTd>
+                        <MudTd>
+                            <MudChip T="string" Size="Size.Small" Variant="Variant.Outlined">
+                                @(string.IsNullOrWhiteSpace(_purchase.WarehouseName) ? "نامشخص" : _purchase.WarehouseName)
+                            </MudChip>
+                        </MudTd>
                         <MudTd Style="text-align: center;">
                             <MudBadge Content="@item.Quantity" Color="Color.Primary" Overlap="false"/>
                         </MudTd>
@@ -213,11 +219,13 @@
                         </MudTd>
                     </RowTemplate>
                     <FooterContent>
-                        <MudTd ColSpan="3" Class="fw-bold text-end">جمع کل اقلام:</MudTd>
-                        <MudTd Style="text-align: center;" Class="fw-bold">@_purchase.Items.Sum(i => i.Quantity)</MudTd>
-                        <MudTd ColSpan="2" Class="fw-bold text-end">مبلغ قابل پرداخت:</MudTd>
-                        <MudTd Style="text-align: end;" Class="fw-bold"
-                               Color="Color.Success">@_purchase.TotalAmount.ToString("N0") تومان
+                        <MudTd ColSpan="5" Class="fw-bold text-end">جمع کل اقلام:</MudTd>
+                        <MudTd Style="text-align: center;" Class="fw-bold">
+                            @_purchase.Items.Sum(i => i.Quantity)
+                        </MudTd>
+                        <MudTd Class="fw-bold text-end">مبلغ قابل پرداخت:</MudTd>
+                        <MudTd Style="text-align: end;" Class="fw-bold" Color="Color.Success">
+                            @_purchase.TotalAmount.ToString("N0") تومان
                         </MudTd>
                     </FooterContent>
                 </MudTable>
