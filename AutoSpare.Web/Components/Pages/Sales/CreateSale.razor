@@ -401,7 +401,7 @@
         catch (Exception ex)
         {
             Snackbar.Add($"خطا در دریافت اطلاعات اولیه: {ex.Message}",
-                         Severity.Error);
+                Severity.Error);
         }
         finally
         {
@@ -496,8 +496,7 @@
 
         if (item.ProductId.HasValue && newWarehouseId.HasValue)
         {
-            var prod = _availableProducts.FirstOrDefault(
-                p => p.Id == item.ProductId.Value);
+            var prod = _availableProducts.FirstOrDefault(p => p.Id == item.ProductId.Value);
 
             if (prod != null &&
                 prod.StocksByWarehouse.TryGetValue(
@@ -681,4 +680,5 @@
     {
         NavigationManager.NavigateTo("/sales");
     }
+
 }

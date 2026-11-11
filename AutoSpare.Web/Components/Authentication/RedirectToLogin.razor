@@ -1,6 +1,7 @@
 @inject NavigationManager Navigation
 
 @code {
+
     protected override void OnInitialized()
     {
         var currentUri = Navigation.ToBaseRelativePath(Navigation.Uri);
@@ -11,4 +12,5 @@
             Navigation.NavigateTo("/login", forceLoad: true);
         }
     }
+
 }

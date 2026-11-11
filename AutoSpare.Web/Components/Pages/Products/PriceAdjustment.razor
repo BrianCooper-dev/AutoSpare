@@ -85,9 +85,9 @@
                            Color="Color.Secondary"
                            FullWidth="true"
                            StartIcon="@Icons.Material.Filled.Calculate"
-                           Disabled="@(!_selectedProducts.Any() || _adjustmentValue == 0)"
+                           Disabled="!(SelectedProducts.Any() || _adjustmentValue == 0)"
                            OnClick="ApplyCalculationToSelected">
-                    محاسبه پیش‌نمایش (@_selectedProducts.Count کالا)
+                    محاسبه پیش‌نمایش (@SelectedProducts.Count کالا)
                 </MudButton>
             </MudItem>
 
@@ -118,7 +118,7 @@
 
             <div class="d-flex align-center gap-3">
                 <MudChip T="string" Color="Color.Info" Variant="Variant.Outlined">
-                    انتخاب شده: @_selectedProducts.Count از @_tableItems.Count
+                    انتخاب شده: @SelectedProducts.Count از @_tableItems.Count
                 </MudChip>
 
                 <MudButton Variant="Variant.Filled"
@@ -141,7 +141,7 @@
 
         <MudTable Items="@FilteredItems"
                   MultiSelection="true"
-                  @bind-SelectedItems="_selectedProducts"
+                  @bind-SelectedItems="SelectedProducts"
                   Hover="true"
                   Dense="true"
                   Loading="@_isLoading"
@@ -232,7 +232,29 @@
 
     private List<PriceAdjustmentItemDto> _tableItems = new();
     private List<DropdownItemDto> _categories = new();
+
     private HashSet<PriceAdjustmentItemDto> _selectedProducts = new();
+
+    private HashSet<PriceAdjustmentItemDto> SelectedProducts
+    {
+        get => _selectedProducts;
+        set
+        {
+            if (_selectedProducts != value)
+            {
+                var deselectedItems = _selectedProducts.Except(value).ToList();
+                _selectedProducts = value ?? new();
+
+                foreach (var item in deselectedItems)
+                {
+                    if (item.NewSalePrice != item.CurrentSalePrice)
+                    {
+                        item.NewSalePrice = item.CurrentSalePrice;
+                    }
+                }
+            }
+        }
+    }
 
     private string? _selectedCategoryName;
     private PriceAdjustmentMode _adjustmentMode = PriceAdjustmentMode.Percentage;
@@ -251,7 +273,7 @@
                 p.Model.Contains(_searchTerm, StringComparison.OrdinalIgnoreCase) ||
                 p.BrandName.Contains(_searchTerm, StringComparison.OrdinalIgnoreCase));
 
-    private bool CanSave => _tableItems.Any(p => p.Difference != 0 && p.NewSalePrice >= p.PurchasePrice);
+    private bool CanSave => SelectedProducts.Any(p => p.Difference != 0 && p.NewSalePrice >= p.PurchasePrice);
 
     protected override async Task OnInitializedAsync()
     {
@@ -265,7 +287,6 @@
         {
             _isLoading = true;
 
-            // دریافت لیست کالاها و دسته‌بندی‌ها (دریافت PagedResult)
             var pagedResult = await ProductService.GetProductsAsync();
             _categories = await ProductService.GetCategoriesLookupAsync();
 
@@ -295,17 +316,14 @@
     private Task OnCategorySelectedAsync(string? categoryName)
     {
         _selectedCategoryName = categoryName;
-        _selectedProducts.Clear();
+        SelectedProducts.Clear();
 
         if (!string.IsNullOrWhiteSpace(categoryName))
         {
-            // انتخاب خودکار کالاهایی که نام دسته آن‌ها برابر با دسته انتخاب‌شده است
-            foreach (var item in _tableItems.Where(p => string.Equals(p.CategoryName, categoryName, StringComparison.OrdinalIgnoreCase)))
-            {
-                _selectedProducts.Add(item);
-            }
+            var matchedItems = _tableItems.Where(p => string.Equals(p.CategoryName, categoryName, StringComparison.OrdinalIgnoreCase));
+            SelectedProducts = new HashSet<PriceAdjustmentItemDto>(matchedItems);
 
-            Snackbar.Add($"{_selectedProducts.Count} کالا از دسته‌بندی «{categoryName}» انتخاب شد.", Severity.Info);
+            Snackbar.Add($"{SelectedProducts.Count} کالا از دسته‌بندی «{categoryName}» انتخاب شد.", Severity.Info);
         }
 
         return Task.CompletedTask;
@@ -313,11 +331,11 @@
 
     private void ApplyCalculationToSelected()
     {
-        if (!_selectedProducts.Any() || _adjustmentValue == 0) return;
+        if (!SelectedProducts.Any() || _adjustmentValue == 0) return;
 
         int modifiedCount = 0;
 
-        foreach (var product in _selectedProducts)
+        foreach (var product in SelectedProducts)
         {
             decimal calculatedPrice;
 
@@ -344,13 +362,13 @@
 
     private async Task SavePriceChangesAsync()
     {
-        var changedItems = _tableItems
+        var changedItems = SelectedProducts
             .Where(p => p.Difference != 0)
             .ToList();
 
         if (!changedItems.Any())
         {
-            Snackbar.Add("هیچ تغییری در قیمت‌ها ایجاد نشده است.", Severity.Warning);
+            Snackbar.Add("برای کالاهای انتخاب‌شده تغییری وجود ندارد.", Severity.Warning);
             return;
         }
 
@@ -385,7 +403,7 @@
             Snackbar.Add($"قیمت {changedItems.Count} کالا با موفقیت بروزرسانی شد.", Severity.Success);
 
             await LoadDataAsync();
-            _selectedProducts.Clear();
+            SelectedProducts.Clear();
             _selectedCategoryName = null;
             _adjustmentValue = 0;
             _reason = null;

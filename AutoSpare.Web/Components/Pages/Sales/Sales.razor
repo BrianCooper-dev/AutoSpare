@@ -12,16 +12,18 @@
 <PageTitle>مدیریت فاکتورهای فروش</PageTitle>
 
 <MudContainer MaxWidth="MaxWidth.ExtraLarge" Class="mt-4 mb-8">
-    <MudBreadcrumbs Items="_breadcrumbItems" Class="pa-0 mb-4" />
+    <MudBreadcrumbs Items="_breadcrumbItems" Class="pa-0 mb-4"/>
 
     <!-- هدر صفحه -->
     <div class="d-flex flex-column flex-sm-row justify-space-between align-start align-sm-center gap-3 mb-4">
         <div>
             <MudText Typo="Typo.h5" Class="fw-bold">
-                <MudIcon Icon="@Icons.Material.Filled.ReceiptLong" Color="Color.Primary" Class="me-2" Size="Size.Large" />
+                <MudIcon Icon="@Icons.Material.Filled.ReceiptLong" Color="Color.Primary" Class="me-2"
+                         Size="Size.Large"/>
                 فهرست فاکتورهای فروش
             </MudText>
-            <MudText Typo="Typo.body2" Color="Color.Secondary">مشاهده، فیلتر و مدیریت فاکتورهای فروش ثبت‌شده در سیستم</MudText>
+            <MudText Typo="Typo.body2" Color="Color.Secondary">مشاهده، فیلتر و مدیریت فاکتورهای فروش ثبت‌شده در سیستم
+            </MudText>
         </div>
         <MudButton Variant="Variant.Filled"
                    Color="Color.Primary"
@@ -40,7 +42,7 @@
                     <MudText Typo="Typo.h5" Class="fw-bold">@_sales.Count</MudText>
                 </div>
                 <MudAvatar Color="Color.Primary" Variant="Variant.Filled" Size="Size.Medium">
-                    <MudIcon Icon="@Icons.Material.Filled.Description" />
+                    <MudIcon Icon="@Icons.Material.Filled.Description"/>
                 </MudAvatar>
             </MudPaper>
         </MudItem>
@@ -53,20 +55,20 @@
                     </MudText>
                 </div>
                 <MudAvatar Color="Color.Success" Variant="Variant.Filled" Size="Size.Medium">
-                    <MudIcon Icon="@Icons.Material.Filled.CheckCircle" />
+                    <MudIcon Icon="@Icons.Material.Filled.CheckCircle"/>
                 </MudAvatar>
             </MudPaper>
         </MudItem>
         <MudItem xs="12" sm="12" md="4">
             <MudPaper Elevation="2" Class="pa-4 rounded-lg d-flex align-center justify-space-between">
                 <div>
-                    <MudText Typo="Typo.caption" Color="Color.Secondary">مجموع کل فروش</MudText>
+                    <MudText Typo="Typo.caption" Color="Color.Secondary">مجموع فروش‌های نهایی‌شده</MudText>
                     <MudText Typo="Typo.h6" Class="fw-bold" Color="Color.Info">
-                        @_sales.Sum(s => s.TotalAmount).ToString("N0") تومان
+                        @_sales.Where(s => s.Status == SaleStatus.Completed).Sum(s => s.TotalAmount).ToString("N0") تومان
                     </MudText>
                 </div>
                 <MudAvatar Color="Color.Info" Variant="Variant.Filled" Size="Size.Medium">
-                    <MudIcon Icon="@Icons.Material.Filled.Payments" />
+                    <MudIcon Icon="@Icons.Material.Filled.Payments"/>
                 </MudAvatar>
             </MudPaper>
         </MudItem>
@@ -85,7 +87,7 @@
                               Clearable="true"
                               Variant="Variant.Outlined"
                               Margin="Margin.Dense"
-                              Immediate="true" />
+                              Immediate="true"/>
             </MudItem>
 
             <!-- فیلتر مشتری -->
@@ -127,14 +129,14 @@
                                @bind-Date="_fromDate"
                                Variant="Variant.Outlined"
                                Margin="Margin.Dense"
-                               Clearable="true" />
+                               Clearable="true"/>
             </MudItem>
             <MudItem xs="6" sm="3" md="2">
                 <MudDatePicker Label="تا تاریخ"
                                @bind-Date="_toDate"
                                Variant="Variant.Outlined"
                                Margin="Margin.Dense"
-                               Clearable="true" />
+                               Clearable="true"/>
             </MudItem>
         </MudGrid>
     </MudPaper>
@@ -173,7 +175,7 @@
             </MudTd>
             <MudTd>@ToPersianDate(sale.SaleDate)</MudTd>
             <MudTd Style="text-align: center;">
-                <MudBadge Content="@sale.ItemsCount" Color="Color.Primary" Overlap="false" Class="mx-2" />
+                <MudBadge Content="@sale.ItemsCount" Color="Color.Primary" Overlap="false" Class="mx-2"/>
             </MudTd>
             <MudTd>
                 <MudText Typo="Typo.body2" Class="fw-bold" Color="Color.Success">
@@ -184,13 +186,16 @@
                 @switch (sale.Status)
                 {
                     case SaleStatus.Completed:
-                        <MudChip T="string" Color="Color.Success" Size="Size.Small" Variant="Variant.Filled">نهایی‌شده</MudChip>
+                        <MudChip T="string" Color="Color.Success" Size="Size.Small" Variant="Variant.Filled">نهایی‌شده
+                        </MudChip>
                         break;
                     case SaleStatus.Draft:
-                        <MudChip T="string" Color="Color.Warning" Size="Size.Small" Variant="Variant.Filled">پیش‌نویس</MudChip>
+                        <MudChip T="string" Color="Color.Warning" Size="Size.Small" Variant="Variant.Filled">پیش‌نویس
+                        </MudChip>
                         break;
                     case SaleStatus.Cancelled:
-                        <MudChip T="string" Color="Color.Error" Size="Size.Small" Variant="Variant.Filled">لغو شده</MudChip>
+                        <MudChip T="string" Color="Color.Error" Size="Size.Small" Variant="Variant.Filled">لغو شده
+                        </MudChip>
                         break;
                 }
             </MudTd>
@@ -199,22 +204,24 @@
                     <MudIconButton Icon="@Icons.Material.Filled.Visibility"
                                    Color="Color.Primary"
                                    Size="Size.Small"
-                                   OnClick="@(() => NavigationManager.NavigateTo($"/sales/{sale.Id}"))" />
+                                   OnClick="@(() => NavigationManager.NavigateTo($"/sales/{sale.Id}"))"/>
                 </MudTooltip>
             </MudTd>
         </RowTemplate>
 
         <NoRecordsContent>
             <div class="d-flex flex-column align-center justify-center pa-6">
-                <MudIcon Icon="@Icons.Material.Filled.HourglassEmpty" Size="Size.Large" Color="Color.Secondary" Class="mb-2" />
-                <MudText Typo="Typo.subtitle1" Color="Color.Secondary">هیچ فاکتور فروشی با شرایط مشخص‌شده یافت نشد.</MudText>
+                <MudIcon Icon="@Icons.Material.Filled.HourglassEmpty" Size="Size.Large" Color="Color.Secondary"
+                         Class="mb-2"/>
+                <MudText Typo="Typo.subtitle1" Color="Color.Secondary">هیچ فاکتور فروشی با شرایط مشخص‌شده یافت نشد.
+                </MudText>
             </div>
         </NoRecordsContent>
 
         <PagerContent>
             <MudTablePager RowsPerPageString="تعداد در صفحه:"
                            InfoFormat="{first_item}-{last_item} از {all_items}"
-                           PageSizeOptions="new int[] { 10, 25, 50, 100 }" />
+                           PageSizeOptions="new int[] { 10, 25, 50, 100 }"/>
         </PagerContent>
     </MudTable>
 </MudContainer>
@@ -316,4 +323,5 @@
         if (dateTime == default) return "-";
         return $"{_persianCalendar.GetYear(dateTime):0000}/{_persianCalendar.GetMonth(dateTime):00}/{_persianCalendar.GetDayOfMonth(dateTime):00}";
     }
+
 }

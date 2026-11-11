@@ -223,8 +223,7 @@
     private InputType _passwordInputType = InputType.Password;
     private string _passwordIcon = Icons.Material.Filled.VisibilityOff;
 
-    [SupplyParameterFromQuery]
-    public string? Error { get; set; }
+    [SupplyParameterFromQuery] public string? Error { get; set; }
 
     private string? ErrorMessage => Error switch
     {
@@ -247,4 +246,5 @@
             _passwordInputType = InputType.Text;
         }
     }
+
 }
